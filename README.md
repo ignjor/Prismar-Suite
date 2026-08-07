@@ -15,7 +15,13 @@ Base de datos: [Firebase](https://firebase.google.com)
 Sin backend como tal, pero con **Cloud Functions** de [Firebase](https://firebase.google.com)
 según lo requiera 
 
+## Paquetes de dependencias
 
+- nmp : ```npm install```
+
+- Iconos : ```npm install lucide-react```
+
+- Cambios de ventanas : ```npm install react-router-dom```
 
 
 ## Objetivos ✅❌
@@ -38,5 +44,8 @@ según lo requiera
 ### Viernes 07 de Agosto
 
 - Creación del proyecto en React Vite con JS, nombre del proyecto: prismar-app
+- Se instalaron los iconos de ```npm install lucide-react```
+- Se instalo la dependencia ```npm install react-router-dom```
 
-
+- Se creo toda la estructura inicial del proyecto con los archivos dentro de /src/Pages
+- Se creo el archivo Global para la correcta navegación entre las ventanas.
