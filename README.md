@@ -2,6 +2,7 @@
 
 #### Sistema administrable para la empresa Prismar
 
+### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar.
 
 ---
 ## Tecnologías
@@ -39,7 +40,7 @@ según lo requiera
 
 
 ---
-# 📅 Historial
+# 📅 Historial 2026
 
 ### Viernes 07 de Agosto
 
@@ -49,3 +50,10 @@ según lo requiera
 
 - Se creo toda la estructura inicial del proyecto con los archivos dentro de /src/Pages
 - Se creo el archivo Global para la correcta navegación entre las ventanas.
+
+
+
+### Viernes 07 de Agosto v2
+
+- Se agregaron las fuentes de texto dentro de index.css para que se vea mejor el proyecto.
+- Se comento todo el codigo de BottomNav.jsx.

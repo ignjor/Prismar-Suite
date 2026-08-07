@@ -1,121 +1,146 @@
-// src/components/BottomNav.jsx
-
 import { NavLink } from "react-router-dom";
-import { Home, ShoppingBag, Package, UserRound } from "lucide-react";
+import { Home, ShoppingBag, Package, PiggyBank } from "lucide-react";
+
+/* 
+
+Todas las funciones del código tienen que ser comentadas, para su
+correcto funcionamiento, aprendizaje y debuggeado en caso de cualquier
+error.
+
+*/ 
 
 export default function BottomNav() {
 
-  const items = [
-    {
-      name: "Home",
-      path: "/",
-      icon: Home
-    },
-    {
-      name: "Pedidos",
-      path: "/pedidos",
-      icon: ShoppingBag
-    },
-    {
-      name: "Productos",
-      path: "/productos",
-      icon: Package
-    },
-    {
-      name: "Cuentas",
-      path: "/cuentas",
-      icon: UserRound
-    }
-  ];
+    /* Definimos las variables de las direcciones de la barra
+    de navegación, con sus nombres para reconocerlas, les asignamos
+    direcciones a cada una, Las direcciones path estan dentro de App.jsx por si
+    en el futuro se agregan mas páginas. */
+    const direcciones = [
 
+        {
+            name: "Home",
+            path: "/",
+            icon: Home
+        },
+        {
+            name: "Pedidos",
+            path: "/pedidos",
+            icon: ShoppingBag
+        },
+        {
+            name: "Prodcutos",
+            path: "/productos",
+            icon: Package
+        },
+        {
+            name: "Cuentas",
+            path: "/cuentas",
+            icon: PiggyBank
+        }
 
-  return (
-    <nav style={styles.bottomNav}>
+    ];
 
-      {items.map((item) => {
+    return (
 
-        const Icon = item.icon;
+        <nav style = {styles.bottomNav}>
 
-        return (
-          <NavLink
-            key={item.path}
-            to={item.path}
-            style={({isActive}) => ({
-              ...styles.navItem,
-              ...(isActive ? styles.active : {})
-            })}
-          >
+        {/* Mapeamos el bloque de las variables de las direcciones
+        para tenerlas todas, creamos la variable temporal de direccion
+        para asignar la que esta activa en ese momento */}
+        
 
-            <Icon size={23}/>
+            {direcciones.map((direccion) => {
 
-            <span>{item.name}</span>
+                const Icon = direccion.icon;
 
-          </NavLink>
-        );
+                return (
+                    <NavLink
+                    key = { direccion.path } 
+                    to = {direccion.path}
 
-      })}
+                    /* Ademas asignamos que la ventan que esta activa en ese momento
+                    le asignamos un estilo especial a la barra */
 
-    </nav>
-  );
+                    style = {({isActive}) => ({
+                        ...styles.navItem,
+                        ...(isActive ? styles.active : {})
+                    })}
+                    
+                    >
+
+                        <Icon size = {23}/>
+
+                        <span> {direccion.name} </span>
+                        
+                    </NavLink>
+                );
+            })
+                
+            }
+
+        </nav>
+
+    );
 }
+
 
 const styles = {
 
-  bottomNav: {
+    bottomNav: {
 
-    position: "fixed",
-    bottom: "20px",
-    left: "50%",
-    transform: "translateX(-50%)",
+        position: "fixed",
+        bottom: "20px",
+        left: "50%",
+        transform: "translateX(-50%)",
 
-    width: "min(90%, 430px)",
+        width: "min(90%, 430px)",
 
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
 
-    padding: "12px 16px",
+        padding: "12px 16px",
 
-    background: "rgba(255,255,255,0.55)",
+        background: "rgba(255,255,255,0.55)",
 
-    backdropFilter: "blur(20px)",
-    WebkitBackdropFilter: "blur(20px)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
 
-    borderRadius: "28px",
+        borderRadius: "28px",
 
-    border: "1px solid rgba(255,255,255,0.35)",
+        border: "1px solid rgba(255,255,255,0.35)",
 
-    boxShadow: "0 10px 30px rgba(0,0,0,.12)",
+        boxShadow: "0 10px 30px rgba(0,0,0,.12)",
 
-    zIndex: 1000
-  },
-
-
-  navItem: {
-
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-
-    gap: "4px",
-
-    textDecoration: "none",
-
-    color: "#777",
-
-    fontSize: "11px",
-
-    transition: "all .25s ease"
-
-  },
+        zIndex: 1000
+    },
 
 
-  active: {
+    navItem: {
 
-    color: "#000",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
 
-    transform: "translateY(-3px)"
+        gap: "4px",
 
-  }
+        textDecoration: "none",
+
+        color: "#777",
+
+        fontSize: "11px",
+
+        transition: "all .25s ease"
+
+    },
+
+
+    active: {
+
+        color: "#000",
+
+        transform: "translateY(-3px)"
+
+    }
 
 };
