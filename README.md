@@ -2,6 +2,22 @@
 
 #### Sistema administrable para la empresa Prismar
 
+
+---
+## Tecnologías
+
+Framework: **React con Vite.**
+
+Lenguaje: **JavaScript.**
+
+Base de datos: [Firebase](https://firebase.google.com)
+
+Sin backend como tal, pero con **Cloud Functions** de [Firebase](https://firebase.google.com)
+según lo requiera 
+
+
+
+
 ## Objetivos ✅❌
 
 - [ ] 1. Conexión con firebase y asegurar las claves de seguridad. 
@@ -16,7 +32,7 @@
 
 
 
-
+---
 ### Viernes 07 de Agosto
 
 - Creación del proyecto en React Vite con JS, nombre del proyecto: prismar-app
