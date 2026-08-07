@@ -19,6 +19,6 @@
 
 ### Viernes 07 de Agosto
 
-
+- Creación del proyecto en React Vite con JS, nombre del proyecto: prismar-app
 
 
