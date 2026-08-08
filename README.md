@@ -70,7 +70,9 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 
 - Se establecio la conexión de Firebase y Firestore
 
-
+- Se confirmo la correcta configuracion y se desarrollo una breve muestra para cargar los documentos
+dentro de la colección **productos**
+![alt text](/Fotos%20Readme/image.png)
 
 
 
@@ -84,7 +86,7 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 
 | productos             | pedidos                   |        
 | :---:                 | :---:                     |        
-| id_producto = string  | id_pedido                 |                                  
+| id_producto = string  | id_pedido = string        |                                  
 | nombre = string       | nombre = string           |                   
 | precio = int64        | fono = string             |               
 | talla = string        | fecha_registro = string   |
@@ -92,3 +94,10 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 | active = boolean      | abono = int64             |
 | stock = int64         | total = int64             |
 |                       | comentarios = string      |
+
+
+
+
+
+
+

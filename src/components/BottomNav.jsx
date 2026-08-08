@@ -28,7 +28,7 @@ export default function BottomNav() {
             icon: ShoppingBag
         },
         {
-            name: "Prodcutos",
+            name: "Productos",
             path: "/productos",
             icon: Package
         },
