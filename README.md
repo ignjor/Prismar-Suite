@@ -31,7 +31,7 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 
 ## Objetivos y Orden de Prioridades✅❌
 
-- [ ] 1. Conexión con Firebase y Base de datos en Firestore.
+- [x] 1. Conexión con Firebase y Base de datos en Firestore.
 
 - [ ] 2. Crear la estructura primero de PRODUCTOS, agregar, modificar y eliminar, y conectarla con Firestore
 
@@ -82,21 +82,13 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
 
 
-### Colecciones
-
-#### productos
-
-nombre = string
-
-precio = int64
-
-talla = string
-
-colegio = string
-
-active = boolean
-
-stock = int64
-
-
-
+| productos             | pedidos                   |        
+| :---:                 | :---:                     |        
+| id_producto = string  | id_pedido                 |                                  
+| nombre = string       | nombre = string           |                   
+| precio = int64        | fono = string             |               
+| talla = string        | fecha_registro = string   |
+| colegio = string      | fecha_entrega = string    |
+| active = boolean      | abono = int64             |
+| stock = int64         | total = int64             |
+|                       | comentarios = string      |
