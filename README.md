@@ -71,9 +71,11 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 ### Viernes 07 de Agosto v3 
 
 - Se establecio la conexión de Firebase y Firestore
-
-- Se confirmo la correcta configuracion y se desarrollo una breve muestra para cargar los documentos
-dentro de la colección **productos**
+- Se creo la ventana Productos.
+- Se conecto la ventana Productos con Firestore.
+- Se agrego la lectura de documentos de la colección productos.
+- Se agregaron estilos minimalistas.
+- Se comprobo que los productos se muestran correctamente.
 
 <img src="/Fotos%20Readme/image.png" width="450">
 
