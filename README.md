@@ -77,7 +77,16 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 - Se agregaron estilos minimalistas.
 - Se comprobo que los productos se muestran correctamente.
 
-<img src="/Fotos%20Readme/image.png" width="450">
+<img src="/Fotos%20Readme/07-08.png" width="400">
+
+
+### Sábado 08 de Agosto
+
+- Agregamos boton junto a la barra de navegación para agregar productos y pedidos.
+- Para buena practicas las funciones de Click solo escuchan cuando el menu esta abierto.
+- Creamos los archivos AgregarPedido y AgregarProducto para las pruebas.
+<img src="/Fotos%20Readme/08-08.png" width="400">
+
 
 
 
