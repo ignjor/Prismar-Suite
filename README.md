@@ -1,6 +1,7 @@
 # Prismar Sistema Web. 
 
-#### Sistema administrable para la empresa Prismar
+
+Sistema administrable para la empresa Prismar
 
 ### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar.
 
@@ -18,24 +19,30 @@ según lo requiera
 
 ## Paquetes de dependencias
 
-- nmp : ```npm install```
+El proyecto cuenta con package.json, por lo que con solo instalar ```npm install```
+deberia tener todas las dependencias, se adjuntan de todas formas: 
+
+- npm : ```npm install```
 
 - Iconos : ```npm install lucide-react```
 
 - Cambios de ventanas : ```npm install react-router-dom```
 
 
-## Objetivos ✅❌
+## Objetivos y Orden de Prioridades✅❌
 
-- [ ] 1. Conexión con firebase y asegurar las claves de seguridad. 
+- [ ] 1. Conexión con Firebase y Base de datos en Firestore.
 
-- [ ] 2. Funcionando la conexión con la base de datos firestore de firebase o cloud functions según requiera. 
+- [ ] 2. Crear la estructura primero de PRODUCTOS, agregar, modificar y eliminar, y conectarla con Firestore
 
-- [ ] 3. Función para la creación, modificar o eliminar productos, precios, stock. 
+- [ ] 3. Crear estructura de CREAR PEDIDO, modificarlo y eliminarlo, que cada producto se pueda listar, y claro se usen los Productos agregados previamente en PRODUCTOS. Con la opción de redirigir a crear Producto.
 
-- [ ] 4. Sistema para crear, modificar o eliminar pedidos. 
+- [ ] 4. En base a los Pedidos, crear CUENTAS, con resumenes mensuales, semanas o como requiera el cliente. Exportaciónes periodicas a Firebase
 
-- [ ] 5. Sistema para las cuentas según los pedidos, resúmenes semanales o mensuales o según requiera el cliente. 
+- [ ] 5. Conectar a CLOUD FUNCTIONS según requiera para notificaciones en el celular, al ser de navegador es mas complejo pero puede ser con mensajes o correos.
+
+
+
 
 
 
@@ -57,3 +64,39 @@ según lo requiera
 
 - Se agregaron las fuentes de texto dentro de index.css para que se vea mejor el proyecto.
 - Se comento todo el codigo de BottomNav.jsx.
+
+
+### Viernes 07 de Agosto v3 
+
+- Se establecio la conexión de Firebase y Firestore
+
+
+
+
+
+
+
+
+## Estructura recomendada de la base de datos
+
+La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
+
+
+### Colecciones
+
+#### productos
+
+nombre = string
+
+precio = int64
+
+talla = string
+
+colegio = string
+
+active = boolean
+
+stock = int64
+
+
+
