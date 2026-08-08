@@ -97,11 +97,14 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 | nombre = string       | nombre = string           |                   
 | precio = int64        | fono = string             |               
 | talla = string        | fecha_registro = string   |
-| colegio = string      | fecha_entrega = string    |
+| colegio = string      | fecha_programada = string |
 | active = boolean      | abono = int64             |
 | stock = int64         | total = int64             |
 |                       | comentarios = string      |
-
+|                       | tipo = string
+                        | entregado = boolean
+                        | fecha_entregado = string
+                        | 
 
 
 
