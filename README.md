@@ -28,6 +28,8 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 
 - Cambios de ventanas : ```npm install react-router-dom```
 
+- Firebase : ```npm install firebase```
+
 
 ## Objetivos y Orden de Prioridades✅❌
 
@@ -72,7 +74,10 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 
 - Se confirmo la correcta configuracion y se desarrollo una breve muestra para cargar los documentos
 dentro de la colección **productos**
-![alt text](/Fotos%20Readme/image.png)
+
+<img src="/Fotos%20Readme/image.png" width="450">
+
+
 
 
 
