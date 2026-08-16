@@ -1,34 +1,10 @@
 # EN DESARROLLO - Prismar Sistema Web. 
-## Este archivo es una vitacora para la correcta guia del desarrollo, luego creamos la documentación inicial.
+## Este archivo NO ES DOCUMENTACION, es una vitacora para la correcta guia del desarrollo, luego creamos la documentación inicial.
 
 
 ### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar. Todas las solicitudes de pull son bienvenidas.
 
 ---
-
-## Tecnologías
-
-Framework: **React con Vite.**
-
-Lenguaje: **JavaScript.**
-
-Base de datos: [Firebase](https://firebase.google.com)
-
-Sin backend como tal, pero con **Cloud Functions** de [Firebase](https://firebase.google.com)
-según lo requiera 
-
-## Paquetes de dependencias
-
-El proyecto cuenta con package.json, por lo que con solo instalar ```npm install```
-deberia tener todas las dependencias, se adjuntan de todas formas: 
-
-- npm : ```npm install```
-
-- Iconos : ```npm install lucide-react```
-
-- Cambios de ventanas : ```npm install react-router-dom```
-
-- Firebase : ```npm install firebase```
 
 
 ## Objetivos y Orden de Prioridades✅❌
@@ -107,32 +83,18 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 - Creamos los archivos AgregarPedido y AgregarProducto para las pruebas.
 <img src="/Fotos%20Readme/08-08.png" width="400">
 
+### Sábado 15 de Agosto
+
+- Agregamos nueva estructura para el proyecto y orden.
+
+### Domingo 16 de Agosto
+
+- Mejoramos la estructura de las carpetas con su css para cada archivo.
+
+- Agregamos Modal para los gastos, para agregar colegios y dentro de paginas AdminColegios
 
 
 
-
-
-
-
-
-## Estructura recomendada de la base de datos
-
-La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
-
-
-| productos             | pedidos                   |        
-| :---:                 | :---:                     |        
-| id_producto = string  | id_pedido = string        |                                  
-| nombre = string       | nombre = string           |                   
-| precio = int64        | fono = string             |               
-| talla = string        | fecha_registro = string   |
-| colegio = string      | fecha_programada = string |
-| active = boolean      | abono = int64             |
-| stock = int64         | total = int64             |
-|                       | comentarios = string      |
-|                       | tipo = string             |
-|                       | entregado = boolean       |
-|                       | fecha_entregado = string  |
 
 
 

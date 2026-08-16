@@ -7,7 +7,7 @@ import Cuentas from "./pages/Cuentas/Cuentas";
 
 import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";
-import Colegios from "./agregar/AdminColegios/AdminColegios";
+import Colegios from "./pages/AdminColegios/AdminColegios";
 
 import BottomNav from "./components/BottomNav/BottomNav";
 

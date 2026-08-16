@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, ShoppingBag, Package, PiggyBank, Plus, School } from "lucide-react";
+import { Home, ShoppingBag, Package, PiggyBank, Plus, School, Baby, BanknoteArrowDown } from "lucide-react";
 
 import { useState, useEffect, useRef } from "react";
 
@@ -65,10 +65,22 @@ export default function BottomNav() {
             icon: Package
         },
         {
+            name: "Agregar Gasto",
+            path: "/agregar-gasto",
+            icon: BanknoteArrowDown
+
+        },
+        {
             name: "Colegios",
             path: "/admin-colegios",
             icon: School
+        },
+        {
+            name: "Gonguru",
+            path: "/gonguru",
+            icon: Baby
         }
+        
     ];
 
     /* Creamos la fucion para cambiar el estado del boton, la vamos a llamar cuando apretemos el boton */
