@@ -35,11 +35,11 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 
 | productos                 | pedidos                   |  Colegios*      
 | :---:                     | :---:                     |  :---: 
-| id_producto(PK) = string  | id_pedido = string        |  id_colegio = string                                
+| id_producto(PK) = string  | id_pedido(PK) = string    |  id_colegio(PK) = string                                
 | nombre = string           | nombre = string           |  nombre = string                  
 | precio = int64            | fono = string             |                 
 | talla = string            | fecha_registro = string   |
-| active = boolean         | fecha_programada = string |
+| active = boolean         | fecha_programada = string  |
 | stock = int64             | abono = int64             |
 | id_colegio(FK) = string   | total = int64             |
 |                           | comentarios = string      |
