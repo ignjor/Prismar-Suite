@@ -26,7 +26,7 @@ export default function BottomNav() {
     const direcciones = [
 
         {
-            name: "Home",
+            name: "Inicio",
             path: "/",
             icon: Home
         },

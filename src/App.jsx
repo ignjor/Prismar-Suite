@@ -5,9 +5,9 @@ import Pedidos from "./pages/Pedidos";
 import Productos from "./pages/Productos";
 import Cuentas from "./pages/Cuentas";
 
-import AgregarProducto from "./pages/AgregarProducto";
-import AgregarPedido from "./pages/AgregarPedido";
-import Colegios from "./pages/AdminColegios";
+import AgregarProducto from "./agregar/AgregarProducto";
+import AgregarPedido from "./agregar/AgregarPedido";
+import Colegios from "./agregar/AdminColegios";
 
 import BottomNav from "./components/BottomNav";
 
