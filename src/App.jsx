@@ -7,6 +7,7 @@ import Cuentas from "./pages/Cuentas";
 
 import AgregarProducto from "./pages/AgregarProducto";
 import AgregarPedido from "./pages/AgregarPedido";
+import Colegios from "./pages/AdminColegios";
 
 import BottomNav from "./components/BottomNav";
 
@@ -46,6 +47,11 @@ function App() {
         <Route 
           path="/agregar-pedido" 
           element={<AgregarPedido />} 
+        />
+
+        <Route 
+          path="/admin-colegios" 
+          element={<Colegios />} 
         />
 
       </Routes>

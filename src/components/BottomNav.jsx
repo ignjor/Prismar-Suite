@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, ShoppingBag, Package, PiggyBank, Plus } from "lucide-react";
+import { Home, ShoppingBag, Package, PiggyBank, Plus, School } from "lucide-react";
 
 import { useState, useEffect, useRef } from "react";
 
@@ -53,14 +53,19 @@ export default function BottomNav() {
     /* Definimos las variables de las direcciones que se van a mostrar en el boton verde. */
     const agregar = [
         {
+            name: "Agregar Pedido",
+            path: "/agregar-pedido",
+            icon: ShoppingBag
+        },
+        {
             name: "Agregar Producto",
             path: "/agregar-producto",
             icon: Package
         },
         {
-            name: "Agregar Pedido",
-            path: "/agregar-pedido",
-            icon: ShoppingBag
+            name: "Colegios",
+            path: "/admin-colegios",
+            icon: School
         }
     ];
 
