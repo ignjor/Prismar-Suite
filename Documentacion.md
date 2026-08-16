@@ -33,20 +33,21 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
 
 
-| productos             | pedidos                   |        
-| :---:                 | :---:                     |        
-| id_producto = string  | id_pedido = string        |                                  
-| nombre = string       | nombre = string           |                   
-| precio = int64        | fono = string             |               
-| talla = string        | fecha_registro = string   |
-| colegio = string      | fecha_programada = string |
-| active = boolean      | abono = int64             |
-| stock = int64         | total = int64             |
-|                       | comentarios = string      |
-|                       | tipo = string             |
-|                       | entregado = boolean       |
-|                       | fecha_entregado = string  |
+| productos                 | pedidos                   |  Colegios*      
+| :---:                     | :---:                     |  :---: 
+| id_producto(PK) = string  | id_pedido = string        |  id_colegio = string                                
+| nombre = string           | nombre = string           |  nombre = string                  
+| precio = int64            | fono = string             |                 
+| talla = string            | fecha_registro = string   |
+| active = boolean         | fecha_programada = string |
+| stock = int64             | abono = int64             |
+| id_colegio(FK) = string   | total = int64             |
+|                           | comentarios = string      |
+|                           | tipo = string             |
+|                           | entregado = boolean       |
+|                           | fecha_entregado = string  |
+|                           | id_producto(FK) = string  |
 
-
+En colegios* puede ser el tipo que requiera, en nuestro caso como la actividad principal de la empresa son los uniformes escolares usamos los colegios para asignarlos a cualquier producto segun lo requiera, asi ademas filtramos mejor cuando lo necesitemos luego.
 
 
