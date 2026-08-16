@@ -1,5 +1,5 @@
 /* Importamos el archivo que se conecta con la base de datos de Firestore */ 
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 import { useEffect, useState } from "react";

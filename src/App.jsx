@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Pedidos from "./pages/Pedidos";
-import Productos from "./pages/Productos";
-import Cuentas from "./pages/Cuentas";
+import Home from "./pages/Home/Home";
+import Pedidos from "./pages/Pedidos/Pedidos";
+import Productos from "./pages/Productos/Productos";
+import Cuentas from "./pages/Cuentas/Cuentas";
 
-import AgregarProducto from "./agregar/AgregarProducto";
-import AgregarPedido from "./agregar/AgregarPedido";
-import Colegios from "./agregar/AdminColegios";
+import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
+import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";
+import Colegios from "./agregar/AdminColegios/AdminColegios";
 
-import BottomNav from "./components/BottomNav";
+import BottomNav from "./components/BottomNav/BottomNav";
 
 
 function App() {

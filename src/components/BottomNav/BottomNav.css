@@ -1,0 +1,220 @@
+/* Todos los estilos son auspiciados por la IA jsdja */
+
+
+/* Contenedor general de la barra y el botón.
+Ambos elementos ahora pertenecen al mismo bloque horizontal,
+por lo que nunca se van a superponer. */
+.bottomContainer {
+
+    position: fixed;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(92%, 390px);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    z-index: 1000;
+
+}
+
+
+/* Barra de navegación.
+La hacemos un poco más pequeña para dejar espacio al botón
+verde sin romper el diseño en pantallas pequeñas. */
+.bottomNav {
+
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    display: flex;
+
+    justify-content: space-around;
+
+    align-items: center;
+
+    padding: 10px 10px;
+
+    background: rgba(255,255,255,0.55);
+
+    backdrop-filter: blur(20px);
+
+    -webkit-backdrop-filter: blur(20px);
+
+    border-radius: 24px;
+
+    border: 1px solid rgba(255,255,255,0.35);
+
+    box-shadow: 0 8px 24px rgba(0,0,0,.10);
+
+}
+
+
+/* Cada elemento individual de la navegación. */
+.navItem {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    text-decoration: none;
+
+    color: #777;
+
+    font-size: 10px;
+
+    min-width: 0;
+
+    transition: all .25s ease;
+
+}
+
+
+/* Estilo de la opción que está activa. */
+.active {
+
+    color: #000;
+
+    transform: translateY(-2px);
+
+}
+
+
+/* Contenedor del botón +.
+Tiene posición relativa para que el menú pueda aparecer
+justo encima de él. */
+.addContainer {
+
+    position: relative;
+
+    flex-shrink: 0;
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+/* Pequeño menú que aparece encima del botón.
+El estilo es intencionalmente sencillo y limpio. */
+.addMenu {
+
+    position: absolute;
+
+    bottom: 65px;
+
+    right: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 7px;
+
+    min-width: 175px;
+
+    background: rgba(255,255,255,0.82);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(255,255,255,0.5);
+
+    box-shadow: 0 10px 25px rgba(0,0,0,.12);
+
+    transform-origin: bottom right;
+
+    transition: opacity .22s ease, transform .28s ease;
+
+}
+
+
+/* Cada una de las dos opciones del menú. */
+.addOption {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 9px 11px;
+
+    color: #333;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    border-radius: 10px;
+
+    transition: background .2s ease;
+
+}
+
+
+/* Botón verde de agregar. */
+.addButton {
+
+    width: 48px;
+
+    height: 48px;
+
+    padding: 0;
+
+    border: none;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #22b84b;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    box-shadow: 0 7px 18px rgba(34,184,75,.28);
+
+    transition: transform .2s ease, background .2s ease;
+
+}
+
+
+/* Eliminamos el efecto azul que algunos navegadores
+móviles muestran al tocar botones y enlaces. */
+.bottomContainer,
+.bottomContainer * {
+
+    -webkit-tap-highlight-color: transparent;
+
+}
