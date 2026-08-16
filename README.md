@@ -110,10 +110,9 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 | active = boolean      | abono = int64             |
 | stock = int64         | total = int64             |
 |                       | comentarios = string      |
-|                       | tipo = string
-                        | entregado = boolean
-                        | fecha_entregado = string
-                        | 
+|                       | tipo = string             |
+|                       | entregado = boolean       |
+|                       | fecha_entregado = string  |
 
 
 
