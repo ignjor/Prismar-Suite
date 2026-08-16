@@ -46,6 +46,26 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 
 
 
+## Orden y estructura para el desarrollo
+
+
+-  1. El boton de navegacion lo definimos como global en toda la app, de esa forma ahorramos lineas de codigo en los otros docs y no necesitamos llamarlo a cada rato en toodas las ventanas, lo que puede provocar bugs.
+ 
+-  2. Primero organicemos la estructura de los productos, por que? prque toda la estructura depende de los productos, los pedidos depende de ello, la cuentas. Entonces primero organizamos dentro de firestore la estrucutra de productos y las funciones para leer, para crearlos borrarlos y modificarlos, no te preocupes mucho por lo visual aun, luego nos encargamos de eso así seguimos la misma guia visual para todo el proyecto
+ 
+-  3. Luego de los productos que funcioen bien nos aseguramos de los pedidos obvio, ya que pedidos usa a productos necesitamos que para crear un pedido podamos llamarlo logicamente, y dentro de su estructura para crear un pedido necesitamos que por ej podamos irnos a crear productos para cuando nos falte 1 o sea personalizado.
+ 
+-  4. Cuentas depende de productos y pedidos asi que lo dejamos para casi el final, no problema.
+ 
+-  5. Home depende de todo, quiero que tenga un calendario de 1 semana arriba y que obvio se mueva con la fecha, mostrando los pedidos de esa semana, tambien quiero que tenga reusmenes de cuentas. Notiicaciones si podemos con los clouds functions y eso.
+ 
+-  6. Luego con todas las funciones listas nos enfocamos en lo visual si se ve feo y no sigue la linea minimalismo util que queremos, una mezcla correcta de rendimiento animaciones y estilos.
+ 
+-  7. Para terminar preparamos produccion y capacitamos a la empresa de Prismar para el correcto uso.
+ 
+
+
+
 
 
 ---
