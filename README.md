@@ -2,7 +2,7 @@
 ## Este archivo es una vitacora para la correcta guia del desarrollo, luego creamos la documentación inicial.
 
 
-### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar, y todas las solicitudes de pull son bienvenidas.
+### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar. Todas las solicitudes de pull son bienvenidas.
 
 ---
 
