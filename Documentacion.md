@@ -48,6 +48,8 @@ La base de datos del proyecto es Firestore de [Firebase](https://firebase.google
 |                           | fecha_entregado = string  |
 |                           | id_producto(FK) = string  |
 
+Con los ID de cada coleccion nos referimos al ID creado automaticamente por Firebase, al ser una DB noSql, no podemos crearlo nosotros porque no seria seguro y seguramente nos haria hiteracion, por eso mejor le dejamos la creacion del id automatico a firebase, en el caso de usar sql claro, tendriamos que crear o asignar nosotros la id.
+
 En colegios* puede ser el tipo que requiera, en nuestro caso como la actividad principal de la empresa son los uniformes escolares usamos los colegios para asignarlos a cualquier producto segun lo requiera, asi ademas filtramos mejor cuando lo necesitemos luego.
 
 

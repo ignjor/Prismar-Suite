@@ -7,6 +7,7 @@ import Cuentas from "./pages/Cuentas/Cuentas";
 
 import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";
+
 import Colegios from "./pages/AdminColegios/AdminColegios";
 
 import BottomNav from "./components/BottomNav/BottomNav";
@@ -53,6 +54,7 @@ function App() {
           path="/admin-colegios" 
           element={<Colegios />} 
         />
+
 
       </Routes>
 
