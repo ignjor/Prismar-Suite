@@ -111,11 +111,6 @@ export default function BottomNav() {
         };
     }, [mostrarBoton]);
 
-
-
-
-
-
     return (
             
         <div className="bottomContainer"> 

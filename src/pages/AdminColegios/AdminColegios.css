@@ -17,7 +17,11 @@
 
   Dejamos espacio inferior para que las tarjetas no queden
   escondidas detrás del BottomNav.
+
+  
 */
+
+
 .adminColegios {
 
   width: min(92%, 920px);
@@ -132,6 +136,126 @@
 
 }
 
+/*
+  TARJETA PARA AGREGAR UN COLEGIO.
+
+  Mantiene la misma estética que las tarjetas de colegios,
+  pero tiene un aspecto un poco más liviano porque representa
+  una acción y no un colegio existente.
+*/
+.agregarColegio {
+
+  margin: 30px auto 0 auto;
+
+  min-height: 155px;
+
+  max-width:500px;
+
+  padding: 22px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 16px;
+
+  background: rgba(255, 255, 255, 0.48);
+
+  border: 1px dashed rgba(0, 0, 0, 0.12);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.035);
+
+  backdrop-filter: blur(12px);
+
+  -webkit-backdrop-filter: blur(12px);
+
+}
+
+
+/*
+  Texto de la tarjeta.
+*/
+.agregarColegioTexto {
+
+  margin: 0;
+
+  color: #6e6e73;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  text-align: center;
+
+  letter-spacing: -0.15px;
+
+}
+
+
+/*
+  Botón circular para agregar.
+
+  Por ahora no tiene ninguna función.
+  Posteriormente aquí conectaremos el modal.
+*/
+.agregarColegioButton {
+
+  width: 42px;
+
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: #22b84b;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 6px 16px rgba(34, 184, 75, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+
+
+
+
+
+/*
+  Efecto al pulsar.
+*/
+.agregarColegioButton:active {
+
+  transform: scale(0.94);
+
+}
 
 /*
   Pequeño efecto al pasar el mouse.
@@ -454,6 +578,7 @@
     height: 15px;
 
   }
+
 
 }
 

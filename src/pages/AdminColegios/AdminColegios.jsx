@@ -13,7 +13,7 @@ import {db} from "../../firebase";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import {PencilLine, Eraser} from "lucide-react";
+import {PencilLine, Eraser, School} from "lucide-react";
 
 
 export default function AdminColegios() {
@@ -139,21 +139,30 @@ export default function AdminColegios() {
         </section>
 
 
-        {/* 
-          Este mensaje solamente aparece cuando Firestore
-          no devuelve ningún colegio.
-        */}
-        {colegios.length === 0 && (
+        <section className="agregarColegio">
 
-          <div className="colegiosEmpty">
-
-            <p>
-              Aún no hay colegios registrados.
+            <p className="agregarColegioTexto">
+              ¿Necesitas agregar un colegio?
             </p>
 
-          </div>
 
-        )}
+            {/* 
+              Botón para agregar un colegio.
+
+              Por ahora solamente dejamos preparada
+              la interfaz. La función se agregará después.
+            */}
+            <button
+              type="button"
+              className="agregarColegioButton"
+              aria-label="Agregar colegio"
+            >
+
+              <School size={21} strokeWidth={2}/>
+
+            </button>
+
+        </section>
 
       </main>
     );
