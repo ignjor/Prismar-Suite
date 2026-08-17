@@ -1,0 +1,503 @@
+/*
+  Estilos de Administración de Colegios.
+
+  La estética sigue la línea del BottomNav:
+  - Colores Apple
+  - Fondos claros
+  - Bordes suaves
+  - Sombras muy ligeras
+  - Mucho espacio
+  - Bordes redondeados
+  - Glassmorphism sutil
+*/
+
+
+/* 
+  Contenedor principal de toda la página.
+
+  Dejamos espacio inferior para que las tarjetas no queden
+  escondidas detrás del BottomNav.
+*/
+.adminColegios {
+
+  width: min(92%, 920px);
+
+  margin: 0 auto;
+
+  padding: 42px 0 130px 0;
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    sans-serif;
+
+  color: #1d1d1f;
+
+}
+
+
+/* 
+  Encabezado de la página.
+
+  Lo mantenemos sencillo para conservar la estética
+  minimalista de Apple.
+*/
+.adminColegiosHeader {
+
+  margin-bottom: 28px;
+  text-align: center;
+
+}
+
+
+/* 
+  Título principal.
+*/
+.adminColegiosTitle {
+
+  margin: 0;
+
+  font-size: 34px;
+
+  font-weight: 700;
+
+  letter-spacing: -1px;
+
+  color: #1d1d1f;
+
+}
+
+
+
+
+/*
+  GRID PRINCIPAL.
+
+  Usamos tres columnas como máximo.
+
+  minmax permite que las tarjetas tengan un tamaño cómodo
+  sin generar tarjetas gigantes.
+*/
+.colegiosGrid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+
+}
+
+
+/*
+  TARJETA DEL COLEGIO.
+
+  El fondo es muy parecido al estilo Apple:
+  blanco/gris muy suave con una sombra casi imperceptible.
+*/
+.colegioCard {
+
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  min-height: 155px;
+
+  padding: 22px;
+
+  background: rgba(255, 255, 255, 0.72);
+
+  border: 1px solid rgba(0, 0, 0, 0.055);
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.055);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+
+}
+
+
+/*
+  Pequeño efecto al pasar el mouse.
+
+  No hacemos una animación exagerada para mantener
+  la estética minimalista.
+*/
+.colegioCard:hover {
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08);
+
+  border-color: rgba(0, 0, 0, 0.08);
+
+}
+
+
+/*
+  Contenedor del nombre del colegio.
+*/
+.colegioCardContent {
+
+  min-width: 0;
+
+}
+
+
+/*
+  Nombre del colegio.
+
+  "overflow-wrap" permite que nombres muy largos
+  no rompan el diseño de la tarjeta.
+*/
+.colegioNombre {
+
+  margin: 0;
+
+  font-size: 19px;
+
+  line-height: 1.25;
+
+  font-weight: 600;
+
+  letter-spacing: -0.35px;
+
+  color: #1d1d1f;
+
+  overflow-wrap: anywhere;
+
+}
+
+
+/*
+  Contenedor de los dos botones.
+*/
+.colegioActions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 24px;
+
+}
+
+
+/*
+  Estilo base de los botones.
+
+  Los hacemos pequeños y discretos para que las acciones
+  no le quiten protagonismo al nombre del colegio.
+*/
+.colegioAction {
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 10px;
+
+  border: 1px solid transparent;
+
+  border-radius: 40px;
+
+  background: #f5f5f7;
+
+  color: #424245;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+}
+
+
+/*
+  Quitamos el efecto azul de selección que algunos
+  navegadores móviles colocan al tocar botones.
+*/
+.colegioAction,
+.colegioAction * {
+
+  -webkit-tap-highlight-color: transparent;
+
+}
+
+
+/*
+  Estado hover del botón editar.
+*/
+.colegioActionEdit:hover {
+
+  background: #e9e9ed;
+
+  color: #1d1d1f;
+
+}
+
+
+/*
+  Estado hover del botón eliminar.
+
+  Utilizamos un rojo muy suave en lugar de un rojo fuerte
+  para mantener el estilo Apple/minimalista.
+*/
+.colegioActionDelete:hover {
+
+  background: #fff0f0;
+
+  color: #d70015;
+
+}
+
+
+/*
+  Estado activo al pulsar cualquiera de los botones.
+*/
+.colegioAction:active {
+
+  transform: scale(0.97);
+
+}
+
+
+/*
+  Mensaje para cuando todavía no existen colegios.
+*/
+.colegiosEmpty {
+
+  width: 100%;
+
+  padding: 40px 20px;
+
+  text-align: center;
+
+  color: #86868b;
+
+  font-size: 14px;
+
+}
+
+
+/*
+  TABLET.
+
+  Cuando ya no hay suficiente espacio para tres tarjetas,
+  pasamos temporalmente a dos columnas.
+*/
+@media (max-width: 760px) {
+
+  .colegiosGrid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+
+  }
+
+
+  .colegioCard {
+
+    min-height: 145px;
+
+    padding: 18px;
+
+    border-radius: 21px;
+
+  }
+
+
+  .colegioNombre {
+
+    font-size: 17px;
+
+  }
+
+}
+
+
+/*
+  MÓVIL.
+
+  Mantenemos exactamente dos tarjetas por fila,
+  como pediste.
+*/
+@media (max-width: 480px) {
+
+  .adminColegios {
+
+    width: min(94%, 420px);
+
+    padding-top: 32px;
+
+  }
+
+
+  .adminColegiosHeader {
+
+    margin-bottom: 22px;
+
+  }
+
+
+  .adminColegiosTitle {
+
+    font-size: 30px;
+
+  }
+
+
+
+
+
+  .colegiosGrid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+  }
+
+
+  .colegioCard {
+
+    min-height: 140px;
+
+    padding: 15px;
+
+    border-radius: 18px;
+
+  }
+
+
+  .colegioNombre {
+
+    font-size: 15px;
+
+    line-height: 1.25;
+
+  }
+
+
+  .colegioActions {
+
+    gap: 6px;
+
+    margin-top: 18px;
+
+  }
+
+
+  .colegioAction {
+
+    height: 34px;
+
+    padding: 0 6px;
+
+    gap: 4px;
+
+    border-radius: 10px;
+
+    font-size: 10px;
+
+  }
+
+
+  .colegioAction svg {
+
+    width: 15px;
+
+    height: 15px;
+
+  }
+
+}
+
+
+/*
+  MÓVILES MUY PEQUEÑOS.
+
+  Seguimos manteniendo dos columnas, pero reducimos
+  un poco los espacios para que todo siga respirando.
+*/
+@media (max-width: 360px) {
+
+  .adminColegios {
+
+    width: 94%;
+
+  }
+
+
+  .colegioCard {
+
+    padding: 13px;
+
+  }
+
+
+  .colegioNombre {
+
+    font-size: 14px;
+
+  }
+
+
+  .colegioAction span {
+
+    display: none;
+
+  }
+
+
+  .colegioAction {
+
+    flex: 0 0 34px;
+
+    width: 34px;
+
+    padding: 0;
+
+  }
+
+}

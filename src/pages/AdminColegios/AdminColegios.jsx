@@ -1,135 +1,176 @@
-/* Importamos el archivo que se conecta con la base de datos de Firestore */ 
-import { db } from "../../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { AlignCenter, AlignJustify, ListCheck } from "lucide-react";
+/*  
 
+Aqui vamos a hacer la estructura completa para poder administrar los colegios
+mi idea es luego crear un modal para poder crear los colegios, que ese mismo modal sirva
+para editarlos, para los colegios solo necesitamos un nombre, nada más. 
+
+*/
+
+import "./AdminColegios.css";
+
+/* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
+import {db} from "../../firebase";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-export default function Colegios() {
+import {PencilLine, Eraser} from "lucide-react";
 
 
-  /* Con State generamos las variables para almacenar los productos */
+export default function AdminColegios() {
+
+  /* Cremoas el estado para colegios, aqui se va a guardar y listar los colegios
+  que rescatemos de la base de datos que llamamos de firestore en nuestro caso */
   const [colegios, setColegios] = useState([]);
 
-  /* Con esta función, con el Effect solocitamos los datos a Firestore, luego vamos a definir exactamente la funcion obtenerProductos */
   useEffect(() => {
     obtenerColegios();
   }, []);
 
-    /* Definimos la funcion como asyncrona, es decir que el sistema sigue trabajando a menos que coloquemos un await */
-  const obtenerColegios = async () => {
+  const obtenerColegios = async() => {
     try {
-      const colegiosRef = collection(db, "colegios");
-
-      /* Con este await quiere decir que el sistema para hasta que se complete la operación */
-      const respuesta = await getDocs(colegiosRef);
-
-      /* Con este map, mapeamos los documentos de la colección de la DB */
+      /* Cremoas la Ref dentro de la colleccion de la base de datos
+      para luego no tenerque llamarla de nuevo tan complicada, y asi la funcion de arriba
+      cuando llamamos obtener colegios sabe donde tiene que buscar, en esta colleccion donde tenemos
+      colegios */
+      const colegiosRef = collection(db, "colegios")
+      const respuesta = await getDocs(colegiosRef)
       const listaColegios = respuesta.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
-
-
+      /* AAqui luego de listar la collecion guardamos todo dentro del setColegios
+       */
       setColegios(listaColegios);
-
     } catch (error) {
-      console.error("Error al obtener los Colegios:", error);
+      console.error("Error", error);
     }
   };
 
+    return (
 
-  return (
-    <div style={styles.container}>
-      <h1 style={styles.title}>Colegios</h1>
+      <main className="adminColegios">
 
-      {/* Ya con todas las funciones hechas, presentamos los archivos obtenidos en la busqueda en Firestore */}
+        {/* Encabezado de la página */}
+        <header className="adminColegiosHeader">
 
-        {
-          colegios.map((colegio) => (
+          <h1 className="adminColegiosTitle">
+            Colegios
+          </h1>
 
-            <div key={colegio.id} style={styles.producto}>
-
-              <h2 style={styles.productoNombre}>{colegio.nombre}</h2>
+        </header>
 
 
-            </div>
+        {/* 
+          Contenedor de todas las tarjetas.
+
+          El CSS se encarga de mostrar:
+          - máximo 3 columnas en escritorio.
+          - 2 columnas en móvil.
+        */}
+        <section className="colegiosGrid">
+
+          {colegios.map((colegio) => (
+
+            <article
+              key={colegio.id}
+              className="colegioCard"
+            >
+
+              {/* Parte superior de la tarjeta */}
+              <div className="colegioCardContent">
+
+                <h2 className="colegioNombre">
+                  {colegio.nombre}
+                </h2>
+
+              </div>
+
+
+              {/* Botones de acciones */}
+              <div className="colegioActions">
+
+                {/* 
+                  Botón de editar.
+
+                  Por ahora no tiene onClick porque la función
+                  será agregada posteriormente.
+                */}
+                <button
+                  type="button"
+                  className="colegioAction colegioActionEdit"
+                  aria-label={`Editar ${colegio.nombre}`}
+                >
+
+                  <PencilLine size={17} strokeWidth={2} />
+
+                  <span>
+                    Editar
+                  </span>
+
+                </button>
+
+
+                {/* 
+                  Botón de eliminar.
+
+                  Por ahora no tiene onClick porque la función
+                  será agregada posteriormente.
+                */}
+                <button
+                  type="button"
+                  className="colegioAction colegioActionDelete"
+                  aria-label={`Eliminar ${colegio.nombre}`}
+                >
+
+                  <Eraser size={17} strokeWidth={2} />
+
+                  <span>
+                    Eliminar
+                  </span>
+
+                </button>
+
+              </div>
+
+            </article>
+
           ))}
-           </div>
-  );
-}
+
+        </section>
 
 
-const styles = {
+        {/* 
+          Este mensaje solamente aparece cuando Firestore
+          no devuelve ningún colegio.
+        */}
+        {colegios.length === 0 && (
 
-  container: {
+          <div className="colegiosEmpty">
 
-    width: "min(92%, 500px)",
+            <p>
+              No hay colegios registrados.
+            </p>
 
-    margin: "0 auto",
+          </div>
 
-    padding: "40px 0 120px 0",
+        )}
 
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif",
-
-    color: "#1d1d1f"
-
-  },
-
-
-  title: {
-
-    fontSize: "34px",
-
-    fontWeight: "700",
-
-    letterSpacing: "-1px",
-
-    marginBottom: "28px",
-
-  },
+      </main>
+    );
+  }
 
 
-  producto: {
-
-    background: "#f5f5f7",
-
-    borderRadius: "50px",
-
-    padding: "30px",
-
-    marginBottom: "16px",
-
-    boxShadow: "0 15px 15px rgba(0, 0, 0, 0.06)"
-
-  },
 
 
-  productoNombre: {
-
-    fontSize: "21px",
-
-    fontWeight: "600",
-
-    marginTop: "0",
-
-    marginBottom: "16px",
-
-    letterSpacing: "-0.3px"
-
-  },
 
 
-  texto: {
 
-    margin: "8px 0",
 
-    fontSize: "15px",
 
-    color: "#6e6e73",
 
-    lineHeight: "1.5"
 
-  },
 
-};
+
+
+
+
