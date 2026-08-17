@@ -93,6 +93,16 @@
 
 - Agregamos Modal para los gastos, para agregar colegios y dentro de paginas AdminColegios
 
+### Lunes 17 de Agosto
+
+- Agregamos la estructura verdadera y correcta de los estilos para ver los colegios desde Firestore, esperamos como diseño final basándonos en un balance entre estilos minimalistas y rendimiento
+
+- Agregamos el boton Agregar Colegios dentro de los estilos NO FUNCIONALES, pero esta en la ventana al final, lo agregamos al final de la estructura, lo decidimos así porque los colegios o empresas afiliadas a los productos no son muchas y cuando no hayan agregados ese boton sube en consecuencia, tambien lo elegimos asi para no complicarnos demas con codigo, pensamos en agregarlo sobre el botton nav pero seria cambiar mucha estructura y agregar codigo innecsario que puede facilitar los bugs, como mencioanmos, balance entre rendimiento, estilo y funcionalidad.
+
+### Lunes 17 de Agosto v2
+
+- Dejamos el paso hecho para crear los modals, creamos carpeta para modals donde queremos meter el modal para crear colegios, y un modal reutilizable para confirmar la eliminacio nde cualquier cosa, que sea con una confirmacion doble, sea de colegio, de producto o de pedidos. De esa forma evitamos primero, una hiteracion de codigo y segundo, mantenemos una linea visual.
+
 
 
 
