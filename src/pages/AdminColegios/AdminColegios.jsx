@@ -148,7 +148,7 @@ export default function AdminColegios() {
           <div className="colegiosEmpty">
 
             <p>
-              No hay colegios registrados.
+              Aún no hay colegios registrados.
             </p>
 
           </div>
