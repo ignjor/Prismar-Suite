@@ -103,6 +103,10 @@
 
 - Dejamos el paso hecho para crear los modals, creamos carpeta para modals donde queremos meter el modal para crear colegios, y un modal reutilizable para confirmar la eliminacio nde cualquier cosa, que sea con una confirmacion doble, sea de colegio, de producto o de pedidos. De esa forma evitamos primero, una hiteracion de codigo y segundo, mantenemos una linea visual.
 
+### Martes 18 de Agosto
+
+- Detectamos problemas de seguridad en la creación del modal, por lo que pausamos la creación de colegios, productos y pedidos para solucionar los problemas de seguridad, nuestro objetivo es evitar las inserciones de codigo dentro de los input, tenemos que ser muy cuidadosos sobretodo al no tener un backend puro y usar firebase.
+
 
 
 
