@@ -26,6 +26,8 @@ deberia tener todas las dependencias, se adjuntan de todas formas:
 - Firebase : ```npm install firebase```
 
 
+## Diagrama UML
+<img src="/Fotos%20Readme/Diagrama.jpg" width="700">
 
 
 ## Estructura recomendada de la base de datos
