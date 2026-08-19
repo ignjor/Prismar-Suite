@@ -109,6 +109,9 @@
 
 - Detectamos problemas de seguridad en la creación del modal, por lo que pausamos la creación de colegios, productos y pedidos para solucionar los problemas de seguridad, nuestro objetivo es evitar las inserciones de codigo dentro de los input, tenemos que ser muy cuidadosos sobretodo al no tener un backend puro y usar firebase.
 
+### Miercoles 19 de Agosto
+
+- Desarrollamos un Diagrama UML para guiarnos dentro del desarrollo, detectamos el tema de los tipos de prendas, por ej asignar distintas crud para medidas en cada pedido, sea un vestido usa medidas distintas que un pantalon, sea espalda, ancho, caderas, cada tipo de prenda activa tipos distintos de medidas, menos mal detectamos el problema antes de desarrollar los productos. Así que tenemos que asignarlo a cada producto, creamos la clase TipoPrenda
 
 
 
