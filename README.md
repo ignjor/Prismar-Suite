@@ -24,6 +24,8 @@
 
 ## Orden y estructura para el desarrollo
 
+<img src="/Fotos%20Readme/Diagrama.jpg" width="700">
+
 
 -  1. El boton de navegacion lo definimos como global en toda la app, de esa forma ahorramos lineas de codigo en los otros docs y no necesitamos llamarlo a cada rato en toodas las ventanas, lo que puede provocar bugs.
  
