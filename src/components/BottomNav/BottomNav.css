@@ -81,7 +81,6 @@ verde sin romper el diseño en pantallas pequeñas. */
 
 }
 
-
 /* Estilo de la opción que está activa. */
 .active {
 
@@ -172,7 +171,15 @@ El estilo es intencionalmente sencillo y limpio. */
 
     border-radius: 10px;
 
-    transition: background .2s ease;
+
+}
+
+.addOption:hover {
+    background: #e9e9ed;
+
+    color: #1d1d1f;
+    
+    border-radius: 30px;
 
 }
 

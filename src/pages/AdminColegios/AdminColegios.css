@@ -212,7 +212,7 @@
 */
 .agregarColegioButton {
 
-  width: 42px;
+  width: 80px;
 
   height: 42px;
 
@@ -226,7 +226,7 @@
 
   border: none;
 
-  border-radius: 50%;
+  border-radius: 40px;
 
   background: #22b84b;
 
