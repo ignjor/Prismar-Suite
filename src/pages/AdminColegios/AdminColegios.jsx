@@ -7,6 +7,7 @@ para editarlos, para los colegios solo necesitamos un nombre, nada más.
 */
 
 import "./AdminColegios.css";
+import ModalAgregarColegio from "../../modals/ModalAgregarColegio/ModalAgregarColegio";
 
 /* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
 import {db} from "../../firebase";
@@ -21,6 +22,19 @@ export default function AdminColegios() {
   /* Cremoas el estado para colegios, aqui se va a guardar y listar los colegios
   que rescatemos de la base de datos que llamamos de firestore en nuestro caso */
   const [colegios, setColegios] = useState([]);
+
+
+  /* Vamos a definir los estos del modal para crear el colegio, abierto o cerrado o eso
+  Y obvio, lo definimos como que este cerrado predeterminadamente.*/
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const abrirModal = () => {
+    setModalAbierto(true);
+  };
+  const cerrarModal = () => {
+    setModalAbierto(false);
+  };
+
+
 
   useEffect(() => {
     obtenerColegios();
@@ -54,7 +68,7 @@ export default function AdminColegios() {
         <header className="adminColegiosHeader">
 
           <h1 className="adminColegiosTitle">
-            Colegios
+            Empresas / Colegios
           </h1>
 
         </header>
@@ -142,7 +156,7 @@ export default function AdminColegios() {
         <section className="agregarColegio">
 
             <p className="agregarColegioTexto">
-              ¿Necesitas agregar un colegio?
+              ¿Necesitas agregar una empresa o un colegio?
             </p>
 
 
@@ -156,6 +170,7 @@ export default function AdminColegios() {
               type="button"
               className="agregarColegioButton"
               aria-label="Agregar colegio"
+              onClick={abrirModal}
             >
 
               <School size={21} strokeWidth={2}/>
@@ -163,6 +178,10 @@ export default function AdminColegios() {
             </button>
 
         </section>
+          <ModalAgregarColegio
+            abierto = {modalAbierto}
+            onCerrar = {cerrarModal}
+              />
 
       </main>
     );

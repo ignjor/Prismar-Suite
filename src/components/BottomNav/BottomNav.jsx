@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { Home, ShoppingBag, Package, PiggyBank, Plus, School, Baby, BanknoteArrowDown } from "lucide-react";
-
 import { useState, useEffect, useRef } from "react";
 
 import "./BottomNav.css";
+
+import { Home, ShoppingBag, Package, PiggyBank, Plus, School, Baby, BanknoteArrowDown, Shirt } from "lucide-react";
 
 /* 
 
@@ -71,15 +71,21 @@ export default function BottomNav() {
 
         },
         {
-            name: "Colegios",
+            name: "Empresas",
             path: "/admin-colegios",
             icon: School
+        },
+        {
+            name: "Tipos de Prenda",
+            path: "/tipos-prenda",
+            icon: Shirt
         },
         {
             name: "Gonguru",
             path: "/gonguru",
             icon: Baby
         }
+
         
     ];
 

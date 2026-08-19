@@ -63,6 +63,9 @@
 
   margin: 0;
 
+  margin-bottom: 50px;
+  margin-top: 50px;
+
   font-size: 34px;
 
   font-weight: 700;
@@ -377,17 +380,6 @@
 
 }
 
-
-/*
-  Quitamos el efecto azul de selección que algunos
-  navegadores móviles colocan al tocar botones.
-*/
-.colegioAction,
-.colegioAction * {
-
-  -webkit-tap-highlight-color: transparent;
-
-}
 
 
 /*
