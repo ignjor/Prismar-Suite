@@ -113,6 +113,49 @@
 
 - Desarrollamos un Diagrama UML para guiarnos dentro del desarrollo, detectamos el tema de los tipos de prendas, por ej asignar distintas crud para medidas en cada pedido, sea un vestido usa medidas distintas que un pantalon, sea espalda, ancho, caderas, cada tipo de prenda activa tipos distintos de medidas, menos mal detectamos el problema antes de desarrollar los productos. Así que tenemos que asignarlo a cada producto, creamos la clase TipoPrenda
 
+### Miercoles 19 de Agosto v2
+
+- Agregamos toda la estructura necesario del modal para poder Crear Colegios y poder editarlos, ademas modificamos las reglas de Firestore para hacerlo mas seguro
+
+```Firebase Security Rules
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+// Claves de seguridad para la base de datos, especificamente para los input, asi limitamos las insercioens de codigo
+
+
+		// Validaciones para los inputs dentro de la collecion de COLEGIOS, colegios solo tiene NOMBRE como su
+    // dato input tipo string, le colocamos un varchar de 64 para no exedernos
+    // y limitamos el unico dato que puede tener COLEGIO, a NOMBRE, entonces evitamos si alguien quiere meter algun otro dato
+    match /colegios/{colegioId} {
+
+      allow read: if true;
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "nombre"
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 64;
+
+      allow update: if
+        request.resource.data.keys().hasOnly([
+          "nombre"
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 64;
+
+      allow delete: if true;
+    }
+  }
+}
+```
+
+
+
 
 
 
