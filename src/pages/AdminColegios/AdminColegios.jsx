@@ -22,16 +22,23 @@ export default function AdminColegios() {
   /* Cremoas el estado para colegios, aqui se va a guardar y listar los colegios
   que rescatemos de la base de datos que llamamos de firestore en nuestro caso */
   const [colegios, setColegios] = useState([]);
+  const [editarColegio, setEditarColegio] = useState(null);
 
 
   /* Vamos a definir los estos del modal para crear el colegio, abierto o cerrado o eso
   Y obvio, lo definimos como que este cerrado predeterminadamente.*/
   const [modalAbierto, setModalAbierto] = useState(false);
   const abrirModal = () => {
+    setEditarColegio(null);
+    setModalAbierto(true);
+  };
+  const abrirModalEdit = (colegio) => {
+    setEditarColegio(colegio);
     setModalAbierto(true);
   };
   const cerrarModal = () => {
     setModalAbierto(false);
+    setEditarColegio(null);
   };
 
 
@@ -113,6 +120,7 @@ export default function AdminColegios() {
                   type="button"
                   className="colegioAction colegioActionEdit"
                   aria-label={`Editar ${colegio.nombre}`}
+                  onClick={() => abrirModalEdit(colegio)}
                 >
 
                   <PencilLine size={17} strokeWidth={2} />
@@ -181,6 +189,7 @@ export default function AdminColegios() {
           <ModalAgregarColegio
             abierto = {modalAbierto}
             onCerrar = {cerrarModal}
+            colegio = {editarColegio}
             onColegioAgregado={obtenerColegios}
               />
 

@@ -3,12 +3,12 @@ import "./ModalAgregarColegio.css";
 
 import { db } from "../../firebase";
 
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
 import {CircleX, CirclePlus, X} from "lucide-react";
 
 
-export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgregado }) {
+export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgregado, colegio }) {
     const [nombreColegio, setNombreColegio] = useState("");
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
@@ -54,12 +54,22 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
             setGuardando(true);
             setError("");
 
-            await addDoc(
-                collection(db,"colegios"),
-                {
-                    nombre: nombreLimpio
-                }
-            );
+            if (colegio) {
+                    await updateDoc(
+                    doc(db,"colegios", colegio.id),
+                    {
+                        nombre: nombreLimpio
+                    }
+                );
+            } else {
+                await addDoc(
+                    collection(db, "colegios"),
+                    {
+                        nombre: nombreColegio
+                    }
+                );
+
+            }
             await onColegioAgregado()
             setNombreColegio("");
             onCerrar();
@@ -94,12 +104,19 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
             );
         };
     }, [abierto, onCerrar]);
+
+    useEffect(() => {
+        if (!abierto) {
+            return;
+        }
+        if (colegio) {
+            setNombreColegio(colegio.nombre);
+        } else {
+            setNombreColegio("");
+        }
+        setError("");
+    }, [abierto, colegio])
     
-
-
-
-
-
 
 
   // Si el modal no está abierto, no renderizamos nada.
@@ -126,7 +143,10 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
                 id="modalColegioTitle"
                 className="modalColegioTitle"
             >
-                Agregar Empresa / Colegio
+                {colegio
+                ? "Editar Empresa / Colegio"
+                : "Agregar Empresa / Colegio"
+                }
             </h2>
 
             <button
