@@ -181,6 +181,7 @@ export default function AdminColegios() {
           <ModalAgregarColegio
             abierto = {modalAbierto}
             onCerrar = {cerrarModal}
+            onColegioAgregado={obtenerColegios}
               />
 
       </main>

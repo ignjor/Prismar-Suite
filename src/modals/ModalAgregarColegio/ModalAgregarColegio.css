@@ -254,6 +254,11 @@
 
 }
 
+.modalColegioError{
+    color: #98989d;
+    padding: 0 25px;
+    
+}
 
 .modalColegioInput::placeholder {
 
