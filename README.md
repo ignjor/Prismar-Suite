@@ -100,6 +100,7 @@
 - Agregamos la estructura verdadera y correcta de los estilos para ver los colegios desde Firestore, esperamos como diseño final basándonos en un balance entre estilos minimalistas y rendimiento
 
 - Agregamos el boton Agregar Colegios dentro de los estilos NO FUNCIONALES, pero esta en la ventana al final, lo agregamos al final de la estructura, lo decidimos así porque los colegios o empresas afiliadas a los productos no son muchas y cuando no hayan agregados ese boton sube en consecuencia, tambien lo elegimos asi para no complicarnos demas con codigo, pensamos en agregarlo sobre el botton nav pero seria cambiar mucha estructura y agregar codigo innecsario que puede facilitar los bugs, como mencioanmos, balance entre rendimiento, estilo y funcionalidad.
+- <img src="/Fotos%20Readme/colegiosvista.png" width="600">
 
 ### Lunes 17 de Agosto v2
 
@@ -153,7 +154,6 @@ service cloud.firestore {
   }
 }
 ```
-<img src="/Fotos%20Readme/colegiosvista.png" width="400">
 <img src="/Fotos%20Readme/modalvista.png" width="400">
 
 
