@@ -153,7 +153,8 @@ service cloud.firestore {
   }
 }
 ```
-
+<img src="/Fotos%20Readme/colegiosvista.png" width="400">
+<img src="/Fotos%20Readme/modalvista.png" width="400">
 
 
 
