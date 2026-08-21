@@ -77,7 +77,7 @@ export default function BottomNav() {
         },
         {
             name: "Tipos de Prenda",
-            path: "/tipos-prenda",
+            path: "/tipo-prenda",
             icon: Shirt
         },
         {

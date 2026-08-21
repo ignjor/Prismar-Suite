@@ -5,6 +5,7 @@ import Pedidos from "./pages/Pedidos/Pedidos";
 import Productos from "./pages/Productos/Productos";
 import Cuentas from "./pages/Cuentas/Cuentas";
 import Colegios from "./pages/AdminColegios/AdminColegios";
+import TipoPrenda from "./pages/TipoPrenda/TipoPrenda";
 
 import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";
@@ -48,6 +49,11 @@ function App() {
         <Route 
           path="/agregar-pedido" 
           element={<AgregarPedido />} 
+        />
+
+        <Route 
+          path="/tipo-prenda"
+          element={<TipoPrenda/>}
         />
 
         <Route 
