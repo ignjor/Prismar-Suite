@@ -4,16 +4,20 @@ Aqui queremos agregar toda la estructura para los tipos de prenda, tipo de prend
 por ej pantalon, y pantalon tiene unas medidas_asig como un map, que puede ser cintura largo, etc, segun lo requeriera,
 y cada tipo de prenda va asignado a un producto, por ej tipo de prenda pantalon, vestido, o amigurumi tambien.
 
+Reciclamos gran parte de la estructura de AdminColegios porque es basicamente lo mismo, pero leyendo los maps de
+medidas asignadas, para optimizar el tiempo de desarrollo y obvio para mantener la linea visual, por eso las clases del .css son
+practicamente identicas
 */
 
 import "./TipoPrenda.css";
+import ModaAgregarTipoProducto from "../../modals/ModaAgregarTipoProducto/ModaAgregarTipoProducto";
 
 /* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
 import {db} from "../../firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import {PencilLine, Eraser, Shirt} from "lucide-react";
+import {PencilLine, Eraser, Ruler} from "lucide-react";
 
 
 export default function TipoPrenda() {
@@ -82,15 +86,12 @@ export default function TipoPrenda() {
                 <h2 className="colegioNombre">
                   {tipoPrenda.tipo}
                 </h2>
+                
 
-              </div>
-
-              <div className="colegioCardContent">
-
-                <h2 className="colegioNombre">
+                <h2 className="medidasAsignadas">
                   {Object.entries(tipoPrenda.medidas_asig || {}).map(([nombre]) => (
                     <p key={nombre}>
-                    <strong>{nombre}</strong>
+                    - {nombre}
                     </p>
                   ))}
                 </h2>
@@ -170,7 +171,7 @@ export default function TipoPrenda() {
               aria-label="Agregar colegio"
             >
 
-              <Shirt size={21} strokeWidth={2}/>
+              <Ruler size={21} strokeWidth={2}/>
 
             </button>
 

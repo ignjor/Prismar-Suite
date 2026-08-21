@@ -11,7 +11,7 @@ import ModalAgregarColegio from "../../modals/ModalAgregarColegio/ModalAgregarCo
 
 /* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
 import {db} from "../../firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import {PencilLine, Eraser, School} from "lucide-react";

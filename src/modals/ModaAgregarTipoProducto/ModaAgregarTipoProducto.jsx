@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./ModalAgregarColegio.css";
+import "./ModaAgregarTipoProducto.css";
 
 import { db } from "../../firebase";
 
@@ -8,7 +8,7 @@ import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 import {CircleX, CirclePlus, X} from "lucide-react";
 
 
-export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgregado, colegio }) {
+export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAgregado, colegio }) {
     const [nombreColegio, setNombreColegio] = useState("");
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
