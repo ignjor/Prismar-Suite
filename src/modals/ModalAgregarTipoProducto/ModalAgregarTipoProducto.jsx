@@ -1,22 +1,19 @@
 import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarTipoProducto.css";
 
-import { db } from "../../firebase";
+import ModalAgregarTipoProductoMedidas from "./ModalMedidas/ModalAgregarTipoProductoMedidas";
 
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
 import {CircleX, X, CircleArrowRight} from "lucide-react";
 
 
-export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPrendaAgregado, tipoPrenda, onSiguiente }) {
+export default function ModalAgregarTipoProducto({ abierto, onCerrar, tipoPrenda, onSiguiente }) {
     const [nombreTipoPrenda, setNombreTipoPrenda] = useState("");
     const [error, setError] = useState("");
-    const [guardando, setGuardando] = useState(false);
+    const modalRef = useRef(null);
 
-    /* Creamos esta funcion para validad los inputs, en nuestro caso este caso es solo el nombre del colegio, para limitar
-    los nombres especiales y tambien limitar las inserciones de codigo, pero obvio esto no es seguridad, porque todo lo del front
-    end se puede vulnerar facil desde el navegador con un devtool, por eso tambien colocamos reglas de firestore seguras para evitar
-    insercioens de codigo. */ 
+
+
     const validadNombre = (tipoPrenda) => {
         const nombreLimpio = tipoPrenda.trim();
 
@@ -42,47 +39,19 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
         return null;
     };
 
-    /* Aqui si finalmente agregamos al colegio para guardarlo desde obvio la primera validaciom */
-    const agregarTipoPrenda = async () => {
+
+    const siguiente = () => {
         const nombreLimpio = nombreTipoPrenda.trim();
         const errorValidacion = validadNombre(nombreLimpio);
+
         if (errorValidacion) {
             setError(errorValidacion);
             return;
         }
-        try {
-            setGuardando(true);
-            setError("");
+        setError("");
+        onSiguiente({id: tipoPrenda.id, tipo: nombreLimpio})
 
-            if (tipoPrenda) {
-                    await updateDoc(
-                    doc(db,"tipo_prenda", tipoPrenda.id),
-                    {
-                        tipo: nombreLimpio
-                    }
-                );
-            } else {
-                await addDoc(
-                    collection(db, "tipo_prenda"),
-                    {
-                        tipo: nombreTipoPrenda
-                    }
-                );
-
-            }
-            await onTipoPrendaAgregado()
-            setNombreTipoPrenda("");
-            onCerrar();
-        } catch (error) {
-            console.error("Error al agregar a la base de datos:", error);
-            setError("No se pudo guardar, intente denuevo.");
-        } finally {
-            setGuardando(false);
-        }
-    };
-
-
-    const modalRef = useRef(null);
+    }
 
     useEffect(() => {
         if (!abierto) {
@@ -104,6 +73,7 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
             );
         };
     }, [abierto, onCerrar]);
+
 
     useEffect(() => {
         if (!abierto) {
@@ -156,7 +126,6 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                 className="modalColegioClose"
                 onClick={onCerrar}
                 aria-label="Cerrar"
-                disabled={guardando}
             >
                 <X size={17} strokeWidth={2} />
             </button>
@@ -191,7 +160,6 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                 maxLength={64}
                 autoComplete="off"
 
-                disabled={guardando}
                 />
                 {error && (
                 <p className="modalColegioError">
@@ -212,7 +180,6 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                 type="button"
                 className="modalColegioButton modalColegioButtonCancel"
                 onClick={onCerrar}
-                disabled={guardando}
             >
                 <CircleX size={17} strokeWidth={2} />
                 <span>
@@ -223,12 +190,11 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
             <button
                 type="submit"
                 className="modalColegioButton modalColegioButtonPrimary"
-                disabled={guardando}
-                onClick={agregarTipoPrenda}
+                onClick={siguiente}
             >
                 <CircleArrowRight size={17} strokeWidth={2} />
                 <span>
-                    {guardando ? "Guardando..." : "Siguiente"}
+                    Atributos
                 </span>
             </button>
 
