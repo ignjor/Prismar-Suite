@@ -68,7 +68,6 @@ export default function AdminColegios() {
   };
 
     return (
-
       <main className="adminColegios">
 
         {/* Encabezado de la página */}

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./ModaAgregarTipoProducto.css";
+import "./ModalAgregarTipoProducto.css";
 
 import { db } from "../../firebase";
 
@@ -8,8 +8,8 @@ import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 import {CircleX, CirclePlus, X} from "lucide-react";
 
 
-export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAgregado, colegio }) {
-    const [nombreColegio, setNombreColegio] = useState("");
+export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPrendaAgregado, tipoPrenda }) {
+    const [nombreTipoPrenda, setNombreTipoPrenda] = useState("");
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
 
@@ -17,8 +17,8 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
     los nombres especiales y tambien limitar las inserciones de codigo, pero obvio esto no es seguridad, porque todo lo del front
     end se puede vulnerar facil desde el navegador con un devtool, por eso tambien colocamos reglas de firestore seguras para evitar
     insercioens de codigo. */ 
-    const validadNombre = (nombre) => {
-        const nombreLimpio = nombre.trim();
+    const validadNombre = (tipoPrenda) => {
+        const nombreLimpio = tipoPrenda.trim();
 
         if (nombreLimpio.length === 0) {
             return "Debes ingresar el nombre.";
@@ -43,8 +43,8 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
     };
 
     /* Aqui si finalmente agregamos al colegio para guardarlo desde obvio la primera validaciom */
-    const agregarColegio = async () => {
-        const nombreLimpio = nombreColegio.trim();
+    const agregarTipoPrenda = async () => {
+        const nombreLimpio = nombreTipoPrenda.trim();
         const errorValidacion = validadNombre(nombreLimpio);
         if (errorValidacion) {
             setError(errorValidacion);
@@ -54,24 +54,24 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
             setGuardando(true);
             setError("");
 
-            if (colegio) {
+            if (tipoPrenda) {
                     await updateDoc(
-                    doc(db,"colegios", colegio.id),
+                    doc(db,"tipo_prenda", tipoPrenda.id),
                     {
-                        nombre: nombreLimpio
+                        tipo: nombreLimpio
                     }
                 );
             } else {
                 await addDoc(
-                    collection(db, "colegios"),
+                    collection(db, "tipo_prenda"),
                     {
-                        nombre: nombreColegio
+                        tipo: nombreTipoPrenda
                     }
                 );
 
             }
-            await onColegioAgregado()
-            setNombreColegio("");
+            await onTipoPrendaAgregado()
+            setNombreTipoPrenda("");
             onCerrar();
         } catch (error) {
             console.error("Error al agregar a la base de datos:", error);
@@ -107,17 +107,17 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
 
     useEffect(() => {
         if (!abierto) {
-            setNombreColegio("");
+            setNombreTipoPrenda("");
             setError("");
             return;
         }
-        if (colegio) {
-            setNombreColegio(colegio.nombre);
+        if (tipoPrenda) {
+            setNombreTipoPrenda(tipoPrenda.tipo);
         } else {
-            setNombreColegio("");
+            setNombreTipoPrenda("");
         }
         setError("");
-    }, [abierto, colegio])
+    }, [abierto, tipoPrenda])
     
 
 
@@ -145,9 +145,9 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
                 id="modalColegioTitle"
                 className="modalColegioTitle"
             >
-                {colegio
-                ? "Editar Empresa / Colegio"
-                : "Agregar Empresa / Colegio"
+                {tipoPrenda
+                ? "Editar tipo de Prenda / Producto"
+                : "Agregar tipo de Prenda / Producto"
                 }
             </h2>
 
@@ -173,17 +173,17 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
                 htmlFor="nombreColegio"
                 className="modalColegioLabel"
                 >
-                Escribe el nombre del afiliado al producto
+                Escribe el nombre del tipo de Prenda / Producto
                 </label>
 
                 <input
                 id="nombreColegio"
                 type="text"
                 className="modalColegioInput"
-                placeholder="Ej. Colegio San José"
-                value={nombreColegio}
+                placeholder="Ej. Pantalón, Vestido"
+                value={nombreTipoPrenda}
                 onChange={(event) => {
-                    setNombreColegio(event.target.value);
+                    setNombreTipoPrenda(event.target.value);
                     if (error) {
                         setError("");
                     }
@@ -224,7 +224,7 @@ export default function ModaAgregarTipoProducto({ abierto, onCerrar, onColegioAg
                 type="submit"
                 className="modalColegioButton modalColegioButtonPrimary"
                 disabled={guardando}
-                onClick={agregarColegio}
+                onClick={agregarTipoPrenda}
             >
                 <CirclePlus size={17} strokeWidth={2} />
                 <span>

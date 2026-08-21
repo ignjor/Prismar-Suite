@@ -10,7 +10,7 @@ practicamente identicas
 */
 
 import "./TipoPrenda.css";
-import ModaAgregarTipoProducto from "../../modals/ModaAgregarTipoProducto/ModaAgregarTipoProducto";
+import ModalAgregarTipoProducto from "../../modals/ModalAgregarTipoProducto/ModalAgregarTipoProducto";
 
 /* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
 import {db} from "../../firebase";
@@ -22,9 +22,25 @@ import {PencilLine, Eraser, Ruler} from "lucide-react";
 
 export default function TipoPrenda() {
 
-
-
   const [tipoPrenda, setTipoPrenda] = useState([]);
+  const [editarTipoPrenda, setEditarTipoPrenda] = useState(null);
+
+
+  /* Vamos a definir los estos del modal para crear el colegio, abierto o cerrado o eso
+  Y obvio, lo definimos como que este cerrado predeterminadamente.*/
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const abrirModal = () => {
+    setEditarTipoPrenda(null);
+    setModalAbierto(true);
+  };
+  const abrirModalEdit = (tipoPrenda) => {
+    setEditarTipoPrenda(tipoPrenda);
+    setModalAbierto(true);
+  };
+  const cerrarModal = () => {
+    setModalAbierto(false);
+    setEditarTipoPrenda(null);
+  };
 
   useEffect(() => {
     obtenerTipoPrenda();
@@ -112,6 +128,7 @@ export default function TipoPrenda() {
                   type="button"
                   className="colegioAction colegioActionEdit"
                   aria-label={`Editar ${tipoPrenda.tipo}`}
+                  onClick={() => abrirModalEdit(tipoPrenda)}
                 >
 
                   <PencilLine size={17} strokeWidth={2} />
@@ -169,6 +186,7 @@ export default function TipoPrenda() {
               type="button"
               className="agregarColegioButton"
               aria-label="Agregar colegio"
+              onClick={abrirModal}
             >
 
               <Ruler size={21} strokeWidth={2}/>
@@ -176,6 +194,12 @@ export default function TipoPrenda() {
             </button>
 
         </section>
+          <ModalAgregarTipoProducto
+            abierto = {modalAbierto}
+            onCerrar = {cerrarModal}
+            tipoPrenda = {editarTipoPrenda}
+            onTipoPrendaAgregado={obtenerTipoPrenda}
+              />
 
       </main>
     );
