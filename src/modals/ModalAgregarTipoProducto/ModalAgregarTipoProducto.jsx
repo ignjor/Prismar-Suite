@@ -5,10 +5,10 @@ import { db } from "../../firebase";
 
 import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
-import {CircleX, CirclePlus, X} from "lucide-react";
+import {CircleX, X, CircleArrowRight} from "lucide-react";
 
 
-export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPrendaAgregado, tipoPrenda }) {
+export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPrendaAgregado, tipoPrenda, onSiguiente }) {
     const [nombreTipoPrenda, setNombreTipoPrenda] = useState("");
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
@@ -226,9 +226,9 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                 disabled={guardando}
                 onClick={agregarTipoPrenda}
             >
-                <CirclePlus size={17} strokeWidth={2} />
+                <CircleArrowRight size={17} strokeWidth={2} />
                 <span>
-                    {guardando ? "Guardando..." : "Agregar"}
+                    {guardando ? "Guardando..." : "Siguiente"}
                 </span>
             </button>
 

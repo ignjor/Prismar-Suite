@@ -100,7 +100,7 @@
 - Agregamos la estructura verdadera y correcta de los estilos para ver los colegios desde Firestore, esperamos como diseño final basándonos en un balance entre estilos minimalistas y rendimiento
 
 - Agregamos el boton Agregar Colegios dentro de los estilos NO FUNCIONALES, pero esta en la ventana al final, lo agregamos al final de la estructura, lo decidimos así porque los colegios o empresas afiliadas a los productos no son muchas y cuando no hayan agregados ese boton sube en consecuencia, tambien lo elegimos asi para no complicarnos demas con codigo, pensamos en agregarlo sobre el botton nav pero seria cambiar mucha estructura y agregar codigo innecsario que puede facilitar los bugs, como mencioanmos, balance entre rendimiento, estilo y funcionalidad.
-- <img src="/Fotos%20Readme/colegiosvista.png" width="600">
+<img src="/Fotos%20Readme/colegiosvista.png" width="600">
 
 ### Lunes 17 de Agosto v2
 
@@ -155,6 +155,15 @@ service cloud.firestore {
 }
 ```
 <img src="/Fotos%20Readme/modalvista.png" width="400">
+
+
+### Viernes 21 Agosto 
+
+- Agregamos tooda la estructura de las vistas e Tipo de prenda, quedo joyita, lista de buena forma el Map, ahora vamos con el tema del modal para poder crear los tipos de productos con medidas asig
+
+<img src="/Fotos%20Readme/tipoprendavista.png" width="600">
+
+- Tenemos pensado hacer 2 modals, o bueno 1 en dos archivos separado con 2 fases, 1 fase para modificar y/o agregar el nombre del tipo y la otra fase para agregar los atributos par las medidas asig, si es posible me encantaria que en pc salgan las 2 al mismo tiempo y en movil con un boton de siguiene, para optimizar el desarrollo probablemente solo lo hagamos con 2 fases. Quiero usar esa misma estructura para el boton de borrar, quiero reutilizar un modal doble confirmacion, con esta misma estrctura de dos pasos.
 
 
 
