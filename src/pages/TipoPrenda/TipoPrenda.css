@@ -77,13 +77,12 @@
 }
 
 .medidasAsignadasTitle {
-  font-size: 16px;
+  font-size: 15px;
 
   font-weight: 600;
-  text-align: left;
+  text-align: center;
   align-items: center;
   flex: auto;
-  padding-left: 15px;
   
 
 }
@@ -522,10 +521,6 @@
 
     font-size: 30px;
 
-  }
-
-  .medidasAsignadasTitle {
-    font-size: 14px;
   }
 
 

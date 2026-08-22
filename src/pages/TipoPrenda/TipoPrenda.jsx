@@ -102,12 +102,8 @@ export default function TipoPrenda() {
                 <h2 className="colegioNombre">
                   {tipoPrenda.tipo}
                 </h2>
+                
 
-                <h2 className="medidasAsignadasTitle">
-                  Atributos:
-
-                </h2>
-              
                 <h2 className="medidasAsignadas">
                   {Object.entries(tipoPrenda.medidas_asig || {}).map(([nombre]) => (
                     <p key={nombre}>
