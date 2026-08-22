@@ -65,7 +65,7 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
                 await addDoc(
                     collection(db, "colegios"),
                     {
-                        nombre: nombreColegio
+                        nombre: nombreLimpio
                     }
                 );
 
