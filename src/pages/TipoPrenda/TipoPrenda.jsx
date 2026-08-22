@@ -102,6 +102,11 @@ export default function TipoPrenda() {
                 <h2 className="colegioNombre">
                   {tipoPrenda.tipo}
                 </h2>
+
+                
+                <h2 className="medidasAsignadasTitle">
+                  Atributos:
+                </h2>
                 
 
                 <h2 className="medidasAsignadas">

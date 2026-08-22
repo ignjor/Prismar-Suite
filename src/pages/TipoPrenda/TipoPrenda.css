@@ -78,9 +78,10 @@
 
 .medidasAsignadasTitle {
   font-size: 15px;
-
+  padding-left: 15px;
+  padding-top: 10px;
   font-weight: 600;
-  text-align: center;
+  text-align: left;
   align-items: center;
   flex: auto;
   
@@ -89,6 +90,7 @@
 
 .medidasAsignadas {
   font-size: 15px;
+  
   padding-left: 15px;
   font-weight: 400;
   text-align: left;
