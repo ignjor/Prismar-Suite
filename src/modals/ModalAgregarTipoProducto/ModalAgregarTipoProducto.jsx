@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarTipoProducto.css";
 
 import { db } from "../../firebase";
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, getDoc } from "firebase/firestore";
 
-import {CircleX, CirclePlus, X, Plus, Trash2, IndianRupee
+import {CircleX, CirclePlus, X, Plus, Trash2, IndianRupee, Key
 } from "lucide-react";
 
 /* Creamos la funcion del modal, que va a tener todas las funciones, y lo hacemos llamando a las variables y estados que 
@@ -97,6 +97,8 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
             /* Este sabrongo, mira lo que hace, te convierte un array en un map despues del trim, entonces, te toma los 
             espacios, los borra, y lo convierte en un array, una chulada papá. */ 
             .map((atributo) => atributo.trim()) .filter((atributo) => atributo.length > 0);
+        /*Esta funcion, la ame tambien, mira lo que te hace, ahorra te recorre tooodo, con el for por el map, y lo valida, si no, no lo pasa
+        especficamente ese valor, una locura*/
         for (const atributo of atributosLimpios) {
             const errorAtributo =
                 validarNombre(atributo);
@@ -105,16 +107,303 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
             } 
             return;
         }
-    /* esta parte es suuper importante, porque si, antes estabamos tratando a los atributos, a las medidas asig como un array, aqui lo
-    convertir a nuestro map que queremos en firestore para guardar todo ordenadito y bonito, que luego productos llamara, excelenteeeee */
+        /*  Aqui tambien tenemos el juguito, esto es importante a morir, porque sí, convertrmos en map antes, pero aquia lo guardamos*/
         const medidasAsig = {};
+        /*Esta funcion es lo duro, porque toma la medida_asig, toma el atributo que tenemos que en nuestro caso quizas ancho de espalda y la convierte en ["Ancho de espalda" = ""] */
         atributosLimpios.forEach((atributo) => {
             medidasAsig[atributo] = "";
         });
         try {
             setGuardando(true);
             setError("");
+        /* Aqui es para cargar los datos de la coll si estamos editando */
+            if (tipoPrenda) {
+                await updateDoc(doc( db, "tipo_prenda", tipoPrenda.id),
+                    {tipo:nombreLimpio, medidasAsig:medidasAsig}
+                );
+        /* Esta es para crear, por eso no llamamos ningun id, porque firestore la crea sola con el addDod :)*/ 
+            } else {
+                await addDoc(collection( db, "tipo_prenda"),
+                    {tipo:nombreLimpio, medidasAsig:medidasAsig}
+                    
+                );
+            }
+            await onTipoPrendaAgregado();
+            setNombreTipoPrenda("");
+            setMedidasAsignadas([]);
+            setError("");
+            onCerrar();
+        }   catch (error){
+                console.error("Error al ejecutar la operación ",error); setError("No se puedo guardar, intentelo nuevamente.")
+        }   finally {
+                setGuardando(false);
         }
+    };
+
+
+
+    useEffect(() => {
+        if (!abierto) {
+            return;
+        }
+        const clickFuera = (event) => {
+            if (
+                modalRef.current &&
+                !modalRef.current.contains(event.target)
+            ) {
+                onCerrar();
+            }
+        };
+        document.addEventListener("mousedown", clickFuera);
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                clickFuera
+            );
+        };
+    }, [abierto, onCerrar]);
+
+    useEffect(() => {
+        if (!abierto) {
+            setNombreTipoPrenda("");
+            setMedidasAsignadas([]);
+            setError("");
+            return;
+        }
+        if (tipoPrenda) {
+            setNombreTipoPrenda(tipoPrenda.tipo || "");
+            setMedidasAsignadas(Object.keys(tipoPrenda.medidas_asig || {}))
+        } else {
+            setNombreTipoPrenda("");
+            setMedidasAsignadas([]);
+        }
+        setError("");
+    }, [abierto, tipoPrenda])
+  // Si el modal no está abierto, no renderizamos nada.
+    if (!abierto) {
+        return null;
+    }
+    
+    return (
+       <div className="modalColegioOverlay">
+            <div
+                className="modalColegio"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modalColegioTitle"
+                ref={modalRef}
+            >
+                {/* HEADER */}
+                <header className="modalColegioHeader">
+                    <h2
+                        id="modalColegioTitle"
+                        className="modalColegioTitle"
+                    >
+                        {tipoPrenda
+                            ? "Editar tipo de Prenda / Producto"
+                            : "Agregar tipo de Prenda / Producto"
+                        }
+                    </h2>
+
+                    <button
+                        type="button"
+                        className="modalColegioClose"
+                        onClick={onCerrar}
+                        aria-label="Cerrar"
+                        disabled={guardando}
+                    >
+                        <X
+                            size={17}
+                            strokeWidth={2}
+                        />
+                    </button>
+                </header>
+
+                {/* CONTENIDO */}
+                <div className="modalColegioContent">
+                    {/* NOMBRE DEL TIPO */}
+                    <div className="modalColegioField">
+                        <label
+                            htmlFor="nombreTipoPrenda"
+                            className="modalColegioLabel"
+                        >
+                            Escribe el nombre del tipo de
+                            Prenda / Producto
+                        </label>
+
+                        <input
+                            id="nombreTipoPrenda"
+                            type="text"
+                            className="modalColegioInput"
+                            placeholder="Ej. Pantalón, Vestido"
+                            value={nombreTipoPrenda}
+                            onChange={(event) => {
+
+                                setNombreTipoPrenda(
+                                    event.target.value
+                                );
+
+                                if (error) {
+                                    setError("");
+                                }
+
+                            }}
+                            maxLength={64}
+                            autoComplete="off"
+                            disabled={guardando}
+                        />
+                    </div>
+
+                    {/* ATRIBUTOS */}
+                    <div className="modalAtributosContainer">
+                        <div className="modalAtributosHeader">
+                            <div>
+                                <p className="modalColegioLabel">
+                                    Atributos / Medidas
+                                </p>
+                                <span className="modalAtributosDescripcion">
+                                    Opcional · máximo 10
+                                </span>
+                            </div>
+                            <span className="modalAtributosContador">
+                                {medidasAsignadas.length}/10
+                            </span>
+                        </div>
+
+                        {/* INPUTS DE ATRIBUTOS */}
+                        <div className="modalAtributosLista">
+                            {medidasAsignadas.map(
+                                (atributo, index) => (
+                                    <div
+                                        className="modalAtributoItem"
+                                        key={index}
+                                    >
+                                        <input
+                                            type="text"
+                                            className="modalColegioInput modalAtributoInput"
+                                            placeholder="Ej. Contorno"
+                                            value={atributo}
+                                            onChange={(event) =>
+                                                cambiarAtributo(
+                                                    index,
+                                                    event.target.value
+                                                )
+                                            }
+                                            maxLength={64}
+                                            autoComplete="off"
+                                            disabled={guardando}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="modalAtributoEliminar"
+                                            onClick={() =>
+                                                eliminarAtributo(
+                                                    index
+                                                )
+                                            }
+                                            disabled={guardando}
+                                            aria-label={`Eliminar atributo ${index + 1}`}
+                                        >
+                                            <Trash2
+                                                size={17}
+                                                strokeWidth={2}
+                                            />
+                                        </button>
+                                    </div>
+                                )
+                            )}
+                        </div>
+
+                        {/* AGREGAR ATRIBUTO */}
+                        <button
+                            type="button"
+                            className="modalAgregarAtributo"
+                            onClick={agregarAtributo}
+                            disabled={
+                                guardando ||
+                                medidasAsignadas.length >= 10
+                            }
+                        >
+                            <Plus
+                                size={17}
+                                strokeWidth={2}
+                            />
+                            <span>
+                                Agregar atributo
+                            </span>
+                        </button>
+                    </div>
+
+                    {/* ERROR */}
+                    {error && (
+                        <p className="modalColegioError">
+                            {error}
+                        </p>
+                    )}
+                </div>
+
+                {/* BOTONES */}
+                <footer className="modalColegioActions">
+                    <button
+                        type="button"
+                        className="modalColegioButton modalColegioButtonCancel"
+                        onClick={onCerrar}
+                        disabled={guardando}
+                    >
+                        <CircleX
+                            size={17}
+                            strokeWidth={2}
+                        />
+                        <span>
+                            Cancelar
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        className="modalColegioButton modalColegioButtonPrimary"
+                        disabled={guardando}
+                        onClick={agregarTipoPrenda}
+                    >
+                        <CirclePlus
+                            size={17}
+                            strokeWidth={2}
+                        />
+                        <span>
+                            {guardando
+                                ? "Guardando..."
+                                : tipoPrenda
+                                    ? "Guardar cambios"
+                                    : "Agregar"
+                            }
+                        </span>
+                    </button>
+                </footer>
+            </div>
+        </div>
+    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

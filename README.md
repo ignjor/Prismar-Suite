@@ -164,7 +164,7 @@ service cloud.firestore {
 
   
 
-### Sábado 21 de Agosto
+### Sábado 22 de Agosto
 
 -	Hoy no tiramos mucho codigo, casi nada practicamente ademas de solucionar una tontera en la base de datos, me di cuenta que claro, tenemos nombreLimpio para guardar pero a la hora de guardar llamamos a la variable sin limpiar con trim(), todo mal, solucionado, demasiado vergonzoso para anotarlo en el Bestiario de bugs
 
@@ -173,6 +173,20 @@ service cloud.firestore {
 -	Tenemos la pared de la pieza llena de papeles de diagramas, si el proyecto no queda lo mejor posible me pongo a llorar ajajajaja
 
 
+
+### Domingo 23 de Agosto
+
+- Descargarmos la idea de hacer directamente aplicar en el desarrollo el tema del login claro POR AHORA, solo POR AHORA, al final cuando tengamos todo estructurado vamos a dedicar el tiempo necesesario al login y la estrucutra de RBAC de los daots. Peparamos algunos diagramas y lo pegamos en la pared jasjd
+
+
+
+### Domingo 23 de Agosto v2
+
+- Avanzamos directamente la estructura del modal de ModalAgregarProducto, usamos una estructura de array para listar y guardar los atributos, los limpiamos con un trim() y luego los convertimos a un map con .forEach para que se convierta en la estructura MAP que necesitamos para guardar dentro de firestore.
+
+
+
+### Domingo 23 de Agosto v3
 
 
 
