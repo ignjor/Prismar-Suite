@@ -3,7 +3,7 @@ import "./ModalAgregarTipoProducto.css";
 
 import { db } from "../../firebase";
 
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, getDoc } from "firebase/firestore";
 
 import {CircleX, CirclePlus, X} from "lucide-react";
 
@@ -65,7 +65,7 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                 await addDoc(
                     collection(db, "tipo_prenda"),
                     {
-                        tipo: nombreTipoPrenda
+                        tipo: nombreLimpio
                     }
                 );
 
@@ -205,7 +205,7 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
 
             {/* Acciones */}
             <footer className="modalColegioActions">
-
+            
             <button
                 type="button"
                 className="modalColegioButton modalColegioButtonCancel"
