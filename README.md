@@ -156,6 +156,23 @@ service cloud.firestore {
 ```
 <img src="/Fotos%20Readme/modalvista.png" width="400">
 
+### Viernes 20 de Agosto
+
+-	DEscartamos la idea de un modal doble, creamos la vitacora de bugs para poder registrar nuestro bugs e ir mejorando poco a poco nuestro criterio, hoy principalmete debugeamos, arreglamos un bug del modal que mas que de uso era visual, era que simplemente no limpiamos los state del input al cerrar el modal con el click fuera del modal, esa funcion que cerraba el modal no limpiaba el input.
+
+-	Tambien arreglamos un bug de firestore que no me dejaba escribir en la base de datos, despues de cranearla como loco, las reglas de firestore me dejaron como imbecil porque solo era eso JJAJAJAJ, TEN CUIDADO CON LAS REGLAS DE FIRESTORE.
+
+  
+
+### Sábado 21 de Agosto
+
+-	Hoy no tiramos mucho codigo, casi nada practicamente ademas de solucionar una tontera en la base de datos, me di cuenta que claro, tenemos nombreLimpio para guardar pero a la hora de guardar llamamos a la variable sin limpiar con trim(), todo mal, solucionado, demasiado vergonzoso para anotarlo en el Bestiario de bugs
+
+-	Nos creanos la estructura REAL del proyecto, hasta el momento hemos avanzado poco en codigo porque nos hemos asegurado de dejar todo claro, como este proyecto es un proyecto real par PRISMAR, vamos a manejar una estructura de usuario real para mejorar primero, LA CLARA DEFICIENCIA en seguridad que tenemos a fecha de hoy, el problema esque eso nos va a atrasar unos días el proyecto pero prefiero hacerlo ahora antes que despues, vamos a manejar los usuarios con una arquitectura RBAC, creamos los usuarios con Cloud Functions, y firestore valida que rol tiene accignado y que puede hacer con cada rol, la idea de manejar los datos desde Cloud Functios nos coquetea bonito.
+
+-	Tenemos la pared de la pieza llena de papeles de diagramas, si el proyecto no queda lo mejor posible me pongo a llorar ajajajaja
+
+
 
 
 
