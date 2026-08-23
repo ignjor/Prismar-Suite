@@ -11,12 +11,13 @@ import {CircleX, CirclePlus, X, Plus, Trash2, IndianRupee, Key
 traemos desde TipoPrenda que es donde se usa este modal principalmente */
 export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrendaAgregado, tipoPrenda}) {
     const [nombreTipoPrenda, setNombreTipoPrenda] = useState("");
-    const [medidasAsignadas, setMedidasAsignadas] = useState([]); /*Esta de las medidas es una lista porque cuando creamos, no sabemos cuantos va acrear, solo sabemos que maximo 10 */
+    const [medidasAsignadas, setMedidasAsignadas] = useState([]); /*Esta de las medidas es una lista porque cuando creamos, no sabemos cuantos va acrear, solo sabemos que maximo 8888 */
 
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
     
     const modalRef = useRef(null);
+    const body = document.body;
 
     /* Validamos nombre, bueno no nombre si no los imputs, se llama nombre por que la cree en colegios y lo que funciona no se cambia
     La usamos para validar los inputs dentro del Tipo y las medidas asig. */
@@ -32,8 +33,8 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
             return "El nombre debe tener al menos 2 caracteres.";
         }
 
-        if (nombreLimpio.length > 64) {
-            return "El nombre no puede superar los 64 caracteres.";
+        if (nombreLimpio.length > 20) {
+            return "El nombre no puede superar los 20 caracteres.";
         }
 
         const caracteresPermitidos =
@@ -48,9 +49,9 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
 
 
 
-    /* Esta funcion agrega atributo, es simplemente para ver cuantos hay, si hay menos de 10, que lo agregue nomas*/
+    /* Esta funcion agrega atributo, es simplemente para ver cuantos hay, si hay menos de 8888, que lo agregue nomas*/
     const agregarAtributo = () => {
-        if (medidasAsignadas.length >= 10){
+        if (medidasAsignadas.length >= 8){
             return;
         }
         setMedidasAsignadas([
@@ -104,8 +105,9 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                 validarNombre(atributo);
             if (errorAtributo) {
                 setError("El atributo no es valido:",atributo);
+                return;
             } 
-            return;
+            
         }
         /*  Aqui tambien tenemos el juguito, esto es importante a morir, porque sí, convertrmos en map antes, pero aquia lo guardamos*/
         const medidasAsig = {};
@@ -119,12 +121,12 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
         /* Aqui es para cargar los datos de la coll si estamos editando */
             if (tipoPrenda) {
                 await updateDoc(doc( db, "tipo_prenda", tipoPrenda.id),
-                    {tipo:nombreLimpio, medidasAsig:medidasAsig}
+                    {tipo:nombreLimpio, medidas_asig:medidasAsig}
                 );
         /* Esta es para crear, por eso no llamamos ningun id, porque firestore la crea sola con el addDod :)*/ 
             } else {
                 await addDoc(collection( db, "tipo_prenda"),
-                    {tipo:nombreLimpio, medidasAsig:medidasAsig}
+                    {tipo:nombreLimpio, medidas_asig:medidasAsig}
                     
                 );
             }
@@ -144,6 +146,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
 
     useEffect(() => {
         if (!abierto) {
+            body.style.overflow = "";
             return;
         }
         const clickFuera = (event) => {
@@ -165,15 +168,18 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
 
     useEffect(() => {
         if (!abierto) {
+            body.style.overflow = '';
             setNombreTipoPrenda("");
             setMedidasAsignadas([]);
             setError("");
             return;
         }
         if (tipoPrenda) {
+            body.style.overflow="hidden";
             setNombreTipoPrenda(tipoPrenda.tipo || "");
             setMedidasAsignadas(Object.keys(tipoPrenda.medidas_asig || {}))
         } else {
+            body.style.overflow="hidden";
             setNombreTipoPrenda("");
             setMedidasAsignadas([]);
         }
@@ -181,6 +187,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
     }, [abierto, tipoPrenda])
   // Si el modal no está abierto, no renderizamos nada.
     if (!abierto) {
+        body.style.overflow = '';
         return null;
     }
     
@@ -248,7 +255,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                                 }
 
                             }}
-                            maxLength={64}
+                            maxLength={20}
                             autoComplete="off"
                             disabled={guardando}
                         />
@@ -261,12 +268,9 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                                 <p className="modalColegioLabel">
                                     Atributos / Medidas
                                 </p>
-                                <span className="modalAtributosDescripcion">
-                                    Opcional · máximo 10
-                                </span>
                             </div>
                             <span className="modalAtributosContador">
-                                {medidasAsignadas.length}/10
+                                {medidasAsignadas.length}/8
                             </span>
                         </div>
 
@@ -279,6 +283,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                                         key={index}
                                     >
                                         <input
+                            
                                             type="text"
                                             className="modalColegioInput modalAtributoInput"
                                             placeholder="Ej. Contorno"
@@ -289,7 +294,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                                                     event.target.value
                                                 )
                                             }
-                                            maxLength={64}
+                                            maxLength={20}
                                             autoComplete="off"
                                             disabled={guardando}
                                         />
@@ -321,7 +326,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                             onClick={agregarAtributo}
                             disabled={
                                 guardando ||
-                                medidasAsignadas.length >= 10
+                                medidasAsignadas.length >= 8
                             }
                         >
                             <Plus
@@ -371,10 +376,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                         />
                         <span>
                             {guardando
-                                ? "Guardando..."
-                                : tipoPrenda
-                                    ? "Guardar cambios"
-                                    : "Agregar"
+                                ? "Guardando...": "Agregar"
                             }
                         </span>
                     </button>

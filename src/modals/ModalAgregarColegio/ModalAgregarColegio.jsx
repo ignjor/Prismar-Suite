@@ -12,7 +12,9 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
     const [nombreColegio, setNombreColegio] = useState("");
     const [error, setError] = useState("");
     const [guardando, setGuardando] = useState(false);
+
     const modalRef = useRef(null);
+    const body = document.body;
 
     /* Creamos esta funcion para validad los inputs, en nuestro caso este caso es solo el nombre del colegio, para limitar
     los nombres especiales y tambien limitar las inserciones de codigo, pero obvio esto no es seguridad, porque todo lo del front
@@ -87,6 +89,7 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
 
     useEffect(() => {
         if (!abierto) {
+            body.style.overflow="";
             return;
         }
         const clickFuera = (event) => {
@@ -108,13 +111,16 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
 
     useEffect(() => {
         if (!abierto) {
+            body.style.overflow="";
             setNombreColegio("");
             setError("");
             return;
         }
         if (colegio) {
+            body.style.overflow="hidden";
             setNombreColegio(colegio.nombre);
         } else {
+            body.style.overflow="hidden";
             setNombreColegio("");
         }
         setError("");
@@ -124,6 +130,7 @@ export default function ModalAgregarColegio({ abierto, onCerrar, onColegioAgrega
 
   // Si el modal no está abierto, no renderizamos nada.
     if (!abierto) {
+        body.style.overflow="";
         return null;
     }
 
