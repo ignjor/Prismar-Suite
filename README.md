@@ -188,6 +188,12 @@ service cloud.firestore {
 
 ### Domingo 23 de Agosto v3
 
+- La estructura de crear modal tipo de prenda quedo bien, falta testearla bajo estres para confirmar que no tiene bugs, las reglas de firestore hasta el momento (sin login), estas seguras dentro de lo posible.
+
+
+
+<img src="/Fotos%20Readme/modaltipocolegio.png" width="400">
+
 
 
 

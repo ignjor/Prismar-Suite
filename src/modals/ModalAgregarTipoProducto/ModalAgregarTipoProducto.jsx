@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarTipoProducto.css";
 
 import { db } from "../../firebase";
-import { addDoc, collection, updateDoc, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
 
-import {CircleX, CirclePlus, X, Plus, Trash2, IndianRupee, Key
+import {CircleX, CirclePlus, X, Plus, Trash2, PencilRuler
 } from "lucide-react";
 
 /* Creamos la funcion del modal, que va a tener todas las funciones, y lo hacemos llamando a las variables y estados que 
@@ -234,8 +234,7 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                             htmlFor="nombreTipoPrenda"
                             className="modalColegioLabel"
                         >
-                            Escribe el nombre del tipo de
-                            Prenda / Producto
+                            Escribe el nombre del tipo de Producto
                         </label>
 
                         <input
@@ -329,12 +328,12 @@ export default function ModalAgregarTipoProducto({abierto, onCerrar, onTipoPrend
                                 medidasAsignadas.length >= 8
                             }
                         >
-                            <Plus
+                            <PencilRuler
                                 size={17}
                                 strokeWidth={2}
                             />
                             <span>
-                                Agregar atributo
+                                Sumar Atributo
                             </span>
                         </button>
                     </div>
