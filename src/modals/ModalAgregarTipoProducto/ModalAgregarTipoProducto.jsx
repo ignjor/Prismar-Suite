@@ -198,8 +198,6 @@ export default function ModalAgregarTipoProducto({ abierto, onCerrar, onTipoPren
                     {error}
                 </p>
                 )}
-
-
             </div>
 
             </div>
