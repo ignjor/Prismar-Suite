@@ -1,15 +1,17 @@
 # EN DESARROLLO - Prismar Suite.
 
+Sistema empresarial interno desarrollado para Prismar, orientado a la administración de procesos de productos, pedidos, finanzas y gestión interna de la empresa.
+
 ## Tecnologías
 
 Framework: **React con Vite.**
 
 Lenguaje: **JavaScript.**
 
-Base de datos: [Firebase](https://firebase.google.com)
+Base de datos: [Firestore de Firebase](https://firebase.google.com)
 
 Backend: con **Cloud Functions** de [Firebase](https://firebase.google.com)
-según lo requiera 
+según lo requiera para la creación de usuarios.
 
 
 ## Paquetes de dependencias
@@ -28,34 +30,143 @@ npm run dev
 ```
 
 
-## Modelo de Datos
+## Arquitectura
 
 ### Diagrama UML
-![Diagrama UML](./Fotos%20Readme/Diagrama.jpg)
-
 
 La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
 
-
-| productos                 | pedidos                   |  Colegios*      
-| :---:                     | :---:                     |  :---: 
-| id_producto = string      | id_pedido = string        |  id_colegio = string                                
-| nombre = string           | nombre = string           |  nombre = string                  
-| precio = int64            | fono = string             |                 
-| talla = string            | fecha_registro = string   |
-| active = boolean          | fecha_programada = string |
-| stock = int64             | abono = int64             |
-| id_colegio = string       | total = int64             |
-|                           | comentarios = string      |
-|                           | tipo = string             |
-|                           | entregado = boolean       |
-|                           | fecha_entregado = string  |
-|                           | id_producto     = string  |
-
-Los documentos utilizan IDs generados automáticamente por Firestore.
-Esto permite delegar la generación de identificadores al servicio y evitar
-tener que administrar manualmente los IDs desde la aplicación.
-
-En colegios* puede ser el tipo que requiera, en nuestro caso como la actividad principal de la empresa son los uniformes escolares usamos los colegios para asignarlos a cualquier producto segun lo requiera, asi ademas filtramos mejor cuando lo necesitemos luego.
+![Diagrama UML](./Fotos%20Readme/Diagrama.jpg)
 
 
+
+
+### Estructura RBAC
+
+Usuarios - Mediante Cloud Functions.
+| CRUD                      | Admin   | Other Users |          
+| :---:                     | :---:   |   :---:     |     
+| CREATE                    | ✔️      |   ✖️       |                        
+| READ                      | ✔️      |   ✖️       |            
+| UPDATE                    | ✔️      |   ✖️       |
+| DELETE                    | ✔️      |   ✖️       |
+
+
+Tipo de Prenda
+| CRUD                      | Admin   | Manager     | Tienda |    Contabilidad       
+| :---:                     | :---:   |   :---:     | :---:  |  :---:
+| CREATE                    | ✔️      |   ✔️       |  ✖️    |    ✖️               
+| READ                      | ✔️      |   ✔️       |  ✖️    |    ✖️   
+| UPDATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+| DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+
+
+Colegio
+| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+| :---:                     | :---:   |   :---:     | :---:  |   :---:
+| CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️               
+| READ                      | ✔️      |   ✔️       |  ✖️    |   ✖️   
+| UPDATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+| DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+
+
+Producto
+| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+| :---:                     | :---:   |   :---:     | :---:  |   :---:
+| CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️               
+| READ                      | ✔️      |   ✔️       |  ✔️    |   ✖️   
+| UPDATE                    | ✔️      |   ✔️       |  ✔️    |   ✖️
+| DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+
+
+Pedidos
+| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+| :---:                     | :---:   |   :---:     | :---:  |   :---:
+| CREATE                    | ✔️      |   ✔️       |  ✔️    |   ✖️               
+| READ                      | ✔️      |   ✔️       |  ✔️    |   ✖️   
+| UPDATE                    | ✔️      |   ✔️       |  ✔️    |   ✖️
+| DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
+
+Contabilidad
+| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+| :---:                     | :---:   |   :---:     | :---:  |   :---:
+| CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✔️               
+| READ                      | ✔️      |   ✔️       |  ✖️    |   ✔️   
+| UPDATE                    | ✔️      |   ✔️       |  ✖️    |   ✔️
+| DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✔️
+
+
+## Seguridad
+
+### Reglas de Firestore (Sujetas a Cambios).
+
+> ⚠️ Estas reglas corresponden al estado actual del desarrollo y no representan todavía la configuración definitiva para producción. El acceso será restringido mediante autenticación y RBAC antes del despliegue.
+
+```Firebase
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /colegios/{colegioId} {
+
+      allow read: if true;
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "nombre"
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 64;
+
+      allow update: if
+        request.resource.data.keys().hasOnly([
+          "nombre"
+        ])
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 64;
+
+      allow delete: if true;
+    }
+    
+    match /tipo_prenda/{tipo_prendaId} {
+
+      allow read: if true;
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "tipo", "medidas_asig"
+        ])
+        && request.resource.data.tipo is string
+        && request.resource.data.tipo.size() >= 2
+        && request.resource.data.tipo.size() <= 20
+        && request.resource.data.medidas_asig is map
+        && request.resource.data.medidas_asig.size() <= 8;
+
+
+      allow update: if
+        request.resource.data.keys().hasOnly([
+          "tipo", "medidas_asig"
+        ])
+        && request.resource.data.tipo is string
+        && request.resource.data.tipo.size() >= 2
+        && request.resource.data.tipo.size() <= 20
+        && request.resource.data.medidas_asig is map
+        && request.resource.data.medidas_asig.size() <= 8;
+
+      allow delete: if true;
+    }
+
+  }
+}
+```
+### Login (en desarrrollo).
+
+
+La autenticación de usuarios se realiza mediante Google utilizando Firebase Authentication, solo el administrador tiene acceso a la ventana de usuarios.
+
+La autorización de acceso a los recursos se controla mediante roles y Firebase Security Rules.
+
+Las operaciones administrativas relacionadas con usuarios se ejecutan mediante Cloud Functions, evitando realizar directamente estas operaciones sensibles desde el cliente.

@@ -196,7 +196,7 @@ service cloud.firestore {
 
 ### Martes 25 de Agosto
 
--   
+-  Creamos la doc oficial para el sistema dentro de Readme.md
 
 
 
