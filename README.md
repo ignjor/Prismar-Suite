@@ -23,7 +23,7 @@ según lo requiera para la creación de usuarios.
 - Lucide React
 
 ```bash
-git clone <https://github.com/ignjor/Prismar-Suite.git>
+git clone https://github.com/ignjor/Prismar-Suite.git
 cd prismar-suite
 npm install
 npm run dev
