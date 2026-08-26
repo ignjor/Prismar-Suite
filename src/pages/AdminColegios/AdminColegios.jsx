@@ -3,7 +3,7 @@ import {db} from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import ModalAgregarColegio from "../../modals/ModalAgregarColegio/ModalAgregarColegio";
+import ModalAgregarEditarColegio from "../../modals/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
 import {PencilLine, Eraser, School} from "lucide-react";
 
 export default function AdminColegios() {
@@ -99,7 +99,7 @@ export default function AdminColegios() {
               <School size={21} strokeWidth={2}/>
             </button>
         </section>
-          <ModalAgregarColegio
+          <ModalAgregarEditarColegio
             abierto = {estadoDelModal}
             onCerrar = {cerrarModal}
             colegio = {colegioAEditar}
