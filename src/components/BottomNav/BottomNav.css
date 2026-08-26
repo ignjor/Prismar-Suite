@@ -1,9 +1,4 @@
-/* Todos los estilos son auspiciados por la IA jsdja */
 
-
-/* Contenedor general de la barra y el botón.
-Ambos elementos ahora pertenecen al mismo bloque horizontal,
-por lo que nunca se van a superponer. */
 .bottomContainer {
 
     position: fixed;
@@ -26,10 +21,6 @@ por lo que nunca se van a superponer. */
 
 }
 
-
-/* Barra de navegación.
-La hacemos un poco más pequeña para dejar espacio al botón
-verde sin romper el diseño en pantallas pequeñas. */
 .bottomNav {
 
     flex: 1 1 auto;
@@ -57,8 +48,6 @@ verde sin romper el diseño en pantallas pequeñas. */
 
 }
 
-
-/* Cada elemento individual de la navegación. */
 .navItem {
 
     display: flex;
@@ -81,7 +70,6 @@ verde sin romper el diseño en pantallas pequeñas. */
 
 }
 
-/* Estilo de la opción que está activa. */
 .active {
 
     color: #000;
@@ -90,10 +78,6 @@ verde sin romper el diseño en pantallas pequeñas. */
 
 }
 
-
-/* Contenedor del botón +.
-Tiene posición relativa para que el menú pueda aparecer
-justo encima de él. */
 .addContainer {
 
     position: relative;
@@ -112,9 +96,6 @@ justo encima de él. */
 
 }
 
-
-/* Pequeño menú que aparece encima del botón.
-El estilo es intencionalmente sencillo y limpio. */
 .addMenu {
 
     position: absolute;
@@ -151,8 +132,6 @@ El estilo es intencionalmente sencillo y limpio. */
 
 }
 
-
-/* Cada una de las dos opciones del menú. */
 .addOption {
 
     display: flex;
@@ -183,8 +162,6 @@ El estilo es intencionalmente sencillo y limpio. */
 
 }
 
-
-/* Botón verde de agregar. */
 .addButton {
 
     width: 48px;
@@ -215,9 +192,6 @@ El estilo es intencionalmente sencillo y limpio. */
 
 }
 
-
-/* Eliminamos el efecto azul que algunos navegadores
-móviles muestran al tocar botones y enlaces. */
 .bottomContainer,
 .bottomContainer * {
 
