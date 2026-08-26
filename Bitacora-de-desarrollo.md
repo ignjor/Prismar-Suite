@@ -196,7 +196,8 @@ service cloud.firestore {
 
 ### Martes 25 de Agosto
 
--  Creamos la doc oficial para el sistema dentro de Readme.md
+- Creamos la doc oficial para el sistema dentro de Readme.md
+- Refactorizamos completo Botton nav aplicando las 5S de Clean Code. 
 
 
 
