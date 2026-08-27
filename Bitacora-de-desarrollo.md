@@ -197,7 +197,17 @@ service cloud.firestore {
 ### Martes 25 de Agosto
 
 - Creamos la doc oficial para el sistema dentro de Readme.md
-- Refactorizamos completo Botton nav aplicando las 5S de Clean Code. 
+- Refactorizamos completo Botton nav aplicando las 5S de Clean Code.
+- 
+
+### Miercoles 26 de Agosto
+
+- Refactorizamos el completamente la seccion de Admin colegios, quedo pro, variables y funciones claras, sin comentarios redundantes e innesesarios.
+
+### Miercoles 26 de Agosto v2
+
+- Comenzamos la Refactiracion de Modal para crear colegio, no lo completamos por resfrio. Pero separamos la funcion que estaba con un if, la cambiamos a 2 distintas mas claras para ser mas claro.
+  
 
 
 
