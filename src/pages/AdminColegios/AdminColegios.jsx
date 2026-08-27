@@ -43,11 +43,9 @@ export default function AdminColegios() {
             Empresas / Colegios
           </h1>
         </header>
-
         <section className="colegiosGrid">
 
           {datosDeColegios.map((datoColegioEspecifico) => (
-
             <article
               key={datoColegioEspecifico.id}
               className="colegioCard"
@@ -57,7 +55,6 @@ export default function AdminColegios() {
                   {datoColegioEspecifico.nombre}
                 </h2>
               </div>
-
               <div className="colegioActions">
                 <button
                   type="button"
@@ -89,7 +86,6 @@ export default function AdminColegios() {
             <p className="agregarColegioTexto">
               ¿Necesitas agregar una empresa o un colegio?
             </p>
-
             <button
               type="button"
               className="agregarColegioButton"
@@ -100,10 +96,10 @@ export default function AdminColegios() {
             </button>
         </section>
           <ModalAgregarEditarColegio
-            abierto = {estadoDelModal}
-            onCerrar = {cerrarModal}
-            colegio = {colegioAEditar}
-            onColegioAgregado={obtenerDatosDeColegios}
+            datoColegioEditar = {colegioAEditar}
+            modalAbierto = {estadoDelModal}
+            onCerrarModal = {cerrarModal}
+            onGuardarColegio={obtenerDatosDeColegios}
               />
       </main>
     );

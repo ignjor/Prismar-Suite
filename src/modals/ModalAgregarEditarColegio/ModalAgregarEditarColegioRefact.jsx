@@ -1,5 +1,5 @@
 import "./ModalAgregarEditarColegio.css";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
@@ -14,7 +14,7 @@ const validarTextoDeInput = (nombreDeColegio) => {
     if (!caracteresPermitidos.test(nombreValidado)) {return "El texto contiene caracteres no permitidos.";}
     return null
 };
-export default function ModalAgregarEditarColegio({ModalAbierto, CerrarModal, ColegioAEditar, ColegioAAgregar}){
+export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onGuardarColegio  }){
     const [error, setError] = useState("");
     const [guardandoColegio, setGuardandoColegio] = useState(false);
 
@@ -31,28 +31,36 @@ export default function ModalAgregarEditarColegio({ModalAbierto, CerrarModal, Co
             await addDoc(collection(db, "colegios"),{
                 nombre: nombreValidado
             });
-            await ColegioAAgregar()
+            await onGuardarColegio()
             setNombreDeColegio("");
-            CerrarModal();
+            onCerrarModal();
         }catch(error){
             console.error("Error al Crear el Colegio:",error); setError("No se pudo crear el colegio, intente de nuevo.");
         }finally{setGuardandoColegio(false)}
     };
     
-    const guardarColegioEditado = async () => {
+    const guardarColegioEditado = async (nombreValidado) => {
+         const errorValidarTextoDeInput = validarTextoDeInput(nombreValidado)
+        if (errorValidarTextoDeInput) {setError(errorValidarTextoDeInput);
+            return;
+        }
+        try {
+            setGuardandoColegio(true); setError("");
+            await updateDoc(doc(db, "colegios", datoColegioEditar.id),{
+                nombre: nombreValidado
+            });
+            await onGuardarColegio()
+            setNombreDeColegio("");
+            onCerrarModal();
+        }catch(error){
+            console.error("Error al Editar el Colegio:",error); setError("No se pudo editar el colegio, intente de nuevo.");
+        }finally{setGuardandoColegio(false)}
+    };
 
-    }
 
 
 
-
-
-
-
-    const ClickEnModalRef = useRef(null)
-
-
-
+    
 
 
 }
