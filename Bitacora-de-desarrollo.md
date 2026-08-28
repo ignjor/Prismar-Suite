@@ -207,6 +207,12 @@ service cloud.firestore {
 ### Miercoles 26 de Agosto v2
 
 - Comenzamos la Refactiracion de Modal para crear colegio, no lo completamos por resfrio. Pero separamos la funcion que estaba con un if, la cambiamos a 2 distintas mas claras para ser mas claro.
+
+### Jueves 27 de Agosto
+
+- Refactor completo del modal agrar colegio, funciona bien y quedo mucho mas legible y mejor estructurado
+
+- Refactor de todas las carpetas del proyecto, de la redistribucion.
   
 
 
