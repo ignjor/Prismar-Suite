@@ -1,16 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home/Home";
-import Pedidos from "./pages/Pedidos/Pedidos";
-import Productos from "./pages/Productos/Productos";
-import Cuentas from "./pages/Cuentas/Cuentas";
-import Colegios from "./pages/AdminColegios/AdminColegios";
-import TipoPrenda from "./pages/TipoPrenda/TipoPrenda";
+import Home from "./features/Home/Home/Home";
+import Productos from "./features/Productos/Productos/Productos";
+import Cuentas from "./features/Cuentas/Cuentas/Cuentas";
+import Colegios from "./features/Colegios/Colegios/Colegios";
+import TipoPrenda from "./features/tiposProducto/TipoPrenda/TipoPrenda";
 
-import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
-import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";
+/*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
+import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
-import BottomNav from "./components/BottomNav/BottomNav";
+import BottomNav from "./components/navigation/BottomNav/BottomNav";
 
 function App() {
 
@@ -22,32 +21,18 @@ function App() {
           path="/" 
           element={<Home />}
         />
-        <Route
-          path="/pedidos" 
-          element={<Pedidos />} 
-        />
+
         <Route 
           path="/productos" 
           element={<Productos />} 
         />
-        <Route 
-          path="/cuentas" 
-          element={<Cuentas />} 
-        />
-        <Route 
-          path="/agregar-producto" 
-          element={<AgregarProducto />} 
-        />
-        <Route 
-          path="/agregar-pedido" 
-          element={<AgregarPedido />} 
-        />
+
         <Route 
           path="/tipo-prenda"
           element={<TipoPrenda/>}
         />
         <Route 
-          path="/admin-colegios" 
+          path="/colegios" 
           element={<Colegios />} 
         />
       </Routes>

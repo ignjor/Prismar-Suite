@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarTipoProducto.css";
 
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
 
 import {CircleX, CirclePlus, X, Plus, Trash2, PencilRuler

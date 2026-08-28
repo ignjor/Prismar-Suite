@@ -1,26 +1,3 @@
-/*
-  ModalColegio.css
-
-  Modal utilizado para agregar y posteriormente
-  editar colegios.
-
-  La estética mantiene la misma línea visual de
-  AdminColegios:
-  - Minimalismo
-  - Colores suaves
-  - Bordes redondeados
-  - Sombras ligeras
-  - Sin animaciones exageradas
-*/
-
-
-/*
-  OVERLAY
-
-  Cubre toda la pantalla y coloca una capa
-  ligeramente oscura detrás del modal.
-*/
-
 .modalColegioOverlay {
 
   position: fixed;
@@ -44,11 +21,6 @@
   -webkit-backdrop-filter: blur(8px);
 
 }
-
-
-/*
-  CONTENEDOR PRINCIPAL DEL MODAL
-*/
 
 .modalColegio {
 

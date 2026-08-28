@@ -10,10 +10,10 @@ practicamente identicas
 */
 
 import "./TipoPrenda.css";
-import ModalAgregarTipoProducto from "../../modals/ModalAgregarTipoProducto/ModalAgregarTipoProducto";
+import ModalAgregarTipoProducto from "../ModalAgregarTipoProducto/ModalAgregarTipoProducto";
 
 /* Importamos firebase de donde lo tenemos y las funciones que usamos obvio */
-import {db} from "../../firebase";
+import {db} from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 

@@ -1,12 +1,12 @@
-import "./AdminColegios.css";
-import {db} from "../../firebase";
+import "./Colegios.css";
+import {db} from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
-import ModalAgregarEditarColegio from "../../modals/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
+import ModalAgregarEditarColegio from "../ModalAgregarEditarColegio/ModalAgregarEditarColegio";
 import {PencilLine, Eraser, School} from "lucide-react";
 
-export default function AdminColegios() {
+export default function Colegios() {
     const [datosDeColegios, setDatosDeColegios] = useState([]);
     const [colegioAEditar, setColegioAEditar] = useState(null);
 

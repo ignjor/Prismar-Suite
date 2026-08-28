@@ -1,6 +1,6 @@
 import "./ModalAgregarEditarColegio.css";
 import { useEffect, useRef, useState } from "react";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
 import {CircleX, CirclePlus, X} from "lucide-react";

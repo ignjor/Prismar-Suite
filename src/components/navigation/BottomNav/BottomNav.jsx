@@ -14,7 +14,7 @@ const rutasDeNavegacionBotonPlus = [
     {name: "Agregar Pedido", path: "/agregar-pedido", icon: ShoppingBag},
     {name: "Agregar Producto", path: "/agregar-producto", icon: Package},
     {name: "Agregar Gasto", path: "/agregar-gasto", icon: BanknoteArrowDown},
-    {name: "Empresas", path: "/admin-colegios", icon: School},
+    {name: "Empresas", path: "/colegios", icon: School},
     {name: "Tipos de Prenda", path: "/tipo-prenda", icon: Shirt},
 ];
 
