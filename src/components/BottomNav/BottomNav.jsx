@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./BottomNav.css";
 
-import { Home, ShoppingBag, Package, PiggyBank, Plus, School, Baby, BanknoteArrowDown, Shirt } from "lucide-react";
+import { Home, ShoppingBag, Package, PiggyBank, Plus, School, BanknoteArrowDown, Shirt } from "lucide-react";
 
 const rutasDeNavegacion = [
     {name: "Inicio", path: "/", icon: Home},
@@ -21,7 +21,7 @@ const rutasDeNavegacionBotonPlus = [
 
 export default function BottomNav() {
     const [estadoBotonPlus, setEstadoBotonPlus] = useState(false);
-    const estadoBotonPlusRef = useRef(null);
+    const RefAreaBotonPlus = useRef(null);
     const cambiarEstadoBotonPlus = () => setEstadoBotonPlus(estado => !estado);
 
     
@@ -29,7 +29,7 @@ export default function BottomNav() {
         if (!estadoBotonPlus) return;
         
         const clickFueraBotonPlus = (event) => { 
-            if (estadoBotonPlusRef.current && !estadoBotonPlusRef.current.contains(event.target)){
+            if (RefAreaBotonPlus.current && !RefAreaBotonPlus.current.contains(event.target)){
                 setEstadoBotonPlus(false);
             }
         };
@@ -59,7 +59,7 @@ export default function BottomNav() {
                 })}
             </nav>
             
-            <div ref = {estadoBotonPlusRef} className="addContainer">    
+            <div ref = {RefAreaBotonPlus} className="addContainer">    
                 <div 
                     className="addMenu"
                     style={{

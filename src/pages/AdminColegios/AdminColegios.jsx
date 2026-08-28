@@ -27,13 +27,13 @@ export default function AdminColegios() {
     const [estadoDelModal, setEstadoDelModal] = useState(false);
 
     const abrirModalParaCrear = () => {
-        setEstadoDelModal(true); setColegioAEditar(null); 
+        setColegioAEditar(null); setEstadoDelModal(true); 
     };
     const abrilModalParaEditar = (datoColegioEspecifico) => {
-        setEstadoDelModal(true); setColegioAEditar(datoColegioEspecifico); 
+        setColegioAEditar(datoColegioEspecifico); setEstadoDelModal(true); 
     };
     const cerrarModal = () => {
-        setEstadoDelModal(false); setColegioAEditar(null); 
+        setColegioAEditar(null); setEstadoDelModal(false); 
     };
 
     return(

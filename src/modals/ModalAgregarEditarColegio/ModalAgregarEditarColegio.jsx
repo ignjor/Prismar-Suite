@@ -1,250 +1,197 @@
-import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarEditarColegio.css";
-
+import { useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
-
 import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 
 import {CircleX, CirclePlus, X} from "lucide-react";
 
+const body = document.body;
 
-export default function ModalAgregarEditarColegio({ abierto, onCerrar, onColegioAgregado, colegio }) {
-    const [nombreColegio, setNombreColegio] = useState("");
+const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
+const validarTextoDeInput = (nombreDeColegio) => {
+    const nombreValidado = nombreDeColegio.trim();
+    if (nombreValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
+    if (nombreValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
+    if (!caracteresPermitidos.test(nombreValidado)) {return "El texto contiene caracteres no permitidos.";}
+    return null
+};
+
+export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onGuardarColegio  }){
     const [error, setError] = useState("");
-    const [guardando, setGuardando] = useState(false);
+    const [guardandoColegio, setGuardandoColegio] = useState(false);
+    const RefAreaDelModal = useRef(null);
 
-    const modalRef = useRef(null);
-    const body = document.body;
+    const [nombreDeColegio ,setNombreDeColegio] = useState("");
 
-    /* Creamos esta funcion para validad los inputs, en nuestro caso este caso es solo el nombre del colegio, para limitar
-    los nombres especiales y tambien limitar las inserciones de codigo, pero obvio esto no es seguridad, porque todo lo del front
-    end se puede vulnerar facil desde el navegador con un devtool, por eso tambien colocamos reglas de firestore seguras para evitar
-    insercioens de codigo. */ 
-    const validadNombre = (nombre) => {
-        const nombreLimpio = nombre.trim();
-
-        if (nombreLimpio.length === 0) {
-            return "Debes ingresar el nombre.";
+    useEffect(() => {
+        if (!modalAbierto) {
+            body.style.overflow="";
+            setNombreDeColegio("");
+            setError("");
+            return;
         }
-
-        if (nombreLimpio.length < 2) {
-            return "El nombre debe tener al menos 2 caracteres.";
+        body.style.overflow="hidden";
+        if (datoColegioEditar) {
+            setNombreDeColegio(datoColegioEditar.nombre)
+        }else{
+            setNombreDeColegio("");
         }
+        setError("");
+    }, [modalAbierto, datoColegioEditar])
 
-        if (nombreLimpio.length > 64) {
-            return "El nombre no puede superar los 64 caracteres.";
+    useEffect(() => {
+        if (!modalAbierto) {
+            body.style.overflow="";
+            return;
         }
+        const clickFueraDelModal = (event) => {
+            if (RefAreaDelModal.current && !RefAreaDelModal.current.contains(event.target)){
+                onCerrarModal();
+            }
+        };
+        document.addEventListener("mousedown", clickFueraDelModal);
+        return () => {document.removeEventListener("mousedown", clickFueraDelModal);
+        };
+    }, [modalAbierto, onCerrarModal]);
 
-        const caracteresPermitidos =
-            /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
 
-        if (!caracteresPermitidos.test(nombreLimpio)) {
-            return "El nombre contiene caracteres no permitidos.";
-        }
-
-        return null;
-    };
-
-    /* Aqui si finalmente agregamos al colegio para guardarlo desde obvio la primera validaciom */
-    const agregarColegio = async () => {
-        const nombreLimpio = nombreColegio.trim();
-        const errorValidacion = validadNombre(nombreLimpio);
+    const guardarColegioCreadoOEditado = () => {
+        const errorValidacion = validarTextoDeInput(nombreDeColegio);
         if (errorValidacion) {
             setError(errorValidacion);
             return;
         }
-        try {
-            setGuardando(true);
-            setError("");
-
-            if (colegio) {
-                    await updateDoc(
-                    doc(db,"colegios", colegio.id),
-                    {
-                        nombre: nombreLimpio
-                    }
-                );
-            } else {
-                await addDoc(
-                    collection(db, "colegios"),
-                    {
-                        nombre: nombreLimpio
-                    }
-                );
-
-            }
-            await onColegioAgregado()
-            setNombreColegio("");
-            onCerrar();
-        } catch (error) {
-            console.error("Error al agregar a la base de datos:", error);
-            setError("No se pudo guardar, intente denuevo.");
-        } finally {
-            setGuardando(false);
+        if (datoColegioEditar) {
+            guardarColegioEditado(nombreDeColegio.trim());
+        }else{
+            guardarColegioCreado(nombreDeColegio.trim());
         }
     };
 
-
-
-
-    useEffect(() => {
-        if (!abierto) {
-            body.style.overflow="";
-            return;
-        }
-        const clickFuera = (event) => {
-            if (
-                modalRef.current &&
-                !modalRef.current.contains(event.target)
-            ) {
-                onCerrar();
-            }
-        };
-        document.addEventListener("mousedown", clickFuera);
-        return () => {
-            document.removeEventListener(
-                "mousedown",
-                clickFuera
-            );
-        };
-    }, [abierto, onCerrar]);
-
-    useEffect(() => {
-        if (!abierto) {
-            body.style.overflow="";
-            setNombreColegio("");
-            setError("");
-            return;
-        }
-        if (colegio) {
-            body.style.overflow="hidden";
-            setNombreColegio(colegio.nombre);
-        } else {
-            body.style.overflow="hidden";
-            setNombreColegio("");
-        }
-        setError("");
-    }, [abierto, colegio])
+    const guardarColegioCreado = async (nombreValidado) => {
+        try {
+            setGuardandoColegio(true); setError("");
+            await addDoc(collection(db, "colegios"),{
+                nombre: nombreValidado
+            });
+            await onGuardarColegio()
+            setNombreDeColegio("");
+            onCerrarModal();
+        }catch(error){
+            console.error("Error al Crear el Colegio:",error); setError("No se pudo crear el colegio, intente de nuevo.");
+        }finally{setGuardandoColegio(false)}
+    };
     
-
-
-  // Si el modal no está abierto, no renderizamos nada.
-    if (!abierto) {
+    const guardarColegioEditado = async (nombreValidado) => {
+        try {
+            setGuardandoColegio(true); setError("");
+            await updateDoc(doc(db, "colegios", datoColegioEditar.id),{
+                nombre: nombreValidado
+            });
+            await onGuardarColegio()
+            setNombreDeColegio("");
+            onCerrarModal();
+        }catch(error){
+            console.error("Error al Editar el Colegio:",error); setError("No se pudo editar el colegio, intente de nuevo.");
+        }finally{setGuardandoColegio(false)}
+    };
+    
+    if (!modalAbierto) {
         body.style.overflow="";
         return null;
     }
 
     return (
-
         <div className="modalColegioOverlay">
-
-        <div
-            className="modalColegio"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modalColegioTitle"
-            ref = {modalRef}
-        >
-
-            {/* Encabezado del modal */}
-            <header className="modalColegioHeader">
-
-            <h2
-                id="modalColegioTitle"
-                className="modalColegioTitle"
+            <div
+                className="modalColegio"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modalColegioTitle"
+                ref = {RefAreaDelModal}
             >
-                {colegio
-                ? "Editar Empresa / Colegio"
-                : "Agregar Empresa / Colegio"
-                }
-            </h2>
-
-            <button
-                type="button"
-                className="modalColegioClose"
-                onClick={onCerrar}
-                aria-label="Cerrar"
-                disabled={guardando}
-            >
-                <X size={17} strokeWidth={2} />
-            </button>
-
-            </header>
-
-
-            {/* Contenido principal */}
-            <div className="modalColegioContent">
-
-            <div className="modalColegioField">
-
-                <label
-                htmlFor="nombreColegio"
-                className="modalColegioLabel"
+                <header className="modalColegioHeader">
+                <h2
+                    id="modalColegioTitle"
+                    className="modalColegioTitle"
                 >
-                Escribe el nombre del afiliado al producto
-                </label>
-
-                <input
-                id="nombreColegio"
-                type="text"
-                className="modalColegioInput"
-                placeholder="Ej. Colegio San José"
-                value={nombreColegio}
-                onChange={(event) => {
-                    setNombreColegio(event.target.value);
-                    if (error) {
-                        setError("");
+                    {datoColegioEditar
+                    ? "Editar Empresa / Colegio"
+                    : "Agregar Empresa / Colegio"
                     }
-                }}
-                maxLength={64}
-                autoComplete="off"
+                </h2>
+                <button
+                    type="button"
+                    className="modalColegioClose"
+                    onClick={onCerrarModal}
+                    aria-label="Cerrar"
+                    disabled={guardandoColegio}
+                >
+                    <X size={17} strokeWidth={2} />
+                </button>
+                </header>
+                <div className="modalColegioContent">
+                    <div className="modalColegioField">
+                        <label
+                        htmlFor="nombreColegio"
+                        className="modalColegioLabel"
+                        >
+                        Escribe el nombre del afiliado al producto
+                        </label>
+                        <input
+                        id="nombreColegio"
+                        type="text"
+                        className="modalColegioInput"
+                        placeholder="Ej. Colegio San José"
+                        value={nombreDeColegio}
+                            /*{datoColegioEditar
+                                ? nombreDeColegio || datoColegioEditar.nombre
+                                : nombreDeColegio
+                            }*/
+                        onChange={(event) => {
+                            setNombreDeColegio(event.target.value);
+                            if (error) {
+                                setError("");
+                            }
+                        }}
+                        maxLength={32}
+                        autoComplete="off"
+                        disabled={guardandoColegio}
+                        />
+                        {error && (
+                        <p className="modalColegioError">
+                            {error}
+                        </p>
+                        )}
+                    </div>
+                </div>
 
-                disabled={guardando}
-                />
-                {error && (
-                <p className="modalColegioError">
-                    {error}
-                </p>
-                )}
+                <footer className="modalColegioActions">
+                <button
+                    type="button"
+                    className="modalColegioButton modalColegioButtonCancel"
+                    onClick={onCerrarModal}
+                    disabled={guardandoColegio}
+                >
+                    <CircleX size={17} strokeWidth={2} />
+                    <span>
+                        Cancelar
+                    </span>
+                </button>
 
-
+                <button
+                    type="submit"
+                    className="modalColegioButton modalColegioButtonPrimary"
+                    disabled={guardandoColegio}
+                    onClick={guardarColegioCreadoOEditado}
+                >
+                    <CirclePlus size={17} strokeWidth={2} />
+                    <span>
+                        {guardandoColegio ? "Guardando..." : "Agregar"}
+                    </span>
+                </button>
+                </footer>
             </div>
-
-            </div>
-
-
-            {/* Acciones */}
-            <footer className="modalColegioActions">
-
-            <button
-                type="button"
-                className="modalColegioButton modalColegioButtonCancel"
-                onClick={onCerrar}
-                disabled={guardando}
-            >
-                <CircleX size={17} strokeWidth={2} />
-                <span>
-                    Cancelar
-                </span>
-            </button>
-
-            <button
-                type="submit"
-                className="modalColegioButton modalColegioButtonPrimary"
-                disabled={guardando}
-                onClick={agregarColegio}
-            >
-                <CirclePlus size={17} strokeWidth={2} />
-                <span>
-                    {guardando ? "Guardando..." : "Agregar"}
-                </span>
-            </button>
-
-            </footer>
-
         </div>
-
-        </div>
-
-    );
-    }
+    )
+}
