@@ -5,6 +5,14 @@
 
 ---
 
+## Comentarios de PARTES PENDIENTES del desarrollo.
+
+### 28 de agosto.
+
+- Feat de paginado para todas las paginas que lean de firestore para no sobrecargar las lecturas de Firestore, pense ne un size de 6 cada pagina.
+
+- Asegurate de que en tipo de productos y en pedidos, NO cargue todo de inmediato en la vista previa cuando abramos la ventan de productos y pedidos, porque o sino va a chupar lecturas de firestore COMO LOCO. ES PRIORIDAD.
+
 
 ## Objetivos y Orden de Prioridades✅❌
 
@@ -213,6 +221,12 @@ service cloud.firestore {
 - Refactor completo del modal agrar colegio, funciona bien y quedo mucho mas legible y mejor estructurado
 
 - Refactor de todas las carpetas del proyecto, de la redistribucion.
+
+
+### Viernes 28 de Agosto
+
+- Refactor completo del compontes
+  
   
 
 

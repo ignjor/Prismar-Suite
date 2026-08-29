@@ -8,20 +8,20 @@ import {CircleX, CirclePlus, X} from "lucide-react";
 const body = document.body;
 
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
-const validarTextoDeInput = (nombreDeColegio) => {
-    const nombreValidado = nombreDeColegio.trim();
+const validarTextoDeInput = (datosDeLosInput) => {
+    const nombreValidado = datosDeLosInput.trim();
     if (nombreValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
     if (nombreValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
     if (!caracteresPermitidos.test(nombreValidado)) {return "El texto contiene caracteres no permitidos.";}
     return null
 };
 
-export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onRecargarColegios  }){
+export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onRecargarColegios}){
     const [error, setError] = useState("");
     const [guardandoColegio, setGuardandoColegio] = useState(false);
     const RefAreaDelModal = useRef(null);
 
-    const [nombreDeColegio ,setNombreDeColegio] = useState("");
+    const [nombreDeColegio, setNombreDeColegio] = useState("");
 
     useEffect(() => {
         if (!modalAbierto) {
