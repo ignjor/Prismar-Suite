@@ -230,6 +230,10 @@ service cloud.firestore {
 ### Viernes 28 de Agosto v2
 
 - Refactor no completo del modal para agregar tipo de prenda, falta completarlo.
+
+### Sabado 29 de Agosto
+
+- Terminamos el refactor del modal para agregar y editar tipo de prenda, renombramos y solucionamos bugs de ambos archivos, tipoprenda y modal de tipo prenda, quedo funcionando, y completamos oficialmente todo el refactor de todo el codigo que teniamos hasta este momento dentro del proyecto.
   
   
 

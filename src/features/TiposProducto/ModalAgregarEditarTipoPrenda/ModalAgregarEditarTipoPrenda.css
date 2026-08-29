@@ -1,27 +1,3 @@
-/*
-  ModalColegio.css
-
-  Modal utilizado para agregar y posteriormente
-  editar colegios.
-
-  La estética mantiene la misma línea visual de
-  AdminColegios:
-  - Minimalismo
-  - Colores suaves
-  - Bordes redondeados
-  - Sombras ligeras
-  - Sin animaciones exageradas
-*/
-
-
-/*
-  OVERLAY
-
-  Cubre toda la pantalla y coloca una capa
-  ligeramente oscura detrás del modal.
-  
-*/
-
 .modalColegioOverlay {
 
   position: fixed;
@@ -45,11 +21,6 @@
   -webkit-backdrop-filter: blur(8px);
 
 }
-
-
-/*
-  CONTENEDOR PRINCIPAL DEL MODAL
-*/
 
 .modalColegio {
 
@@ -77,11 +48,6 @@
 
 }
 
-
-/*
-  ENCABEZADO
-*/
-
 .modalColegioHeader {
 
   display: flex;
@@ -96,11 +62,6 @@
 
 }
 
-
-/*
-  TÍTULO
-*/
-
 .modalColegioTitle {
 
   margin: 0;
@@ -114,11 +75,6 @@
   color: #1d1d1f;
 
 }
-
-
-/*
-  BOTÓN DE CERRAR
-*/
 
 .modalColegioClose {
 
@@ -176,21 +132,11 @@
 
 }
 
-
-/*
-  CONTENIDO
-*/
-
 .modalColegioContent {
 
   padding: 24px 22px;
 
 }
-
-
-/*
-  CONTENEDOR DEL CAMPO
-*/
 
 .modalColegioField {
 
@@ -201,11 +147,6 @@
   gap: 8px;
 
 }
-
-
-/*
-  LABEL
-*/
 
 .modalColegioLabel {
 
@@ -218,11 +159,6 @@
   letter-spacing: -0.1px;
 
 }
-
-
-/*
-  INPUT
-*/
 
 .modalColegioInput {
 
@@ -267,7 +203,6 @@
 
 }
 
-
 .modalColegioInput:focus {
 
   background: #ffffff;
@@ -278,11 +213,6 @@
     0 0 0 3px rgba(0, 122, 255, 0.10);
 
 }
-
-
-/*
-  ZONA DE BOTONES
-*/
 
 .modalColegioActions {
 
@@ -295,11 +225,6 @@
   border-top: 1px solid rgba(0, 0, 0, 0.055);
 
 }
-
-
-/*
-  ESTILO BASE DE LOS BOTONES
-*/
 
 .modalColegioButton {
 
@@ -338,11 +263,6 @@
 
 }
 
-
-/*
-  BOTÓN CANCELAR
-*/
-
 .modalColegioButtonCancel {
 
   background: #f5f5f7;
@@ -351,18 +271,12 @@
 
 }
 
-
 .modalColegioButtonCancel:hover {
 
   background: #fff0f0;
 
   color: #d70015;
 }
-
-
-/*
-  BOTÓN PRINCIPAL
-*/
 
 .modalColegioButtonPrimary {
 
@@ -372,32 +286,17 @@
 
 }
 
-
-/*
-  EFECTO AL PULSAR
-*/
-
 .modalColegioButton:active {
 
   transform: scale(0.97);
 
 }
 
-
-/*
-  MÓVIL
-*/
-
-/*
-  ATRIBUTOS / MEDIDAS
-*/
-
 .modalAtributosContainer {
 
   margin-top: 18px;
 
 }
-
 
 .modalAtributosHeader {
 
@@ -411,7 +310,6 @@
 
 }
 
-
 .modalAtributosHeader > div {
 
   display: flex;
@@ -422,7 +320,6 @@
 
 }
 
-
 .modalAtributosDescripcion {
 
   color: #98989d;
@@ -430,7 +327,6 @@
   font-size: 12px;
 
 }
-
 
 .modalAtributosContador {
 
@@ -460,11 +356,6 @@
 
 }
 
-
-/*
-  LISTA
-*/
-
 .modalAtributosLista {
 
   display: grid;
@@ -474,7 +365,6 @@
   gap: 4.5px;
 
 }
-
 
 .modalAtributoItem {
 
@@ -487,7 +377,6 @@
   gap: 6px;
 
 }
-
 
 .modalAtributoNumero {
 
@@ -515,7 +404,6 @@
 
 }
 
-
 .modalAtributoInput {
 
   flex: 1;
@@ -532,7 +420,6 @@
   padding: 0 17px;
 
 }
-
 
 .modalAtributoEliminar {
 
@@ -565,7 +452,6 @@
 
 }
 
-
 .modalAtributoEliminar:hover {
 
   background: #fff0f0;
@@ -574,17 +460,11 @@
 
 }
 
-
 .modalAtributoEliminar:active {
 
   transform: scale(0.93);
 
 }
-
-
-/*
-  AGREGAR ATRIBUTO
-*/
 
 .modalAgregarAtributo {
 
@@ -627,7 +507,6 @@
 
 }
 
-
 .modalAgregarAtributo:hover {
 
   background: rgba(0, 122, 255, 0.05);
@@ -636,7 +515,6 @@
 
 }
 
-
 .modalAgregarAtributo:disabled {
 
   opacity: 0.45;
@@ -644,11 +522,6 @@
   cursor: not-allowed;
 
 }
-
-
-/*
-  MENSAJE DE MÁXIMO
-*/
 
 .modalAtributosMaximo {
 
@@ -661,15 +534,6 @@
   text-align: center;
 
 }
-
-
-/*
-  ERROR
-
-  Lo dejamos un poquito más limpio
-  para que funcione tanto con el nombre
-  como con los atributos.
-*/
 
 .modalColegioError {
 
@@ -685,11 +549,6 @@
 
 }
 
-
-/*
-  MÓVIL
-*/
-
 @media (max-width: 480px) {
 
   .modalAtributoNumero {
@@ -698,13 +557,11 @@
 
   }
 
-
   .modalAtributoItem {
 
     gap: 6px;
 
   }
-
 
   .modalAtributoEliminar {
 
@@ -754,5 +611,4 @@
     font-size: 19px;
 
   }
-
 }
