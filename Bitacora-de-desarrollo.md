@@ -18,14 +18,21 @@
 
 - [x] 1. Conexión con Firebase y Base de datos en Firestore.
 
-- [ ] 2. Crear la estructura primero de PRODUCTOS, agregar, modificar y eliminar, y conectarla con Firestore
+- [x] 2. Crear la estructura de Colegios / Empresas
 
-- [ ] 3. Crear estructura de CREAR PEDIDO, modificarlo y eliminarlo, que cada producto se pueda listar, y claro se usen los Productos agregados previamente en PRODUCTOS. Con la opción de redirigir a crear Producto.
+- [x] 3. Crear la estructura de Tipos de Prendas / Productos.
 
-- [ ] 4. En base a los Pedidos, crear CUENTAS, con resumenes mensuales, semanas o como requiera el cliente. Exportaciónes periodicas a Firebase
+- [ ] 4. Crear la esutructura de Productos
 
-- [ ] 5. Conectar a CLOUD FUNCTIONS según requiera para notificaciones en el celular, al ser de navegador es mas complejo pero puede ser con mensajes o correos.
+- [ ] 5. Crear la estructura de Pedidos
 
+- [ ] 6. Crear la estructura de Cuentas
+
+- [ ] 7. Crear la estructura de Home
+
+- [ ] 8. Crear la estructura del Login.
+
+- [ ] 9. Asegurar la seguridad y la estabilidad del sistema antes de sacarlo a produccion.
 
 
 
