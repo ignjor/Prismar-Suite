@@ -29,7 +29,7 @@ export default function Colegios() {
     const abrirModalParaCrear = () => {
         setColegioAEditar(null); setEstadoDelModal(true); 
     };
-    const abrilModalParaEditar = (datoColegioEspecifico) => {
+    const abrirModalParaEditar = (datoColegioEspecifico) => {
         setColegioAEditar(datoColegioEspecifico); setEstadoDelModal(true); 
     };
     const cerrarModal = () => {
@@ -60,7 +60,7 @@ export default function Colegios() {
                   type="button"
                   className="colegioAction colegioActionEdit"
                   aria-label={`Editar ${datoColegioEspecifico.nombre}`}
-                  onClick={() => abrilModalParaEditar(datoColegioEspecifico)}
+                  onClick={() => abrirModalParaEditar(datoColegioEspecifico)}
                 >
                   <PencilLine size={17} strokeWidth={2} />
                   <span>
@@ -95,11 +95,12 @@ export default function Colegios() {
               <School size={21} strokeWidth={2}/>
             </button>
         </section>
+
           <ModalAgregarEditarColegio
             datoColegioEditar = {colegioAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-            onGuardarColegio={obtenerDatosDeColegios}
+            onRecargarColegios={obtenerDatosDeColegios}
               />
       </main>
     );

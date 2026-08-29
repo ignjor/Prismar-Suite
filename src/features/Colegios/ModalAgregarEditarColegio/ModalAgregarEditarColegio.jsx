@@ -16,7 +16,7 @@ const validarTextoDeInput = (nombreDeColegio) => {
     return null
 };
 
-export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onGuardarColegio  }){
+export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onRecargarColegios  }){
     const [error, setError] = useState("");
     const [guardandoColegio, setGuardandoColegio] = useState(false);
     const RefAreaDelModal = useRef(null);
@@ -74,7 +74,7 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
             await addDoc(collection(db, "colegios"),{
                 nombre: nombreValidado
             });
-            await onGuardarColegio()
+            await onRecargarColegios()
             setNombreDeColegio("");
             onCerrarModal();
         }catch(error){
@@ -88,7 +88,7 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
             await updateDoc(doc(db, "colegios", datoColegioEditar.id),{
                 nombre: nombreValidado
             });
-            await onGuardarColegio()
+            await onRecargarColegios()
             setNombreDeColegio("");
             onCerrarModal();
         }catch(error){
