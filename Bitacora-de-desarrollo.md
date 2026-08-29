@@ -225,7 +225,11 @@ service cloud.firestore {
 
 ### Viernes 28 de Agosto
 
-- Refactor completo del compontes
+- Refactor completo del componte  de TipoPrenda.jsx
+
+### Viernes 28 de Agosto v2
+
+- Refactor no completo del modal para agregar tipo de prenda, falta completarlo.
   
   
 
