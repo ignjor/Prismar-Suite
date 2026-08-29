@@ -26,7 +26,26 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
     const [nombreDeTipoPrenda, setNombreDeTipoPrenda] = useState("");
     const [medidasAsignadas, setMedidasAsignadas] = useState([]);
 
+    useEffect(() => {
+        if (!modalAbierto) {
+            body.style.overflow="";
+            setNombreDeTipoPrenda("");
+            setMedidasAsignadas([]);
+            setError("");
+            return;
+        }
+        body.style.overflow="hidden";
+        if (datoTipoPrendaEditar) {
+            setNombreDeTipoPrenda(datoTipoPrendaEditar.tipo || "");
+            setMedidasAsignadas(Object.keys(datoTipoPrendaEditar.medidas_asig || {}))
+        }else{
+            setNombreDeTipoPrenda("");
+            setMedidasAsignadas([]);
+        }
+        setError("");
+    }, [modalAbierto, datoTipoPrendaEditar])
 
+    
 
 
 
