@@ -6,15 +6,16 @@ import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
 import {CircleX, CirclePlus, X} from "lucide-react";
 
 const body = document.body;
-
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
-const validarTextoDeInput = (datosDeLosInput) => {
-    const nombreValidado = datosDeLosInput.trim();
-    if (nombreValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
-    if (nombreValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
-    if (!caracteresPermitidos.test(nombreValidado)) {return "El texto contiene caracteres no permitidos.";}
+
+const validarTextoDeInput = (nombreDeColegio) => {
+    const textoValidado = nombreDeColegio.trim();
+    if (textoValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
+    if (textoValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
+    if (!caracteresPermitidos.test(textoValidado)) {return "El texto contiene caracteres no permitidos.";}
     return null
 };
+
 
 export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal, onRecargarColegios}){
     const [error, setError] = useState("");
@@ -55,25 +56,25 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
     }, [modalAbierto, onCerrarModal]);
 
 
-    const guardarColegioCreadoOEditado = () => {
+    const guardarColegioCreadoOEditado = async () => {
         const errorValidacion = validarTextoDeInput(nombreDeColegio);
         if (errorValidacion) {
             setError(errorValidacion);
             return;
         }
         if (datoColegioEditar) {
-            guardarColegioEditado(nombreDeColegio.trim());
+            await  guardarColegioEditado(nombreDeColegio);
         }else{
-            guardarColegioCreado(nombreDeColegio.trim());
+            await guardarColegioCreado(nombreDeColegio);
         }
     };
 
-    const guardarColegioCreado = async (nombreValidado) => {
+    const guardarColegioCreado = async (textoValidado) => {
         try {
             setGuardandoColegio(true); setError("");
-            await addDoc(collection(db, "colegios"),{
-                nombre: nombreValidado
-            });
+            await addDoc(collection(db, "colegios"),
+            {nombre: textoValidado}
+            );
             await onRecargarColegios()
             setNombreDeColegio("");
             onCerrarModal();
@@ -82,12 +83,12 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
         }finally{setGuardandoColegio(false)}
     };
     
-    const guardarColegioEditado = async (nombreValidado) => {
+    const guardarColegioEditado = async (textoValidado) => {
         try {
             setGuardandoColegio(true); setError("");
-            await updateDoc(doc(db, "colegios", datoColegioEditar.id),{
-                nombre: nombreValidado
-            });
+            await updateDoc(doc(db, "colegios", datoColegioEditar.id),
+                {nombre: textoValidado}
+            );
             await onRecargarColegios()
             setNombreDeColegio("");
             onCerrarModal();

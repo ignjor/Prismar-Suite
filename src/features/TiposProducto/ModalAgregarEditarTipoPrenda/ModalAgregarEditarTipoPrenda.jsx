@@ -1,79 +1,155 @@
 import { useEffect, useRef, useState } from "react";
-import "./ModalAgregarTipoProducto.css";
+import "./ModalAgregarEditarTipoPrenda.css";
 
 import { db } from "../../../firebase";
 import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
 
-import {CircleX, CirclePlus, X, Trash2, PencilRuler
-} from "lucide-react";
+import {CircleX, CirclePlus, X, Trash2, PencilRuler} from "lucide-react";
 
 const body = document.body;
-
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
-const validarTextoDeInput = (datosDeLosInput) => {
-    const nombreValidado = datosDeLosInput.trim();
-    if (nombreValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
-    if (nombreValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
-    if (!caracteresPermitidos.test(nombreValidado)) {return "El texto contiene caracteres no permitidos.";}
+
+const validarTextoDeInput = (datosDelInput) => {
+    const textoValidado = datosDelInput.trim();
+    if (textoValidado.length < 2) {return "El texto debe tener al menos 2 caracteres.";}
+    if (textoValidado.length > 32) {return "El texto no puede superar 32 caracteres.";}
+    if (!caracteresPermitidos.test(textoValidado)) {return "El texto contiene caracteres no permitidos.";}
     return null
+};
+
+const limpiarAtributos = (atributos) => {
+    return atributos
+        .map((atributo) => atributo.trim()) .filter((atributo) => atributo.length > 0);
+};
+const validarAtributos = (atributos) => {
+    for (const atributo of atributos) {
+        const errorDeInput = validarTextoDeInput(atributo);
+            if (errorDeInput) {
+                return (`El atributo "${atributo}" no es válido.`);
+            }
+        }
+        return null;
 };
 
 export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, modalAbierto, onCerrarModal, onRecargarTipoPrenda}) {
     const [error, setError] = useState("");
-    const [guardandoTipoPrenda, setGuardantoTipoPrenda] = useState(false);
+    const [guardandoTipoPrenda, setGuardandoTipoPrenda] = useState(false);
     const RefAreaDelModal = useRef(null);
 
     const [nombreDeTipoPrenda, setNombreDeTipoPrenda] = useState("");
-    const [medidasAsignadas, setMedidasAsignadas] = useState([]);
+    const [atributosAsignados, setAtributosAsignados] = useState([]);
 
     useEffect(() => {
         if (!modalAbierto) {
             body.style.overflow="";
             setNombreDeTipoPrenda("");
-            setMedidasAsignadas([]);
+            setAtributosAsignados([]);
             setError("");
             return;
         }
         body.style.overflow="hidden";
         if (datoTipoPrendaEditar) {
             setNombreDeTipoPrenda(datoTipoPrendaEditar.tipo || "");
-            setMedidasAsignadas(Object.keys(datoTipoPrendaEditar.medidas_asig || {}))
+            setAtributosAsignados(Object.keys(datoTipoPrendaEditar.medidas_asig || {}))
         }else{
             setNombreDeTipoPrenda("");
-            setMedidasAsignadas([]);
+            setAtributosAsignados([]);
         }
         setError("");
     }, [modalAbierto, datoTipoPrendaEditar])
 
-    
+    useEffect(() => {
+        if (!modalAbierto) {
+            body.style.overflow="";
+            return;
+        }
+        const clickFueraDelModal = (event) => {
+            if (RefAreaDelModal.current && !RefAreaDelModal.current.contains(event.target)){
+                onCerrarModal();
+            }
+        };
+        document.addEventListener("mousedown", clickFueraDelModal);
+        return () => {document.removeEventListener("mousedown", clickFueraDelModal);
+        };
+    }, [modalAbierto, onCerrarModal]);
 
 
+    const guardarTipoPrendaCreadoOEditado = async() => {
+        const textoValidado = nombreDeTipoPrenda.trim();
+        const errorNombre = validarTextoDeInput(textoValidado);
+        if (errorNombre) {setError(errorNombre);
+            return;
+        }
+        const atributosValidados = limpiarAtributos(atributosAsignados);
+        const errorAtributos = validarAtributos(atributosValidados);
+        if (errorAtributos) {setError(errorAtributos);
+            return;
+        }
+        const atributosAsig = {};
+        atributosValidados.forEach((atributo) => {
+            atributosAsig[atributo] = "";
+        });
+        if (datoTipoPrendaEditar) {
+            await guardarTipoPrendaEditado(textoValidado, atributosAsig);
+        }else{
+            await guardarTipoPrendaCreado(textoValidado, atributosAsig);
+        }
+    };
 
+    const guardarTipoPrendaCreado = async(textoValidado, atributosAsignados) => {
+        try {
+            setGuardandoTipoPrenda(true); setError("");
+            await addDoc(collection(db, "tipo_prenda"),
+            {tipo: textoValidado, medidas_asig: atributosAsignados}
+        );
+        await onRecargarTipoPrenda()
+        setNombreDeTipoPrenda(""); setAtributosAsignados([]);
+        onCerrarModal();
+        }catch(error){
+            console.error("Error al Crear el Tipo de Prenda:",error); setError("No se pudo crear el Tipo de Prenda, intente de nuevo.");
+        }finally{setGuardandoTipoPrenda(false)}
+    };
 
+    const guardarTipoPrendaEditado = async(textoValidado, atributosAsignados) => {
+        try {
+            setGuardandoTipoPrenda(true); setError("");
+            await updateDoc(doc(db, "tipo_prenda", datoTipoPrendaEditar.id),
+            {tipo: textoValidado, medidas_asig: atributosAsignados}
+        );
+        await onRecargarTipoPrenda()
+        setNombreDeTipoPrenda(""); setAtributosAsignados([]);
+        onCerrarModal();
+        }catch(error){
+            console.error("Error al Editar el Tipo de Prenda:",error); setError("No se pudo Editar el Tipo de Prenda, intente de nuevo.");
+        }finally{setGuardandoTipoPrenda(false)}
+    };
 
-    
+    const sumarAtributo = () => {
+        if (atributosAsignados.length >= 8) {
+            return;
+        }
+        setAtributosAsignados([...atributosAsignados, ""]);
+    };
+    const editarAtributo = (index, valor) => {
+        setAtributosAsignados((atributosActuales) => {
+            const nuevosAtributos = [...atributosActuales];
+            nuevosAtributos[index] = valor;
+            return nuevosAtributos;
+        });
+        setError("");
+    };
+    const eliminarAtributo = (index) => {
+        setAtributosAsignados((atributosActuales) =>
+            atributosActuales.filter(
+                (_, indice) => indice !== index
+            ));
+        setError("");
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if (!modalAbierto) {
+        body.style.overflow="";
+        return null;
+    }
 
     return (
        <div className="modalColegioOverlay">
@@ -82,14 +158,14 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modalColegioTitle"
-                ref={modalRef}
+                ref={RefAreaDelModal}
             >
                 <header className="modalColegioHeader">
                     <h2
                         id="modalColegioTitle"
                         className="modalColegioTitle"
                     >
-                        {tipoPrenda
+                        {datoTipoPrendaEditar
                             ? "Editar tipo de Prenda / Producto"
                             : "Agregar tipo de Prenda / Producto"
                         }
@@ -97,9 +173,9 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                     <button
                         type="button"
                         className="modalColegioClose"
-                        onClick={onCerrar}
+                        onClick={onCerrarModal}
                         aria-label="Cerrar"
-                        disabled={guardando}
+                        disabled={guardandoTipoPrenda}
                     >
                         <X
                             size={17}
@@ -120,9 +196,9 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                             type="text"
                             className="modalColegioInput"
                             placeholder="Ej. Pantalón, Vestido"
-                            value={nombreTipoPrenda}
+                            value={nombreDeTipoPrenda}
                             onChange={(event) => {
-                                setNombreTipoPrenda(
+                                setNombreDeTipoPrenda(
                                     event.target.value
                                 );
                                 if (error) {
@@ -131,7 +207,7 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                             }}
                             maxLength={20}
                             autoComplete="off"
-                            disabled={guardando}
+                            disabled={guardandoTipoPrenda}
                         />
                     </div>
                     <div className="modalAtributosContainer">
@@ -142,12 +218,12 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                                 </p>
                             </div>
                             <span className="modalAtributosContador">
-                                {medidasAsignadas.length}/8
+                                {atributosAsignados.length}/8
                             </span>
                         </div>
 
                         <div className="modalAtributosLista">
-                            {medidasAsignadas.map(
+                            {atributosAsignados.map(
                                 (atributo, index) => (
                                     <div
                                         className="modalAtributoItem"
@@ -156,17 +232,17 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                                         <input
                                             type="text"
                                             className="modalColegioInput modalAtributoInput"
-                                            placeholder="Ej. Contorno"
+                                            placeholder="Ej. Largo"
                                             value={atributo}
                                             onChange={(event) =>
-                                                cambiarAtributo(
+                                                editarAtributo(
                                                     index,
                                                     event.target.value
                                                 )
                                             }
                                             maxLength={20}
                                             autoComplete="off"
-                                            disabled={guardando}
+                                            disabled={guardandoTipoPrenda}
                                         />
                                         <button
                                             type="button"
@@ -176,7 +252,7 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                                                     index
                                                 )
                                             }
-                                            disabled={guardando}
+                                            disabled={guardandoTipoPrenda}
                                             aria-label={`Eliminar atributo ${index + 1}`}
                                         >
                                             <Trash2
@@ -191,10 +267,10 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                         <button
                             type="button"
                             className="modalAgregarAtributo"
-                            onClick={agregarAtributo}
+                            onClick={sumarAtributo}
                             disabled={
-                                guardando ||
-                                medidasAsignadas.length >= 8
+                                guardandoTipoPrenda ||
+                                atributosAsignados.length >= 8
                             }
                         >
                             <PencilRuler
@@ -216,8 +292,8 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                     <button
                         type="button"
                         className="modalColegioButton modalColegioButtonCancel"
-                        onClick={onCerrar}
-                        disabled={guardando}
+                        onClick={onCerrarModal}
+                        disabled={guardandoTipoPrenda}
                     >
                         <CircleX
                             size={17}
@@ -230,15 +306,15 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
                     <button
                         type="button"
                         className="modalColegioButton modalColegioButtonPrimary"
-                        disabled={guardando}
-                        onClick={agregarTipoPrenda}
+                        disabled={guardandoTipoPrenda}
+                        onClick={guardarTipoPrendaCreadoOEditado}
                     >
                         <CirclePlus
                             size={17}
                             strokeWidth={2}
                         />
                         <span>
-                            {guardando
+                            {guardandoTipoPrenda
                                 ? "Guardando...": "Agregar"
                             }
                         </span>
