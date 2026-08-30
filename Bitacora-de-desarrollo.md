@@ -18,14 +18,21 @@
 
 - [x] 1. Conexión con Firebase y Base de datos en Firestore.
 
-- [ ] 2. Crear la estructura primero de PRODUCTOS, agregar, modificar y eliminar, y conectarla con Firestore
+- [x] 2. Crear la estructura de Colegios / Empresas
 
-- [ ] 3. Crear estructura de CREAR PEDIDO, modificarlo y eliminarlo, que cada producto se pueda listar, y claro se usen los Productos agregados previamente en PRODUCTOS. Con la opción de redirigir a crear Producto.
+- [x] 3. Crear la estructura de Tipos de Prendas / Productos.
 
-- [ ] 4. En base a los Pedidos, crear CUENTAS, con resumenes mensuales, semanas o como requiera el cliente. Exportaciónes periodicas a Firebase
+- [ ] 4. Crear la esutructura de Productos
 
-- [ ] 5. Conectar a CLOUD FUNCTIONS según requiera para notificaciones en el celular, al ser de navegador es mas complejo pero puede ser con mensajes o correos.
+- [ ] 5. Crear la estructura de Pedidos
 
+- [ ] 6. Crear la estructura de Cuentas
+
+- [ ] 7. Crear la estructura de Home
+
+- [ ] 8. Crear la estructura del Login.
+
+- [ ] 9. Asegurar la seguridad y la estabilidad del sistema antes de sacarlo a produccion.
 
 
 
@@ -234,6 +241,10 @@ service cloud.firestore {
 ### Sabado 29 de Agosto
 
 - Terminamos el refactor del modal para agregar y editar tipo de prenda, renombramos y solucionamos bugs de ambos archivos, tipoprenda y modal de tipo prenda, quedo funcionando, y completamos oficialmente todo el refactor de todo el codigo que teniamos hasta este momento dentro del proyecto.
+
+### Sabado 29 de Agosto v2
+
+- feat: buscador completo funcional para tipo de prenda y para colegio, por el momento lo hicimos así, busca dentro de todo lo que trajo firestore, cuando hagamos la paginacion, al no traer todo de firestore vamos a tener que usar otra forma para buscar sin necedidad de traer todo de firestore, pense en indices pero hay que verlo luego.
   
   
 
