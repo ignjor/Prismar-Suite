@@ -246,9 +246,9 @@ service cloud.firestore {
 
 - feat: buscador completo funcional para tipo de prenda y para colegio, por el momento lo hicimos así, busca dentro de todo lo que trajo firestore, cuando hagamos la paginacion, al no traer todo de firestore vamos a tener que usar otra forma para buscar sin necedidad de traer todo de firestore, pense en indices pero hay que verlo luego.
   
-  
+- doc: Vamos a comenzar con la estructura de productos, la idea es que tengamos la ventana previa tipida que tenemos como en tipoprenda y colegios, pero en lugar del boton editar que tengamos un boton para ver, y que nos abra a otra ventana con su id, algo como /producto/id=XXXXXX, una cosa asi. 
 
-
+- feat: Comenzamos ofialmente con la estructura de productos, puede ser la mas desafiante del proyecto porque esta misma la podemos usar como base para pedidos, creamos la carpeta VerProducto, EditarProducto y AgregarProducto.
 
 
 
