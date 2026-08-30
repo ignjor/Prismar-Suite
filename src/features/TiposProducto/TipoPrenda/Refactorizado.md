@@ -1,4 +1,4 @@
-Refactorizado el 28-08-2026
-Aun no aplicado porque falta refactorizar el modal
+Refactorizado el 29-08-2026
+Aplicado
 
 por Ignacio Jorquera.
