@@ -5,6 +5,7 @@ import Productos from "./features/Productos/Productos/Productos";
 import Cuentas from "./features/Cuentas/Cuentas/Cuentas";
 import Colegios from "./features/Colegios/Colegios/Colegios";
 import TipoPrenda from "./features/TiposProducto/TipoPrenda/TipoPrenda";
+import Tallas from "./features/Tallas/Tallas/Tallas";
 
 /*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
@@ -20,16 +21,21 @@ function App() {
           element={<Home />}
         />
         <Route 
-          path="/productos" 
-          element={<Productos />} 
-        />
-        <Route 
           path="/tipo-prenda"
           element={<TipoPrenda/>}
         />
         <Route 
           path="/colegios" 
           element={<Colegios />} 
+        />
+        <Route 
+          path="/tallas" 
+          element={<Tallas />} 
+        />
+        
+        <Route 
+          path="/productos" 
+          element={<Productos />} 
         />
       </Routes>
       <BottomNav />

@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./BottomNav.css";
 
-import { Home, ShoppingBag, Package, PiggyBank, Plus, School, BanknoteArrowDown, Shirt } from "lucide-react";
+import { Home, ShoppingBag, Package, PiggyBank, Plus, School, BanknoteArrowDown, Shirt, Tag } from "lucide-react";
 
 const rutasDeNavegacion = [
     {name: "Inicio", path: "/", icon: Home},
@@ -16,6 +16,7 @@ const rutasDeNavegacionBotonPlus = [
     {name: "Agregar Gasto", path: "/agregar-gasto", icon: BanknoteArrowDown},
     {name: "Empresas", path: "/colegios", icon: School},
     {name: "Tipos de Prenda", path: "/tipo-prenda", icon: Shirt},
+    {name: "Tallas", path: "/tallas", icon: Tag}
 ];
 
 
