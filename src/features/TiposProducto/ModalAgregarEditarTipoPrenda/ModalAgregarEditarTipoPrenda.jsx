@@ -4,7 +4,7 @@ import "./ModalAgregarEditarTipoPrenda.css";
 import { db } from "../../../firebase";
 import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
 
-import {CircleX, CirclePlus, X, Trash2, PencilRuler} from "lucide-react";
+import { CircleX, CirclePlus, X, Trash2, PencilRuler } from "lucide-react";
 
 const body = document.body;
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;

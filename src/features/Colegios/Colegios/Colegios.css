@@ -1,3 +1,110 @@
+.colegiosBuscador {
+
+  width: min(100%, 300px);
+
+  height: 48px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  border: 1px solid rgba(0, 0, 0, 0.07);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.045);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+}
+
+.colegiosBuscadorIcon {
+
+  flex-shrink: 0;
+
+  color: #86868b;
+
+  transition:
+    color 0.2s ease;
+
+}
+
+.colegiosBuscadorInput {
+
+  width: 100%;
+
+  min-width: 0;
+
+  height: 100%;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #1d1d1f;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  letter-spacing: -0.15px;
+
+}
+
+.colegiosBuscadorInput::placeholder {
+
+  color: #98989d;
+
+  opacity: 1;
+
+}
+
+.colegiosBuscador:focus-within {
+
+  background: rgba(255, 255, 255, 0.82);
+
+  border-color: rgba(34, 184, 75, 0.35);
+
+  box-shadow:
+    0 0 0 3px rgba(34, 184, 75, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.055);
+
+}
+
+.colegiosBuscador:focus-within .colegiosBuscadorIcon {
+
+  color: #22b84b;
+
+}
+
+
+
+
+
 .adminColegios {
 
   width: min(92%, 920px);
@@ -331,6 +438,7 @@
   }
 }
 @media (max-width: 480px) {
+
 
   .adminColegios {
 

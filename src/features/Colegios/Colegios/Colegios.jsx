@@ -1,28 +1,18 @@
 import "./Colegios.css";
-import {db} from "../../../firebase";
+import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import ModalAgregarEditarColegio from "../ModalAgregarEditarColegio/ModalAgregarEditarColegio";
-import {PencilLine, Eraser, School} from "lucide-react";
+import { PencilLine, Eraser, School, Search } from "lucide-react";
 
 export default function Colegios() {
     const [datosDeColegios, setDatosDeColegios] = useState([]);
     const [colegioAEditar, setColegioAEditar] = useState(null);
 
-    useEffect (() => {
-        obtenerDatosDeColegios();
-    }, []);
-    const obtenerDatosDeColegios = async () => {
-        try {
-            const listaDatosDeColegios = (await getDocs
-                (collection(db, "colegios"))).docs.map((documento) => ({
-                id: documento.id, ...documento.data(),
-            }));
-            setDatosDeColegios(listaDatosDeColegios);
-        } catch (error) {console.error("Error al obtener los colegios:", error);
-        }};
-
+    const [buscador, setBuscador] = useState("");
+    const buscadorDeColegios = datosDeColegios.filter((colegio) =>
+      colegio.nombre?.toLowerCase().includes(buscador.toLowerCase()))
 
     const [estadoDelModal, setEstadoDelModal] = useState(false);
 
@@ -36,16 +26,46 @@ export default function Colegios() {
         setColegioAEditar(null); setEstadoDelModal(false); 
     };
 
+
+    useEffect(() => {
+        obtenerDatosDeColegios();
+    }, []);
+    const obtenerDatosDeColegios = async () => {
+        try {
+            const listaDatosDeColegios = (await getDocs
+                (collection(db, "colegios"))).docs.map((documento) => ({
+                id: documento.id, ...documento.data(),
+            }));
+            setDatosDeColegios(listaDatosDeColegios);
+        } catch (error) {console.error("Error al obtener los colegios:", error);
+        }};
+
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">
           <h1 className="adminColegiosTitle">
             Empresas / Colegios
           </h1>
+          
+          <div className="colegiosBuscador">
+            <Search
+              className="colegiosBuscadorIcon"
+              size={18}
+              strokeWidth={2}
+            />
+            <input
+              type="text"
+              className="colegiosBuscadorInput"
+              placeholder="Buscar empresa o colegio..."
+              value={buscador}
+              onChange={(e) => setBuscador(e.target.value)}
+              aria-label="Buscar empresa o colegio"
+            />
+          </div>
         </header>
         <section className="colegiosGrid">
 
-          {datosDeColegios.map((datoColegioEspecifico) => (
+          {buscadorDeColegios.map((datoColegioEspecifico) => (
             <article
               key={datoColegioEspecifico.id}
               className="colegioCard"

@@ -1,14 +1,32 @@
 import "./TipoPrenda.css";
-import {db} from "../../../firebase";
+import { db } from "../../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import ModalAgregarEditarTipoPrenda from "../ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
-import {PencilLine, Eraser, Ruler} from "lucide-react";
+import { PencilLine, Eraser, Ruler, Search } from "lucide-react";
+
 
 export default function TipoPrenda() {
     const [datosDeTipoPrenda, setDatosDeTipoPrenda] = useState([]);
     const [tipoPrendaAEditar, setTipoPrendaAEditar] = useState(null);
+
+    const [buscador, setBuscador] = useState("");
+    const buscadorDeTipoPrenda = datosDeTipoPrenda.filter((tipo_prenda) =>
+      tipo_prenda.tipo?.toLowerCase().includes(buscador.toLowerCase()))
+
+    const [estadoDelModal, setEstadoDelModal] = useState(false);
+
+    const abrirModalParaCrear = () => {
+        setTipoPrendaAEditar(null); setEstadoDelModal(true); 
+    };
+    const abrirModalParaEditar = (datoTipoPrendaEspecifico) => {
+        setTipoPrendaAEditar(datoTipoPrendaEspecifico); setEstadoDelModal(true); 
+    };
+    const cerrarModal = () => {
+        setTipoPrendaAEditar(null); setEstadoDelModal(false); 
+    };
+
 
     useEffect (() => {
         obtenerDatosDeTipoPrenda();
@@ -23,28 +41,31 @@ export default function TipoPrenda() {
         } catch (error) {console.error("Error al obtener los tipos de prenda:", error);
         }};
 
-
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
-
-    const abrirModalParaCrear = () => {
-        setTipoPrendaAEditar(null); setEstadoDelModal(true); 
-    };
-    const abrirModalParaEditar = (datoTipoPrendaEspecifico) => {
-        setTipoPrendaAEditar(datoTipoPrendaEspecifico); setEstadoDelModal(true); 
-    };
-    const cerrarModal = () => {
-        setTipoPrendaAEditar(null); setEstadoDelModal(false); 
-    };
-
     return (
       <main className="adminColegios">
         <header className="adminColegiosHeader">
           <h1 className="adminColegiosTitle">
             Tipos de Prenda / Producto
           </h1>
+
+          <div className="colegiosBuscador">
+            <Search
+              className="colegiosBuscadorIcon"
+              size={18}
+              strokeWidth={2}
+            />
+            <input
+              type="text"
+              className="colegiosBuscadorInput"
+              placeholder="Buscar tipo de prenda o producto..."
+              value={buscador}
+              onChange={(e) => setBuscador(e.target.value)}
+              aria-label="Buscar tipo de prenda o producto"
+            />
+          </div>
         </header>
         <section className="colegiosGrid">
-          {datosDeTipoPrenda.map((datoTipoPrendaEspecifico) => (
+          {buscadorDeTipoPrenda.map((datoTipoPrendaEspecifico) => (
 
             <article
               key={datoTipoPrendaEspecifico.id}

@@ -1,26 +1,105 @@
-/*
-  Estilos de Administración de Colegios.
+.colegiosBuscador {
 
-  La estética sigue la línea del BottomNav:
-  - Colores Apple
-  - Fondos claros
-  - Bordes suaves
-  - Sombras muy ligeras
-  - Mucho espacio
-  - Bordes redondeados
-  - Glassmorphism sutil
-*/
+  width: min(100%, 300px);
 
+  height: 48px;
 
-/* 
-  Contenedor principal de toda la página.
+  margin: 0 auto;
 
-  Dejamos espacio inferior para que las tarjetas no queden
-  escondidas detrás del BottomNav.
+  display: flex;
 
-  
-*/
+  align-items: center;
 
+  gap: 10px;
+
+  padding: 0 16px;
+
+  box-sizing: border-box;
+
+  background: rgba(255, 255, 255, 0.68);
+
+  border: 1px solid rgba(0, 0, 0, 0.07);
+
+  border-radius: 30px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.045);
+
+  backdrop-filter: blur(18px);
+
+  -webkit-backdrop-filter: blur(18px);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+}
+
+.colegiosBuscadorIcon {
+
+  flex-shrink: 0;
+
+  color: #86868b;
+
+  transition:
+    color 0.2s ease;
+
+}
+
+.colegiosBuscadorInput {
+
+  width: 100%;
+
+  min-width: 0;
+
+  height: 100%;
+
+  padding: 0;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #1d1d1f;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 400;
+
+  letter-spacing: -0.15px;
+
+}
+
+.colegiosBuscadorInput::placeholder {
+
+  color: #98989d;
+
+  opacity: 1;
+
+}
+
+.colegiosBuscador:focus-within {
+
+  background: rgba(255, 255, 255, 0.82);
+
+  border-color: rgba(34, 184, 75, 0.35);
+
+  box-shadow:
+    0 0 0 3px rgba(34, 184, 75, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.055);
+
+}
+
+.colegiosBuscador:focus-within .colegiosBuscadorIcon {
+
+  color: #22b84b;
+
+}
 
 .adminColegios {
 
@@ -41,13 +120,6 @@
 
 }
 
-
-/* 
-  Encabezado de la página.
-
-  Lo mantenemos sencillo para conservar la estética
-  minimalista de Apple.
-*/
 .adminColegiosHeader {
   margin-top: 10px;
   margin-bottom: 50px;
@@ -55,10 +127,6 @@
 
 }
 
-
-/* 
-  Título principal.
-*/
 .adminColegiosTitle {
 
   margin: 0;
@@ -98,15 +166,6 @@
 
 }
 
-
-/*
-  GRID PRINCIPAL.
-
-  Usamos tres columnas como máximo.
-
-  minmax permite que las tarjetas tengan un tamaño cómodo
-  sin generar tarjetas gigantes.
-*/
 .colegiosGrid {
 
   display: grid;
@@ -118,13 +177,6 @@
 
 }
 
-
-/*
-  TARJETA DEL COLEGIO.
-
-  El fondo es muy parecido al estilo Apple:
-  blanco/gris muy suave con una sombra casi imperceptible.
-*/
 .colegioCard {
 
   min-width: 0;
@@ -159,13 +211,6 @@
 
 }
 
-/*
-  TARJETA PARA AGREGAR UN COLEGIO.
-
-  Mantiene la misma estética que las tarjetas de colegios,
-  pero tiene un aspecto un poco más liviano porque representa
-  una acción y no un colegio existente.
-*/
 .agregarColegio {
 
   margin: 30px auto 0 auto;
@@ -201,10 +246,6 @@
 
 }
 
-
-/*
-  Texto de la tarjeta.
-*/
 .agregarColegioTexto {
 
   margin: 0;
@@ -223,13 +264,6 @@
 
 }
 
-
-/*
-  Botón circular para agregar.
-
-  Por ahora no tiene ninguna función.
-  Posteriormente aquí conectaremos el modal.
-*/
 .agregarColegioButton {
 
   width: 80px;
@@ -266,26 +300,12 @@
 
 }
 
-
-
-
-
-
-/*
-  Efecto al pulsar.
-*/
 .agregarColegioButton:active {
 
   transform: scale(0.94);
 
 }
 
-/*
-  Pequeño efecto al pasar el mouse.
-
-  No hacemos una animación exagerada para mantener
-  la estética minimalista.
-*/
 .colegioCard:hover {
 
   transform: translateY(-2px);
@@ -297,23 +317,12 @@
 
 }
 
-
-/*
-  Contenedor del nombre del colegio.
-*/
 .colegioCardContent {
 
   min-width: 0;
 
 }
 
-
-/*
-  Nombre del colegio.
-
-  "overflow-wrap" permite que nombres muy largos
-  no rompan el diseño de la tarjeta.
-*/
 .colegioNombre {
 
   margin: 0;
@@ -336,10 +345,6 @@
 
 }
 
-
-/*
-  Contenedor de los dos botones.
-*/
 .colegioActions {
 
   display: flex;
@@ -352,13 +357,6 @@
 
 }
 
-
-/*
-  Estilo base de los botones.
-
-  Los hacemos pequeños y discretos para que las acciones
-  no le quiten protagonismo al nombre del colegio.
-*/
 .colegioAction {
 
   flex: 1;
@@ -400,11 +398,6 @@
 
 }
 
-
-
-/*
-  Estado hover del botón editar.
-*/
 .colegioActionEdit:hover {
 
   background: #e9e9ed;
@@ -413,13 +406,6 @@
 
 }
 
-
-/*
-  Estado hover del botón eliminar.
-
-  Utilizamos un rojo muy suave en lugar de un rojo fuerte
-  para mantener el estilo Apple/minimalista.
-*/
 .colegioActionDelete:hover {
 
   background: #fff0f0;
@@ -428,20 +414,12 @@
 
 }
 
-
-/*
-  Estado activo al pulsar cualquiera de los botones.
-*/
 .colegioAction:active {
 
   transform: scale(0.97);
 
 }
 
-
-/*
-  Mensaje para cuando todavía no existen colegios.
-*/
 .colegiosEmpty {
 
   width: 100%;
@@ -456,13 +434,6 @@
 
 }
 
-
-/*
-  TABLET.
-
-  Cuando ya no hay suficiente espacio para tres tarjetas,
-  pasamos temporalmente a dos columnas.
-*/
 @media (max-width: 760px) {
 
   .colegiosGrid {
@@ -494,13 +465,6 @@
 
 }
 
-
-/*
-  MÓVIL.
-
-  Mantenemos exactamente dos tarjetas por fila,
-  como pediste.
-*/
 @media (max-width: 480px) {
 
   .adminColegios {
@@ -525,10 +489,6 @@
 
   }
 
-
-
-
-
   .colegiosGrid {
 
     grid-template-columns:
@@ -537,7 +497,6 @@
     gap: 10px;
 
   }
-
 
   .colegioCard {
 
@@ -549,7 +508,6 @@
 
   }
 
-
   .colegioNombre {
 
     font-size: 15px;
@@ -558,7 +516,6 @@
 
   }
 
-
   .colegioActions {
 
     gap: 6px;
@@ -566,7 +523,6 @@
     margin-top: 18px;
 
   }
-
 
   .colegioAction {
 
@@ -582,7 +538,6 @@
 
   }
 
-
   .colegioAction svg {
 
     width: 15px;
@@ -590,17 +545,8 @@
     height: 15px;
 
   }
-
-
 }
 
-
-/*
-  MÓVILES MUY PEQUEÑOS.
-
-  Seguimos manteniendo dos columnas, pero reducimos
-  un poco los espacios para que todo siga respirando.
-*/
 @media (max-width: 360px) {
 
   .adminColegios {
@@ -609,13 +555,11 @@
 
   }
 
-
   .colegioCard {
 
     padding: 13px;
 
   }
-
 
   .colegioNombre {
 
@@ -623,13 +567,11 @@
 
   }
 
-
   .colegioAction span {
 
     display: none;
 
   }
-
 
   .colegioAction {
 
@@ -640,5 +582,4 @@
     padding: 0;
 
   }
-
 }
