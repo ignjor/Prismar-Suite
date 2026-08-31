@@ -65,6 +65,17 @@ export default function Productos() {
                 <h2 className="colegioNombre">
                   {datoProductoEspecifico.nombre}
                 </h2>
+
+                <h2 className="medidasAsignadasTitle">
+                  PRECIOS:
+                </h2>
+                <div className="medidasAsignadas">
+                  {Object.entries(datoProductoEspecifico.precios_tallas || {}).map(([talla, precio]) => (
+                    <span className="atributosTipoPrenda" key={talla}>
+                    {talla}: ${Number(precio).toLocaleString("es-CL")}
+                    </span>
+                  ))}
+                </div>
               </div>
               <div className="colegioActions">
                 <button
