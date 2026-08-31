@@ -78,13 +78,13 @@ export default function TipoPrenda() {
                 <h2 className="medidasAsignadasTitle">
                   Atributos:
                 </h2>
-                <h2 className="medidasAsignadas">
+                <div className="medidasAsignadas">
                   {Object.entries(datoTipoPrendaEspecifico.medidas_asig || {}).map(([medida]) => (
-                    <p key={medida}>
-                    - {medida}
-                    </p>
+                    <span className="atributosTipoPrenda" key={medida}>
+                    {medida}
+                    </span>
                   ))}
-                </h2>
+                </div>
               </div>
 
               <div className="colegioActions">
