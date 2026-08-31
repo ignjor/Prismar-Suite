@@ -6,37 +6,29 @@ import { useEffect, useState } from "react";
 import { Eraser, Search, Eye } from "lucide-react";
 
 export default function Productos() {
-    const [datosDeColegios, setDatosDeColegios] = useState([]);
-    const [colegioAEditar, setColegioAEditar] = useState(null);
+    const [datosDeProductos, setDatosDeProductos] = useState([]);
+    const [verElProducto, setVerElProducto] = useState(null);
 
     const [buscador, setBuscador] = useState("");
-    const buscadorDeColegios = datosDeColegios.filter((colegio) =>
-      colegio.nombre?.toLowerCase().includes(buscador.toLowerCase()))
+    const buscadorDeProductos = datosDeProductos.filter((producto) =>
+      producto.nombre?.toLowerCase().includes(buscador.toLowerCase()))
 
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
-
-    const abrirModalParaCrear = () => {
-        setColegioAEditar(null); setEstadoDelModal(true); 
-    };
-    const abrirModalParaEditar = (datoColegioEspecifico) => {
-        setColegioAEditar(datoColegioEspecifico); setEstadoDelModal(true); 
-    };
-    const cerrarModal = () => {
-        setColegioAEditar(null); setEstadoDelModal(false); 
+    const abrirVerProducto = (datoProductoEspecifico) => {
+        setVerElProducto(datoProductoEspecifico); setEstadoDelModal(true); 
     };
 
 
     useEffect(() => {
-        obtenerDatosDeColegios();
+        obtenerDatosDeProductos();
     }, []);
-    const obtenerDatosDeColegios = async () => {
+    const obtenerDatosDeProductos = async () => {
         try {
-            const listaDatosDeColegios = (await getDocs
-                (collection(db, "colegios"))).docs.map((documento) => ({
+            const listaDatosDeProductos = (await getDocs
+                (collection(db, "productos"))).docs.map((documento) => ({
                 id: documento.id, ...documento.data(),
             }));
-            setDatosDeColegios(listaDatosDeColegios);
-        } catch (error) {console.error("Error al obtener los colegios:", error);
+            setDatosDeProductos(listaDatosDeProductos);
+        } catch (error) {console.error("Error al obtener los Productos:", error);
         }};
 
     return(
@@ -55,31 +47,31 @@ export default function Productos() {
             <input
               type="text"
               className="colegiosBuscadorInput"
-              placeholder="Buscar empresa o colegio..."
+              placeholder="Buscar un producto con su nombre..."
               value={buscador}
               onChange={(e) => setBuscador(e.target.value)}
-              aria-label="Buscar empresa o colegio"
+              aria-label="Buscar Colegio"
             />
           </div>
         </header>
         <section className="colegiosGrid">
 
-          {buscadorDeColegios.map((datoColegioEspecifico) => (
+          {buscadorDeProductos.map((datoProductoEspecifico) => (
             <article
-              key={datoColegioEspecifico.id}
+              key={datoProductoEspecifico.id}
               className="colegioCard"
             >
               <div className="colegioCardContent">
                 <h2 className="colegioNombre">
-                  {datoColegioEspecifico.nombre}
+                  {datoProductoEspecifico.nombre}
                 </h2>
               </div>
               <div className="colegioActions">
                 <button
                   type="button"
                   className="colegioAction colegioActionEye"
-                  aria-label={`Editar ${datoColegioEspecifico.nombre}`}
-                  onClick={() => abrirModalParaEditar(datoColegioEspecifico)}
+                  aria-label={`Editar ${datoProductoEspecifico.nombre}`}
+                  /*onClick={() => abrirVerProducto(datoProductoEspecifico)}*/
                 >
                   <Eye size={17} strokeWidth={2} />
                   <span>
@@ -89,7 +81,7 @@ export default function Productos() {
                 <button
                   type="button"
                   className="colegioAction colegioActionDelete"
-                  aria-label={`Eliminar ${datoColegioEspecifico.nombre}`}
+                  aria-label={`Eliminar ${datoProductoEspecifico.nombre}`}
                 >
                   <Eraser size={17} strokeWidth={2} />
                   <span>

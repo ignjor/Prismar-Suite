@@ -20,23 +20,27 @@ function App() {
           path="/" 
           element={<Home />}
         />
-        <Route 
-          path="/tipo-prenda"
-          element={<TipoPrenda/>}
-        />
+
+
         <Route 
           path="/colegios" 
           element={<Colegios />} 
         />
         <Route 
+          path="/tipo-prenda"
+          element={<TipoPrenda/>}
+        />
+        <Route 
           path="/tallas" 
           element={<Tallas />} 
         />
-        
+
         <Route 
           path="/productos" 
           element={<Productos />} 
         />
+
+        
       </Routes>
       <BottomNav />
     </BrowserRouter>
