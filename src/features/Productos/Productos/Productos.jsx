@@ -2,20 +2,18 @@ import "./Productos.css";
 import { db } from "../../../firebase";
 import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
+import VerProducto from "../VerProducto/VerProducto";
 import { Eraser, Search, Eye } from "lucide-react";
 
 export default function Productos() {
+    const navigate = useNavigate();
     const [datosDeProductos, setDatosDeProductos] = useState([]);
-    const [verElProducto, setVerElProducto] = useState(null);
 
     const [buscador, setBuscador] = useState("");
     const buscadorDeProductos = datosDeProductos.filter((producto) =>
       producto.nombre?.toLowerCase().includes(buscador.toLowerCase()))
-
-    const abrirVerProducto = (datoProductoEspecifico) => {
-        setVerElProducto(datoProductoEspecifico); setEstadoDelModal(true); 
-    };
 
     useEffect(() => {
         obtenerDatosDeProductos();
@@ -107,7 +105,7 @@ export default function Productos() {
                   type="button"
                   className="colegioAction colegioActionEye"
                   aria-label={`Editar ${datoProductoEspecifico.nombre}`}
-                  /*onClick={() => abrirVerProducto(datoProductoEspecifico)}*/
+                  onClick={() => navigate(`/ver-producto/id=${datoProductoEspecifico.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
                   <span>
@@ -128,14 +126,6 @@ export default function Productos() {
             </article>
           ))}
         </section>
-
-        {/*  
-          <ModalAgregarEditarColegio
-            datoColegioEditar = {colegioAEditar}
-            modalAbierto = {estadoDelModal}
-            onCerrarModal = {cerrarModal}
-            onRecargarColegios={obtenerDatosDeColegios}
-              /> */}
       </main>
     );
 }

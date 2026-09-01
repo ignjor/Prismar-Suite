@@ -1,16 +1,20 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import BottomNav from "./components/navigation/BottomNav/BottomNav";
+
 import Home from "./features/Home/Home/Home";
+
 import Productos from "./features/Productos/Productos/Productos";
-import Cuentas from "./features/Cuentas/Cuentas/Cuentas";
+import VerProducto from "./features/Productos/VerProducto/VerProducto";
+/*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto"; */
+
 import Colegios from "./features/Colegios/Colegios/Colegios";
 import TipoPrenda from "./features/TiposProducto/TipoPrenda/TipoPrenda";
 import Tallas from "./features/Tallas/Tallas/Tallas";
 
-/*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto";
-import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
+import Cuentas from "./features/Cuentas/Cuentas/Cuentas";
 
-import BottomNav from "./components/navigation/BottomNav/BottomNav";
+/*import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
 function App() {
   return (
@@ -35,9 +39,14 @@ function App() {
           element={<Tallas />} 
         />
 
+
         <Route 
           path="/productos" 
           element={<Productos />} 
+        />
+        <Route 
+          path="/ver-producto/:id" 
+          element={<VerProducto />} 
         />
 
         

@@ -270,6 +270,8 @@ service cloud.firestore {
 
 - refactor: rehace el sistema para leer los productos, ahora rescata y reutiliza las lecturas dentro de los productos si alguno comparte colegio, ahorramos aproximadamente así un 50% de lecturas.
 
+### Martes 01 de Agosto
+
 
 
 
