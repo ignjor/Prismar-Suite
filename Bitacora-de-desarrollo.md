@@ -250,6 +250,26 @@ service cloud.firestore {
 
 - feat: Comenzamos ofialmente con la estructura de productos, puede ser la mas desafiante del proyecto porque esta misma la podemos usar como base para pedidos, creamos la carpeta VerProducto, EditarProducto y AgregarProducto.
 
+### Domingo 30 de Agosto
+
+- doc: Mejoramos el diagrama UML agregando tallas, lo creamos igual que colegios pero lo guardanos dentro de producto con precio por talla como un map
+
+- feat: crea tallas, usamos la base de colegios, ahora para crear productos podemos asignarle la talla y registrar precio segun la talla, importante antes de comenzar con el desarrollo de productos.
+
+### Lunes 31 de Agosto
+
+- feat: agrega la estructura para leer productos y el buscador solo por nombre, y hasta el momento vemos solo el nombre
+
+- styles: modifica los estilos de los atributos dentro de la tarjeta de tipo de prenda, mas profesional y minimalista.
+
+- feat: agrega leer las tallas y los precios de las tallas dentro del apartado de productos, aplica funcion para número y poner el . en donde corresponda en el precio
+
+### Lunes 31 de Agosto v2
+
+- feat: agrega lectura de colegio especifico segun la id asignada dentro del producto, por lo que si se actualiza en colegios, se actualiza en los productos, falta testear el consumo real en lecturas.
+
+
+
 
 
 
