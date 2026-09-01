@@ -268,6 +268,8 @@ service cloud.firestore {
 
 - feat: agrega lectura de colegio especifico segun la id asignada dentro del producto, por lo que si se actualiza en colegios, se actualiza en los productos, falta testear el consumo real en lecturas.
 
+- refactor: rehace el sistema para leer los productos, ahora rescata y reutiliza las lecturas dentro de los productos si alguno comparte colegio, ahorramos aproximadamente así un 50% de lecturas.
+
 
 
 
