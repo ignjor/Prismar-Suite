@@ -17,42 +17,40 @@ export default function Productos() {
         setVerElProducto(datoProductoEspecifico); setEstadoDelModal(true); 
     };
 
-
     useEffect(() => {
         obtenerDatosDeProductos();
     }, []);
 
     const obtenerDatosDeProductos = async() => {
       try {
-          const listaDatosDeProductos = (await getDocs
-              (collection(db, "productos"))).docs.map((documento) => ({
-              id: documento.id, ...documento.data()
-          }));
-          await obtenerDatosDeColegios(listaDatosDeProductos);
-      } catch (error) {console.error("Error al obtener los Productos:", error);
-      }};
-
-    const obtenerDatosDeColegios = async(listaDatosDeProductos) => {
-      try {
-          const productosConColegio = await Promise.all
-            (listaDatosDeProductos.map(async (producto) => {
-              if (!producto.colegio_id) {
-                return {
-                  ...producto, nombreColegio: "Sin Afiliado",
-                };
-              }
-
-              const listaDatosDeColegios = (await getDoc
-                  (doc(db, "colegios", producto.colegio_id)));
-                  return {
-                    ...producto, nombreColegio: listaDatosDeColegios.exists()
-                     ? listaDatosDeColegios.data().nombre
-                     : "Sin Afiliado",
-                  };
-              }));
-          setDatosDeProductos(productosConColegio);
-      } catch (error) {console.error("Error al obtener los Colegios:", error);
-      }};
+        const rutaProductosFirestore = await getDocs(collection(db, "productos"));
+        const productos = rutaProductosFirestore.docs.map((documento) => ({
+          id: documento.id, ...documento.data()
+        }));
+        const colegiosIDs = [...new Set(
+          productos.map((producto) => producto.colegio_id).filter(Boolean)
+        ),];
+        const datosDeColegios = await Promise.all(
+          colegiosIDs.map(async (colegioIDEspecifico) => {
+            const rutaColegioFirestore = await getDoc(doc(db, "colegios", colegioIDEspecifico));
+            return {id: colegioIDEspecifico, nombre:rutaColegioFirestore.exists()
+              ? rutaColegioFirestore.data().nombre
+              : "Sin Afiliado",
+            };
+          })
+        );
+        const colegiosMap = new Map(datosDeColegios
+          .map((colegio) => [colegio.id, colegio.nombre])
+        );
+        const productosConColegio = productos.map((producto) => ({
+          ...producto, nombreColegio:producto.colegio_id
+          ? colegiosMap.get(producto.colegio_id) ?? "Sin Afiliado"
+          : "Sin afiliado",
+        }));
+        setDatosDeProductos(productosConColegio);
+      }catch(error) {console.error("Error al obtener los Productos:",error);
+      }
+    };
 
     return(
       <main className="adminColegios">
