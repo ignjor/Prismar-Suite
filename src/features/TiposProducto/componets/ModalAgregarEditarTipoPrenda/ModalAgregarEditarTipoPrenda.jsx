@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarEditarTipoPrenda.css";
 
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
 
 import { CircleX, CirclePlus, X, Trash2, PencilRuler } from "lucide-react";

@@ -2,19 +2,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import BottomNav from "./components/navigation/BottomNav/BottomNav";
 
-import Home from "./features/Home/Home/Home";
+import Home from "./features/Home/componets/Home/Home";
 
-import Productos from "./features/Productos/Productos/Productos";
-import VerProducto from "./features/Productos/VerProducto/VerProducto";
+import Productos from "./features/Productos/componets/Productos/Productos";
+import VerProducto from "./features/Productos/componets/VerProducto/VerProducto";
 /*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto"; */
 
-import Colegios from "./features/Colegios/Colegios/Colegios";
-import TipoPrenda from "./features/TiposProducto/TipoPrenda/TipoPrenda";
-import Tallas from "./features/Tallas/Tallas/Tallas";
+import Colegios from "./features/Colegios/components/Colegios/Colegios";
+import TipoPrenda from "./features/TiposProducto/componets/TipoPrenda/TipoPrenda";
+import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 
-import Cuentas from "./features/Cuentas/Cuentas/Cuentas";
-
-/*import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
+/*import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
+import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
 function App() {
   return (

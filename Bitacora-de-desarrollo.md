@@ -272,7 +272,9 @@ service cloud.firestore {
 
 ### Martes 01 de Agosto
 
+- feat: agrega la redireccion /ver-producto/id=XXXXX cuando apretamos Ver dentro de productos, vamos a crear primero Crear Producto para usarla de base para Ver, por ahora solo pasa la Id.
 
+- refactor: ordena y prepara los componentes y sus carpetas para empezar con la implementacion de TanStack Query
 
 
 

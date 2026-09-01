@@ -1,10 +1,9 @@
 import "./Productos.css";
-import { db } from "../../../firebase";
+import { db } from "../../../../firebase";
 import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import VerProducto from "../VerProducto/VerProducto";
 import { Eraser, Search, Eye } from "lucide-react";
 
 export default function Productos() {
