@@ -144,10 +144,42 @@
 
 }
 
+.ColegioAsignadoTitle{
+  min-height: 25px;
+
+  box-sizing: border-box;
+
+  border-radius: 30px;
+
+  background: rgba(245, 245, 247, 0.75);
+
+  border: 1px solid rgba(0, 0, 0, 0.045);
+
+  overflow-wrap: anywhere;
+
+  margin: 3px;
+
+  padding: 5px;
+
+  font-size: 12px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.2px;
+
+  text-transform: uppercase;
+
+  color: #69696e;
+
+  text-align: center;
+
+  display: grid;
+
+}
+
 .medidasAsignadasTitle {
 
   margin: 20px 0 15px 0;
-
 
   padding: 0;
 
@@ -211,14 +243,6 @@
   text-align: center;
 
   overflow-wrap: anywhere;
-
-  transition:
-
-    background 0.2s ease,
-
-    border-color 0.2s ease,
-
-    transform 0.2s ease;
 
 }
 

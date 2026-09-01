@@ -1,6 +1,6 @@
 import "./Productos.css";
 import { db } from "../../../firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { Eraser, Search, Eye } from "lucide-react";
@@ -21,15 +21,38 @@ export default function Productos() {
     useEffect(() => {
         obtenerDatosDeProductos();
     }, []);
-    const obtenerDatosDeProductos = async () => {
-        try {
-            const listaDatosDeProductos = (await getDocs
-                (collection(db, "productos"))).docs.map((documento) => ({
-                id: documento.id, ...documento.data(),
-            }));
-            setDatosDeProductos(listaDatosDeProductos);
-        } catch (error) {console.error("Error al obtener los Productos:", error);
-        }};
+
+    const obtenerDatosDeProductos = async() => {
+      try {
+          const listaDatosDeProductos = (await getDocs
+              (collection(db, "productos"))).docs.map((documento) => ({
+              id: documento.id, ...documento.data()
+          }));
+          await obtenerDatosDeColegios(listaDatosDeProductos);
+      } catch (error) {console.error("Error al obtener los Productos:", error);
+      }};
+
+    const obtenerDatosDeColegios = async(listaDatosDeProductos) => {
+      try {
+          const productosConColegio = await Promise.all
+            (listaDatosDeProductos.map(async (producto) => {
+              if (!producto.colegio_id) {
+                return {
+                  ...producto, nombreColegio: "Sin Afiliado",
+                };
+              }
+
+              const listaDatosDeColegios = (await getDoc
+                  (doc(db, "colegios", producto.colegio_id)));
+                  return {
+                    ...producto, nombreColegio: listaDatosDeColegios.exists()
+                     ? listaDatosDeColegios.data().nombre
+                     : "Sin Afiliado",
+                  };
+              }));
+          setDatosDeProductos(productosConColegio);
+      } catch (error) {console.error("Error al obtener los Colegios:", error);
+      }};
 
     return(
       <main className="adminColegios">
@@ -64,6 +87,10 @@ export default function Productos() {
               <div className="colegioCardContent">
                 <h2 className="colegioNombre">
                   {datoProductoEspecifico.nombre}
+                </h2>
+
+                <h2 className="ColegioAsignadoTitle">
+                  {datoProductoEspecifico.nombreColegio}
                 </h2>
 
                 <h2 className="medidasAsignadasTitle">
