@@ -13,6 +13,8 @@ Base de datos: [Firestore de Firebase](https://firebase.google.com)
 Backend: con **Cloud Functions** de [Firebase](https://firebase.google.com)
 según lo requiera para la creación de usuarios.
 
+Manejo de Cache y Lecturas: Tan Stack Query.
+
 
 ## Paquetes de dependencias
 
@@ -20,6 +22,7 @@ según lo requiera para la creación de usuarios.
 - Vite
 - Firebase
 - React Router DOM
+- TanStack Query
 - Lucide React
 
 ```bash
