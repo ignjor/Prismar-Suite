@@ -276,6 +276,10 @@ service cloud.firestore {
 
 - refactor: ordena y prepara los componentes y sus carpetas para empezar con la implementacion de TanStack Query
 
+### Martes 01 de Agosto v2
+
+- feat: crea useColegios y colegios.query, falta testarlos, modificar Colegios.jsx y asegurarnos de que este cacheando bien colegios, cacheando colegios tenemos la estructura para todo el proyecto.
+
 
 
 
