@@ -280,6 +280,10 @@ service cloud.firestore {
 
 - feat: crea useColegios y colegios.query, falta testarlos, modificar Colegios.jsx y asegurarnos de que este cacheando bien colegios, cacheando colegios tenemos la estructura para todo el proyecto.
 
+### Miercoles 02 de Agosto
+
+- refactor: Colegios.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente
+
 
 
 

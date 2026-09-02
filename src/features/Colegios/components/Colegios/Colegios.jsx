@@ -1,13 +1,15 @@
 import "./Colegios.css";
-import { db } from "../../../../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useColegios } from "../../querys/useColegios";
+import { useState } from "react";
 
 import ModalAgregarEditarColegio from "../ModalAgregarEditarColegio/ModalAgregarEditarColegio";
 import { PencilLine, Eraser, School, Search } from "lucide-react";
 
 export default function Colegios() {
-    const [datosDeColegios, setDatosDeColegios] = useState([]);
+    const { data: datosDeColegios = [],
+      isLoading, isError, error
+    } = useColegios();
+
     const [colegioAEditar, setColegioAEditar] = useState(null);
 
     const [buscador, setBuscador] = useState("");
@@ -25,20 +27,9 @@ export default function Colegios() {
     const cerrarModal = () => {
         setColegioAEditar(null); setEstadoDelModal(false); 
     };
-
-
-    useEffect(() => {
-        obtenerDatosDeColegios();
-    }, []);
-    const obtenerDatosDeColegios = async () => {
-        try {
-            const listaDatosDeColegios = (await getDocs
-                (collection(db, "colegios"))).docs.map((documento) => ({
-                id: documento.id, ...documento.data(),
-            }));
-            setDatosDeColegios(listaDatosDeColegios);
-        } catch (error) {console.error("Error al obtener los colegios:", error);
-        }};
+    
+    if (isLoading) { return <p>Cargando Colegios...</p>}
+    if (isError) { return <p>Error: {error.message}. Error al Cargar Colegios, recargue la página.</p>}
 
     return(
       <main className="adminColegios">
@@ -120,7 +111,6 @@ export default function Colegios() {
             datoColegioEditar = {colegioAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-            onRecargarColegios={obtenerDatosDeColegios}
               />
       </main>
     );
