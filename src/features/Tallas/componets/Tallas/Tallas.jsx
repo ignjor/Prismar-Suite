@@ -1,13 +1,15 @@
 import "./Tallas.css";
-import { db } from "../../../../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useTallas } from "../../querys/useTallas";
+import { useState } from "react";
 
 import ModalAgregarEditarTalla from "../ModalAgregarEditarTalla/ModalAgregarEditarTalla";
 import { PencilLine, Eraser, Tag, Search } from "lucide-react";
 
 export default function Tallas() {
-    const [datosDeTallas, setDatosDeTallas] = useState([]);
+    const { data: datosDeTallas = [],
+      isLoading, isError, error
+    } = useTallas();
+
     const [tallaAEditar, setTallaAEditar] = useState(null);
 
     const [buscador, setBuscador] = useState("");
@@ -26,20 +28,8 @@ export default function Tallas() {
         setTallaAEditar(null); setEstadoDelModal(false); 
     };
 
-
-    useEffect(() => {
-        obtenerDatosDeTallas();
-    }, []);
-    const obtenerDatosDeTallas = async () => {
-        try {
-            const listaDatosDeTallas = (await getDocs
-                (collection(db, "tallas"))).docs.map((documento) => ({
-                id: documento.id, ...documento.data(),
-            }));
-            setDatosDeTallas(listaDatosDeTallas);
-        } catch (error) {console.error("Error al obtener las Tallas:", error);
-        }};
-
+    if (isLoading) { return <p>Cargando Colegios...</p>}
+    if (isError) { return <p>Error: {error.message}. Error al Cargar Colegios, recargue la página.</p>}
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">
@@ -120,7 +110,6 @@ export default function Tallas() {
             datoTallaEditar = {tallaAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-            onRecargarTallas={obtenerDatosDeTallas}
               />
       </main>
     );

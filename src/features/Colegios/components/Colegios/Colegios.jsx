@@ -30,7 +30,6 @@ export default function Colegios() {
     
     if (isLoading) { return <p>Cargando Colegios...</p>}
     if (isError) { return <p>Error: {error.message}. Error al Cargar Colegios, recargue la página.</p>}
-
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">

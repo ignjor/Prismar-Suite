@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query"; 
-import { COLEGIOS_QUERY_KEY, IniciarsuscribirseAColegios, DetenersuscribirseAColegios } from "./colegios.query";
+import { TALLAS_QUERY_KEY, IniciarsuscribirseATallas, DetenersuscribirseATallas } from "./tallas.query";
 
-export const useColegios = () => {
+export const useTallas = () => {
     const queryClient = useQueryClient();
     const query = useQuery({
-        queryKey: COLEGIOS_QUERY_KEY,
+        queryKey: TALLAS_QUERY_KEY,
         queryFn: () => {
-            return queryClient.getQueryData(COLEGIOS_QUERY_KEY) ?? [];
+            return queryClient.getQueryData(TALLAS_QUERY_KEY) ?? [];
         },
         staleTime: Infinity,
         refetchOnMount: false,
@@ -15,9 +15,9 @@ export const useColegios = () => {
         refetchOnReconnect: false,
     });
     useEffect(() => {
-        IniciarsuscribirseAColegios(queryClient);
+        IniciarsuscribirseATallas(queryClient);
 
-        return () => {DetenersuscribirseAColegios();
+        return () => {DetenersuscribirseATallas();
         };
     }, [queryClient]);
 

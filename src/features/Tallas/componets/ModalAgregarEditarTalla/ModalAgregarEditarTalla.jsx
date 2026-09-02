@@ -17,7 +17,7 @@ const validarTextoDeInput = (talla) => {
 };
 
 
-export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, onCerrarModal, onRecargarTallas}){
+export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, onCerrarModal}){
     const [error, setError] = useState("");
     const [guardandoTalla, setGuardandoTalla] = useState(false);
     const RefAreaDelModal = useRef(null);
@@ -75,7 +75,6 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
             await addDoc(collection(db, "tallas"),
             {talla: textoValidado}
             );
-            await onRecargarTallas()
             setTalla("");
             onCerrarModal();
         }catch(error){
@@ -89,7 +88,6 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
             await updateDoc(doc(db, "tallas", datoTallaEditar.id),
                 {talla: textoValidado}
             );
-            await onRecargarTallas()
             setTalla("");
             onCerrarModal();
         }catch(error){

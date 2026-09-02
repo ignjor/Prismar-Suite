@@ -284,6 +284,11 @@ service cloud.firestore {
 
 - refactor: Colegios.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente
 
+- refactor: quitamos recargarpagina desde el modal porque no lo necesitamos, como recarga desde cache lo unico que hace esa funcion es recargar innesariamente desde firestore, ahorra lecturas y ademas como antes usamos la cache, es innecesaria
+
+### Miercoles 02 de Agosto v2
+
+- refactor: Tallas.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente, ademas el modal ya no necesita recargar las lecturas de la db
 
 
 
