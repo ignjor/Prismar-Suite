@@ -31,7 +31,7 @@ const validarAtributos = (atributos) => {
         return null;
 };
 
-export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, modalAbierto, onCerrarModal, onRecargarTipoPrenda}) {
+export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, modalAbierto, onCerrarModal}) {
     const [error, setError] = useState("");
     const [guardandoTipoPrenda, setGuardandoTipoPrenda] = useState(false);
     const RefAreaDelModal = useRef(null);
@@ -102,7 +102,6 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
             await addDoc(collection(db, "tipo_prenda"),
             {tipo: textoValidado, medidas_asig: atributosAsignados}
         );
-        await onRecargarTipoPrenda()
         setNombreDeTipoPrenda(""); setAtributosAsignados([]);
         onCerrarModal();
         }catch(error){
@@ -116,7 +115,6 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
             await updateDoc(doc(db, "tipo_prenda", datoTipoPrendaEditar.id),
             {tipo: textoValidado, medidas_asig: atributosAsignados}
         );
-        await onRecargarTipoPrenda()
         setNombreDeTipoPrenda(""); setAtributosAsignados([]);
         onCerrarModal();
         }catch(error){

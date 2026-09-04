@@ -1,14 +1,16 @@
 import "./TipoPrenda.css";
-import { db } from "../../../../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useTipoPrenda } from "../../querys/useTipoPrenda";
+import { useState } from "react";
 
 import ModalAgregarEditarTipoPrenda from "../ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
 import { PencilLine, Eraser, Ruler, Search } from "lucide-react";
 
 
 export default function TipoPrenda() {
-    const [datosDeTipoPrenda, setDatosDeTipoPrenda] = useState([]);
+    const { data: datosDeTipoPrenda = [],
+      isLoading, isError, error
+    } = useTipoPrenda(); 
+
     const [tipoPrendaAEditar, setTipoPrendaAEditar] = useState(null);
 
     const [buscador, setBuscador] = useState("");
@@ -27,19 +29,8 @@ export default function TipoPrenda() {
         setTipoPrendaAEditar(null); setEstadoDelModal(false); 
     };
 
-
-    useEffect (() => {
-        obtenerDatosDeTipoPrenda();
-    }, []);
-    const obtenerDatosDeTipoPrenda = async () => {
-        try {
-            const listaDatosDeTipoPrenda = (await getDocs
-                (collection(db, "tipo_prenda"))).docs.map((documento) => ({
-                id: documento.id, ...documento.data(),
-            }));
-            setDatosDeTipoPrenda(listaDatosDeTipoPrenda);
-        } catch (error) {console.error("Error al obtener los tipos de prenda:", error);
-        }};
+    if (isLoading) { return <p>Cargando Tipos de Prendas...</p>}
+    if (isError) { return <p>Error: {error.message}. Error al Cargar los Tipos de Prendas, recargue la página.</p>}
 
     return (
       <main className="adminColegios">
@@ -131,7 +122,6 @@ export default function TipoPrenda() {
             datoTipoPrendaEditar = {tipoPrendaAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-            onRecargarTipoPrenda={obtenerDatosDeTipoPrenda}
               />
       </main>
     );

@@ -290,6 +290,10 @@ service cloud.firestore {
 
 - refactor: Tallas.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente, ademas el modal ya no necesita recargar las lecturas de la db
 
+### Jueves 03 de Agosto
+
+- refactor: TipoPrenda.jsx ahora usa TanStackQuery al igual que los otros componentes, los componetes que usa otra coleccion los dejamos como infinite y ademas como onSnapshot para que esten siempre disponibles y actualizados cuando los necesite
+
 
 
 
