@@ -1,6 +1,6 @@
 # EN DESARROLLO - Prismar Suite.
 
-Sistema empresarial interno desarrollado para Prismar, orientado a la administración de procesos de productos, pedidos, finanzas y gestión interna de la empresa.
+Desarrollo de sistema empresarial interno para gestión de productos, pedidos y finanzas. Diseño de modelo de datos en Firestore, autorización basada en roles y reglas de seguridad, junto con optimización de lecturas mediante cache por TanStack Query
 
 ## Tecnologías
 
