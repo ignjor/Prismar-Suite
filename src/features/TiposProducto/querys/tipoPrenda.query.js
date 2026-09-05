@@ -19,7 +19,6 @@ export const IniciarsuscribirseATipoPrenda = (queryClient) => {
       queryClient.setQueryData(TIPOPRENDA_QUERY_KEY, tipoPrenda);
     },(error) => {
         console.error("Error al obtener los Tipos de Prendas",error);
-        queryClient.setQueryData(TIPOPRENDA_QUERY_KEY, (tipoPrendaActuales) => tipoPrendaActuales);
     });
 };
 

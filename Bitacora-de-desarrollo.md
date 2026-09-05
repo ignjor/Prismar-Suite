@@ -294,6 +294,9 @@ service cloud.firestore {
 
 - refactor: TipoPrenda.jsx ahora usa TanStackQuery al igual que los otros componentes, los componetes que usa otra coleccion los dejamos como infinite y ademas como onSnapshot para que esten siempre disponibles y actualizados cuando los necesite
 
+### Viernes 04 de Agosto
+
+- refactor: Productos.jsx lee la cache para cargar productos, si no lo encuentra llama a la funcion que lo carga desde firestore, tenemos que solucionar que llama todos los colegios y todos los tipo prenda, pero una vez cargados no lo vuelve a hacer, tambien ahora muestra el tipo de tipo_prenda dentro de la tarjeta para identicar el producto tambien.
 
 
 

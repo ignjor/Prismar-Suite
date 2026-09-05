@@ -19,7 +19,6 @@ export const IniciarsuscribirseAColegios = (queryClient) => {
       queryClient.setQueryData(COLEGIOS_QUERY_KEY, colegios);
     },(error) => {
         console.error("Error al obtener los Colegios",error);
-        queryClient.setQueryData(COLEGIOS_QUERY_KEY, (colegiosActuales) => colegiosActuales);
     });
 };
 

@@ -1,54 +1,57 @@
 import "./Productos.css";
-import { db } from "../../../../firebase";
-import { collection, doc, getDocs, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useProductos } from "../../querys/useProductos";
+import { useColegios } from "../../../Colegios/querys/useColegios";
+import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
+
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Eraser, Search, Eye } from "lucide-react";
 
 export default function Productos() {
     const navigate = useNavigate();
-    const [datosDeProductos, setDatosDeProductos] = useState([]);
-
     const [buscador, setBuscador] = useState("");
-    const buscadorDeProductos = datosDeProductos.filter((producto) =>
-      producto.nombre?.toLowerCase().includes(buscador.toLowerCase()))
 
-    useEffect(() => {
-        obtenerDatosDeProductos();
-    }, []);
+    const { data: datosDeProductos = [],
+      isLoading, isError, error
+    } = useProductos();
+    const { data: datosDecolegios = []} = useColegios();
+    const { data: datosDeTipoPrenda = []} = useTipoPrenda();
 
-    const obtenerDatosDeProductos = async() => {
-      try {
-        const rutaProductosFirestore = await getDocs(collection(db, "productos"));
-        const productos = rutaProductosFirestore.docs.map((documento) => ({
-          id: documento.id, ...documento.data()
-        }));
-        const colegiosIDs = [...new Set(
-          productos.map((producto) => producto.colegio_id).filter(Boolean)
-        ),];
-        const datosDeColegios = await Promise.all(
-          colegiosIDs.map(async (colegioIDEspecifico) => {
-            const rutaColegioFirestore = await getDoc(doc(db, "colegios", colegioIDEspecifico));
-            return {id: colegioIDEspecifico, nombre:rutaColegioFirestore.exists()
-              ? rutaColegioFirestore.data().nombre
-              : "Sin Afiliado",
-            };
-          })
-        );
-        const colegiosMap = new Map(datosDeColegios
-          .map((colegio) => [colegio.id, colegio.nombre])
-        );
-        const productosConColegio = productos.map((producto) => ({
-          ...producto, nombreColegio:producto.colegio_id
+    const colegiosMap = useMemo(() => {
+      return new Map(datosDecolegios.map(
+        (colegio) => [colegio.id, colegio.nombre]
+      ));
+    }, [datosDecolegios]);
+    const tipoPrendaMap = useMemo(() => {
+      return new Map(datosDeTipoPrenda.map(
+        (tipo_prenda) => [tipo_prenda.id, tipo_prenda.tipo]
+      ));
+    }, [datosDeTipoPrenda]);
+
+    const listarProductos = useMemo(() => {
+      return datosDeProductos.map((producto) => ({
+        ...producto,
+
+        nombreColegio: producto.colegio_id
           ? colegiosMap.get(producto.colegio_id) ?? "Sin Afiliado"
-          : "Sin afiliado",
-        }));
-        setDatosDeProductos(productosConColegio);
-      }catch(error) {console.error("Error al obtener los Productos:",error);
-      }
-    };
+          : "Sin Afiliado",
 
+        nombreTipoPrenda: producto.tipo_prenda_id
+          ? tipoPrendaMap.get(producto.tipo_prenda_id) ?? "Sin Afiliado"
+          : "Sin Afiliado",
+      }));
+    }, [datosDeProductos, colegiosMap, tipoPrendaMap]);
+
+    const buscadorDeProductos = listarProductos.filter(
+      (producto) =>
+        producto.nombre
+          ?.toLowerCase()
+          .includes(buscador.toLowerCase())
+    );
+
+    if (isLoading) { return <p>Cargando los Productos...</p>}
+    if (isError) { return <p>Error: {error.message}. Error al Cargar los Productos, recargue la página.</p>}
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">
@@ -86,6 +89,9 @@ export default function Productos() {
 
                 <h2 className="ColegioAsignadoTitle">
                   {datoProductoEspecifico.nombreColegio}
+                </h2>
+                <h2 className="TipoPrendaAsignadoTitle">
+                  {datoProductoEspecifico.nombreTipoPrenda}
                 </h2>
 
                 <h2 className="medidasAsignadasTitle">

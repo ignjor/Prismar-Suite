@@ -18,8 +18,7 @@ export const IniciarsuscribirseATallas = (queryClient) => {
       }));
       queryClient.setQueryData(TALLAS_QUERY_KEY, tallas);
     },(error) => {
-        console.error("Error al obtener las Tallas",error);
-        queryClient.setQueryData(TALLAS_QUERY_KEY, (tallasActuales) => tallasActuales);
+        console.error("Error al obtener las Tallas", error);
     });
 };
 

@@ -177,6 +177,45 @@
 
 }
 
+.TipoPrendaAsignadoTitle{
+  min-height: 10px;
+  max-width: fit-content;
+
+  box-sizing: border-box;
+
+  border-radius: 30px;
+
+  background: rgb(245, 245, 247);
+
+  border: 1px solid rgba(0, 0, 0, 0.045);
+
+  overflow-wrap: anywhere;
+
+  margin: 3px;
+
+  padding: 5px 10px;
+
+  font-size: 10px;
+
+  font-weight: 400;
+
+  letter-spacing: 0.2px;
+
+  text-transform: uppercase;
+
+  color: #69696e;
+
+  text-align: center;
+
+  margin-left: auto;
+  margin-right: auto;
+  
+
+  display: grid;
+
+}
+
+
 .medidasAsignadasTitle {
 
   margin: 20px 0 15px 0;
