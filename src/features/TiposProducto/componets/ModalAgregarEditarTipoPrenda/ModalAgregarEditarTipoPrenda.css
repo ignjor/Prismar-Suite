@@ -429,10 +429,6 @@ font-size: 19px;
 padding: 22px 18px;
 }
 
-.modalAtributosLista {
-grid-template-columns: 1fr;
-}
-
 .modalAtributoEliminar {
 width: 36px;
 height: 36px;

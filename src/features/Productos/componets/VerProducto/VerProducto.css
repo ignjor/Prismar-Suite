@@ -194,8 +194,18 @@ background: rgba(0, 0, 0, 0.07);
 min-width: 0;
 }
 
-.productoDetalleSeccion .medidasAsignadasTitle {
+.productoDetalleSeccion .preciosAsignadosTitle {
 margin: 0 0 15px;
+color: #86868b;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.2px;
+text-align: left;
+text-transform: uppercase;
+}
+
+.productoDetalleSeccion .medidasAsignadasTitle {
+margin: 30px 0 15px;
 color: #86868b;
 font-size: 12px;
 font-weight: 600;

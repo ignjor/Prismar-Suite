@@ -309,3 +309,4 @@ service cloud.firestore {
 ### Domingo 06 de Agosto
 
 - feat: producto y verProducto muestra los precios en orden de menor a mayor.
+- feat: muestra las medidas de tipo de prenda dentro de verProducto

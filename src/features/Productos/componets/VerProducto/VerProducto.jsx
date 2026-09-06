@@ -86,13 +86,12 @@ export default function VerProducto() {
               {colegio?.nombre || "Sin Empresa o ColegioAfiliado"}
             </span>
           </div>
-
           <div className="productoDetalleSeparador" />
+
           <div className="productoDetalleSeccion">
-            <h2 className="medidasAsignadasTitle">
+            <h2 className="preciosAsignadosTitle">
               PRECIOS POR TALLA
             </h2>
-
             {precios.length > 0 ? (
               <div className="productoDetallePrecios">
                 {precios.map(([talla, precio]) => (
@@ -112,6 +111,32 @@ export default function VerProducto() {
             ) : (
               <p className="productoDetalleSinDatos">
                 No hay precios registrados.
+              </p>
+            )}
+          </div>
+          <div className="productoDetalleSeccion">
+            <h2 className="medidasAsignadasTitle">
+              MEDIDAS {tipoPrenda?.tipo || "Sin Empresa o ColegioAfiliado"}
+            </h2>
+            {tipoPrenda?.medidas_asig &&
+            Object.keys(tipoPrenda.medidas_asig).length > 0 ? (
+              <div className="productoDetallePrecios">
+                {Object.entries(tipoPrenda.medidas_asig).map(
+                  ([medida]) => (
+                    <div
+                      className="productoDetallePrecio"
+                      key={medida}
+                    >
+                      <span className="productoDetalleValor">
+                        {medida}
+                      </span>
+                    </div>
+                  )
+                )}
+              </div>
+            ) : (
+              <p className="productoDetalleSinDatos">
+                No hay medidas asignadas.
               </p>
             )}
           </div>
