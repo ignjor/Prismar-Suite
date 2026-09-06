@@ -1,706 +1,414 @@
 .colegiosBuscador {
-
-  width: min(100%, 300px);
-
-  height: 48px;
-
-  margin: 0 auto;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  padding: 0 16px;
-
-  box-sizing: border-box;
-
-  background: rgba(255, 255, 255, 0.68);
-
-  border: 1px solid rgba(0, 0, 0, 0.07);
-
-  border-radius: 30px;
-
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.045);
-
-  backdrop-filter: blur(18px);
-
-  -webkit-backdrop-filter: blur(18px);
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
-
+width: min(100%, 300px);
+height: 48px;
+margin: 0 auto;
+display: flex;
+align-items: center;
+gap: 10px;
+padding: 0 16px;
+box-sizing: border-box;
+background: rgba(255, 255, 255, 0.68);
+border: 1px solid rgba(0, 0, 0, 0.07);
+border-radius: 30px;
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.045);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+transition:
+border-color 0.2s ease,
+box-shadow 0.2s ease,
+background 0.2s ease;
 }
 
 .colegiosBuscadorIcon {
-
-  flex-shrink: 0;
-
-  color: #86868b;
-
-  transition:
-    color 0.2s ease;
-
+flex-shrink: 0;
+color: #86868b;
+transition: color 0.2s ease;
 }
 
 .colegiosBuscadorInput {
-
-  width: 100%;
-
-  min-width: 0;
-
-  height: 100%;
-
-  padding: 0;
-
-  border: none;
-
-  outline: none;
-
-  background: transparent;
-
-  color: #1d1d1f;
-
-  font-family: inherit;
-
-  font-size: 14px;
-
-  font-weight: 400;
-
-  letter-spacing: -0.15px;
-
+width: 100%;
+min-width: 0;
+height: 100%;
+padding: 0;
+border: none;
+outline: none;
+background: transparent;
+color: #1d1d1f;
+font-family: inherit;
+font-size: 14px;
+font-weight: 400;
+letter-spacing: -0.15px;
 }
 
 .colegiosBuscadorInput::placeholder {
-
-  color: #98989d;
-
-  opacity: 1;
-
+color: #98989d;
+opacity: 1;
 }
 
 .colegiosBuscador:focus-within {
-
-  background: rgba(255, 255, 255, 0.82);
-
-  border-color: rgba(34, 184, 75, 0.35);
-
-  box-shadow:
-    0 0 0 3px rgba(34, 184, 75, 0.08),
-    0 8px 24px rgba(0, 0, 0, 0.055);
-
+background: rgba(255, 255, 255, 0.82);
+border-color: rgba(34, 184, 75, 0.35);
+box-shadow:
+0 0 0 3px rgba(34, 184, 75, 0.08),
+0 8px 24px rgba(0, 0, 0, 0.055);
 }
 
 .colegiosBuscador:focus-within .colegiosBuscadorIcon {
-
-  color: #22b84b;
-
+color: #22b84b;
 }
 
 .adminColegios {
-
-  width: min(92%, 920px);
-
-  margin: 0 auto;
-
-  padding: 42px 0 130px 0;
-
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "SF Pro Text",
-    sans-serif;
-
-  color: #1d1d1f;
-
+width: min(92%, 920px);
+margin: 0 auto;
+padding: 42px 0 130px;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"SF Pro Text",
+sans-serif;
+color: #1d1d1f;
 }
 
 .adminColegiosHeader {
-  margin-top: 10px;
-  margin-bottom: 50px;
-  text-align: center;
-
+margin-top: 10px;
+margin-bottom: 50px;
+text-align: center;
 }
 
 .adminColegiosTitle {
-
-  margin: 0;
-
-  margin-bottom: 50px;
-  margin-top: 50px;
-
-  font-size: 34px;
-
-  font-weight: 700;
-
-  letter-spacing: -1px;
-
-  color: #1d1d1f;
-
+margin: 50px 0;
+font-size: 34px;
+font-weight: 700;
+letter-spacing: -1px;
+color: #1d1d1f;
 }
-
-.ColegioAsignadoTitle{
-  min-height: 25px;
-
-  box-sizing: border-box;
-
-  border-radius: 30px;
-
-  background: rgba(245, 245, 247, 0.75);
-
-  border: 1px solid rgba(0, 0, 0, 0.045);
-
-  overflow-wrap: anywhere;
-
-  margin: 3px;
-
-  padding: 5px;
-
-  font-size: 12px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.2px;
-
-  text-transform: uppercase;
-
-  color: #69696e;
-
-  text-align: center;
-
-  display: grid;
-
-}
-
-.TipoPrendaAsignadoTitle{
-  min-height: 10px;
-  max-width: fit-content;
-
-  box-sizing: border-box;
-
-  border-radius: 30px;
-
-  background: rgb(245, 245, 247);
-
-  border: 1px solid rgba(0, 0, 0, 0.045);
-
-  overflow-wrap: anywhere;
-
-  margin: 3px;
-
-  padding: 5px 10px;
-
-  font-size: 10px;
-
-  font-weight: 400;
-
-  letter-spacing: 0.2px;
-
-  text-transform: uppercase;
-
-  color: #69696e;
-
-  text-align: center;
-
-  margin-left: auto;
-  margin-right: auto;
-  
-
-  display: grid;
-
-}
-
-
-.medidasAsignadasTitle {
-
-  margin: 20px 0 15px 0;
-
-  padding: 0;
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  letter-spacing: 0.2px;
-
-  text-transform: uppercase;
-
-  color: #86868b;
-
-  text-align: left;
-
-}
-
-.medidasAsignadas {
-
-  display: grid;
-
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-
-  gap: 7px;
-
-  width: 100%;
-
-}
-
-.atributosTipoPrenda {
-
-
-  min-width: 0;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  min-height: 32px;
-
-  padding: 6px 8px;
-
-  box-sizing: border-box;
-
-  border-radius: 30px;
-
-  background: rgba(245, 245, 247, 0.75);
-
-  border: 1px solid rgba(0, 0, 0, 0.045);
-
-  color: #424245;
-
-  font-size: 11px;
-
-  font-weight: 500;
-
-  line-height: 1.2;
-
-  text-align: center;
-
-  overflow-wrap: anywhere;
-
-}
-
-
 
 .colegiosGrid {
-
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  gap: 16px;
-
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 16px;
 }
 
 .colegioCard {
-
-  min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  justify-content: space-between;
-
-  min-height: 155px;
-
-  padding: 22px;
-
-  background: rgba(255, 255, 255, 0.72);
-
-  border: 1px solid rgba(0, 0, 0, 0.055);
-
-  border-radius: 24px;
-
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.055);
-
-  backdrop-filter: blur(18px);
-
-  -webkit-backdrop-filter: blur(18px);
-
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease;
-
-}
-
-.agregarColegio {
-
-  margin: 30px auto 0 auto;
-
-  min-height: 155px;
-
-  max-width:500px;
-
-  padding: 22px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 16px;
-
-  background: rgba(255, 255, 255, 0.48);
-
-  border: 1px dashed rgba(0, 0, 0, 0.12);
-
-  border-radius: 24px;
-
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.035);
-
-  backdrop-filter: blur(12px);
-
-  -webkit-backdrop-filter: blur(12px);
-
-}
-
-.agregarColegioTexto {
-
-  margin: 0;
-
-  color: #6e6e73;
-
-  font-size: 14px;
-
-  font-weight: 500;
-
-  line-height: 1.4;
-
-  text-align: center;
-
-  letter-spacing: -0.15px;
-
-}
-
-.agregarColegioButton {
-
-  width: 80px;
-
-  height: 42px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 40px;
-
-  background: #22b84b;
-
-  color: #ffffff;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 6px 16px rgba(34, 184, 75, 0.22);
-
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
-
-  -webkit-tap-highlight-color: transparent;
-
-}
-
-.agregarColegioButton:active {
-
-  transform: scale(0.94);
-
+min-width: 0;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+min-height: 155px;
+padding: 22px;
+background: rgba(255, 255, 255, 0.72);
+border: 1px solid rgba(0, 0, 0, 0.055);
+border-radius: 24px;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.055);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
+transition:
+transform 0.22s ease,
+box-shadow 0.22s ease,
+border-color 0.22s ease;
 }
 
 .colegioCard:hover {
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.08);
-
-  border-color: rgba(0, 0, 0, 0.08);
-
+transform: translateY(-2px);
+box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+border-color: rgba(0, 0, 0, 0.08);
 }
 
 .colegioCardContent {
-
-  min-width: 0;
-
+min-width: 0;
 }
 
-.colegioNombre {
+.productoCardHeader {
+display: flex;
+align-items: center;
+gap: 13px;
+min-width: 0;
+}
 
-  margin: 0;
+.productoCardImagen {
+flex: 0 0 62px;
+width: 62px;
+height: 62px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border-radius: 50%;
+background: #f5f5f7;
+border: 1px solid rgba(0, 0, 0, 0.055);
+color: #a1a1a6;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
 
-  font-size: 19px;
-  
-  text-align: center;
+.productoCardImagen img {
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+}
 
-  line-height: 1.3;
+.productoCardInfo {
+min-width: 0;
+flex: 1;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 4px;
+}
 
-  font-weight: 600;
+.productoCardInfo .colegioNombre {
+width: 100%;
+margin: 0;
+font-size: 20px;
+line-height: 1.2;
+font-weight: 600;
+letter-spacing: -0.3px;
+color: #1d1d1f;
+text-align: left;
+overflow-wrap: anywhere;
+}
 
-  letter-spacing: -0.35px;
+.productoCardInfo .ColegioAsignadoTitle,
+.productoCardInfo .TipoPrendaAsignadoTitle {
+width: fit-content;
+max-width: 100%;
+min-height: 0;
+margin: 0;
+padding: 4px 8px;
+box-sizing: border-box;
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+border: 1px solid rgba(0, 0, 0, 0.045);
+color: #69696e;
+font-size: 13px;
+font-weight: 400;
+letter-spacing: 0.15px;
+line-height: 1.2;
+text-align: left;
+overflow-wrap: anywhere;
+}
 
-  color: #1d1d1f;
+.productoCardInfo .TipoPrendaAsignadoTitle {
+background: rgb(245, 245, 247);
+}
 
-  overflow-wrap: anywhere;
+.medidasAsignadasTitle {
+margin: 20px 0 15px;
+padding: 0;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.2px;
+text-transform: uppercase;
+color: #86868b;
+text-align: left;
+}
 
-  
+.medidasAsignadas {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 7px;
+width: 100%;
+}
 
+.atributosTipoPrenda {
+min-width: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+min-height: 32px;
+padding: 6px 8px;
+box-sizing: border-box;
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+border: 1px solid rgba(0, 0, 0, 0.045);
+color: #424245;
+font-size: 11px;
+font-weight: 500;
+line-height: 1.2;
+text-align: center;
+overflow-wrap: anywhere;
 }
 
 .colegioActions {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  margin-top: 24px;
-
+display: flex;
+align-items: center;
+gap: 10px;
+margin-top: 24px;
 }
 
 .colegioAction {
-
-  flex: 1;
-
-  min-width: 0;
-
-  height: 40px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  gap: 6px;
-
-  padding: 0 10px;
-
-  border: 1px solid transparent;
-
-  border-radius: 40px;
-
-  background: #f5f5f7;
-
-  color: #424245;
-
-  font-family: inherit;
-
-  font-size: 12px;
-
-  font-weight: 500;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-
+flex: 1;
+min-width: 0;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+padding: 0 10px;
+border: 1px solid transparent;
+border-radius: 40px;
+background: #f5f5f7;
+color: #424245;
+font-family: inherit;
+font-size: 12px;
+font-weight: 500;
+cursor: pointer;
+transition:
+background 0.2s ease,
+color 0.2s ease,
+transform 0.2s ease;
 }
 
-.colegioActionEdit:hover {
-
-  background: #e9e9ed;
-
-  color: #1d1d1f;
-
+.colegioActionEye:hover {
+background: #e9e9ed;
+color: #1d1d1f;
 }
 
 .colegioActionDelete:hover {
-
-  background: #fff0f0;
-
-  color: #d70015;
-
+background: #fff0f0;
+color: #d70015;
 }
 
 .colegioAction:active {
-
-  transform: scale(0.97);
-
-}
-
-.colegiosEmpty {
-
-  width: 100%;
-
-  padding: 40px 20px;
-
-  text-align: center;
-
-  color: #86868b;
-
-  font-size: 14px;
-
+transform: scale(0.97);
 }
 
 @media (max-width: 760px) {
+.colegiosGrid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+}
 
-  .colegiosGrid {
+.colegioCard {
+min-height: 145px;
+padding: 18px;
+border-radius: 21px;
+}
 
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+.productoCardImagen {
+flex-basis: 56px;
+width: 56px;
+height: 56px;
+}
 
-    gap: 12px;
-
-  }
-
-
-  .colegioCard {
-
-    min-height: 145px;
-
-    padding: 18px;
-
-    border-radius: 21px;
-
-  }
-
-
-  .colegioNombre {
-
-    font-size: 17px;
-
-  }
-
+.productoCardInfo .colegioNombre {
+font-size: 16px;
+}
 }
 
 @media (max-width: 480px) {
+.adminColegios {
+width: min(94%, 420px);
+padding-top: 32px;
+}
 
-  .adminColegios {
+.adminColegiosHeader {
+margin-bottom: 22px;
+}
 
-    width: min(94%, 420px);
+.adminColegiosTitle {
+font-size: 30px;
+}
 
-    padding-top: 32px;
+.colegiosGrid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 10px;
+}
 
-  }
+.colegioCard {
+min-height: 140px;
+padding: 15px;
+border-radius: 18px;
+}
 
+.productoCardHeader {
+gap: 10px;
+align-items: flex-start;
+}
 
-  .adminColegiosHeader {
+.productoCardImagen {
+flex-basis: 48px;
+width: 48px;
+height: 48px;
+}
 
-    margin-bottom: 22px;
+.productoCardImagen svg {
+width: 23px;
+height: 23px;
+}
 
-  }
+.productoCardInfo .colegioNombre {
+font-size: 14px;
+line-height: 1.25;
+}
 
+.productoCardInfo .ColegioAsignadoTitle,
+.productoCardInfo .TipoPrendaAsignadoTitle {
+font-size: 9px;
+padding: 3px 7px;
+}
 
-  .adminColegiosTitle {
+.medidasAsignadasTitle {
+margin-top: 17px;
+margin-bottom: 11px;
+}
 
-    font-size: 30px;
+.colegioActions {
+gap: 6px;
+margin-top: 18px;
+}
 
-  }
+.colegioAction {
+height: 34px;
+padding: 0 6px;
+gap: 4px;
+border-radius: 10px;
+font-size: 10px;
+}
 
-  .colegiosGrid {
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
-
-  }
-
-  .colegioCard {
-
-    min-height: 140px;
-
-    padding: 15px;
-
-    border-radius: 18px;
-
-  }
-
-  .colegioNombre {
-
-    font-size: 15px;
-
-    line-height: 1.25;
-
-  }
-
-  .colegioActions {
-
-    gap: 6px;
-
-    margin-top: 18px;
-
-  }
-
-  .colegioAction {
-
-    height: 34px;
-
-    padding: 0 6px;
-
-    gap: 4px;
-
-    border-radius: 10px;
-
-    font-size: 10px;
-
-  }
-
-  .colegioAction svg {
-
-    width: 15px;
-
-    height: 15px;
-
-  }
+.colegioAction svg {
+width: 15px;
+height: 15px;
+}
 }
 
 @media (max-width: 360px) {
+.adminColegios {
+width: 94%;
+}
 
-  .adminColegios {
+.colegioCard {
+padding: 13px;
+}
 
-    width: 94%;
+.productoCardHeader {
+gap: 8px;
+}
 
-  }
+.productoCardImagen {
+flex-basis: 42px;
+width: 42px;
+height: 42px;
+}
 
-  .colegioCard {
+.productoCardInfo .colegioNombre {
+font-size: 13px;
+}
 
-    padding: 13px;
+.productoCardInfo .ColegioAsignadoTitle,
+.productoCardInfo .TipoPrendaAsignadoTitle {
+font-size: 8px;
+padding: 3px 6px;
+}
 
-  }
+.colegioAction span {
+display: none;
+}
 
-  .colegioNombre {
-
-    font-size: 14px;
-
-  }
-
-  .colegioAction span {
-
-    display: none;
-
-  }
-
-  .colegioAction {
-
-    flex: 0 0 34px;
-
-    width: 34px;
-
-    padding: 0;
-
-  }
+.colegioAction {
+flex: 0 0 34px;
+width: 34px;
+padding: 0;
+}
 }

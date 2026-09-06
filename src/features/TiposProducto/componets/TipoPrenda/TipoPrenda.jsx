@@ -125,20 +125,4 @@ export default function TipoPrenda() {
               />
       </main>
     );
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

@@ -298,6 +298,10 @@ service cloud.firestore {
 
 - refactor: Productos.jsx lee la cache para cargar productos, si no lo encuentra llama a la funcion que lo carga desde firestore, tenemos que solucionar que llama todos los colegios y todos los tipo prenda, pero una vez cargados no lo vuelve a hacer, tambien ahora muestra el tipo de tipo_prenda dentro de la tarjeta para identicar el producto tambien.
 
+### Sabado 05 de Agosto
+
+- feat, refactor: agrega verProducto, agrega Storage de firebase como nueva db para guardar datos, como las fotos de los productos que son visibles dentro de verProducto y dentro de Productos en su vistas previas ahora mismo. Ademas, refactoriza todos los estilos ordenandolo los bloques y haciendolo mas facil de leer sin tanto espacios y cometarios.
+
 
 
 

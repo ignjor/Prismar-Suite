@@ -1,0 +1,405 @@
+.productoEditarFoto {
+width: 100%;
+height: 42px;
+margin-top: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+padding: 0;
+border: 1px solid rgba(0, 0, 0, 0.07);
+border-radius: 10px;
+background: #f5f5f7;
+color: #424245;
+font-family: inherit;
+font-size: 12px;
+font-weight: 600;
+cursor: pointer;
+transition:
+background 0.2s ease,
+color 0.2s ease,
+transform 0.2s ease,
+border-color 0.2s ease;
+}
+
+.productoEditarFoto:hover {
+background: #e9e9ed;
+color: #1d1d1f;
+border-color: rgba(0, 0, 0, 0.09);
+}
+
+.productoEditarFoto:active {
+transform: scale(0.98);
+}
+
+.productoEditarFoto svg {
+flex-shrink: 0;
+color: #22b84b;
+}
+
+.productoDetallePage {
+width: min(92%, 920px);
+margin: 0 auto;
+padding: 42px 0 130px;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"SF Pro Text",
+sans-serif;
+color: #1d1d1f;
+}
+
+.productoVolver {
+height: 38px;
+margin-bottom: 22px;
+padding: 0 14px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 30px;
+background: rgba(255, 255, 255, 0.72);
+color: #424245;
+font-family: inherit;
+font-size: 12px;
+font-weight: 500;
+cursor: pointer;
+box-shadow:
+0 5px 16px rgba(0, 0, 0, 0.035);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+transition:
+background 0.2s ease,
+transform 0.2s ease,
+box-shadow 0.2s ease;
+-webkit-tap-highlight-color: transparent;
+}
+
+.productoVolver:hover {
+background: rgba(255, 255, 255, 0.9);
+box-shadow:
+0 7px 20px rgba(0, 0, 0, 0.055);
+}
+
+.productoVolver:active {
+transform: scale(0.97);
+}
+
+.productoDetalle {
+width: 100%;
+min-height: 430px;
+box-sizing: border-box;
+display: grid;
+grid-template-columns: 300px minmax(0, 1fr);
+align-items: center;
+gap: 55px;
+padding: 35px 0;
+background: transparent;
+border: none;
+box-shadow: none;
+}
+
+.productoDetalleImagenWrapper {
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+.productoDetalleImagen {
+width: 270px;
+height: 270px;
+display: flex;
+align-items: center;
+justify-content: center;
+box-sizing: border-box;
+object-fit: cover;
+border-radius: 50%;
+background: #f5f5f7;
+border: 1px solid rgba(0, 0, 0, 0.06);
+box-shadow:
+0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.productoDetalleImagenWrapper .productoEditarFoto {
+width: 270px;
+}
+
+.productoDetalleImagenVacia {
+background:
+linear-gradient(
+145deg,
+#f5f5f7,
+#e9e9ed
+);
+}
+
+.productoDetalleImagenVacia span {
+color: #22b84b;
+}
+
+.productoDetalleContenido {
+min-width: 0;
+}
+
+.productoDetalleNombre {
+margin: 0;
+color: #1d1d1f;
+font-size: 34px;
+font-weight: 700;
+line-height: 1.15;
+letter-spacing: -1px;
+overflow-wrap: anywhere;
+}
+
+.productoDetalleEtiquetas {
+margin-top: 16px;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 7px;
+}
+
+.productoDetalleEtiquetas .ColegioAsignadoTitle {
+min-height: 25px;
+margin: 0;
+padding: 5px;
+box-sizing: border-box;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+border: 1px solid rgba(0, 0, 0, 0.045);
+color: #69696e;
+font-size: 12px;
+font-weight: 400;
+letter-spacing: 0.2px;
+text-align: center;
+text-transform: uppercase;
+overflow-wrap: anywhere;
+}
+
+.productoDetalleSeparador {
+width: 100%;
+height: 1px;
+margin: 28px 0;
+background: rgba(0, 0, 0, 0.07);
+}
+
+.productoDetalleSeccion {
+min-width: 0;
+}
+
+.productoDetalleSeccion .medidasAsignadasTitle {
+margin: 0 0 15px;
+color: #86868b;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.2px;
+text-align: left;
+text-transform: uppercase;
+}
+
+.productoDetallePrecios {
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 9px;
+}
+
+.productoDetallePrecio {
+min-width: 0;
+min-height: 48px;
+box-sizing: border-box;
+padding: 8px 13px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+border-radius: 15px;
+background: rgba(245, 245, 247, 0.8);
+border: 1px solid rgba(0, 0, 0, 0.045);
+}
+
+.productoDetalleTalla {
+min-width: 30px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+color: #69696e;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+}
+
+.productoDetalleValor {
+color: #1d1d1f;
+font-size: 13px;
+font-weight: 600;
+text-align: right;
+}
+
+.productoDetalleSinDatos {
+margin: 0;
+color: #86868b;
+font-size: 13px;
+}
+
+.productoDetalleEstado {
+padding: 50px 20px;
+color: #86868b;
+font-size: 14px;
+text-align: center;
+}
+
+.productoDetalleEstado h1 {
+margin: 0 0 10px;
+color: #1d1d1f;
+font-size: 24px;
+}
+
+.productoDetalleEstado p {
+margin: 0 0 22px;
+}
+
+.productoDetalleError {
+color: #d70015;
+}
+
+@media (max-width: 760px) {
+.productoDetallePage {
+width: min(94%, 760px);
+padding-top: 35px;
+}
+
+.productoDetalle {
+grid-template-columns: 220px minmax(0, 1fr);
+gap: 35px;
+padding: 35px 0;
+}
+
+.productoDetalleImagen {
+width: 200px;
+height: 200px;
+}
+
+.productoDetalleImagenWrapper .productoEditarFoto {
+width: 200px;
+}
+
+.productoDetalleNombre {
+font-size: 28px;
+}
+}
+
+@media (max-width: 560px) {
+.productoDetallePage {
+width: min(94%, 420px);
+padding-top: 32px;
+}
+
+.productoVolver {
+margin-bottom: 15px;
+}
+
+.productoDetalle {
+display: flex;
+flex-direction: column;
+align-items: stretch;
+gap: 25px;
+min-height: auto;
+padding: 28px 0 25px;
+}
+
+.productoDetalleImagenWrapper {
+width: 100%;
+}
+
+.productoDetalleImagen {
+width: 125px;
+height: 125px;
+}
+
+.productoDetalleImagenWrapper .productoEditarFoto {
+width: 125px;
+margin-top: 10px;
+}
+
+.productoDetalleContenido {
+width: 100%;
+}
+
+.productoDetalleNombre {
+font-size: 25px;
+line-height: 1.2;
+text-align: center;
+letter-spacing: -0.6px;
+}
+
+.productoDetalleEtiquetas {
+justify-content: center;
+margin-top: 13px;
+}
+
+.productoDetalleSeparador {
+margin: 23px 0;
+}
+}
+
+@media (max-width: 480px) {
+.productoDetalle {
+padding: 25px 0 22px;
+}
+
+.productoDetalleImagen {
+width: 115px;
+height: 115px;
+}
+
+.productoDetalleImagenWrapper .productoEditarFoto {
+width: 115px;
+}
+
+.productoDetalleNombre {
+font-size: 23px;
+}
+}
+
+@media (max-width: 360px) {
+.productoDetallePage {
+width: 94%;
+}
+
+.productoDetalle {
+padding: 23px 0 20px;
+}
+
+.productoDetalleImagen {
+width: 105px;
+height: 105px;
+}
+
+.productoDetalleImagenWrapper .productoEditarFoto {
+width: 105px;
+}
+
+.productoDetalleNombre {
+font-size: 21px;
+}
+
+.productoDetallePrecio {
+min-height: 44px;
+padding: 7px 10px;
+}
+
+.productoDetalleValor {
+font-size: 11px;
+}
+
+.productoDetalleTalla {
+font-size: 11px;
+}
+}

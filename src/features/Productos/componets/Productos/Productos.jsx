@@ -6,15 +6,14 @@ import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Eraser, Search, Eye } from "lucide-react";
+import { Eraser, Search, Eye, Shirt } from "lucide-react";
 
 export default function Productos() {
     const navigate = useNavigate();
     const [buscador, setBuscador] = useState("");
 
     const { data: datosDeProductos = [],
-      isLoading, isError, error
-    } = useProductos();
+      isLoading, isError, error} = useProductos();
     const { data: datosDecolegios = []} = useColegios();
     const { data: datosDeTipoPrenda = []} = useTipoPrenda();
 
@@ -52,6 +51,7 @@ export default function Productos() {
 
     if (isLoading) { return <p>Cargando los Productos...</p>}
     if (isError) { return <p>Error: {error.message}. Error al Cargar los Productos, recargue la página.</p>}
+
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">
@@ -83,16 +83,41 @@ export default function Productos() {
               className="colegioCard"
             >
               <div className="colegioCardContent">
-                <h2 className="colegioNombre">
-                  {datoProductoEspecifico.nombre}
-                </h2>
 
-                <h2 className="ColegioAsignadoTitle">
-                  {datoProductoEspecifico.nombreColegio}
-                </h2>
-                <h2 className="TipoPrendaAsignadoTitle">
-                  {datoProductoEspecifico.nombreTipoPrenda}
-                </h2>
+                <div className="productoCardHeader">
+
+                  <div className="productoCardImagen">
+                    {datoProductoEspecifico.imagen ? (
+                      <img
+                        src={datoProductoEspecifico.imagen}
+                        alt={`Imagen de ${datoProductoEspecifico.nombre}`}
+                      />
+                    ) : (
+                      <Shirt
+                        size={28}
+                        strokeWidth={1.7}
+                      />
+                    )}
+                  </div>
+
+                <div className="productoCardInfo">
+
+                  <h2 className="colegioNombre">
+                    {datoProductoEspecifico.nombre}
+                  </h2>
+
+                  <span className="ColegioAsignadoTitle">
+                    {datoProductoEspecifico.nombreColegio}
+                  </span>
+
+                  <span className="TipoPrendaAsignadoTitle">
+                    {datoProductoEspecifico.nombreTipoPrenda}
+                  </span>
+
+                </div>
+
+              </div>
+
 
                 <h2 className="medidasAsignadasTitle">
                   PRECIOS:
@@ -110,7 +135,7 @@ export default function Productos() {
                   type="button"
                   className="colegioAction colegioActionEye"
                   aria-label={`Editar ${datoProductoEspecifico.nombre}`}
-                  onClick={() => navigate(`/ver-producto/id=${datoProductoEspecifico.id}`)}
+                  onClick={() => navigate(`/ver-producto/${datoProductoEspecifico.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
                   <span>
