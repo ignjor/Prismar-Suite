@@ -38,7 +38,9 @@ export default function VerProducto() {
   if (!producto) {
     return <p>Producto no encontrado.</p>;
   }
-  const precios = Object.entries(producto.precios_tallas || {});
+  const precios = Object.entries(producto.precios_tallas || {})
+    .sort(([, a], [, b]) => Number(a) - Number(b));
+
   return (
     <main className="adminColegios productoDetallePage">
       <button

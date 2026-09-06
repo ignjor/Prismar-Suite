@@ -123,11 +123,13 @@ export default function Productos() {
                   PRECIOS:
                 </h2>
                 <div className="medidasAsignadas">
-                  {Object.entries(datoProductoEspecifico.precios_tallas || {}).map(([talla, precio]) => (
-                    <span className="atributosTipoPrenda" key={talla}>
-                    {talla}: ${Number(precio).toLocaleString("es-CL")}
-                    </span>
-                  ))}
+                  {Object.entries(datoProductoEspecifico.precios_tallas || {})
+                    .sort(([, a], [, b]) => Number(a) - Number(b))
+                    .map(([talla, precio]) => (
+                      <span className="atributosTipoPrenda" key={talla}>
+                        {talla}: ${Number(precio).toLocaleString("es-CL")}
+                      </span>
+                    ))}
                 </div>
               </div>
               <div className="colegioActions">

@@ -306,9 +306,6 @@ service cloud.firestore {
 
 - feat: agrega modal para agregar foto en el producto, la convierte en 400x400 y en .webp antes de subirla storage.
 
+### Domingo 06 de Agosto
 
-
-
-
-
-
+- feat: producto y verProducto muestra los precios en orden de menor a mayor.
