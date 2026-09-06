@@ -1,411 +1,293 @@
 .modalFotoOverlay {
-
   position: fixed;
-
   inset: 0;
-
   z-index: 1000;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   padding: 20px;
 
-  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.1);
 
-  background: rgba(20, 20, 20, 0.38);
-
-  backdrop-filter: blur(8px);
-
-  -webkit-backdrop-filter: blur(8px);
-
-  animation: modalFotoOverlayEntrada 0.2s ease;
-
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .modalFoto {
-
-  width: min(100%, 470px);
-
-  max-height: min(720px, 92vh);
+  width: min(100%, 430px);
+  max-height: 92vh;
 
   overflow-y: auto;
-
   box-sizing: border-box;
 
-  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 24px;
 
-  border: 1px solid rgba(0, 0, 0, 0.07);
-
-  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.96);
 
   box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.18);
+    0 20px 60px rgba(0, 0, 0, 0.16);
 
-  backdrop-filter: blur(24px);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    sans-serif;
 
-  -webkit-backdrop-filter: blur(24px);
-
-  animation: modalFotoEntrada 0.22s ease;
-
+  color: #1d1d1f;
 }
 
 .modalFotoHeader {
-
   display: flex;
-
-  align-items: flex-start;
-
+  align-items: center;
   justify-content: space-between;
 
-  gap: 20px;
+  gap: 16px;
 
-  padding: 24px 24px 18px;
+  padding: 22px 22px 18px;
 
+  border-bottom: 1px solid rgba(0, 0, 0, 0.055);
 }
 
 .modalFotoHeader h2 {
-
   margin: 0;
 
   color: #1d1d1f;
 
   font-size: 21px;
-
-  font-weight: 650;
-
+  font-weight: 600;
   letter-spacing: -0.45px;
-
 }
 
 .modalFotoHeader p {
-
   margin: 5px 0 0;
 
-  color: #86868b;
+  color: #98989d;
 
   font-size: 13px;
-
   font-weight: 400;
 
   overflow-wrap: anywhere;
-
 }
 
 .modalFotoCerrar {
-
-  width: 34px;
-
-  height: 34px;
+  width: 32px;
+  height: 32px;
 
   flex-shrink: 0;
 
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   padding: 0;
 
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  border: none;
   border-radius: 50%;
 
   background: #f5f5f7;
-
   color: #6e6e73;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modalFotoCerrar:hover {
-
   background: #e9e9ed;
-
   color: #1d1d1f;
-
 }
 
 .modalFotoCerrar:active {
-
-  transform: scale(0.92);
-
+  transform: scale(0.94);
 }
 
 .modalFotoCerrar:disabled {
-
   cursor: default;
-
   opacity: 0.5;
-
 }
 
 .modalFotoContenido {
-
-  padding: 0 24px 22px;
-
+  padding: 22px;
 }
 
 .modalFotoPreview {
-
-  width: min(100%, 300px);
-
+  width: min(100%, 280px);
   aspect-ratio: 1 / 1;
 
   margin: 0 auto 18px;
 
   overflow: hidden;
 
-  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
 
   background: #f5f5f7;
-
-  border: 1px solid rgba(0, 0, 0, 0.055);
-
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.06);
-
 }
 
 .modalFotoPreview img {
-
   width: 100%;
-
   height: 100%;
 
   display: block;
 
   object-fit: cover;
-
 }
 
 .modalFotoPreviewVacio {
-
   width: 100%;
-
   height: 100%;
 
   display: flex;
-
   flex-direction: column;
 
   align-items: center;
-
   justify-content: center;
 
-  gap: 10px;
+  gap: 9px;
 
   color: #98989d;
-
 }
 
 .modalFotoPreviewVacio span {
-
   font-size: 13px;
-
   font-weight: 500;
-
-}
-
-.modalFotoInfo {
-
-  margin: 0 0 16px;
-
-  color: #86868b;
-
-  font-size: 12px;
-
-  line-height: 1.45;
-
-  text-align: center;
-
 }
 
 .modalFotoInputOculto {
-
   display: none;
-
 }
 
 .modalFotoOpciones {
-
   display: grid;
 
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 10px;
-
 }
 
 .modalFotoOpcion {
-
   min-width: 0;
+  min-height: 64px;
 
-  min-height: 70px;
+  padding: 11px;
 
   display: flex;
-
   align-items: center;
 
-  gap: 11px;
+  gap: 2px;
 
-  padding: 12px;
+  box-sizing: border-box;
 
-  border: 1px solid rgba(0, 0, 0, 0.055);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 25px;
 
-  border-radius: 17px;
-
-  background: rgba(245, 245, 247, 0.78);
-
+  background: #f5f5f7;
   color: #1d1d1f;
 
   font-family: inherit;
-
   text-align: left;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    background 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
 
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modalFotoOpcion:hover {
-
-  background: #f0f0f2;
-
+  background: #eeeeF0;
   border-color: rgba(0, 0, 0, 0.09);
-
 }
 
 .modalFotoOpcion:active {
-
   transform: scale(0.98);
+}
 
+.modalFotoOpcion:disabled {
+  cursor: default;
+  opacity: 0.55;
 }
 
 .modalFotoOpcionIcono {
-
-  width: 38px;
-
-  height: 38px;
+  width: 36px;
+  height: 36px;
 
   flex-shrink: 0;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  border-radius: 12px;
-
-  background: rgba(34, 184, 75, 0.10);
-
-  color: #22b84b;
-
+  color: #1d1d1f;
+  margin-left: 10px;
 }
 
 .modalFotoOpcion span:last-child {
-
   min-width: 0;
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 3px;
-
 }
 
 .modalFotoOpcion strong {
+  display: block;
 
   font-size: 12px;
-
   font-weight: 600;
-
   line-height: 1.2;
-
-}
-
-.modalFotoOpcion small {
-
-  color: #86868b;
-
-  font-size: 10px;
-
-  line-height: 1.2;
-
 }
 
 .modalFotoCambiar {
-
   width: 100%;
-
   height: 38px;
 
+  margin-top: 12px;
+  padding: 0;
+
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   gap: 7px;
 
-  margin-top: 12px;
-
-  padding: 0;
-
-  border: 1px solid rgba(0, 0, 0, 0.07);
-
-  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 40px;
 
   background: #f5f5f7;
-
   color: #424245;
 
   font-family: inherit;
-
-  font-size: 12px;
-
+  font-size: 13px;
   font-weight: 500;
 
   cursor: pointer;
 
   transition:
-    background 0.2s ease,
-    color 0.2s ease;
+    background 0.18s ease,
+    color 0.18s ease;
 
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modalFotoCambiar:hover {
-
   background: #e9e9ed;
-
   color: #1d1d1f;
-
 }
 
 .modalFotoEstado {
-
   min-height: 42px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   gap: 8px;
@@ -414,234 +296,139 @@
 
   color: #6e6e73;
 
-  font-size: 12px;
-
+  font-size: 13px;
   font-weight: 500;
 
+  text-align: center;
 }
 
 .modalFotoEstadoExito {
-
   color: #22a447;
-
-}
-
-.modalFotoSpinner {
-
-  animation: modalFotoSpinner 0.8s linear infinite;
-
 }
 
 .modalFotoError {
-
   margin: 14px 0 0;
-
-  padding: 10px 12px;
+  padding: 10px 14px;
 
   border-radius: 12px;
 
   background: #fff0f0;
-
   color: #d70015;
 
   font-size: 12px;
-
   line-height: 1.4;
 
   text-align: center;
-
 }
 
 .modalFotoFooter {
-
   display: flex;
 
   gap: 10px;
 
-  padding: 17px 24px 24px;
+  padding: 18px 22px 22px;
 
   border-top: 1px solid rgba(0, 0, 0, 0.055);
-
 }
 
 .modalFotoCancelar,
 .modalFotoGuardar {
+  flex: 1;
 
   height: 42px;
 
-  flex: 1;
+  padding: 0 10px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  gap: 7px;
+  gap: 6px;
 
+  border: 1px solid transparent;
   border-radius: 40px;
 
   font-family: inherit;
-
-  font-size: 12px;
-
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
 
   cursor: pointer;
 
   transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    opacity 0.2s ease;
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modalFotoCancelar {
-
-  border: none;
-
   background: #f5f5f7;
-
   color: #424245;
-
 }
 
 .modalFotoCancelar:hover {
-
-  background: #e9e9ed;
-
+  background: #fff0f0;
+  color: #d70015;
 }
 
 .modalFotoGuardar {
-
-  border: none;
-
   background: #22b84b;
-
   color: #ffffff;
-
-  box-shadow:
-    0 6px 16px rgba(34, 184, 75, 0.20);
-
 }
 
 .modalFotoGuardar:hover {
-
   background: #1fa944;
-
 }
 
 .modalFotoCancelar:active,
 .modalFotoGuardar:active {
-
   transform: scale(0.97);
-
 }
 
 .modalFotoGuardar:disabled,
-.modalFotoCancelar:disabled,
-.modalFotoOpcion:disabled {
-
+.modalFotoCancelar:disabled {
   cursor: default;
-
   opacity: 0.55;
-
-}
-
-@keyframes modalFotoOverlayEntrada {
-
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-
-}
-
-@keyframes modalFotoEntrada {
-
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-
-}
-
-@keyframes modalFotoSpinner {
-
-  to {
-    transform: rotate(360deg);
-  }
-
 }
 
 @media (max-width: 480px) {
-
   .modalFotoOverlay {
-
-    padding: 12px;
-
-    align-items: flex-end;
-
+    padding: 16px;
   }
 
   .modalFoto {
-
-    width: 100%;
-
-    max-height: 92vh;
-
-    border-radius: 24px;
-
+    border-radius: 22px;
   }
 
   .modalFotoHeader {
+    padding: 20px 18px 16px;
+  }
 
-    padding: 20px 18px 15px;
-
+  .modalFotoHeader h2 {
+    font-size: 19px;
   }
 
   .modalFotoContenido {
-
-    padding: 0 18px 18px;
-
+    padding: 22px 18px;
   }
 
   .modalFotoFooter {
-
-    padding: 14px 18px 18px;
-
+    padding: 16px 18px 18px;
   }
 
   .modalFotoPreview {
-
     width: min(100%, 270px);
-
     border-radius: 19px;
-
   }
-
 }
 
 @media (max-width: 360px) {
-
   .modalFotoOpciones {
-
     grid-template-columns: 1fr;
-
   }
 
   .modalFotoOpcion {
-
     min-height: 58px;
-
   }
-
 }

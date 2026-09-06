@@ -302,6 +302,10 @@ service cloud.firestore {
 
 - feat, refactor: agrega verProducto, agrega Storage de firebase como nueva db para guardar datos, como las fotos de los productos que son visibles dentro de verProducto y dentro de Productos en su vistas previas ahora mismo. Ademas, refactoriza todos los estilos ordenandolo los bloques y haciendolo mas facil de leer sin tanto espacios y cometarios.
 
+### Sabado 05 de Agosto v2 
+
+- feat: agrega modal para agregar foto en el producto, la convierte en 400x400 y en .webp antes de subirla storage.
+
 
 
 
