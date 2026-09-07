@@ -310,3 +310,7 @@ service cloud.firestore {
 
 - feat: producto y verProducto muestra los precios en orden de menor a mayor.
 - feat: muestra las medidas de tipo de prenda dentro de verProducto
+
+### Lunes 07 de Agosto
+
+- feat: crear producto funcion con firestore, falta configurar el modal de la foto para que sirva cuando aun no tenemos id de producto, intente hacerlo lo mas parecido a verProducto pero no me convensen los estilos.

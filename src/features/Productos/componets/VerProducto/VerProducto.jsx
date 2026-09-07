@@ -83,7 +83,7 @@ export default function VerProducto() {
           </h1>
           <div className="productoDetalleEtiquetas">
             <span className="ColegioAsignadoTitle">
-              {colegio?.nombre || "Sin Empresa o ColegioAfiliado"}
+              {colegio?.nombre || "Sin Empresa o Colegio Afiliado"}
             </span>
           </div>
           <div className="productoDetalleSeparador" />
@@ -116,7 +116,7 @@ export default function VerProducto() {
           </div>
           <div className="productoDetalleSeccion">
             <h2 className="medidasAsignadasTitle">
-              MEDIDAS {tipoPrenda?.tipo || "Sin Empresa o ColegioAfiliado"}
+              MEDIDAS {tipoPrenda?.tipo || "Sin tipo de prenda Asignado"}
             </h2>
             {tipoPrenda?.medidas_asig &&
             Object.keys(tipoPrenda.medidas_asig).length > 0 ? (

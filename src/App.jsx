@@ -6,7 +6,7 @@ import Home from "./features/Home/componets/Home/Home";
 
 import Productos from "./features/Productos/componets/Productos/Productos";
 import VerProducto from "./features/Productos/componets/VerProducto/VerProducto";
-/*import AgregarProducto from "./agregar/AgregarProducto/AgregarProducto"; */
+import AgregarProducto from "./features/Productos/componets/AgregarProducto/AgregarProducto";
 
 import Colegios from "./features/Colegios/components/Colegios/Colegios";
 import TipoPrenda from "./features/TiposProducto/componets/TipoPrenda/TipoPrenda";
@@ -46,6 +46,10 @@ function App() {
         <Route 
           path="/ver-producto/:id" 
           element={<VerProducto />} 
+        />
+        <Route 
+          path="/agregar-producto" 
+          element={<AgregarProducto />} 
         />
 
         
