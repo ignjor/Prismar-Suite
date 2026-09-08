@@ -114,30 +114,30 @@ service cloud.firestore {
     match /colegios/{colegioId} {
 
       allow read: if true;
-
+      
       allow create: if
         request.resource.data.keys().hasOnly([
           "nombre"
         ])
         && request.resource.data.nombre is string
         && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 64;
-
+        && request.resource.data.nombre.size() <= 32;
+        
       allow update: if
         request.resource.data.keys().hasOnly([
           "nombre"
         ])
         && request.resource.data.nombre is string
         && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 64;
-
+        && request.resource.data.nombre.size() <= 32;
+        
       allow delete: if true;
     }
     
     match /tipo_prenda/{tipo_prendaId} {
 
       allow read: if true;
-
+      
       allow create: if
         request.resource.data.keys().hasOnly([
           "tipo", "medidas_asig"
@@ -147,8 +147,7 @@ service cloud.firestore {
         && request.resource.data.tipo.size() <= 20
         && request.resource.data.medidas_asig is map
         && request.resource.data.medidas_asig.size() <= 8;
-
-
+        
       allow update: if
         request.resource.data.keys().hasOnly([
           "tipo", "medidas_asig"
@@ -158,10 +157,86 @@ service cloud.firestore {
         && request.resource.data.tipo.size() <= 20
         && request.resource.data.medidas_asig is map
         && request.resource.data.medidas_asig.size() <= 8;
+        
+      allow delete: if true;
+    }
+    
+    match /tallas/{tallasId} {
+      allow read: if true;
 
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "talla"
+        ])
+        && request.resource.data.talla is string
+        && request.resource.data.talla.size() >= 1
+        && request.resource.data.talla.size() <= 15;
+        
+      allow update: if
+        request.resource.data.keys().hasOnly([
+          "talla"
+        ])
+        && request.resource.data.talla is string
+        && request.resource.data.talla.size() >= 1
+        && request.resource.data.talla.size() <= 15;
+        
       allow delete: if true;
     }
 
+
+
+    match /productos/{productoId} {
+
+      allow read: if true;
+
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "colegio_id", "fecha_actualizacion", "imagen", "nombre", "precios_tallas", "tipo_prenda_id"
+        ])
+      
+        && (
+          request.resource.data.colegio_id == null
+          || request.resource.data.colegio_id is string
+        )
+        && request.resource.data.fecha_actualizacion is timestamp
+        && (
+          request.resource.data.imagen == null
+          || request.resource.data.imagen is string
+        )
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 32
+        && request.resource.data.precios_tallas is map
+        && request.resource.data.precios_tallas.size() >= 1
+        && (
+          request.resource.data.tipo_prenda_id == null
+          || request.resource.data.tipo_prenda_id is string
+        );
+        
+      allow update: if
+        request.resource.data.keys().hasOnly([
+          "colegio_id", "fecha_actualizacion", "imagen", "nombre", "precios_tallas", "tipo_prenda_id"
+        ])
+        && (
+          request.resource.data.colegio_id == null
+          || request.resource.data.colegio_id is string
+        )
+        && request.resource.data.fecha_actualizacion is timestamp
+        && (
+          request.resource.data.imagen == null
+          || request.resource.data.imagen is string
+        )
+        && request.resource.data.nombre is string
+        && request.resource.data.nombre.size() >= 2
+        && request.resource.data.nombre.size() <= 32
+        && request.resource.data.precios_tallas is map
+        && request.resource.data.precios_tallas.size() >= 1
+        && (
+          request.resource.data.tipo_prenda_id == null
+          || request.resource.data.tipo_prenda_id is string
+        );
+      allow delete: if true;
+    }
   }
 }
 ```
