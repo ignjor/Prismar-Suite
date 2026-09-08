@@ -16,7 +16,6 @@ const validarTextoDeInput = (talla) => {
     return null
 };
 
-
 export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, onCerrarModal}){
     const [error, setError] = useState("");
     const [guardandoTalla, setGuardandoTalla] = useState(false);

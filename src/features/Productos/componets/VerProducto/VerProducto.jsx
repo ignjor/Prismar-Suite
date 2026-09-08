@@ -2,7 +2,7 @@ import "./VerProducto.css";
 import { useProductos } from "../../querys/useProductos";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
-import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
+import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
 
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -15,8 +15,7 @@ export default function VerProducto() {
   
   const [estadoDelModal, setEstadoDelModal] = useState(false);
 
-  const { data: datosDeProductos = [],
-    isLoading, isError, error} = useProductos();
+  const { data: datosDeProductos = [], isLoading, isError, error} = useProductos();
   const { data: datosDecolegios = []} = useColegios();
   const { data: datosDeTipoPrenda = []} = useTipoPrenda();
 

@@ -1,0 +1,308 @@
+import "./ModalSelector.css";
+import { useEffect, useRef, useState } from "react";
+
+import { useColegios } from "../../../../Colegios/querys/useColegios";
+import { useTipoPrenda } from "../../../../TiposProducto/querys/useTipoPrenda";
+import { useTallas } from "../../../../Tallas/querys/useTallas";
+
+import ModalAgregarEditarColegio from "../../../../Colegios/components/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
+import ModalAgregarEditarTalla from "../../../../Tallas/componets/ModalAgregarEditarTalla/ModalAgregarEditarTalla";
+import ModalAgregarEditarTipoPrenda from "../../../../TiposProducto/componets/ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
+
+import { X, Search, Plus, School, Tag, Ruler } from "lucide-react";
+
+const body = document.body;
+const configuracion = {
+  colegio: {
+    titulo: "Empresa / Colegio",
+    placeholder: "Buscar empresa o colegio...",
+    icono: School,
+    crearTexto: "Crear Empresa / Colegio"
+  },
+  tipoPrenda: {
+    titulo: "Tipo de prenda",
+    placeholder: "Buscar tipo de prenda...",
+    icono: Ruler,
+    crearTexto: "Crear tipo de prenda"
+    },
+  talla: {
+    titulo: "Talla",
+    placeholder: "Buscar talla...",
+    icono: Tag,
+    crearTexto: "Crear talla"
+    },
+  };
+
+export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSeleccionarColegio, onSeleccionarTipoPrenda, onSeleccionarTalla}) {
+    const RefAreaDelModal = useRef(null);
+    const [modalCrearAbierto, setModalCrearAbierto] = useState(null);
+     
+    const { data: datosDecolegios = []} = useColegios();
+    const { data: datosDeTipoPrenda = []} = useTipoPrenda();
+    const { data: datosDeTallas = []} = useTallas();
+  
+    const [buscador, setBuscador] = useState("");
+    const buscadorNormalizado = buscador
+      .trim()
+      .toLowerCase();
+
+    const buscadorDeColegios = datosDecolegios.filter(
+      (colegio) => colegio.nombre
+          ?.toLowerCase()
+          .includes(buscadorNormalizado)
+    );
+    const buscadorDeTallas = datosDeTallas.filter(
+      (talla) => talla.talla
+          ?.toLowerCase()
+          .includes(buscadorNormalizado)
+    );
+    const buscadorDeTipoPrenda =
+      datosDeTipoPrenda.filter((tipoPrenda) => tipoPrenda.tipo
+          ?.toLowerCase()
+          .includes(buscadorNormalizado)
+    );
+    
+    useEffect(() => {
+      if (!modalAbierto) {
+        body.style.overflow = "";
+        setBuscador("");
+        setModalCrearAbierto(null);
+        return;
+      }
+
+      body.style.overflow = "hidden";
+      setBuscador("");
+    }, [modalAbierto, tipo]);
+
+    useEffect(() => {
+      if (!modalAbierto) { body.style.overflow = "";
+        return;
+      }
+      const clickFueraDelModal = (event) => {
+        if (
+          RefAreaDelModal.current &&
+          !RefAreaDelModal.current.contains(event.target)
+        ) {
+          if (!modalCrearAbierto) {
+            onCerrarModal();
+          }
+        }
+      };
+      document.addEventListener(
+        "mousedown",
+        clickFueraDelModal
+      );
+      return () => {
+        document.removeEventListener(
+          "mousedown",
+          clickFueraDelModal
+        );
+      };
+    }, [ modalAbierto, modalCrearAbierto, onCerrarModal]);
+
+    useEffect(() => {
+      return () => { body.style.overflow = "";
+      };
+    }, []);
+
+
+    const configuracionActual = configuracion[tipo];
+    if (!modalAbierto || !configuracionActual) {
+      return null;
+    };
+
+    const IconoPrincipal  = configuracionActual.icono;
+    let datosFiltrados = [];
+    if (tipo === "colegio") { datosFiltrados = buscadorDeColegios};
+    if (tipo === "tipoPrenda") { datosFiltrados = buscadorDeTipoPrenda};
+    if (tipo === "talla") { datosFiltrados = buscadorDeTallas};
+
+    const seleccionarDato = (dato)  => {
+      if (tipo === "colegio") { onSeleccionarColegio?.(dato);
+        return;
+      }
+      if (tipo === "tipoPrenda") { onSeleccionarTipoPrenda?.(dato);
+        return;
+      }
+      if (tipo === "talla") { onSeleccionarTalla?.(dato);
+        return;
+      }
+    };
+    const obtenerNombreDato = (dato) => {
+      if (tipo === "colegio") { return dato.nombre || "Sin nombre";
+      }
+      if (tipo === "tipoPrenda") { return dato.tipo || "Sin tipo";
+      }
+      if (tipo === "talla") { return dato.talla || "Sin talla";
+      }
+      return "Sin nombre";
+    };
+    
+
+    const abrirModalCrear = () => { setModalCrearAbierto(tipo);
+    };
+    const cerrarModalCrear = () => { setModalCrearAbierto(null);
+    };
+    const cerrarDespuesDeCrear = () => { setModalCrearAbierto(null);
+    };
+
+  return (
+    <>
+      <div className="modalSelectorOverlay">
+        <div
+          className="modalSelector"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modalSelectorTitle"
+          ref={RefAreaDelModal}
+        >
+          <header className="modalSelectorHeader">
+            <div className="modalSelectorHeading">
+              <div className="modalSelectorIcon">
+                <IconoPrincipal
+                  size={18}
+                  strokeWidth={1.9}
+                />
+              </div>
+
+              <div>
+                <h2
+                  id="modalSelectorTitle"
+                  className="modalSelectorTitle"
+                >
+                  {configuracionActual.titulo}
+                </h2>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="modalSelectorClose"
+              onClick={onCerrarModal}
+              aria-label="Cerrar"
+            >
+              <X
+                size={17}
+                strokeWidth={2}
+              />
+            </button>
+          </header>
+          <div className="modalSelectorContent">
+            <div className="modalSelectorSearch">
+              <Search
+                size={17}
+                strokeWidth={2}
+              />
+              <input
+                type="text"
+                value={buscador}
+                onChange={(event) =>
+                  setBuscador(event.target.value)
+                }
+                placeholder={
+                  configuracionActual.placeholder
+                }
+                autoComplete="off"
+              />
+              {buscador && (
+                <button
+                  type="button"
+                  className="modalSelectorClearSearch"
+                  onClick={() =>
+                    setBuscador("")
+                  }
+                  aria-label="Limpiar búsqueda"
+                >
+                  <X
+                    size={14}
+                    strokeWidth={2}
+                  />
+                </button>
+              )}
+            </div>
+            <div className="modalSelectorResults">
+              {datosFiltrados.length > 0 ? (
+                datosFiltrados.map((dato) => (
+                  <button
+                    type="button"
+                    className="modalSelectorItem"
+                    key={dato.id}
+                    onClick={() =>
+                      seleccionarDato(
+                        dato
+                      )
+                    }
+                  >
+                    <div className="modalSelectorItemIcon">
+                      <IconoPrincipal
+                        size={16}
+                        strokeWidth={1.8}
+                      />
+                    </div>
+                    <span className="modalSelectorItemName">
+                      {obtenerNombreDato(
+                        dato
+                      )}
+                    </span>
+                  </button>
+                ))
+              ) : (
+                <div className="modalSelectorEmpty">
+                  <div className="modalSelectorEmptyIcon">
+                    <Search
+                      size={21}
+                      strokeWidth={1.7}
+                    />
+                  </div>
+                  <p className="modalSelectorEmptyText">
+                    {buscador
+                      ? `No hay resultados para "${buscador}".`
+                      : "Todavía no hay datos disponibles."}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <footer className="modalSelectorActions">
+            <button
+              type="button"
+              className="modalSelectorCreateButton"
+              onClick={abrirModalCrear}
+            >
+              <Plus
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                {configuracionActual.crearTexto}
+              </span>
+            </button>
+          </footer>
+        </div>
+      </div>
+
+      <ModalAgregarEditarColegio
+        datoColegioEditar={null}
+        modalAbierto={
+          modalCrearAbierto === "colegio"
+        }
+        onCerrarModal={cerrarDespuesDeCrear}
+      />
+      <ModalAgregarEditarTalla
+        datoTallaEditar={null}
+        modalAbierto={
+          modalCrearAbierto === "talla"
+        }
+        onCerrarModal={cerrarDespuesDeCrear}
+      />
+      <ModalAgregarEditarTipoPrenda
+        datoTipoPrendaEditar={null}
+        modalAbierto={
+          modalCrearAbierto === "tipoPrenda"
+        }
+        onCerrarModal={cerrarDespuesDeCrear}
+      />
+    </>
+  );
+}

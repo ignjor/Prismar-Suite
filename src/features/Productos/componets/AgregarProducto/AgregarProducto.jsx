@@ -7,7 +7,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../Tallas/querys/useTallas";
-import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
+import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
+import ModalSelector from "../modals/ModalSelector/ModalSelector";
 
 import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign } from "lucide-react";
 
@@ -28,23 +29,28 @@ const validarPrecio = (datosDelInput) => {
     return null
 }
 
-
 export default function AgregarProducto() {
     const navigate = useNavigate();
     const [error, setError] = useState("");
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
     const [imagen, setImagen] = useState("");
-    const [guardandoProducto, setGuardandoProducto] = useState(false);
+    
+    const [selectorAbierto, setSelectorAbierto] = useState(false);
+    const [estadoDelModalFoto, setEstadoDelModalFoto] = useState(false);
 
+    const [guardandoProducto, setGuardandoProducto] = useState(false);
     const [nombreDeProducto, setNombreDeProducto] = useState("");
     const [tipoPrendaId, setTipoPrendaId] = useState("");
-    const [preciosPorTallas, setPreciosPorTallas] = useState([]);
     const [colegioId, setColegioId] = useState("");
+    const [preciosPorTallas, setPreciosPorTallas] = useState([]);
 
     const { data: datosDecolegios = []} = useColegios();
     const { data: datosDeTipoPrenda = []} = useTipoPrenda();
     const { data: datosDeTallas = []} = useTallas();
 
+    const colegioSeleccionado = useMemo(() => { return datosDecolegios.find(
+      (colegio) => colegio.id === colegioId
+      );
+    }, [datosDecolegios, colegioId]);
 
     const tipoPrendaSeleccionado = useMemo(() => {return datosDeTipoPrenda.find(
       (tipoPrenda) => tipoPrenda.id === tipoPrendaId);
@@ -57,9 +63,14 @@ export default function AgregarProducto() {
       ).map(([medida]) => medida);
     }, [tipoPrendaSeleccionado]);
 
-    const cambiarTipoPrenda = (e) => {
-        setTipoPrendaId(e.target.value);
-      };
+    const cambiarTipoPrenda = (tipoPrendaIdSeleccionado) => {
+      const tipoPrenda = datosDeTipoPrenda.find((tipo) => tipo.id === tipoPrendaIdSeleccionado
+      );
+      if (!tipoPrenda) {
+        return;
+      }
+      seleccionarTipoPrenda(tipoPrenda);
+    };
 
 
     const tallasDisponibles = useMemo(() => {const tallasYaSeleccionadas = new Set(
@@ -68,32 +79,12 @@ export default function AgregarProducto() {
     return datosDeTallas.filter((talla) => !tallasYaSeleccionadas.has(talla.id));
     }, [datosDeTallas, preciosPorTallas]);
 
-    const agregarTalla = () => {if (tallasDisponibles.length === 0) {
-      return;
-      }
-      const primerPrecio = tallasDisponibles[0];
-      setPreciosPorTallas((actuales) => [...actuales, {
-        tallaId: primerPrecio.id,
-        talla: primerPrecio.talla,
-        precio: "",
-      },
-      ]);
-    };
-
-    const cambiarTalla = (index, tallaId) => {
-      const tallaSeleccionada = datosDeTallas.find((talla) => talla.id === tallaId
-      );
-      if (!tallaSeleccionada) {
+    const agregarTalla = () => {
+      if (tallasDisponibles.length === 0) {
         return;
       }
-      setPreciosPorTallas((actuales) =>
-        actuales.map((item, i) => i === index
-            ? {...item,
-                tallaId: tallaSeleccionada.id,
-                talla: tallaSeleccionada.talla,
-              }
-            : item
-      ));
+      setError("");
+      setSelectorAbierto("talla");
     };
     
     const eliminarTalla = (index) => {
@@ -114,28 +105,73 @@ export default function AgregarProducto() {
         ));
     };
 
+
+    const abrirSelectorColegio = () => {
+      setError("");
+      setSelectorAbierto("colegio");
+    };
+    const abrirSelectorTipoPrenda = () => {
+      setError("");
+      setSelectorAbierto("tipoPrenda");
+    };
+    const cerrarSelector = () => {
+      setSelectorAbierto(null);
+    };
+
+
+    const seleccionarColegio = (colegio) => {
+      setColegioId(colegio.id);
+      cerrarSelector();
+    };
+    const seleccionarTipoPrenda = (tipoPrenda) => {
+      setTipoPrendaId(tipoPrenda.id);
+      setError("");
+      cerrarSelector();
+    };
+    const seleccionarTalla = (talla) => {
+      if (!talla) {
+        return;
+      }
+      setPreciosPorTallas((actuales) => { const tallaYaExiste = actuales.some(
+          (item) => item.tallaId === talla.id
+        );
+        if (tallaYaExiste) { setError(`Ya agregaste la talla ${talla.talla}.`);
+          return actuales;
+        }
+        return [ ...actuales,
+          {
+            tallaId: talla.id,
+            talla: talla.talla,
+            precio: "",
+          },
+        ];
+      });
+      cerrarSelector();
+    };
+
+
     const guardarProducto = async (e) => {
         e.preventDefault();
-
         setError("");
 
         const errorNombre = validarTextoDeInput(nombreDeProducto);
-
         if (errorNombre) {
           setError(errorNombre);
           return;
         }
-
         if (!tipoPrendaId) {
           setError("Debes seleccionar un tipo de prenda.");
           return;
         }
-
         if (preciosPorTallas.length === 0) {setError("Debes agregar al menos una talla.");
           return;
         }
 
         for (const item of preciosPorTallas) {
+          if (!item.tallaId) {
+            setError("Debes seleccionar una talla para cada precio.");
+            return;
+          }
           const errorPrecio = validarPrecio(item.precio);
 
           if (errorPrecio) {
@@ -185,7 +221,6 @@ export default function AgregarProducto() {
           size={17}
           strokeWidth={2}
         />
-
         Salir de Agregar producto
       </button>
       <form
@@ -193,11 +228,12 @@ export default function AgregarProducto() {
         onSubmit={guardarProducto}
       >
         <div className="productoDetalleImagenWrapper">
-
           {imagen ? (
             <img
               src={imagen}
-              alt={`Imagen de ${nombreDeProducto || "producto"}`}
+              alt={`Imagen de ${
+                nombreDeProducto || "producto"
+              }`}
               className="productoDetalleImagen"
             />
           ) : (
@@ -210,72 +246,63 @@ export default function AgregarProducto() {
           <button
             type="button"
             className="productoEditarFoto"
-            onClick={() => setEstadoDelModal(true)}
+            onClick={() => setEstadoDelModalFoto(true)}
           >
             <span>
               Editar foto
             </span>
           </button>
-
         </div>
+
         <div className="productoDetalleContenido">
           <div className="productoCrearCampo productoCrearNombre">
             <input
               id="nombreProducto"
               type="text"
               value={nombreDeProducto}
-              onChange={(e) => setNombreDeProducto(e.target.value)}
+              onChange={(e) =>
+                setNombreDeProducto(e.target.value)
+              }
               placeholder="Nombre del producto"
               maxLength={32}
               className="productoCrearInput productoCrearInputNombre"
               autoComplete="off"
             />
           </div>
-
           <div className="productoDetalleEtiquetas productoCrearSelectorWrapper">
-            <select
-              id="colegioProducto"
-              value={colegioId}
-              onChange={(e) => setColegioId(e.target.value)}
-              className="productoCrearSelect"
+            <button
+              type="button"
+              className={`productoCrearSelect productoCrearSelectModal ${
+                colegioSeleccionado
+                  ? "productoCrearSelectSeleccionado"
+                  : ""
+              }`}
+              onClick={abrirSelectorColegio}
+              disabled={guardandoProducto}
             >
-              <option value="">
-                Seleccionar Empresa o Colegio
-              </option>
-
-              {datosDecolegios.map((colegio) => (
-                <option
-                  key={colegio.id}
-                  value={colegio.id}
-                >
-                  {colegio.nombre}
-                </option>
-              ))}
-            </select>
-            <select
-              id="tipoPrendaProducto"
-              value={tipoPrendaId}
-              onChange={cambiarTipoPrenda}
-              className="productoCrearSelect"
+              <span>
+                {colegioSeleccionado?.nombre ||
+                  "Seleccionar Empresa o Colegio"}
+              </span>
+            </button>
+            <button
+              type="button"
+              className={`productoCrearSelect productoCrearSelectModal ${
+                tipoPrendaSeleccionado
+                  ? "productoCrearSelectSeleccionado"
+                  : ""
+              }`}
+              onClick={abrirSelectorTipoPrenda}
+              disabled={guardandoProducto}
             >
-              <option value="">
-                Seleccionar tipo de prenda
-              </option>
-
-              {datosDeTipoPrenda.map((tipoPrenda) => (
-                <option
-                  key={tipoPrenda.id}
-                  value={tipoPrenda.id}
-                >
-                  {tipoPrenda.tipo}
-                </option>
-              ))}
-            </select>
-
+              <span>
+                {tipoPrendaSeleccionado?.tipo ||
+                  "Seleccionar tipo de prenda"}
+              </span>
+            </button>
           </div>
 
           <div className="productoDetalleSeparador" />
-
           <div className="productoDetalleSeccion">
             <div className="productoCrearSeccionHeader">
               <h2 className="preciosAsignadosTitle">
@@ -286,6 +313,7 @@ export default function AgregarProducto() {
                   type="button"
                   className="productoAgregarTalla"
                   onClick={agregarTalla}
+                  disabled={guardandoProducto}
                 >
                   <CircleDollarSign
                     size={16}
@@ -298,61 +326,33 @@ export default function AgregarProducto() {
 
             {preciosPorTallas.length > 0 ? (
               <div className="productoDetallePrecios">
-
                 {preciosPorTallas.map((item, index) => {
-                  const tallasParaEsteSelector =
-                    datosDeTallas.filter((talla) => {
-                      const usadaPorOtroCampo =
-                        preciosPorTallas.some(
-                          (otraTalla, otroIndex) =>
-                            otroIndex !== index &&
-                            otraTalla.tallaId === talla.id
-                        );
-                      return (
-                        !usadaPorOtroCampo ||
-                        talla.id === item.tallaId
-                      );
-                    });
                   return (
                     <div
                       className="productoDetallePrecio productoCrearPrecio"
-                      key={`${item.tallaId}-${index}`}
+                      key={`${item.tallaId || "sin-talla"}-${index}`}
                     >
-                      <select
-                        value={item.tallaId}
-                        onChange={(e) =>
-                          cambiarTalla(
-                            index,
-                            e.target.value
-                          )
-                        }
-                        className="productoCrearTallaSelect"
-                        aria-label={`Talla ${index + 1}`}
-                      >
-                        {tallasParaEsteSelector.map(
-                          (talla) => (
-                            <option
-                              key={talla.id}
-                              value={talla.id}
-                            >
-                              {talla.talla}
-                            </option>
-                          )
-                        )}
-                      </select>
-
+                        <span className="productoDetalleTalla">
+                          {item.talla || "Seleccionar talla"}
+                        </span>
                       <div className="productoCrearPrecioInputWrapper">
                         <span className="productoCrearPrecioSimbolo">
                           $
                         </span>
-
                         <input
                           type="text"
                           inputMode="numeric"
                           maxLength={7}
-                          value={item.precio === "" || item.precio == null
-                            ? ""
-                            : Number(item.precio).toLocaleString("es-CL")}
+                          value={
+                            item.precio === "" ||
+                            item.precio == null
+                              ? ""
+                              : Number(
+                                  item.precio
+                                ).toLocaleString(
+                                  "es-CL"
+                                )
+                          }
                           onChange={(e) =>
                             cambiarPrecio(
                               index,
@@ -361,17 +361,22 @@ export default function AgregarProducto() {
                           }
                           placeholder="0"
                           className="productoCrearPrecioInput"
-                          aria-label={`Precio talla ${item.talla}`}
+                          aria-label={`Precio talla ${
+                            item.talla || index + 1
+                          }`}
+                          disabled={guardandoProducto}
                         />
                       </div>
-
                       <button
                         type="button"
                         className="productoEliminarTalla"
                         onClick={() =>
                           eliminarTalla(index)
                         }
-                        aria-label={`Eliminar talla ${item.talla}`}
+                        aria-label={`Eliminar talla ${
+                          item.talla || index + 1
+                        }`}
+                        disabled={guardandoProducto}
                       >
                         <Trash2
                           size={16}
@@ -397,7 +402,6 @@ export default function AgregarProducto() {
               {tipoPrendaSeleccionado?.tipo ||
                 "Sin tipo de prenda asignado"}
             </h2>
-
             {medidasDisponibles.length > 0 ? (
               <div className="productoDetallePrecios">
                 {medidasDisponibles.map((medida) => (
@@ -411,6 +415,7 @@ export default function AgregarProducto() {
                   </div>
                 ))}
               </div>
+
             ) : (
               <p className="productoDetalleSinDatos">
                 {tipoPrendaId
@@ -424,45 +429,61 @@ export default function AgregarProducto() {
               {error}
             </p>
           )}
-            <div className="productoCrearActions">
-              <button
-                type="button"
-                className= "productoCrearButton productoCrearButtonCancel"
-                disabled={guardandoProducto}
-                onClick={() => navigate(-1)}
-              >
-                <CircleX size={17} strokeWidth={2} />
-                <span>
-                  Cancelar
-                </span>
-              </button>
-              <button
-                type="submit"
-                className="productoCrearButton productoCrearButtonPrimary"
-                disabled={guardandoProducto}
-              >
-                <CirclePlus size={17} strokeWidth={2} />
-                <span>
-                  {guardandoProducto ? "Guardando..." : "Agregar"}
-                </span>
-              </button>
-            </div>
+          <div className="productoCrearActions">
+            <button
+              type="button"
+              className="productoCrearButton productoCrearButtonCancel"
+              disabled={guardandoProducto}
+              onClick={() => navigate(-1)}
+            >
+              <CircleX
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                Cancelar
+              </span>
+            </button>
+            <button
+              type="submit"
+              className="productoCrearButton productoCrearButtonPrimary"
+              disabled={guardandoProducto}
+            >
+              <CirclePlus
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                {guardandoProducto
+                  ? "Guardando..."
+                  : "Agregar"}
+              </span>
+            </button>
+          </div>
         </div>
-
       </form>
+
       <ModalFotoProducto
         producto={{
           nombreDeProducto,
           imagen,
         }}
-        modalAbierto={estadoDelModal}
+        modalAbierto={estadoDelModalFoto}
         onCerrarModal={() =>
-          setEstadoDelModal(false)
+          setEstadoDelModalFoto(false)
         }
         onFotoGuardada={(url) => {
           setImagen(url);
-          setEstadoDelModal(false);
+          setEstadoDelModalFoto(false);
         }}
+      />
+      <ModalSelector
+        tipo={selectorAbierto}
+        modalAbierto={Boolean(selectorAbierto)}
+        onCerrarModal={cerrarSelector}
+        onSeleccionarColegio={seleccionarColegio}
+        onSeleccionarTipoPrenda={seleccionarTipoPrenda}
+        onSeleccionarTalla={seleccionarTalla}
       />
     </main>
   );

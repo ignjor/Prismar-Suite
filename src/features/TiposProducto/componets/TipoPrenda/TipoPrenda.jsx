@@ -5,7 +5,6 @@ import { useState } from "react";
 import ModalAgregarEditarTipoPrenda from "../ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
 import { PencilLine, Eraser, Ruler, Search } from "lucide-react";
 
-
 export default function TipoPrenda() {
     const { data: datosDeTipoPrenda = [],
       isLoading, isError, error

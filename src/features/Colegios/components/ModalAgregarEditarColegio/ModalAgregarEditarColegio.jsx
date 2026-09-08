@@ -16,7 +16,6 @@ const validarTextoDeInput = (nombreDeColegio) => {
     return null
 };
 
-
 export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbierto, onCerrarModal}){
     const [error, setError] = useState("");
     const [guardandoColegio, setGuardandoColegio] = useState(false);

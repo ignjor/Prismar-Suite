@@ -1,0 +1,362 @@
+.modalSelectorOverlay {
+position: fixed;
+inset: 0;
+z-index: 1000;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background: rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3px);
+-webkit-backdrop-filter: blur(8px);
+}
+
+.modalSelector {
+width: min(100%, 470px);
+max-height: min(700px, calc(100vh - 40px));
+display: flex;
+flex-direction: column;
+overflow: hidden;
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 24px;
+background: rgba(255, 255, 255, 0.96);
+box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
+font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+color: #1d1d1f;
+}
+
+.modalSelectorHeader {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 14px;
+padding: 22px 22px 18px;
+border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalSelectorHeading {
+min-width: 0;
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.modalSelectorIcon {
+width: 38px;
+height: 38px;
+flex: 0 0 38px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 12px;
+background: #f5f5f7;
+color: #424245;
+}
+
+.modalSelectorTitle {
+margin: 0;
+color: #1d1d1f;
+font-size: 21px;
+font-weight: 600;
+letter-spacing: -0.45px;
+}
+
+.modalSelectorClose {
+width: 32px;
+height: 32px;
+flex: 0 0 32px;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+border-radius: 50%;
+background: #f5f5f7;
+color: #6e6e73;
+cursor: pointer;
+transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+-webkit-tap-highlight-color: transparent;
+}
+
+.modalSelectorClose:hover {
+background: #e9e9ed;
+color: #1d1d1f;
+}
+
+.modalSelectorClose:active {
+transform: scale(0.94);
+}
+
+.modalSelectorContent {
+min-height: 0;
+display: flex;
+flex-direction: column;
+padding: 18px 22px 10px;
+}
+
+.modalSelectorSearch {
+width: 100%;
+height: 46px;
+box-sizing: border-box;
+display: flex;
+align-items: center;
+gap: 9px;
+padding: 0 15px;
+border: 1px solid rgba(0, 0, 0, 0.08);
+border-radius: 40px;
+background: #f5f5f7;
+color: #98989d;
+transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.modalSelectorSearch:focus-within {
+background: #ffffff;
+border-color: rgba(0, 122, 255, 0.45);
+box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.modalSelectorSearch > svg {
+flex: 0 0 auto;
+}
+
+.modalSelectorSearch input {
+width: 100%;
+height: 100%;
+min-width: 0;
+padding: 0;
+border: none;
+outline: none;
+background: transparent;
+color: #1d1d1f;
+font-family: inherit;
+font-size: 15px;
+}
+
+.modalSelectorSearch input::placeholder {
+color: #98989d;
+}
+
+.modalSelectorClearSearch {
+width: 25px;
+height: 25px;
+flex: 0 0 25px;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+border: none;
+border-radius: 50%;
+background: #d2d2d7;
+color: #ffffff;
+cursor: pointer;
+transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.modalSelectorClearSearch:hover {
+background: #b8b8bd;
+}
+
+.modalSelectorClearSearch:active {
+transform: scale(0.92);
+}
+
+.modalSelectorResults {
+min-height: 0;
+max-height: 390px;
+overflow-y: auto;
+margin-top: 12px;
+padding: 2px;
+scrollbar-width: thin;
+scrollbar-color: #d2d2d7 transparent;
+}
+
+.modalSelectorResults::-webkit-scrollbar {
+width: 6px;
+}
+
+.modalSelectorResults::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.modalSelectorResults::-webkit-scrollbar-thumb {
+border-radius: 20px;
+background: #d2d2d7;
+}
+
+.modalSelectorItem {
+width: 100%;
+min-height: 52px;
+box-sizing: border-box;
+display: flex;
+align-items: center;
+gap: 11px;
+margin-bottom: 5px;
+padding: 7px 10px;
+border: 1px solid transparent;
+border-radius: 14px;
+background: transparent;
+color: #1d1d1f;
+text-align: left;
+cursor: pointer;
+transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.modalSelectorItem:hover {
+background: #f5f5f7;
+border-color: rgba(0, 0, 0, 0.04);
+}
+
+.modalSelectorItem:active {
+transform: scale(0.985);
+}
+
+.modalSelectorItemIcon {
+width: 34px;
+height: 34px;
+flex: 0 0 34px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 10px;
+background: #f5f5f7;
+color: #6e6e73;
+transition: background 0.18s ease, color 0.18s ease;
+}
+
+.modalSelectorItem:hover .modalSelectorItemIcon {
+background: #ffffff;
+color: #1d1d1f;
+}
+
+.modalSelectorItemName {
+min-width: 0;
+overflow: hidden;
+color: #1d1d1f;
+font-size: 14px;
+font-weight: 500;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.modalSelectorEmpty {
+min-height: 180px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 25px 15px;
+text-align: center;
+}
+
+.modalSelectorEmptyIcon {
+width: 44px;
+height: 44px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 12px;
+border-radius: 50%;
+background: #f5f5f7;
+color: #98989d;
+}
+
+.modalSelectorEmptyTitle {
+margin: 0;
+color: #424245;
+font-size: 14px;
+font-weight: 500;
+}
+
+.modalSelectorEmptyText {
+max-width: 320px;
+margin: 5px 0 0;
+color: #98989d;
+font-size: 12px;
+line-height: 1.4;
+}
+
+.modalSelectorActions {
+display: flex;
+gap: 10px;
+padding: 18px 22px 22px;
+border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalSelectorCreateButton {
+width: 100%;
+height: 42px;
+padding: 0 14px;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+border: 1px solid transparent;
+border-radius: 40px;
+background: #22b84b;
+color: #ffffff;
+font-family: inherit;
+font-size: 14px;
+font-weight: 500;
+cursor: pointer;
+transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.modalSelectorCreateButton:hover {
+background: #1faa45;
+box-shadow: 0 5px 15px rgba(34, 184, 75, 0.18);
+}
+
+.modalSelectorCreateButton:active {
+transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+.modalSelectorOverlay {
+padding: 16px;
+}
+
+.modalSelector {
+max-height: calc(100vh - 32px);
+border-radius: 22px;
+}
+
+.modalSelectorHeader {
+padding: 20px 18px 16px;
+}
+
+.modalSelectorContent {
+padding: 18px 18px 10px;
+}
+
+.modalSelectorActions {
+padding: 16px 18px 18px;
+}
+
+.modalSelectorTitle {
+font-size: 19px;
+}
+
+.modalSelectorResults {
+max-height: 330px;
+}
+}
+
+@media (max-width: 360px) {
+.modalSelectorHeading {
+gap: 9px;
+}
+
+.modalSelectorIcon {
+width: 34px;
+height: 34px;
+flex-basis: 34px;
+}
+
+.modalSelectorTitle {
+font-size: 18px;
+}
+
+.modalSelectorItem {
+min-height: 49px;
+}
+}
