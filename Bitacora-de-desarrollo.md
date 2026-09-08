@@ -314,3 +314,5 @@ service cloud.firestore {
 ### Lunes 07 de Agosto
 
 - feat: crear producto funcion con firestore, falta configurar el modal de la foto para que sirva cuando aun no tenemos id de producto, intente hacerlo lo mas parecido a verProducto pero no me convensen los estilos.
+
+- feat: agrega boton cancelar dentro de agregar-producto, y quita el bottom nav dentro de esa pagina para evitar salir por accidente cuando estes agregando un producto

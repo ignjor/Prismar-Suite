@@ -9,7 +9,7 @@ import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../Tallas/querys/useTallas";
 import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
 
-import { ArrowLeft, Shirt, CirclePlus, Trash2 } from "lucide-react";
+import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign } from "lucide-react";
 
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
 const validarTextoDeInput = (datosDelInput) => {
@@ -213,7 +213,7 @@ export default function AgregarProducto() {
             onClick={() => setEstadoDelModal(true)}
           >
             <span>
-              Agregar foto
+              Editar foto
             </span>
           </button>
 
@@ -287,11 +287,11 @@ export default function AgregarProducto() {
                   className="productoAgregarTalla"
                   onClick={agregarTalla}
                 >
-                  <CirclePlus
+                  <CircleDollarSign
                     size={16}
                     strokeWidth={2}
                   />
-                  Agregar talla
+                  Agregar Precio
                 </button>
               )}
             </div>
@@ -424,15 +424,29 @@ export default function AgregarProducto() {
               {error}
             </p>
           )}
-          <button
-            type="submit"
-            className="productoCrearGuardar"
-            disabled={guardandoProducto}
-          >
-            {guardandoProducto
-              ? "Guardando producto..."
-              : "Crear producto"}
-          </button>
+            <div className="productoCrearActions">
+              <button
+                type="button"
+                className= "productoCrearButton productoCrearButtonCancel"
+                disabled={guardandoProducto}
+                onClick={() => navigate(-1)}
+              >
+                <CircleX size={17} strokeWidth={2} />
+                <span>
+                  Cancelar
+                </span>
+              </button>
+              <button
+                type="submit"
+                className="productoCrearButton productoCrearButtonPrimary"
+                disabled={guardandoProducto}
+              >
+                <CirclePlus size={17} strokeWidth={2} />
+                <span>
+                  {guardandoProducto ? "Guardando..." : "Agregar"}
+                </span>
+              </button>
+            </div>
         </div>
 
       </form>

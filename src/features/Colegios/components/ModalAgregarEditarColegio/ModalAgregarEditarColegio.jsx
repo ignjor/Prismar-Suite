@@ -143,10 +143,6 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
                         className="modalColegioInput"
                         placeholder="Ej. Colegio San José"
                         value={nombreDeColegio}
-                            /*{datoColegioEditar
-                                ? nombreDeColegio || datoColegioEditar.nombre
-                                : nombreDeColegio
-                            }*/
                         onChange={(event) => {
                             setNombreDeColegio(event.target.value);
                             if (error) {

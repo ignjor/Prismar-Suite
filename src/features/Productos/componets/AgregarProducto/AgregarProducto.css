@@ -81,15 +81,11 @@
 }
 
 .productoDetalleImagenVacia {
-  background: linear-gradient(
-    145deg,
-    #f5f5f7,
-    #e9e9ed
-  );
+  background: linear-gradient(145deg, #f5f5f7, #e9e9ed);
 }
 
 .productoDetalleImagenVacia span {
-  color: #22b84b;
+  color: #8e8e93;
 }
 
 .productoEditarFoto {
@@ -255,36 +251,29 @@
 .productoAgregarTalla {
   min-width: 160px;
   height: 42px;
-
   padding: 0 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   border: 1px dashed rgba(0, 0, 0, 0.15);
   border-radius: 40px;
-
-  gap: 6px;
-
-
   background: transparent;
   color: #007aff;
-
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
-
   cursor: pointer;
-
   transition:
-  background 0.18s ease,
-  border-color 0.18s ease,
-  color 0.18s ease,
-  transform 0.18s ease;
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .productoAgregarTalla:hover {
   background: rgba(0, 122, 255, 0.05);
-  border-color: rgba(0, 122, 255, 0.30);
+  border-color: rgba(0, 122, 255, 0.3);
 }
 
 .productoAgregarTalla:active {
@@ -445,39 +434,62 @@
   line-height: 1.4;
 }
 
-/* BOTÓN CREAR PRODUCTO */
-.productoCrearGuardar {
-  display: block;
-  width: 50%;
-  height: 48px;
-  margin: 25px auto 0;
-  padding: 0;
-  border: none;
-  border-radius: 30px;
-  background: #22b84b;
-  color: #fff;
+.productoCrearActions {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.productoCrearButton {
+  flex: 1;
+  height: 45px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 40px;
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 8px 20px rgba(34, 184, 75, 0.18);
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.productoCrearGuardar:hover:not(:disabled) {
+.productoCrearButtonCancel {
+  background: #e4e3e3;
+  color: #424245;
+}
+
+.productoCrearButtonCancel:hover:not(:disabled) {
+  background: #fff0f0;
+  color: #d70015;
+}
+
+.productoCrearButtonPrimary {
+  background: #22b84b;
+  color: #ffffff;
+}
+
+.productoCrearButtonPrimary:hover:not(:disabled) {
   background: #1fa943;
-  box-shadow: 0 10px 24px rgba(34, 184, 75, 0.23);
 }
 
-.productoCrearGuardar:active:not(:disabled) {
-  transform: scale(0.985);
+.productoCrearButton:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
-.productoCrearGuardar:disabled {
+.productoCrearButton:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
 
-/* TABLET */
 @media (max-width: 760px) {
   .productoDetallePage {
     width: min(94%, 760px);
@@ -503,11 +515,6 @@
     font-size: 28px;
   }
 
-  /*
-    El selector conserva su ancho.
-    El precio ocupa automáticamente
-    todo el espacio restante.
-  */
   .productoCrearTallaSelect {
     width: 58px;
     min-width: 58px;
@@ -520,7 +527,6 @@
   }
 }
 
-/* MOVIL */
 @media (max-width: 560px) {
   .productoDetallePage {
     width: min(94%, 420px);
@@ -540,11 +546,6 @@
     padding: 28px 0 25px;
   }
 
-  /*
-    IMPORTANTE:
-    La foto deja de ser sticky en móvil.
-    Se desplaza normalmente con el contenido.
-  */
   .productoDetalleImagenWrapper {
     width: 100%;
     position: static;
@@ -582,7 +583,6 @@
     margin: 23px 0;
   }
 
-  /* Siempre 2 por lado */
   .productoDetallePrecios {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 9px;
@@ -599,14 +599,16 @@
     align-items: flex-start;
   }
 
-  .productoCrearGuardar {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+  .productoCrearActions {
+    gap: 9px;
+  }
+
+  .productoCrearButton {
+    height: 42px;
+    font-size: 13px;
   }
 }
 
-/* MOVIL PEQUEÑO */
 @media (max-width: 480px) {
   .productoDetalle {
     padding: 25px 0 22px;
@@ -656,13 +658,8 @@
     min-width: 52px;
     max-width: 52px;
   }
-
-  .productoCrearGuardar {
-    width: 50%;
-  }
 }
 
-/* MOVIL MUY PEQUEÑO */
 @media (max-width: 360px) {
   .productoDetallePage {
     width: 94%;
@@ -711,7 +708,13 @@
     height: 24px;
   }
 
-  .productoCrearGuardar {
-    width: 50%;
+  .productoCrearActions {
+    gap: 7px;
+  }
+
+  .productoCrearButton {
+    height: 40px;
+    padding: 0 8px;
+    font-size: 12px;
   }
 }

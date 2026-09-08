@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLoaderData, useLocation } from "react-router-dom";
 
 import BottomNav from "./components/navigation/BottomNav/BottomNav";
 
@@ -15,9 +15,13 @@ import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 /*import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+  const rutasSinBottomNav = ["/agregar-producto"]
+  const ocultarNav = rutasSinBottomNav.includes(location.pathname);
+
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route 
           path="/" 
@@ -54,8 +58,17 @@ function App() {
 
         
       </Routes>
-      <BottomNav />
+      {!ocultarNav && <BottomNav />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
+
 export default App;
