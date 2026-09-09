@@ -1,9 +1,10 @@
-import "./AgregarProducto.css";
-import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import "./EditarProducto.css";
+import { useState, useMemo, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { db } from "../../../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 
+import { useProductos } from "../../querys/useProductos";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../Tallas/querys/useTallas";
@@ -29,8 +30,10 @@ const validarPrecio = (datosDelInput) => {
     return null
 }
 
-export default function AgregarProducto() {
+export default function EditarProducto() {
     const navigate = useNavigate();
+    const {id} = useParams();
+
     const [error, setError] = useState("");
     const [imagen, setImagen] = useState("");
     
@@ -38,14 +41,62 @@ export default function AgregarProducto() {
     const [estadoDelModalFoto, setEstadoDelModalFoto] = useState(false);
 
     const [guardandoProducto, setGuardandoProducto] = useState(false);
+    const [cargandoProducto, setCargandoProducto] = useState(true);
+
     const [nombreDeProducto, setNombreDeProducto] = useState("");
     const [tipoPrendaId, setTipoPrendaId] = useState("");
     const [colegioId, setColegioId] = useState("");
     const [preciosPorTallas, setPreciosPorTallas] = useState([]);
 
+    const { data: datosDeProductos = [], isLoading, isError} = useProductos();
     const { data: datosDecolegios = []} = useColegios();
     const { data: datosDeTipoPrenda = []} = useTipoPrenda();
     const { data: datosDeTallas = []} = useTallas();
+
+    const producto = useMemo(() => {return datosDeProductos.find(
+      (producto) => producto.id === id);
+    }, [datosDeProductos, id]);
+
+    useEffect(() => {
+      if (isLoading) {
+        return;
+      }
+      if (!producto) {
+        setCargandoProducto(false);
+        return;
+      }
+      setNombreDeProducto(producto.nombre || "");
+      setColegioId(producto.colegio_id || "");
+      setTipoPrendaId(producto.tipo_prenda_id || "");
+      setImagen(producto.imagen || "");
+
+      const precios = Object.entries(producto.precios_tallas || {}
+        ).map(([talla, precio]) => {const tallaEncontrada = datosDeTallas.find(
+          (item) => item.talla === talla
+        );
+        return {
+          tallaId: tallaEncontrada?.id || talla,
+          talla,
+          precio: String(precio ?? ""),
+        };
+      });
+
+      setPreciosPorTallas(precios);
+      setCargandoProducto(false);
+    }, [producto, isLoading, datosDeTallas]);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const colegioSeleccionado = useMemo(() => { return datosDecolegios.find(
       (colegio) => colegio.id === colegioId
@@ -143,6 +194,11 @@ export default function AgregarProducto() {
         e.preventDefault();
         setError("");
 
+        if (!producto) {
+          setError("No se encontró el producto que deseas editar.");
+          return;
+        }
+
         const errorNombre = validarTextoDeInput(nombreDeProducto);
         if (errorNombre) {
           setError(errorNombre);
@@ -176,7 +232,7 @@ export default function AgregarProducto() {
           preciosMap[item.talla] = Number(item.precio);
         }
 
-        const nuevoProducto = {
+        const productoActualizado = {
           nombre: nombreDeProducto.trim(),
           colegio_id: colegioId || null,
           tipo_prenda_id: tipoPrendaId,
@@ -187,17 +243,32 @@ export default function AgregarProducto() {
 
         try {
           setGuardandoProducto(true);
-          await addDoc(collection(db, "productos"), nuevoProducto
+          await updateDoc(doc(db, "productos", id), productoActualizado
           );
           navigate(-1);
         } catch (error) {
           console.error(
-            "Error al crear producto:", error);
-          setError("No se pudo crear el producto. Inténtalo nuevamente.");
+            "Error al editar producto:", error);
+          setError("No se pudo editar el producto. Inténtalo nuevamente.");
         } finally {
           setGuardandoProducto(false);
         }
       };
+
+    if (isLoading || cargandoProducto) {
+      return (
+        <main className="adminColegios productoDetallePage">
+          <p>Cargando producto...</p>
+        </main>
+      );
+    }
+    if (isError) {
+      return (
+        <main className="adminColegios productoDetallePage">
+          <p>Error al cargar el producto. Recarga la página.</p>
+        </main>
+      );
+    }
 
   return (
     <main className="adminColegios productoDetallePage">
@@ -205,12 +276,13 @@ export default function AgregarProducto() {
         type="button"
         className="productoVolver"
         onClick={() => navigate(-1)}
+        disabled={guardandoProducto}
       >
         <ArrowLeft
           size={17}
           strokeWidth={2}
         />
-        Salir de Agregar producto
+        Salir de Editar producto
       </button>
       <form
         className="productoDetalle"
@@ -445,7 +517,7 @@ export default function AgregarProducto() {
               <span>
                 {guardandoProducto
                   ? "Guardando..."
-                  : "Agregar"}
+                  : "Guardar"}
               </span>
             </button>
           </div>
@@ -454,8 +526,7 @@ export default function AgregarProducto() {
 
       <ModalFotoProducto
         producto={{
-          nombreDeProducto,
-          imagen,
+          id, nombreDeProducto, imagen,
         }}
         modalAbierto={estadoDelModalFoto}
         onCerrarModal={() =>

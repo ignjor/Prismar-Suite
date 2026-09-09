@@ -7,7 +7,7 @@ import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { ArrowLeft, Shirt } from "lucide-react";
+import { ArrowLeft, Pencil, Shirt } from "lucide-react";
 
 export default function VerProducto() {
   const {id} = useParams();
@@ -42,22 +42,33 @@ export default function VerProducto() {
 
   return (
     <main className="adminColegios productoDetallePage">
-      <button
-        type="button"
-        className="productoVolver"
-        onClick={() => navigate(-1)}
-      >
-        <ArrowLeft size={17} strokeWidth={2} />
-        Volver a productos
-      </button>
-      <section className="productoDetalle">
-        <div className="productoDetalleImagenWrapper">
-          {producto.imagen ? (
-            <img
-              src={producto.imagen}
-              alt={`Imagen de ${producto.nombre}`}
-              className="productoDetalleImagen"
-            />
+      <div className="productoDetalleHeader">
+        <button
+          type="button"
+          className="productoVolver"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft size={17} strokeWidth={2} />
+          Volver a productos
+        </button>
+        <button
+          type="button"
+          className="productoVolver productoEditar"
+          onClick={() => navigate(`/editar-producto/${id}`)}
+        >
+          
+          Editar producto
+          <Pencil size={17} strokeWidth={2} />
+        </button>
+      </div>
+        <section className="productoDetalle">
+          <div className="productoDetalleImagenWrapper">
+            {producto.imagen ? (
+              <img
+                src={producto.imagen}
+                alt={`Imagen de ${producto.nombre}`}
+                className="productoDetalleImagen"
+              />
           ) : (
             <div className="productoDetalleImagen productoDetalleImagenVacia">
               <span>

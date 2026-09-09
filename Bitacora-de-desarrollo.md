@@ -320,3 +320,7 @@ service cloud.firestore {
 ### Martes 08 de Agosto
 
 - feat: crea ModalSelector, un selector que remplata al label tipico, así estandarizamos para que se vea igual en movil y en pc. Falta modificar el modalFoto para correrlo directamente  desde agregar foto. Todo lo escencial de crear producto para funcionar quedo funcional y estable.
+
+### Miercoles 09 de Agosto
+
+- feat: crear EditarProducto, usa la base de agregar producto pero con otra url para editar producto, agregar el boton editarproducto dentro de ver producto y quita el boton eliminar desde productos.

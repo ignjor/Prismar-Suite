@@ -265,10 +265,11 @@ background: #e9e9ed;
 color: #1d1d1f;
 }
 
-.colegioActionDelete:hover {
-background: #fff0f0;
-color: #d70015;
+.colegioActionEditar:hover {
+background: #e9e9ed;
+color: #1d1d1f;
 }
+
 
 .colegioAction:active {
 transform: scale(0.97);

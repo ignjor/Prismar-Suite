@@ -6,7 +6,7 @@ import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Eraser, Search, Eye, Shirt } from "lucide-react";
+import { Pencil, Search, Eye, Shirt } from "lucide-react";
 
 export default function Productos() {
     const navigate = useNavigate();
@@ -29,17 +29,21 @@ export default function Productos() {
     }, [datosDeTipoPrenda]);
 
     const listarProductos = useMemo(() => {
-      return datosDeProductos.map((producto) => ({
-        ...producto,
-
-        nombreColegio: producto.colegio_id
-          ? colegiosMap.get(producto.colegio_id) ?? "Sin Afiliado"
-          : "Sin Afiliado",
-
-        nombreTipoPrenda: producto.tipo_prenda_id
-          ? tipoPrendaMap.get(producto.tipo_prenda_id) ?? "Sin Afiliado"
-          : "Sin Afiliado",
-      }));
+      return [...datosDeProductos]
+        .sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+        })
+        .map((producto) => ({
+          ...producto,
+          nombreColegio: producto.colegio_id
+            ? colegiosMap.get(producto.colegio_id) ?? "Sin Afiliado"
+            : "Sin Afiliado",
+          nombreTipoPrenda: producto.tipo_prenda_id
+            ? tipoPrendaMap.get(producto.tipo_prenda_id) ?? "Sin Afiliado"
+            : "Sin Afiliado",
+        }));
     }, [datosDeProductos, colegiosMap, tipoPrendaMap]);
 
     const buscadorDeProductos = listarProductos.filter(
@@ -137,23 +141,24 @@ export default function Productos() {
                   type="button"
                   className="colegioAction colegioActionEye"
                   aria-label={`Editar ${datoProductoEspecifico.nombre}`}
-                  onClick={() => navigate(`/ver-producto/${datoProductoEspecifico.id}`)}
+                  onClick={() => navigate(`/producto/${datoProductoEspecifico.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
                   <span>
-                    Ver
+                    Abrir
                   </span>
                 </button>
-                <button
+                {/*<button
                   type="button"
-                  className="colegioAction colegioActionDelete"
+                  className="colegioAction colegioActionEditar"
                   aria-label={`Eliminar ${datoProductoEspecifico.nombre}`}
+                  onClick={() => navigate(`/editar-producto/${datoProductoEspecifico.id}`)}
                 >
-                  <Eraser size={17} strokeWidth={2} />
+                  <Pencil size={17} strokeWidth={2} />
                   <span>
-                    Eliminar
+                    Editar
                   </span>
-                </button>
+                </button>*/}
               </div>
             </article>
           ))}
