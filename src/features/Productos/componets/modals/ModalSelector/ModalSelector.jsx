@@ -23,7 +23,7 @@ const configuracion = {
     titulo: "Tipo de prenda",
     placeholder: "Buscar tipo de prenda...",
     icono: Ruler,
-    crearTexto: "Crear tipo de prenda"
+    crearTexto: "Crear Tipo de Prenda / Producto"
     },
   talla: {
     titulo: "Talla",
@@ -96,12 +96,16 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
 
       body.style.overflow = "hidden";
       setBuscador("");
+      return () => {
+          body.style.overflow = "";
+      };
     }, [modalAbierto, tipo]);
 
     useEffect(() => {
       if (!modalAbierto) { body.style.overflow = "";
         return;
       }
+      body.style.overflow="hidden";
       const clickFueraDelModal = (event) => {
         if (
           RefAreaDelModal.current &&
@@ -123,11 +127,6 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
         );
       };
     }, [ modalAbierto, modalCrearAbierto, onCerrarModal]);
-
-    useEffect(() => {
-      return () => { body.style.overflow = "";
-      };
-    }, []);
 
 
     const configuracionActual = configuracion[tipo];
@@ -168,6 +167,11 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
     const cerrarDespuesDeCrear = () => { setModalCrearAbierto(null);
     };
 
+    if (!modalAbierto) {
+          return null;
+      }
+
+
   return (
     <>
       <div className="modalSelectorOverlay">
@@ -180,13 +184,6 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
         >
           <header className="modalSelectorHeader">
             <div className="modalSelectorHeading">
-              <div className="modalSelectorIcon">
-                <IconoPrincipal
-                  size={18}
-                  strokeWidth={1.9}
-                />
-              </div>
-
               <div>
                 <h2
                   id="modalSelectorTitle"

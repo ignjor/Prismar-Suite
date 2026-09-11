@@ -343,3 +343,5 @@ service cloud.firestore {
 ### Viernes 11 de Septiembre
 
 - feat: agrega modal eliminacion con doble confirmacion, dentro de colegios quedo funcional, falta agregarlo dentro de los otros componentes.
+
+- feat, fix: agrega modal eliminacion con doble confirmacion, dentro de tallas, tipo prenda, y soluciona errores dentro del hidden del scroll dentro de los modals

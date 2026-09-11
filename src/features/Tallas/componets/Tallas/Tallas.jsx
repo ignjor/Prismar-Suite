@@ -1,8 +1,11 @@
 import "./Tallas.css";
 import { useTallas } from "../../querys/useTallas";
 import { useState } from "react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 
 import ModalAgregarEditarTalla from "../ModalAgregarEditarTalla/ModalAgregarEditarTalla";
+import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
 import { PencilLine, Eraser, Tag, Search } from "lucide-react";
 
 export default function Tallas() {
@@ -11,6 +14,7 @@ export default function Tallas() {
     } = useTallas();
 
     const [tallaAEditar, setTallaAEditar] = useState(null);
+    const [tallaAEliminar, setTallaAEliminar] = useState(null);
 
     const listarTallas = [...datosDeTallas].sort((a, b) => {
           const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
@@ -22,20 +26,41 @@ export default function Tallas() {
     const buscadorDeTallas = listarTallas.filter((talla) =>
       talla.talla?.toLowerCase().includes(buscador.toLowerCase()))
 
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
+    const [estadoDelModalEditar, setEstadoDelModalEditar] = useState(false);
+    const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
 
     const abrirModalParaCrear = () => {
-        setTallaAEditar(null); setEstadoDelModal(true); 
+        setTallaAEditar(null); setEstadoDelModalEditar(true); 
     };
     const abrirModalParaEditar = (datoTallaEspecifica) => {
-        setTallaAEditar(datoTallaEspecifica); setEstadoDelModal(true); 
+        setTallaAEditar(datoTallaEspecifica); setEstadoDelModalEditar(true); 
     };
     const cerrarModal = () => {
-        setTallaAEditar(null); setEstadoDelModal(false); 
+        setTallaAEditar(null); setEstadoDelModalEditar(false); 
     };
 
-    if (isLoading) { return <p>Cargando Colegios...</p>}
-    if (isError) { return <p>Error: {error.message}. Error al Cargar Colegios, recargue la página.</p>}
+
+    const abrirModalParaEliminar = (datoTallaEspecifica) => {
+        setTallaAEliminar(datoTallaEspecifica); setEstadoDelModalEliminar(true);
+    };
+    const cerrarModalEliminar = () => {
+        setTallaAEliminar(null); setEstadoDelModalEliminar(false);
+    };
+
+    const eliminarTalla = async (talla) => {
+      if (!talla?.id) { 
+        console.error("No ser pudo encontrar la talla. Recarga la página.");
+        throw new Error("La talla no tiene identificador valido.");
+      }
+      try {await deleteDoc(doc(db, "tallas", talla.id));
+      }catch (error) {
+        console.error("Error al eliminar la talla:", error);
+        throw error;
+      }
+    };
+
+    if (isLoading) { return <p>Cargando Tallas...</p>}
+    if (isError) { return <p>Error: {error.message}. Error al Cargar Tallas, recargue la página.</p>}
     return(
       <main className="adminColegios">
         <header className="adminColegiosHeader">
@@ -87,6 +112,7 @@ export default function Tallas() {
                   type="button"
                   className="colegioAction colegioActionDelete"
                   aria-label={`Eliminar ${datoTallaEspecifica.talla}`}
+                  onClick= {() => abrirModalParaEliminar(datoTallaEspecifica)}
                 >
                   <Eraser size={17} strokeWidth={2} />
                   <span>
@@ -111,12 +137,21 @@ export default function Tallas() {
               <Tag size={21} strokeWidth={2}/>
             </button>
         </section>
-
+          {estadoDelModalEditar && (
           <ModalAgregarEditarTalla
             datoTallaEditar = {tallaAEditar}
-            modalAbierto = {estadoDelModal}
+            modalAbierto = {estadoDelModalEditar}
             onCerrarModal = {cerrarModal}
-              />
+              /> )}
+
+          {estadoDelModalEliminar && (
+          <ModalConfirmarEliminacion
+            tipo = "talla"
+            dato = {tallaAEliminar}
+            modalAbierto= {estadoDelModalEliminar}
+            onCerrarModal= {cerrarModalEliminar}
+            onConfirmarEliminacion= {eliminarTalla}
+          /> )}
       </main>
     );
 }

@@ -139,20 +139,20 @@ export default function Colegios() {
               <School size={21} strokeWidth={2}/>
             </button>
         </section>
-
+          {estadoDelModal && (
           <ModalAgregarEditarColegio
             datoColegioEditar = {colegioAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-          />
+          /> )}
+          {estadoDelModalEliminar && (
           <ModalConfirmarEliminacion
             tipo = "colegio"
             dato = {colegioAEliminar}
             modalAbierto= {estadoDelModalEliminar}
             onCerrarModal= {cerrarModalEliminar}
             onConfirmarEliminacion= {eliminarColegio}
-          
-          />
+          /> )}
       </main>
     );
 }

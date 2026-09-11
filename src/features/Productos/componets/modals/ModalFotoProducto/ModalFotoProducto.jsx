@@ -86,6 +86,9 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
             return;
         }
         body.style.overflow="hidden";
+        return () => {
+          body.style.overflow = "";
+        };
     }, [modalAbierto])
 
     useEffect(() => {
@@ -104,6 +107,7 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
         if (!modalAbierto) {
             return;
         }
+        body.style.overflow="hidden";
         const clickFueraDelModal = (event) => {
             if (RefAreaDelModal.current &&
                 !RefAreaDelModal.current.contains(event.target) &&
@@ -175,7 +179,6 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
     };
 
     if (!modalAbierto) {
-        body.style.overflow="";
         return null;
     }
 
@@ -200,7 +203,7 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
             <header className="modalFotoHeader">
             <div>
                 <h2 id="modalFotoTitulo">
-                Editar foto del Producto
+                Foto de Producto
                 </h2>
             </div>
             <button

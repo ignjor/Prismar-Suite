@@ -56,6 +56,9 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
             setAtributosAsignados([]);
         }
         setError("");
+        return () => {
+            body.style.overflow = "";
+        };
     }, [modalAbierto, datoTipoPrendaEditar])
 
     useEffect(() => {
@@ -63,6 +66,7 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
             body.style.overflow="";
             return;
         }
+        body.style.overflow="hidden";
         const clickFueraDelModal = (event) => {
             if (RefAreaDelModal.current && !RefAreaDelModal.current.contains(event.target)){
                 onCerrarModal();
@@ -145,10 +149,8 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
     };
 
     if (!modalAbierto) {
-        body.style.overflow="";
         return null;
     }
-
     return (
        <div className="modalColegioOverlay">
             <div

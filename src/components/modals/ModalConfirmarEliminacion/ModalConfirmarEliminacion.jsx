@@ -169,7 +169,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
 
               <>
                 <div className="modalEliminacionDangerIcon">
-                  <Trash2
+                  <AlertTriangle
                     size={25}
                     strokeWidth={1.9}
                   />
@@ -193,7 +193,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
 
                 <div className="modalEliminacionDangerMessage">
                   <strong>
-                    Esta acción no se puede deshacer.
+                    Esta acción es DEFINITIVA y NO se puede DESHACER.
                   </strong>
 
                 </div>

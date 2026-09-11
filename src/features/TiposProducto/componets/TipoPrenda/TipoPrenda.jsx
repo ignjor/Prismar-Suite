@@ -1,8 +1,11 @@
 import "./TipoPrenda.css";
 import { useTipoPrenda } from "../../querys/useTipoPrenda";
 import { useState } from "react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 
 import ModalAgregarEditarTipoPrenda from "../ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
+import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
 import { PencilLine, Eraser, Ruler, Search } from "lucide-react";
 
 export default function TipoPrenda() {
@@ -11,6 +14,7 @@ export default function TipoPrenda() {
     } = useTipoPrenda(); 
 
     const [tipoPrendaAEditar, setTipoPrendaAEditar] = useState(null);
+    const [tipoPrendaAEliminar, setTipoPrendaAEliminar] = useState(null);
 
     const listarTipoPrenda = [...datosDeTipoPrenda].sort((a, b) => {
           const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
@@ -22,16 +26,37 @@ export default function TipoPrenda() {
     const buscadorDeTipoPrenda = listarTipoPrenda.filter((tipo_prenda) =>
       tipo_prenda.tipo?.toLowerCase().includes(buscador.toLowerCase()))
 
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
+    const [estadoDelModalEditar, setEstadoDelModalEditar] = useState(false);
+    const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
 
     const abrirModalParaCrear = () => {
-        setTipoPrendaAEditar(null); setEstadoDelModal(true); 
+        setTipoPrendaAEditar(null); setEstadoDelModalEditar(true); 
     };
     const abrirModalParaEditar = (datoTipoPrendaEspecifico) => {
-        setTipoPrendaAEditar(datoTipoPrendaEspecifico); setEstadoDelModal(true); 
+        setTipoPrendaAEditar(datoTipoPrendaEspecifico); setEstadoDelModalEditar(true); 
     };
     const cerrarModal = () => {
-        setTipoPrendaAEditar(null); setEstadoDelModal(false); 
+        setTipoPrendaAEditar(null); setEstadoDelModalEditar(false); 
+    };
+
+
+    const abrirModalParaEliminar = (datoTipoPrendaEspecifico) => {
+        setTipoPrendaAEliminar(datoTipoPrendaEspecifico); setEstadoDelModalEliminar(true);
+    };
+    const cerrarModalEliminar = () => {
+        setTipoPrendaAEliminar(null); setEstadoDelModalEliminar(false);
+    };
+
+    const eliminarTipoPrenda = async (tipo_prenda) => {
+      if (!tipo_prenda?.id) { 
+        console.error("No ser pudo encontrar el colegio. Recarga la página.");
+        throw new Error("El colegio no tiene identificador valido.");
+      }
+      try {await deleteDoc(doc(db, "tipo_prenda", tipo_prenda.id));
+      }catch (error) {
+        console.error("Error al eliminar el colegio:", error);
+        throw error;
+      }
     };
 
     if (isLoading) { return <p>Cargando Tipos de Prendas...</p>}
@@ -99,6 +124,7 @@ export default function TipoPrenda() {
                   type="button"
                   className="colegioAction colegioActionDelete"
                   aria-label={`Eliminar ${datoTipoPrendaEspecifico.tipo}`}
+                  onClick= {() => abrirModalParaEliminar(datoTipoPrendaEspecifico)}
                 >
                   <Eraser size={17} strokeWidth={2} />
                   <span>
@@ -122,12 +148,21 @@ export default function TipoPrenda() {
               <Ruler size={21} strokeWidth={2}/>
             </button>
         </section>
-
+          {estadoDelModalEditar && (
           <ModalAgregarEditarTipoPrenda
             datoTipoPrendaEditar = {tipoPrendaAEditar}
-            modalAbierto = {estadoDelModal}
+            modalAbierto = {estadoDelModalEditar}
             onCerrarModal = {cerrarModal}
-              />
+              /> )}
+
+          {estadoDelModalEliminar && (
+          <ModalConfirmarEliminacion
+            tipo = "tipoPrenda"
+            dato = {tipoPrendaAEliminar}
+            modalAbierto= {estadoDelModalEliminar}
+            onCerrarModal= {cerrarModalEliminar}
+            onConfirmarEliminacion= {eliminarTipoPrenda}
+          /> )}
       </main>
     );
 }

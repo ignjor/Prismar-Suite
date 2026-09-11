@@ -37,6 +37,9 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
             setTalla("");
         }
         setError("");
+        return () => {
+            body.style.overflow = "";
+        };
     }, [modalAbierto, datoTallaEditar])
 
     useEffect(() => {
@@ -44,6 +47,7 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
             body.style.overflow="";
             return;
         }
+        body.style.overflow="hidden";
         const clickFueraDelModal = (event) => {
             if (RefAreaDelModal.current && !RefAreaDelModal.current.contains(event.target)){
                 onCerrarModal();
@@ -99,7 +103,6 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
     };
     
     if (!modalAbierto) {
-        body.style.overflow="";
         return null;
     }
 

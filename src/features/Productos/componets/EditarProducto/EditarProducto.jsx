@@ -524,6 +524,7 @@ export default function EditarProducto() {
         </div>
       </form>
 
+      {estadoDelModalFoto && (
       <ModalFotoProducto
         producto={{
           id, nombreDeProducto, imagen,
@@ -536,15 +537,17 @@ export default function EditarProducto() {
           setImagen(url);
           setEstadoDelModalFoto(false);
         }}
-      />
+      /> )}
+
+      {selectorAbierto && (
       <ModalSelector
         tipo={selectorAbierto}
-        modalAbierto={Boolean(selectorAbierto)}
+        modalAbierto={selectorAbierto}
         onCerrarModal={cerrarSelector}
         onSeleccionarColegio={seleccionarColegio}
         onSeleccionarTipoPrenda={seleccionarTipoPrenda}
         onSeleccionarTalla={seleccionarTalla}
-      />
+      />)}
     </main>
   );
 }

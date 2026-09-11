@@ -37,6 +37,9 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
             setNombreDeColegio("");
         }
         setError("");
+        return () => {
+            body.style.overflow = "";
+        };
     }, [modalAbierto, datoColegioEditar])
 
     useEffect(() => {
@@ -44,6 +47,7 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
             body.style.overflow="";
             return;
         }
+        body.style.overflow="hidden";
         const clickFueraDelModal = (event) => {
             if (RefAreaDelModal.current && !RefAreaDelModal.current.contains(event.target)){
                 onCerrarModal();
@@ -99,7 +103,6 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
     };
     
     if (!modalAbierto) {
-        body.style.overflow="";
         return null;
     }
 
@@ -138,7 +141,10 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
                         htmlFor="nombreColegio"
                         className="modalColegioLabel"
                         >
-                        Escribe el nombre del afiliado al producto
+                            {datoColegioEditar
+                            ? "Si tienes datos asociados se van a ver afectados"
+                            : "Escribe el nombre del afiliado al producto"
+                            }
                         </label>
                         <input
                         id="nombreColegio"
