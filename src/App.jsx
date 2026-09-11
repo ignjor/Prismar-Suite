@@ -13,6 +13,9 @@ import Colegios from "./features/Colegios/components/Colegios/Colegios";
 import TipoPrenda from "./features/TiposProducto/componets/TipoPrenda/TipoPrenda";
 import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 
+import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
+import VerPedido from "./features/Pedidos/componets/VerPedido/VerPedido";
+
 /*import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
 import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
@@ -60,6 +63,17 @@ function AppContent() {
           path="/editar-producto/:id" 
           element={<EditarProducto />} 
         />
+
+
+        <Route 
+          path="/pedidos" 
+          element={<Pedidos />} 
+        />
+        <Route 
+          path="/pedido/:id" 
+          element={<VerPedido />} 
+        />
+        
       </Routes>
       {!ocultarNav && <BottomNav />}
     </>

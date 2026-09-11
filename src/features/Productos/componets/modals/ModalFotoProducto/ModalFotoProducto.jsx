@@ -65,7 +65,7 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
     const [archivoSeleccionado, setArchivoSeleccionado] = useState(null);
     const [preview, setPreview] = useState("");
     const [estado, setEstado] = useState(ESTADOS.IDLE);
-    const [error, setError] = useState("");
+    const [error, setError] = useState("");  
 
     const estaOcupado =
     estado === ESTADOS.PROCESSING ||
@@ -75,7 +75,6 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
         archivoSeleccionado &&
         !estaOcupado &&
         estado !== ESTADOS.SUCCESS;
-
 
     useEffect(() => {
         if (!modalAbierto) {

@@ -324,3 +324,7 @@ service cloud.firestore {
 ### Miercoles 09 de Agosto
 
 - feat: crear EditarProducto, usa la base de agregar producto pero con otra url para editar producto, agregar el boton editarproducto dentro de ver producto y quita el boton eliminar desde productos.
+
+### Jueves 10 de Agosto
+
+- feat: crea Pedidos.jsx, lee el pedido que ingresamos manual dentro de firestore, hay que hacer que los pedidos se lean de vista horizontal por filas. Cambia el Diagrama UML que prepara la estructura de pedidos.

@@ -6,7 +6,7 @@ import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Pencil, Search, Eye, Shirt } from "lucide-react";
+import { Search, Eye, Shirt } from "lucide-react";
 
 export default function Productos() {
     const navigate = useNavigate();
@@ -148,17 +148,6 @@ export default function Productos() {
                     Abrir
                   </span>
                 </button>
-                {/*<button
-                  type="button"
-                  className="colegioAction colegioActionEditar"
-                  aria-label={`Eliminar ${datoProductoEspecifico.nombre}`}
-                  onClick={() => navigate(`/editar-producto/${datoProductoEspecifico.id}`)}
-                >
-                  <Pencil size={17} strokeWidth={2} />
-                  <span>
-                    Editar
-                  </span>
-                </button>*/}
               </div>
             </article>
           ))}

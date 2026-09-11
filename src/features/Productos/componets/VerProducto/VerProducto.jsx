@@ -57,7 +57,7 @@ export default function VerProducto() {
           onClick={() => navigate(`/editar-producto/${id}`)}
         >
           
-          Editar producto
+          Editar
           <Pencil size={17} strokeWidth={2} />
         </button>
       </div>
