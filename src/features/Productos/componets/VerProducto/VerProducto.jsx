@@ -126,7 +126,7 @@ export default function VerProducto() {
           </div>
           <div className="productoDetalleSeccion">
             <h2 className="medidasAsignadasTitle">
-              MEDIDAS {tipoPrenda?.tipo || "Sin tipo de prenda Asignado"}
+              MEDIDAS ASIG. AL TIPO DE PRODUCTO: <strong>{tipoPrenda?.tipo || "Sin tipo de prenda Asignado"} </strong>
             </h2>
             {tipoPrenda?.medidas_asig &&
             Object.keys(tipoPrenda.medidas_asig).length > 0 ? (

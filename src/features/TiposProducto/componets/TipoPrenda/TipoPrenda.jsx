@@ -12,8 +12,14 @@ export default function TipoPrenda() {
 
     const [tipoPrendaAEditar, setTipoPrendaAEditar] = useState(null);
 
+    const listarTipoPrenda = [...datosDeTipoPrenda].sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+    });
+
     const [buscador, setBuscador] = useState("");
-    const buscadorDeTipoPrenda = datosDeTipoPrenda.filter((tipo_prenda) =>
+    const buscadorDeTipoPrenda = listarTipoPrenda.filter((tipo_prenda) =>
       tipo_prenda.tipo?.toLowerCase().includes(buscador.toLowerCase()))
 
     const [estadoDelModal, setEstadoDelModal] = useState(false);

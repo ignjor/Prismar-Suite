@@ -12,8 +12,14 @@ export default function Colegios() {
 
     const [colegioAEditar, setColegioAEditar] = useState(null);
 
+    const listarColegios = [...datosDeColegios].sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+    });
+
     const [buscador, setBuscador] = useState("");
-    const buscadorDeColegios = datosDeColegios.filter((colegio) =>
+    const buscadorDeColegios = listarColegios.filter((colegio) =>
       colegio.nombre?.toLowerCase().includes(buscador.toLowerCase()))
 
     const [estadoDelModal, setEstadoDelModal] = useState(false);

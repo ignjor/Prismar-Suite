@@ -1,7 +1,7 @@
 import "./ModalAgregarEditarTalla.css";
 import { useEffect, useRef, useState } from "react";
 import { db } from "../../../../firebase";
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp } from "firebase/firestore";
 
 import { CircleX, CirclePlus, X } from "lucide-react";
 
@@ -72,7 +72,9 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
         try {
             setGuardandoTalla(true); setError("");
             await addDoc(collection(db, "tallas"),
-            {talla: textoValidado}
+            {talla: textoValidado,
+            fecha_actualizacion: serverTimestamp()
+            }
             );
             setTalla("");
             onCerrarModal();
@@ -85,7 +87,9 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
         try {
             setGuardandoTalla(true); setError("");
             await updateDoc(doc(db, "tallas", datoTallaEditar.id),
-                {talla: textoValidado}
+                {talla: textoValidado,
+                fecha_actualizacion: serverTimestamp()
+                }
             );
             setTalla("");
             onCerrarModal();

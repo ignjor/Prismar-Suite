@@ -1,5 +1,5 @@
 import "./ModalSelector.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 
 import { useColegios } from "../../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../../TiposProducto/querys/useTipoPrenda";
@@ -46,18 +46,42 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
       .trim()
       .toLowerCase();
 
-    const buscadorDeColegios = datosDecolegios.filter(
+    const listarColegios = useMemo(() => {
+      return [...datosDecolegios]
+        .sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA
+        })}, [datosDecolegios]);
+    const buscadorDeColegios = listarColegios.filter(
       (colegio) => colegio.nombre
           ?.toLowerCase()
           .includes(buscadorNormalizado)
     );
-    const buscadorDeTallas = datosDeTallas.filter(
+
+    const listarTallas = useMemo(() => {
+      return [...datosDeTallas]
+        .sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA
+        })}, [datosDeTallas]);
+    const buscadorDeTallas = listarTallas.filter(
       (talla) => talla.talla
           ?.toLowerCase()
           .includes(buscadorNormalizado)
     );
-    const buscadorDeTipoPrenda =
-      datosDeTipoPrenda.filter((tipoPrenda) => tipoPrenda.tipo
+
+  
+    const listarTipoPrenda = useMemo(() => {
+      return [...datosDeTipoPrenda]
+        .sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+        })}, [datosDeTipoPrenda])
+    const buscadorDeTipoPrenda = listarTipoPrenda.filter(
+      (tipoPrenda) => tipoPrenda.tipo
           ?.toLowerCase()
           .includes(buscadorNormalizado)
     );
@@ -140,8 +164,6 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
     
 
     const abrirModalCrear = () => { setModalCrearAbierto(tipo);
-    };
-    const cerrarModalCrear = () => { setModalCrearAbierto(null);
     };
     const cerrarDespuesDeCrear = () => { setModalCrearAbierto(null);
     };

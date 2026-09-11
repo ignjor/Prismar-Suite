@@ -459,9 +459,9 @@ export default function EditarProducto() {
 
           <div className="productoDetalleSeccion">
             <h2 className="medidasAsignadasTitle">
-              MEDIDAS{" "}
-              {tipoPrendaSeleccionado?.tipo ||
-                "Sin tipo de prenda asignado"}
+              MEDIDAS ASIG. AL TIPO DE PRODUCTO: {" "}
+              <strong>{tipoPrendaSeleccionado?.tipo ||
+                "Sin tipo de prenda asignado"}</strong>
             </h2>
             {medidasDisponibles.length > 0 ? (
               <div className="productoDetallePrecios">

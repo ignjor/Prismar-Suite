@@ -13,6 +13,17 @@
 
 - Asegurate de que en tipo de productos y en pedidos, NO cargue todo de inmediato en la vista previa cuando abramos la ventan de productos y pedidos, porque o sino va a chupar lecturas de firestore COMO LOCO. ES PRIORIDAD.
 
+### 10 de septiembre.
+
+- Agrega fecha de actualizacion a todos los componentes pequeños y que se actualicen automaticamente al editarlos o crearlos, para listarlos mejor dentro del modal de seleccion y para encontrarlos mas rapidos dentro de sus propias ventanas.
+
+- Crea modal de Doble confirmacion para eliminar, estandarizado y reutilizable dentro de todo el proyecto
+
+- Crea modal de confirmacion para Editar o Crear, estandarizado y reutilizable dentro de todo el proyecto, asi no creas y editas nada por accidente.
+
+- El modal de foto de agregar no funciona, fixealo, el modal intenta buscar una id que un no tiene porque aun no lo creas. 
+
+
 
 ## Objetivos y Orden de Prioridades✅❌
 
@@ -22,7 +33,7 @@
 
 - [x] 3. Crear la estructura de Tipos de Prendas / Productos.
 
-- [ ] 4. Crear la esutructura de Productos
+- [X] 4. Crear la esutructura de Productos
 
 - [ ] 5. Crear la estructura de Pedidos
 

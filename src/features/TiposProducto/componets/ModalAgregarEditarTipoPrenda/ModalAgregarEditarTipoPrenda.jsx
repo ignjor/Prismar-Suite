@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./ModalAgregarEditarTipoPrenda.css";
 
 import { db } from "../../../../firebase";
-import { addDoc, collection, updateDoc, doc} from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp} from "firebase/firestore";
 
 import { CircleX, CirclePlus, X, Trash2, PencilRuler } from "lucide-react";
 
@@ -100,7 +100,7 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
         try {
             setGuardandoTipoPrenda(true); setError("");
             await addDoc(collection(db, "tipo_prenda"),
-            {tipo: textoValidado, medidas_asig: atributosAsignados}
+            {tipo: textoValidado, medidas_asig: atributosAsignados, fecha_actualizacion: serverTimestamp()}
         );
         setNombreDeTipoPrenda(""); setAtributosAsignados([]);
         onCerrarModal();
@@ -113,7 +113,7 @@ export default function ModalAgregarEditarTipoPrenda({datoTipoPrendaEditar, moda
         try {
             setGuardandoTipoPrenda(true); setError("");
             await updateDoc(doc(db, "tipo_prenda", datoTipoPrendaEditar.id),
-            {tipo: textoValidado, medidas_asig: atributosAsignados}
+            {tipo: textoValidado, medidas_asig: atributosAsignados, fecha_actualizacion: serverTimestamp()}
         );
         setNombreDeTipoPrenda(""); setAtributosAsignados([]);
         onCerrarModal();

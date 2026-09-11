@@ -1,7 +1,7 @@
 import "./ModalAgregarEditarColegio.css";
 import { useEffect, useRef, useState } from "react";
 import { db } from "../../../../firebase";
-import { addDoc, collection, updateDoc, doc } from "firebase/firestore";
+import { addDoc, collection, updateDoc, doc, serverTimestamp } from "firebase/firestore";
 
 import { CircleX, CirclePlus, X } from "lucide-react";
 
@@ -72,7 +72,9 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
         try {
             setGuardandoColegio(true); setError("");
             await addDoc(collection(db, "colegios"),
-            {nombre: textoValidado}
+            {nombre: textoValidado,
+            fecha_actualizacion: serverTimestamp()
+            }
             );
             setNombreDeColegio("");
             onCerrarModal();
@@ -85,7 +87,9 @@ export default function ModalAgregarEditarColegio({datoColegioEditar, modalAbier
         try {
             setGuardandoColegio(true); setError("");
             await updateDoc(doc(db, "colegios", datoColegioEditar.id),
-                {nombre: textoValidado}
+            {nombre: textoValidado,
+            fecha_actualizacion: serverTimestamp()
+            }
             );
             setNombreDeColegio("");
             onCerrarModal();

@@ -12,8 +12,14 @@ export default function Tallas() {
 
     const [tallaAEditar, setTallaAEditar] = useState(null);
 
+    const listarTallas = [...datosDeTallas].sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+    });
+
     const [buscador, setBuscador] = useState("");
-    const buscadorDeTallas = datosDeTallas.filter((talla) =>
+    const buscadorDeTallas = listarTallas.filter((talla) =>
       talla.talla?.toLowerCase().includes(buscador.toLowerCase()))
 
     const [estadoDelModal, setEstadoDelModal] = useState(false);
