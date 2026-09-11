@@ -117,19 +117,21 @@ service cloud.firestore {
       
       allow create: if
         request.resource.data.keys().hasOnly([
-          "nombre"
+          "nombre", "fecha_actualizacion"
         ])
         && request.resource.data.nombre is string
         && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 32;
+        && request.resource.data.nombre.size() <= 32
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow update: if
         request.resource.data.keys().hasOnly([
-          "nombre"
+          "nombre", "fecha_actualizacion"
         ])
         && request.resource.data.nombre is string
         && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 32;
+        && request.resource.data.nombre.size() <= 32
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow delete: if true;
     }
@@ -140,23 +142,25 @@ service cloud.firestore {
       
       allow create: if
         request.resource.data.keys().hasOnly([
-          "tipo", "medidas_asig"
+          "tipo", "medidas_asig", "fecha_actualizacion"
         ])
         && request.resource.data.tipo is string
         && request.resource.data.tipo.size() >= 2
         && request.resource.data.tipo.size() <= 20
         && request.resource.data.medidas_asig is map
-        && request.resource.data.medidas_asig.size() <= 8;
+        && request.resource.data.medidas_asig.size() <= 8
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow update: if
         request.resource.data.keys().hasOnly([
-          "tipo", "medidas_asig"
+          "tipo", "medidas_asig", "fecha_actualizacion"
         ])
         && request.resource.data.tipo is string
         && request.resource.data.tipo.size() >= 2
         && request.resource.data.tipo.size() <= 20
         && request.resource.data.medidas_asig is map
-        && request.resource.data.medidas_asig.size() <= 8;
+        && request.resource.data.medidas_asig.size() <= 8
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow delete: if true;
     }
@@ -166,24 +170,24 @@ service cloud.firestore {
 
       allow create: if
         request.resource.data.keys().hasOnly([
-          "talla"
+          "talla", "fecha_actualizacion"
         ])
         && request.resource.data.talla is string
         && request.resource.data.talla.size() >= 1
-        && request.resource.data.talla.size() <= 15;
+        && request.resource.data.talla.size() <= 15
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow update: if
         request.resource.data.keys().hasOnly([
-          "talla"
+          "talla", "fecha_actualizacion"
         ])
         && request.resource.data.talla is string
         && request.resource.data.talla.size() >= 1
-        && request.resource.data.talla.size() <= 15;
+        && request.resource.data.talla.size() <= 15
+        && request.resource.data.fecha_actualizacion is timestamp;
         
       allow delete: if true;
     }
-
-
 
     match /productos/{productoId} {
 
