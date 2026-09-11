@@ -2,6 +2,12 @@ import "./VerProducto.css";
 import { useProductos } from "../../querys/useProductos";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
+
+import { deleteObject, ref, listAll } from "firebase/storage";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db, storage } from "../../../../firebase";
+
+import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
 import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
 
 import { useMemo, useState } from "react";
@@ -14,6 +20,8 @@ export default function VerProducto() {
   const navigate = useNavigate();
   
   const [estadoDelModal, setEstadoDelModal] = useState(false);
+  const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
+  const [productoAEliminar, setProductoAEliminar] = useState(null)
 
   const { data: datosDeProductos = [], isLoading, isError, error} = useProductos();
   const { data: datosDecolegios = []} = useColegios();
@@ -30,6 +38,39 @@ export default function VerProducto() {
   const tipoPrenda = useMemo(() => {
     return datosDeTipoPrenda.find((tipoPrenda) => tipoPrenda.id === producto?.tipo_prenda_id);
   }, [datosDeTipoPrenda, producto]);
+
+
+  const abrirModalParaEliminar = (producto) => {
+       setProductoAEliminar(producto); setEstadoDelModalEliminar(true);
+  };
+   const cerrarModalEliminar = () => {
+       setProductoAEliminar(null); setEstadoDelModalEliminar(false);
+   };
+
+   const eliminarProducto = async (producto) => {
+    if (!producto?.id) { 
+      console.error("No ser pudo encontrar el colegio. Recarga la página.");
+      throw new Error("El colegio no tiene identificador valido.");
+    }
+    try {
+
+      try{    
+        const carpetaProducto = ref(storage, `productos/${producto.id}`);
+        const archivos = await listAll(carpetaProducto);
+        await Promise.all(
+          archivos.items.map((archivo) => deleteObject(archivo))
+        );
+      }catch (error) {
+        if (error.code !== "storage/object-not-found") { throw error;
+      }};
+
+      await deleteDoc(doc(db, "productos", producto.id)); 
+      navigate(-1);
+    }catch (error) {
+       console.error("Error al eliminar el Producto:", error);
+       throw error;
+     }
+   }
 
   if (isLoading) { return <p>Cargando el Producto...</p>}
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Producto, recargue la página.</p>}
@@ -159,21 +200,30 @@ export default function VerProducto() {
           <button
             type="button"
             className="productoAction productoActionDelete"
+            onClick= {() => abrirModalParaEliminar(producto)}
           >
             <Trash2 size={17} strokeWidth={2} />
             Eliminar
-            
           </button>
         </div>
       </section>
+        {estadoDelModal && ( 
+        <ModalFotoProducto
+          producto={producto}
+          modalAbierto={estadoDelModal}
+          onCerrarModal={() =>
+            setEstadoDelModal(false)
+          }
+        /> )}
 
-      <ModalFotoProducto
-        producto={producto}
-        modalAbierto={estadoDelModal}
-        onCerrarModal={() =>
-          setEstadoDelModal(false)
-        }
-      />
+         {estadoDelModalEliminar && (
+         <ModalConfirmarEliminacion
+           tipo = "producto"
+           dato = {productoAEliminar}
+          modalAbierto= {estadoDelModalEliminar}
+           onCerrarModal= {cerrarModalEliminar}
+           onConfirmarEliminacion= {eliminarProducto}
+         /> )}
     </main>
   );
 }

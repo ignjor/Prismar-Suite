@@ -347,3 +347,5 @@ service cloud.firestore {
 - feat, fix: agrega modal eliminacion con doble confirmacion, dentro de tallas, tipo prenda, y soluciona errores dentro del hidden del scroll dentro de los modals
 
 - feat: agrega ScrollTop, asegura que siempre que cambiemos de pagina la pagina estre sin scrollear, mejora la UX. Cambiamos los estilos dentro de verProducto los botones de editar y eliminar estan abajo a la derecha
+
+- feat: agregar borrar dentro de verProducto, borra tanto el doc de firestore como el doc de storage, producto manejamos borrado definitivo porque no es un dato indispensable.

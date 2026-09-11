@@ -1,17 +1,17 @@
 import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
 
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
   colegio: { titulo: "Borrar Colegio / Empresa", etiqueta: "Afiliado", icono: School
   },
-  talla: { titulo: "Borrar Talla", etiqueta: "Talla", icono: Trash2
+  talla: { titulo: "Borrar Talla", etiqueta: "Talla", icono: Tag
   },
-  tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Trash2,
+  tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Ruler,
   },
-  producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Trash2,
+  producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package,
   },
 };
 
