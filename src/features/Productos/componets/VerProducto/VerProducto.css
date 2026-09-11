@@ -1,3 +1,63 @@
+.productoActions {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.productoAction {
+  height: 40px;
+  min-width: 115px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 40px;
+  background: #f5f5f7;
+  color: #424245;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.productoActionEdit:hover {
+  background: #e9e9ed;
+  color: #1d1d1f;
+}
+
+.productoActionDelete {
+  background: #fff0f0;
+  color: #d70015;
+}
+
+.productoActionDelete:hover {
+  background: #fddfdf;
+  color: #d70015;
+}
+
+.productoAction:active {
+  transform: scale(0.97);
+}
+
+.productoAction:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(34, 184, 75, 0.12);
+}
+
+
 .productoEditarFoto {
 width: 100%;
 height: 42px;
@@ -88,9 +148,6 @@ box-shadow 0.2s ease;
   margin-bottom: 0;
 }
 
-.productoEditar {
-  margin-left: auto;
-}
 
 .productoVolver:hover {
 background: rgba(255, 255, 255, 0.9);
@@ -182,7 +239,7 @@ gap: 7px;
 .productoDetalleEtiquetas .ColegioAsignadoTitle {
 min-height: 25px;
 margin: 0;
-padding: 5px;
+padding: 5px 10px;
 box-sizing: border-box;
 display: inline-flex;
 align-items: center;

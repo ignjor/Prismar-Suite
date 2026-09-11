@@ -7,7 +7,7 @@ import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { ArrowLeft, Pencil, Shirt } from "lucide-react";
+import { ArrowLeft, Pencil, Shirt, Trash2 } from "lucide-react";
 
 export default function VerProducto() {
   const {id} = useParams();
@@ -51,15 +51,7 @@ export default function VerProducto() {
           <ArrowLeft size={17} strokeWidth={2} />
           Volver a productos
         </button>
-        <button
-          type="button"
-          className="productoVolver productoEditar"
-          onClick={() => navigate(`/editar-producto/${id}`)}
-        >
-          
-          Editar
-          <Pencil size={17} strokeWidth={2} />
-        </button>
+
       </div>
         <section className="productoDetalle">
           <div className="productoDetalleImagenWrapper">
@@ -94,6 +86,9 @@ export default function VerProducto() {
           <div className="productoDetalleEtiquetas">
             <span className="ColegioAsignadoTitle">
               {colegio?.nombre || "Sin Empresa o Colegio Afiliado"}
+            </span>
+            <span className="ColegioAsignadoTitle">
+              {tipoPrenda?.tipo || "Sin Tipo de Prenda Afiliado"}
             </span>
           </div>
           <div className="productoDetalleSeparador" />
@@ -150,6 +145,25 @@ export default function VerProducto() {
               </p>
             )}
           </div>
+        </div>
+        <div className="productoActions">
+          <button
+            type="button"
+            className="productoAction productoActionEdit"
+            onClick={() => navigate(`/editar-producto/${id}`)}
+          >
+            Editar
+            <Pencil size={17} strokeWidth={2} />
+          </button>
+
+          <button
+            type="button"
+            className="productoAction productoActionDelete"
+          >
+            <Trash2 size={17} strokeWidth={2} />
+            Eliminar
+            
+          </button>
         </div>
       </section>
 

@@ -345,3 +345,5 @@ service cloud.firestore {
 - feat: agrega modal eliminacion con doble confirmacion, dentro de colegios quedo funcional, falta agregarlo dentro de los otros componentes.
 
 - feat, fix: agrega modal eliminacion con doble confirmacion, dentro de tallas, tipo prenda, y soluciona errores dentro del hidden del scroll dentro de los modals
+
+- feat: agrega ScrollTop, asegura que siempre que cambiemos de pagina la pagina estre sin scrollear, mejora la UX. Cambiamos los estilos dentro de verProducto los botones de editar y eliminar estan abajo a la derecha

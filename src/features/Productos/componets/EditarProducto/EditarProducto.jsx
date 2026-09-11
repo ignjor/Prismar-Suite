@@ -71,7 +71,9 @@ export default function EditarProducto() {
       setImagen(producto.imagen || "");
 
       const precios = Object.entries(producto.precios_tallas || {}
-        ).map(([talla, precio]) => {const tallaEncontrada = datosDeTallas.find(
+        )
+        .sort(([, a], [, b]) => Number(a) - Number(b))
+        .map(([talla, precio]) => {const tallaEncontrada = datosDeTallas.find(
           (item) => item.talla === talla
         );
         return {

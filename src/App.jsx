@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLoaderData, useLocation } from "react-router-dom";
 
+import ScrollToTop from "./ScrollTop";
 import BottomNav from "./components/navigation/BottomNav/BottomNav";
 
 import Home from "./features/Home/componets/Home/Home";
@@ -83,6 +84,7 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <AppContent />
     </BrowserRouter>
   );
