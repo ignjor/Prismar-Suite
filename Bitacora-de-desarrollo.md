@@ -281,61 +281,65 @@ service cloud.firestore {
 
 - refactor: rehace el sistema para leer los productos, ahora rescata y reutiliza las lecturas dentro de los productos si alguno comparte colegio, ahorramos aproximadamente así un 50% de lecturas.
 
-### Martes 01 de Agosto
+### Martes 01 de Septiembre
 
 - feat: agrega la redireccion /ver-producto/id=XXXXX cuando apretamos Ver dentro de productos, vamos a crear primero Crear Producto para usarla de base para Ver, por ahora solo pasa la Id.
 
 - refactor: ordena y prepara los componentes y sus carpetas para empezar con la implementacion de TanStack Query
 
-### Martes 01 de Agosto v2
+### Martes 01 de Septiembre v2
 
 - feat: crea useColegios y colegios.query, falta testarlos, modificar Colegios.jsx y asegurarnos de que este cacheando bien colegios, cacheando colegios tenemos la estructura para todo el proyecto.
 
-### Miercoles 02 de Agosto
+### Miercoles 02 de Septiembre
 
 - refactor: Colegios.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente
 
 - refactor: quitamos recargarpagina desde el modal porque no lo necesitamos, como recarga desde cache lo unico que hace esa funcion es recargar innesariamente desde firestore, ahorra lecturas y ademas como antes usamos la cache, es innecesaria
 
-### Miercoles 02 de Agosto v2
+### Miercoles 02 de Septiembre v2
 
 - refactor: Tallas.jsx usa TanStackQuery para leer los colegios, colegios se guarda en la cache de query y mas adelante la idea es que los otros componentes lean esa cache en lugar de leer la db directamente, ademas el modal ya no necesita recargar las lecturas de la db
 
-### Jueves 03 de Agosto
+### Jueves 03 de Septiembre
 
 - refactor: TipoPrenda.jsx ahora usa TanStackQuery al igual que los otros componentes, los componetes que usa otra coleccion los dejamos como infinite y ademas como onSnapshot para que esten siempre disponibles y actualizados cuando los necesite
 
-### Viernes 04 de Agosto
+### Viernes 04 de Septiembre
 
 - refactor: Productos.jsx lee la cache para cargar productos, si no lo encuentra llama a la funcion que lo carga desde firestore, tenemos que solucionar que llama todos los colegios y todos los tipo prenda, pero una vez cargados no lo vuelve a hacer, tambien ahora muestra el tipo de tipo_prenda dentro de la tarjeta para identicar el producto tambien.
 
-### Sabado 05 de Agosto
+### Sabado 05 de Septiembre
 
 - feat, refactor: agrega verProducto, agrega Storage de firebase como nueva db para guardar datos, como las fotos de los productos que son visibles dentro de verProducto y dentro de Productos en su vistas previas ahora mismo. Ademas, refactoriza todos los estilos ordenandolo los bloques y haciendolo mas facil de leer sin tanto espacios y cometarios.
 
-### Sabado 05 de Agosto v2 
+### Sabado 05 de Septiembre v2 
 
 - feat: agrega modal para agregar foto en el producto, la convierte en 400x400 y en .webp antes de subirla storage.
 
-### Domingo 06 de Agosto
+### Domingo 06 de Septiembre
 
 - feat: producto y verProducto muestra los precios en orden de menor a mayor.
 - feat: muestra las medidas de tipo de prenda dentro de verProducto
 
-### Lunes 07 de Agosto
+### Lunes 07 de Septiembre
 
 - feat: crear producto funcion con firestore, falta configurar el modal de la foto para que sirva cuando aun no tenemos id de producto, intente hacerlo lo mas parecido a verProducto pero no me convensen los estilos.
 
 - feat: agrega boton cancelar dentro de agregar-producto, y quita el bottom nav dentro de esa pagina para evitar salir por accidente cuando estes agregando un producto
 
-### Martes 08 de Agosto
+### Martes 08 de Septiembre
 
 - feat: crea ModalSelector, un selector que remplata al label tipico, así estandarizamos para que se vea igual en movil y en pc. Falta modificar el modalFoto para correrlo directamente  desde agregar foto. Todo lo escencial de crear producto para funcionar quedo funcional y estable.
 
-### Miercoles 09 de Agosto
+### Miercoles 09 de Septiembre
 
 - feat: crear EditarProducto, usa la base de agregar producto pero con otra url para editar producto, agregar el boton editarproducto dentro de ver producto y quita el boton eliminar desde productos.
 
-### Jueves 10 de Agosto
+### Jueves 10 de Septiembre
 
 - feat: crea Pedidos.jsx, lee el pedido que ingresamos manual dentro de firestore, hay que hacer que los pedidos se lean de vista horizontal por filas. Cambia el Diagrama UML que prepara la estructura de pedidos.
+
+### Viernes 11 de Septiembre
+
+- feat: agrega modal eliminacion con doble confirmacion, dentro de colegios quedo funcional, falta agregarlo dentro de los otros componentes.

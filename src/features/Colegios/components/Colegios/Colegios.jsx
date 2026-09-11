@@ -1,8 +1,12 @@
 import "./Colegios.css";
 import { useColegios } from "../../querys/useColegios";
 import { useState } from "react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 
 import ModalAgregarEditarColegio from "../ModalAgregarEditarColegio/ModalAgregarEditarColegio";
+import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
+
 import { PencilLine, Eraser, School, Search } from "lucide-react";
 
 export default function Colegios() {
@@ -11,6 +15,11 @@ export default function Colegios() {
     } = useColegios();
 
     const [colegioAEditar, setColegioAEditar] = useState(null);
+    const [colegioAEliminar, setColegioAEliminar] = useState(null);
+
+    const [estadoDelModal, setEstadoDelModal] = useState(false);
+    const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
+     
 
     const listarColegios = [...datosDeColegios].sort((a, b) => {
           const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
@@ -22,8 +31,6 @@ export default function Colegios() {
     const buscadorDeColegios = listarColegios.filter((colegio) =>
       colegio.nombre?.toLowerCase().includes(buscador.toLowerCase()))
 
-    const [estadoDelModal, setEstadoDelModal] = useState(false);
-
     const abrirModalParaCrear = () => {
         setColegioAEditar(null); setEstadoDelModal(true); 
     };
@@ -33,7 +40,27 @@ export default function Colegios() {
     const cerrarModal = () => {
         setColegioAEditar(null); setEstadoDelModal(false); 
     };
-    
+
+
+    const abrirModalParaEliminar = (datoColegioEspecifico) => {
+        setColegioAEliminar(datoColegioEspecifico); setEstadoDelModalEliminar(true);
+    };
+    const cerrarModalEliminar = () => {
+        setColegioAEliminar(null); setEstadoDelModalEliminar(false);
+    };
+
+    const eliminarColegio = async (colegio) => {
+      if (!colegio?.id) { 
+        console.error("No ser pudo encontrar el colegio. Recarga la página.");
+        throw new Error("El colegio no tiene identificador valido.");
+      }
+      try {await deleteDoc(doc(db, "colegios", colegio.id));
+      }catch (error) {
+        console.error("Error al eliminar el colegio:", error);
+        throw error;
+      }
+    };
+
     if (isLoading) { return <p>Cargando Colegios...</p>}
     if (isError) { return <p>Error: {error.message}. Error al Cargar Colegios, recargue la página.</p>}
     return(
@@ -87,6 +114,7 @@ export default function Colegios() {
                   type="button"
                   className="colegioAction colegioActionDelete"
                   aria-label={`Eliminar ${datoColegioEspecifico.nombre}`}
+                  onClick= {() => abrirModalParaEliminar(datoColegioEspecifico)}
                 >
                   <Eraser size={17} strokeWidth={2} />
                   <span>
@@ -116,7 +144,15 @@ export default function Colegios() {
             datoColegioEditar = {colegioAEditar}
             modalAbierto = {estadoDelModal}
             onCerrarModal = {cerrarModal}
-              />
+          />
+          <ModalConfirmarEliminacion
+            tipo = "colegio"
+            dato = {colegioAEliminar}
+            modalAbierto= {estadoDelModalEliminar}
+            onCerrarModal= {cerrarModalEliminar}
+            onConfirmarEliminacion= {eliminarColegio}
+          
+          />
       </main>
     );
 }
