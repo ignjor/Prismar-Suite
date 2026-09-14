@@ -8,8 +8,8 @@ import { useProductos } from "../../querys/useProductos";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../Tallas/querys/useTallas";
-import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
-import ModalSelector from "../modals/ModalSelector/ModalSelector";
+import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
+import ModalSelector from "../../../../components/modals/ModalSelector/ModalSelector";
 
 import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign } from "lucide-react";
 
@@ -86,19 +86,6 @@ export default function EditarProducto() {
       setPreciosPorTallas(precios);
       setCargandoProducto(false);
     }, [producto, isLoading, datosDeTallas]);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     const colegioSeleccionado = useMemo(() => { return datosDecolegios.find(
       (colegio) => colegio.id === colegioId

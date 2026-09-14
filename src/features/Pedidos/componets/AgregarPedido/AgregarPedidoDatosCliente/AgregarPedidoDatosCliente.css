@@ -1,0 +1,207 @@
+.agregarPedidoDatosCliente {
+  width: min(92%, 920px);
+  min-width: 0;
+  margin: 0 auto;
+  padding: 42px 0 35px;
+  box-sizing: border-box;
+  color: #1d1d1f;
+}
+
+.productoDetalleHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.productoDetalleHeader .productoVolver {
+  margin-bottom: 0;
+}
+
+
+.agregarPedidoDatosClienteHeader {
+  margin-bottom: 25px;
+}
+
+.agregarPedidoDatosClienteEyebrow {
+  margin: 0 0 6px;
+  color: #86868b;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+}
+
+.agregarPedidoDatosClienteTitulo {
+  margin: 0;
+  color: #1d1d1f;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+}
+
+.agregarPedidoDatosClienteCampos {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.agregarPedidoCampo {
+  width: 100%;
+  min-width: 0;
+}
+
+.agregarPedidoCampo label {
+  display: block;
+  margin: 0 0 8px;
+  color: #69696e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.agregarPedidoCampo input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 13px;
+  outline: none;
+  background: rgba(245, 245, 247, 0.72);
+  color: #1d1d1f;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.agregarPedidoCampo input::placeholder {
+  color: #b5b5ba;
+}
+
+.agregarPedidoCampo input:hover {
+  background: rgba(238, 238, 241, 0.9);
+}
+
+.agregarPedidoCampo input:focus {
+  background: #ffffff;
+  border-color: rgba(0, 122, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+}
+
+.agregarPedidoCampoError {
+  margin: 7px 0 0;
+  color: #d70015;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.agregarPedidoColegioSelector {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 13px;
+  background: rgba(245, 245, 247, 0.72);
+  color: #8e8e93;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.agregarPedidoColegioSelector:hover {
+  background: rgba(238, 238, 241, 0.9);
+}
+
+.agregarPedidoColegioSelector:focus {
+  border-color: rgba(0, 122, 255, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+}
+
+.agregarPedidoColegioSelectorSeleccionado {
+  background: #ffffff;
+  color: #1d1d1f;
+  border-color: rgba(0, 0, 0, 0.09);
+}
+
+.agregarPedidoColegioIcono {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: #f5f5f7;
+  color: #69696e;
+}
+
+.agregarPedidoColegioNombre {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .agregarPedidoDatosCliente {
+    width: min(94%, 760px);
+    padding-top: 35px;
+    padding-bottom: 30px;
+  }
+
+  .agregarPedidoDatosClienteCampos {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .agregarPedidoDatosClienteTitulo {
+    font-size: 23px;
+  }
+}
+
+@media (max-width: 560px) {
+  .agregarPedidoDatosCliente {
+    width: min(94%, 420px);
+    padding-top: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agregarPedidoDatosCliente {
+    width: 94%;
+    padding-top: 28px;
+    padding-bottom: 25px;
+  }
+
+  .agregarPedidoDatosClienteHeader {
+    margin-bottom: 20px;
+  }
+
+  .agregarPedidoDatosClienteTitulo {
+    font-size: 21px;
+  }
+
+  .agregarPedidoCampo input,
+  .agregarPedidoColegioSelector {
+    height: 44px;
+  }
+}

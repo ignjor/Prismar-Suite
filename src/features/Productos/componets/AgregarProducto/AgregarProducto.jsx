@@ -7,8 +7,8 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../Tallas/querys/useTallas";
-import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
-import ModalSelector from "../modals/ModalSelector/ModalSelector";
+import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
+import ModalSelector from "../../../../components/modals/ModalSelector/ModalSelector";
 
 import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign } from "lucide-react";
 

@@ -8,7 +8,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { db, storage } from "../../../../firebase";
 
 import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
-import ModalFotoProducto from "../modals/ModalFotoProducto/ModalFotoProducto";
+import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
 
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";

@@ -1,13 +1,13 @@
 import "./ModalSelector.css";
 import { useEffect, useRef, useState, useMemo } from "react";
 
-import { useColegios } from "../../../../Colegios/querys/useColegios";
-import { useTipoPrenda } from "../../../../TiposProducto/querys/useTipoPrenda";
-import { useTallas } from "../../../../Tallas/querys/useTallas";
+import { useColegios } from "../../../features/Colegios/querys/useColegios";
+import { useTipoPrenda } from "../../../features/TiposProducto/querys/useTipoPrenda";
+import { useTallas } from "../../../features/Tallas/querys/useTallas";
 
-import ModalAgregarEditarColegio from "../../../../Colegios/components/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
-import ModalAgregarEditarTalla from "../../../../Tallas/componets/ModalAgregarEditarTalla/ModalAgregarEditarTalla";
-import ModalAgregarEditarTipoPrenda from "../../../../TiposProducto/componets/ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
+import ModalAgregarEditarColegio from "../../../features/Colegios/components/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
+import ModalAgregarEditarTalla from "../../../features/Tallas/componets/ModalAgregarEditarTalla/ModalAgregarEditarTalla";
+import ModalAgregarEditarTipoPrenda from "../../../features/TiposProducto/componets/ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
 
 import { X, Search, Plus, School, Tag, Ruler } from "lucide-react";
 

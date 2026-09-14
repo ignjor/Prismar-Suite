@@ -1,7 +1,30 @@
-export default function AgregarPedido() {
-    return (
-        <div>
-            <h1>Agregar Pedido</h1>
-        </div>
-    )
+import { useState } from "react";
+
+import AgregarPedidoDatosCliente from "./AgregarPedidoDatosCliente/AgregarPedidoDatosCliente";
+import AgregarPedidoProductos from "./AgregarPedidoProductos/AgregarPedidoProductos";
+import AgregarPedidoPagos from "./AgregarPedidoPagos/AgregarPedidoPagos";
+
+function AgregarPedido() {
+  const [cliente, setCliente] = useState("")
+  const [telefono, setTelefono] = useState("");
+  const [colegio, setColegio] = useState(null);
+
+  return (
+    <div>
+      <AgregarPedidoDatosCliente
+        cliente={cliente}
+        telefono={telefono}
+        colegio={colegio}
+        onClienteChange={setCliente}
+        onTelefonoChange={setTelefono}
+        onColegioChange={setColegio}
+      />
+
+      <AgregarPedidoProductos />
+
+      <AgregarPedidoPagos />
+
+    </div>
+  );
 }
+export default AgregarPedido;

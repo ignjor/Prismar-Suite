@@ -10,6 +10,5 @@ export default function ScrollToTop() {
       behavior: "instant",
     });
   }, [pathname]);
-
   return null;
 }

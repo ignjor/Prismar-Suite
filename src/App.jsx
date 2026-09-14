@@ -1,5 +1,4 @@
-import { BrowserRouter, Routes, Route, useLoaderData, useLocation } from "react-router-dom";
-
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import ScrollToTop from "./ScrollTop";
 import BottomNav from "./components/navigation/BottomNav/BottomNav";
 
@@ -15,14 +14,12 @@ import TipoPrenda from "./features/TiposProducto/componets/TipoPrenda/TipoPrenda
 import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 
 import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
+import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
 import VerPedido from "./features/Pedidos/componets/VerPedido/VerPedido";
-
-/*import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
-import AgregarPedido from "./agregar/AgregarPedido/AgregarPedido";*/
 
 function AppContent() {
   const location = useLocation();
-  const rutasSinBottomNav = ["/agregar-producto"];
+  const rutasSinBottomNav = ["/agregar-producto", "/agregar-pedido"];
   const ocultarNav = rutasSinBottomNav.includes(location.pathname) || location.pathname.startsWith("/editar-producto/");
 
   return (
@@ -71,8 +68,16 @@ function AppContent() {
           element={<Pedidos />} 
         />
         <Route 
+          path="/agregar-pedido" 
+          element={<AgregarPedido />} 
+        />
+        <Route 
           path="/pedido/:id" 
           element={<VerPedido />} 
+        />
+        <Route 
+          path="/ver-pedido/:id" 
+          element={<VerProducto />} 
         />
         
       </Routes>

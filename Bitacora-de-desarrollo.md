@@ -349,3 +349,7 @@ service cloud.firestore {
 - feat: agrega ScrollTop, asegura que siempre que cambiemos de pagina la pagina estre sin scrollear, mejora la UX. Cambiamos los estilos dentro de verProducto los botones de editar y eliminar estan abajo a la derecha
 
 - feat: agregar borrar dentro de verProducto, borra tanto el doc de firestore como el doc de storage, producto manejamos borrado definitivo porque no es un dato indispensable.
+
+### Domingo 13 de Septiembre
+
+- feat: crea AgregarPedido y todos los componentes, se dividio en 3 componentes distintos y 1 padre, crea el primer componente para escribir el nombre del cliente, elcolegio y el número, ordena la estructura del proyecto para hacer modal selector reutilizable en todo el proyecto

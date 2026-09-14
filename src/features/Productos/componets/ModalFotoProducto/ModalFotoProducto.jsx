@@ -1,7 +1,7 @@
 import { use, useEffect, useReducer, useRef, useState } from "react";
 import "./ModalFotoProducto.css";
 
-import { db, storage } from "../../../../../firebase";
+import { db, storage } from "../../../../firebase";
 import { updateDoc, doc} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -181,7 +181,6 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
     if (!modalAbierto) {
         return null;
     }
-
     return (
         <div
         className="modalFotoOverlay"
