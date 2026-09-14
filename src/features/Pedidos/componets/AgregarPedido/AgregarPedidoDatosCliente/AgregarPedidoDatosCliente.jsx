@@ -1,9 +1,9 @@
 import "./AgregarPedidoDatosCliente.css";
+import { parsePhoneNumberFromString } from "libphonenumber-js/min";
 import { useMemo, useState } from "react";
-import { School, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { useColegios } from "../../../../Colegios/querys/useColegios";
 import ModalSelector from "../../../../../components/modals/ModalSelector/ModalSelector";
 
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
@@ -15,24 +15,25 @@ const validarTextoDeInput = (nombre) => {
     return null
 };
 
-const validarNumero = (valor) => {
-    const textoValidado = valor.trim();
-    if (!/^\d+$/.test(textoValidado)) {return "El numero tiene caracteres invalidos";}
-    if (textoValidado.length < 8) {return "El numero debe tener al menos 8 número.";}
-    if (textoValidado.length > 14) {return "El numero debe tener menos de 14 números.";}
-    return null
-}
+const validarNumero = (valor, pais) => {
+  const numeroLimpio = valor.trim();
+  if (!numeroLimpio) { return "El número de contacto es obligatorio."}
+  if (!/^[0-9\s()+-]+$/.test(numeroLimpio)) { return "El número contiene caracteres no válidos.";}
+
+  const numeroTelefonico = parsePhoneNumberFromString( numeroLimpio, pais);
+  if (!numeroTelefonico) { return "Ingresa un número de teléfono válido.";}
+  if (!numeroTelefonico.isValid()) { return "El número de teléfono no es válido.";}
+  return null;
+};
 
 export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, onClienteChange, onTelefonoChange, onColegioChange} ) {
     const navigate = useNavigate();
-    const [selectorAbierto, setSelectorAbierto] = useState("false");
-    const [error, setError] = useState("")
+    const [selectorAbierto, setSelectorAbierto] = useState(null);
 
     const [errorNombre, setErrorNombre] = useState("");
-    const [errorTelefono, setErrorTelefono] = useState("");
 
-    const { data: datosDecolegios = []} = useColegios();
-    const [colegioNombre, setColegioNombre] = useState("");
+    const [pais, setPais] = useState("CL");
+    const [errorTelefono, setErrorTelefono] = useState("");
 
     const nombreCliente = (event) => {
         const nombre = event.target.value;
@@ -41,16 +42,33 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
     };
     const telefonoCliente = (event) => {
         const valor = event.target.value;
+        setErrorTelefono(validarNumero(valor, pais));
         onTelefonoChange(valor);
-        setErrorTelefono(validarNumero(valor))
     };
 
-    const colegioSeleccionado = useMemo(() => {return datosDecolegios.find(
-        (colegio) => colegio.nombre === colegioNombre);
-    }, [datosDecolegios, colegioNombre])
+    const cambiarPais = (event) => {
+      const nuevoPais = event.target.value;
+      setPais(nuevoPais);
+      if (telefono) {
+        setErrorTelefono(
+          validarNumero(telefono, nuevoPais)
+        );
+      }
+    };
+
+    const normalizarTelefono = (telefono, pais) => {
+      const numeroTelefonico = parsePhoneNumberFromString(telefono, pais);
+      if (!numeroTelefonico || !numeroTelefonico.isValid()) {
+        return null;
+      }
+      return numeroTelefonico.number;
+    };
+
+    const telefonoNormalizado = useMemo(() => {
+        return normalizarTelefono(telefono, pais);
+    }, [telefono, pais]);
 
     const abrirSelectorColegio = () => {
-        setError("");
         setSelectorAbierto("colegio");
     };
 
@@ -58,9 +76,8 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
       setSelectorAbierto(null);
     };
 
-    const seleccionarColegio = (colegio) => {
-      setColegioNombre(colegio.nombre);
-      onColegioChange(colegio);
+    const seleccionarColegio = (colegioSeleccionado) => {
+      onColegioChange(colegioSeleccionado);
       cerrarSelector()
     };
 
@@ -78,11 +95,9 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
       </div>
 
       <div className="agregarPedidoDatosClienteHeader">
-        <div>
           <h2 className="agregarPedidoDatosClienteTitulo">
             Datos del Cliente
           </h2>
-        </div>
       </div>
 
       <div className="agregarPedidoDatosClienteCampos">
@@ -98,6 +113,7 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
             onChange={nombreCliente}
             placeholder="Ej. María González"
             autoComplete="off"
+            maxLength={32}
           />
 
           {errorNombre && (
@@ -111,15 +127,35 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
           <label htmlFor="telefonoCliente">
             Número de contacto
           </label>
-          <input
-            id="telefonoCliente"
-            type="tel"
-            inputMode="numeric"
-            value={telefono}
-            onChange={telefonoCliente}
-            placeholder="Ej. 912345678"
-            autoComplete="off"
-          />
+
+          <div className="telefonoInputWrapper">
+            <select
+              className="selectorPais"
+              value={pais}
+              onChange={cambiarPais}
+              aria-label="País del número de teléfono"
+            >
+              <option value="CL">CL +56</option>
+              <option value="AR">AR +54</option>
+              <option value="PE">PE +51</option>
+              <option value="VE">VE +58</option>
+              <option value="BR">BR +55</option>
+              <option value="HT">HT +509</option>
+              <option value="CO">CO +57</option>
+              <option value="US">US +1</option>
+            </select>
+
+            <input
+              id="telefonoCliente"
+              type="tel"
+              value={telefono}
+              onChange={telefonoCliente}
+              placeholder="Ej. 912345678"
+              autoComplete="off"
+              maxLength={15}
+            />
+          </div>
+
           {errorTelefono && (
             <p className="agregarPedidoCampoError">
               {errorTelefono}
@@ -127,25 +163,20 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
           )}
         </div>
 
-        <div className="agregarPedidoCampo">
+
+        <div className="agregarPedidoCampo agregarPedidoCampoColegio">
           <label>Empresa o Colegio Afiliado el Pedido (opcional)</label>
           <button
             type="button"
             className={`agregarPedidoColegioSelector ${
-              colegioSeleccionado?.nombre
+              colegio?.nombre
                 ? "agregarPedidoColegioSelectorSeleccionado"
                 : ""
             }`}
             onClick={abrirSelectorColegio}
           >
-            <span className="agregarPedidoColegioIcono">
-              <School
-                size={16}
-                strokeWidth={1.8}
-              />
-            </span>
             <span className="agregarPedidoColegioNombre">
-              {colegioSeleccionado?.nombre || "Seleccionar empresa o colegio"}
+              {colegio?.nombre || "Seleccionar empresa o colegio"}
             </span>
           </button>
         </div>

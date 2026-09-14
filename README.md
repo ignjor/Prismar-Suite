@@ -24,6 +24,7 @@ Manejo de Cache y Lecturas: Tan Stack Query.
 - React Router DOM
 - TanStack Query
 - Lucide React
+- Libphonenumber
 
 ```bash
 git clone https://github.com/ignjor/Prismar-Suite.git
