@@ -353,3 +353,7 @@ service cloud.firestore {
 ### Domingo 13 de Septiembre
 
 - feat: crea AgregarPedido y todos los componentes, se dividio en 3 componentes distintos y 1 padre, crea el primer componente para escribir el nombre del cliente, elcolegio y el número, ordena la estructura del proyecto para hacer modal selector reutilizable en todo el proyecto
+
+### Lunes 14 de Septiembre
+
+- feat, fix: agregamos libreria para estandarizar numeros de clientes, solucionamos errores en el selector de colegios.
