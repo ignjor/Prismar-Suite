@@ -1,9 +1,9 @@
 import "./AgregarPedidoDatosCliente.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js/min";
 import { useMemo, useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+import { ArrowLeft, ShoppingBag } from "lucide-react";
 import ModalSelector from "../../../../../components/modals/ModalSelector/ModalSelector";
 
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
@@ -83,7 +83,7 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
 
   return (
     <section className="agregarPedidoDatosCliente">
-      <div className="productoDetalleHeader">
+        <div className="header"> 
         <button
           type="button"
           className="productoVolver"
@@ -92,11 +92,13 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
           <ArrowLeft size={17} strokeWidth={2} />
           Salir de Agregar pedido
         </button>
-      </div>
+        <span className="agregarPedidoTitulo">Agregar Pedido <ShoppingBag/></span>
+        </div>
+
 
       <div className="agregarPedidoDatosClienteHeader">
           <h2 className="agregarPedidoDatosClienteTitulo">
-            Datos del Cliente
+            DATOS DEl CLIENTE
           </h2>
       </div>
 

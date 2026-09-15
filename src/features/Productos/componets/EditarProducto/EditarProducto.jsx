@@ -11,7 +11,7 @@ import { useTallas } from "../../../Tallas/querys/useTallas";
 import ModalFotoProducto from "../ModalFotoProducto/ModalFotoProducto";
 import ModalSelector from "../../../../components/modals/ModalSelector/ModalSelector";
 
-import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign } from "lucide-react";
+import { ArrowLeft, Shirt, CirclePlus, CircleX, Trash2, CircleDollarSign, Package } from "lucide-react";
 
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
 const validarTextoDeInput = (datosDelInput) => {
@@ -261,18 +261,21 @@ export default function EditarProducto() {
 
   return (
     <main className="adminColegios productoDetallePage">
-      <button
-        type="button"
-        className="productoVolver"
-        onClick={() => navigate(-1)}
-        disabled={guardandoProducto}
-      >
-        <ArrowLeft
-          size={17}
-          strokeWidth={2}
-        />
-        Salir de Editar producto
-      </button>
+      <div className="header">
+        <button
+          type="button"
+          className="productoVolver"
+          onClick={() => navigate(-1)}
+          disabled={guardandoProducto}
+        >
+          <ArrowLeft
+            size={17}
+            strokeWidth={2}
+          />
+          Salir de Editar producto
+        </button>
+        <span className="agregarProductoTitulo">EDITAR PRODUCTO <Package/></span>
+      </div>
       <form
         className="productoDetalle"
         onSubmit={guardarProducto}
