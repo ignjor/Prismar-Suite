@@ -1,325 +1,374 @@
 .agregarPedidoDatosCliente {
-    width: min(92%, 920px);
-    min-width: 0;
-    margin: 0 auto;
-    padding: 42px 0 80px;
-    box-sizing: border-box;
-    color: #1d1d1f;
+width: min(92%, 920px);
+min-width: 0;
+margin: 0 auto;
+padding: 42px 0 130px;
+box-sizing: border-box;
+font-family:
+-apple-system,
+BlinkMacSystemFont,
+"SF Pro Display",
+"SF Pro Text",
+sans-serif;
+color: #1d1d1f;
 }
 
-.productoDetalleHeader {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-bottom: 22px;
+.header {
+display: flex;
+align-items: center;
+
 }
 
-.productoDetalleHeader .productoVolver {
-    margin-bottom: 0;
+.agregarPedidoTitulo {
+margin-left: 20px;
+display: inline-flex;
+align-items: center;
+gap: 7px;
+color: #86868b;
+font-size: 15px;
+font-weight: 600;
+letter-spacing: 0.2px;
+line-height: 1;
+text-align: left;
+text-transform: uppercase;
+}
+
+.agregarPedidoTitulo svg {
+margin-left: 0;
+width: 22px;
+height: 22px;
+}
+
+.agregarPedidoDatosCliente .productoDetalleHeader {
+width: 100%;
+display: flex;
+align-items: center;
+margin-bottom: 22px;
+}
+
+.productoVolver {
+height: 38px;
+margin-bottom: 22px;
+padding: 0 14px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+border: 1px solid rgba(0, 0, 0, 0.06);
+border-radius: 30px;
+background: rgba(255, 255, 255, 0.72);
+color: #424245;
+font-family: inherit;
+font-size: 12px;
+font-weight: 500;
+cursor: pointer;
+box-shadow: 0 5px 16px rgba(0, 0, 0, 0.035);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
+transition:
+background 0.2s ease,
+transform 0.2s ease,
+box-shadow 0.2s ease;
+-webkit-tap-highlight-color: transparent;
+}
+
+.productoVolver:hover {
+background: rgba(255, 255, 255, 0.9);
+box-shadow: 0 7px 20px rgba(0, 0, 0, 0.055);
+}
+
+.productoVolver:active {
+transform: scale(0.97);
 }
 
 .agregarPedidoDatosClienteHeader {
-    margin-bottom: 25px;
+margin-top: 25px;
+margin-bottom: 15px;
 }
 
 .agregarPedidoDatosClienteTitulo {
-    margin: 0;
-    color: #86868b;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    line-height: 1.2;
-    text-align: left;
-    text-transform: uppercase;
+margin: 0;
+color: #86868b;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.2px;
+line-height: 1.2;
+text-align: left;
+text-transform: uppercase;
 }
 
 .agregarPedidoDatosClienteCampos {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
+width: 100%;
+display: grid;
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 18px;
 }
 
 .agregarPedidoCampo {
-    width: 100%;
-    min-width: 0;
+width: 100%;
+min-width: 0;
 }
 
 .agregarPedidoCampoColegio {
-    grid-column: 1 / -1;
-    width: fit-content;
-    max-width: 100%;
-    margin-top: 4px;
+grid-column: 1 / -1;
+width: fit-content;
+max-width: 100%;
+margin-top: 0;
 }
 
 .agregarPedidoCampo label {
-    display: block;
-    margin: 0 0 8px;
-    color: #69696e;
-    font-size: 12px;
-    font-weight: 600;
+display: block;
+margin: 0 0 8px;
+color: #69696e;
+font-size: 12px;
+font-weight: 600;
+line-height: 1.2;
 }
 
 .agregarPedidoCampo input {
-    width: 100%;
-    height: 46px;
-    padding: 0 14px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 13px;
-    outline: none;
-    background: rgba(245, 245, 247, 0.72);
-    color: #1d1d1f;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 500;
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+width: 100%;
+height: 46px;
+padding: 0 14px;
+box-sizing: border-box;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 15px;
+outline: none;
+background: rgba(245, 245, 247, 0.8);
+color: #1d1d1f;
+font-family: inherit;
+font-size: 13px;
+font-weight: 600;
+line-height: 1;
+transition:
+background 0.2s ease,
+border-color 0.2s ease,
+box-shadow 0.2s ease;
 }
 
 .agregarPedidoCampo input::placeholder {
-    color: #b5b5ba;
+color: #c7c7cc;
+font-weight: 500;
 }
 
 .agregarPedidoCampo input:hover {
-    background: rgba(238, 238, 241, 0.9);
+background: rgba(238, 238, 241, 0.9);
 }
 
 .agregarPedidoCampo input:focus {
-    background: #ffffff;
-    border-color: rgba(0, 122, 255, 0.3);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+background: #ffffff;
+border-color: rgba(0, 122, 255, 0.3);
+box-shadow:
+0 0 0 3px rgba(0, 122, 255, 0.07);
 }
 
 .telefonoInputWrapper {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 7px;
+width: 100%;
+display: flex;
+align-items: center;
+gap: 7px;
 }
 
 .selectorPais {
-    width: 78px;
-    height: 46px;
-    flex: 0 0 78px;
-    padding: 0 7px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    border-radius: 13px;
-    outline: none;
-    background: rgba(245, 245, 247, 0.72);
-    color: #424245;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+width: 78px;
+height: 46px;
+flex: 0 0 78px;
+padding: 0 7px;
+box-sizing: border-box;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 15px;
+outline: none;
+background: rgba(245, 245, 247, 0.8);
+color: #69696e;
+font-family: inherit;
+font-size: 11px;
+font-weight: 600;
+cursor: pointer;
+transition:
+background 0.2s ease,
+border-color 0.2s ease,
+box-shadow 0.2s ease;
 }
 
 .selectorPais:hover {
-    background: rgba(238, 238, 241, 0.9);
+background: rgba(238, 238, 241, 0.9);
 }
 
 .selectorPais:focus {
-    background: #ffffff;
-    border-color: rgba(0, 122, 255, 0.3);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+background: #ffffff;
+border-color: rgba(0, 122, 255, 0.3);
+box-shadow:
+0 0 0 3px rgba(0, 122, 255, 0.07);
 }
 
 .telefonoInputWrapper input {
-    flex: 1;
-    min-width: 0;
+flex: 1;
+min-width: 0;
 }
 
 .agregarPedidoCampoError {
-    margin: 7px 0 0;
-    color: #d70015;
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 1.4;
+margin: 7px 0 0;
+color: #d70015;
+font-size: 11px;
+font-weight: 500;
+line-height: 1.4;
 }
 
 .agregarPedidoColegioSelector {
-    width: fit-content;
-    max-width: 100%;
-    min-height: 25px;
-    padding: 5px 13px;
-    box-sizing: border-box;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    border: 1px solid rgba(0, 0, 0, 0.045);
-    border-radius: 30px;
-    background: rgba(245, 245, 247, 0.75);
-    color: #69696e;
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 400;
-    text-transform: uppercase;
-    text-align: left;
-    outline: none;
-    cursor: pointer;
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.18s ease;
-    -webkit-tap-highlight-color: transparent;
+width: fit-content;
+max-width: 100%;
+min-height: 25px;
+margin: 0;
+padding: 5px 10px;
+box-sizing: border-box;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+color: #69696e;
+font-family: inherit;
+font-size: 12px;
+font-weight: 400;
+letter-spacing: 0.2px;
+line-height: 1.2;
+text-align: center;
+text-transform: uppercase;
+outline: none;
+cursor: pointer;
+transition:
+background 0.2s ease,
+border-color 0.2s ease,
+color 0.2s ease,
+transform 0.18s ease;
+-webkit-tap-highlight-color: transparent;
 }
 
 .agregarPedidoColegioSelector:hover {
-    background: rgba(235, 235, 238, 0.9);
-    border-color: rgba(0, 0, 0, 0.07);
+background: rgba(235, 235, 238, 0.9);
+border-color: rgba(0, 0, 0, 0.07);
 }
 
 .agregarPedidoColegioSelector:focus {
-    border-color: rgba(0, 122, 255, 0.25);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+border-color: rgba(0, 122, 255, 0.25);
+box-shadow:
+0 0 0 3px rgba(0, 122, 255, 0.07);
 }
 
 .agregarPedidoColegioSelector:active {
-    transform: scale(0.97);
+transform: scale(0.97);
 }
 
 .agregarPedidoColegioSelectorSeleccionado {
-    color: #424245;
-    font-weight: 500;
+color: #424245;
+font-weight: 500;
 }
 
 .agregarPedidoColegioNombre {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+min-width: 0;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
 }
 
 .agregarPedidoDatosCliente::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 1px;
-    margin-top: 28px;
-    background: rgba(0, 0, 0, 0.07);
+content: "";
+display: block;
+width: 100%;
+height: 1px;
+margin-top: 28px;
+background: rgba(0, 0, 0, 0.07);
 }
 
-@media (max-width: 700px) {
-    .agregarPedidoDatosCliente {
-        width: min(94%, 760px);
-        padding-top: 35px;
-    }
+@media (max-width: 760px) {
+.agregarPedidoDatosCliente {
+width: min(94%, 760px);
+padding-top: 35px;
+}
 
-    .agregarPedidoDatosClienteCampos {
-        gap: 14px;
-    }
-
-    .agregarPedidoCampo label {
-        font-size: 11px;
-    }
-
-    .agregarPedidoCampo input,
-    .selectorPais {
-        height: 44px;
-    }
-
-    .selectorPais {
-        width: 72px;
-        flex-basis: 72px;
-        padding: 0 6px;
-        font-size: 10.5px;
-    }
-
-    .telefonoInputWrapper {
-        gap: 6px;
-    }
 }
 
 @media (max-width: 560px) {
-    .agregarPedidoDatosCliente {
-        width: min(94%, 420px);
-        padding-top: 32px;
-    }
+.agregarPedidoDatosCliente {
+width: min(94%, 420px);
+padding-top: 32px;
+}
 
-    .productoDetalleHeader {
-        margin-bottom: 15px;
-    }
+.agregarPedidoDatosCliente .productoDetalleHeader {
+margin-bottom: 15px;
+}
 
-    .agregarPedidoDatosClienteHeader {
-        margin-bottom: 20px;
-    }
 
-    .agregarPedidoDatosClienteCampos {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-    }
+.agregarPedidoDatosClienteCampos {
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
 
-    .agregarPedidoCampoColegio {
-        width: 100%;
-        margin-top: 3px;
-    }
+.agregarPedidoCampoColegio {
+width: 100%;
+margin-top: 0;
+}
 
-    .agregarPedidoCampo label {
-        margin-bottom: 7px;
-        font-size: 10.5px;
-    }
+.agregarPedidoCampo label {
+margin-bottom: 7px;
+font-size: 10.5px;
+}
 
-    .agregarPedidoCampo input {
-        padding: 0 12px;
-        font-size: 12px;
-    }
+.agregarPedidoCampo input {
+height: 44px;
+padding: 0 12px;
+font-size: 12px;
+}
 
-    .selectorPais {
-        width: 70px;
-        flex-basis: 70px;
-        padding: 0 5px;
-        font-size: 10px;
-    }
+.selectorPais {
+width: 70px;
+height: 44px;
+flex-basis: 70px;
+padding: 0 5px;
+font-size: 10px;
+}
 
-    .telefonoInputWrapper {
-        gap: 5px;
-    }
+.telefonoInputWrapper {
+gap: 5px;
+}
 
-    .agregarPedidoColegioSelector {
-        width: fit-content;
-        max-width: 100%;
-        padding: 5px 13px;
-        font-size: 11px;
-    }
+.agregarPedidoColegioSelector {
+width: fit-content;
+max-width: 100%;
+padding: 5px 10px;
+font-size: 11px;
+}
 
-    .agregarPedidoDatosCliente::after {
-        margin-top: 23px;
-    }
+.agregarPedidoDatosCliente::after {
+margin-top: 23px;
+}
 }
 
 @media (max-width: 360px) {
-    .agregarPedidoDatosCliente {
-        width: 94%;
-        padding-top: 28px;
-    }
+.agregarPedidoDatosCliente {
+width: 94%;
+padding-top: 28px;
+}
 
-    .agregarPedidoCampo input,
-    .selectorPais {
-        height: 42px;
-    }
+.agregarPedidoCampo input,
+.selectorPais {
+height: 42px;
+}
 
-    .agregarPedidoCampo input {
-        font-size: 11px;
-    }
+.agregarPedidoCampo input {
+font-size: 11px;
+}
 
-    .selectorPais {
-        width: 66px;
-        flex-basis: 66px;
-        padding: 0 4px;
-        font-size: 9.5px;
-    }
+.selectorPais {
+width: 66px;
+flex-basis: 66px;
+padding: 0 4px;
+font-size: 9.5px;
+}
 
-    .agregarPedidoColegioSelector {
-        padding: 5px 11px;
-        font-size: 10px;
-    }
+.agregarPedidoColegioSelector {
+padding: 5px 9px;
+font-size: 10px;
+}
 }

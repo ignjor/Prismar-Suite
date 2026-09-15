@@ -5,6 +5,32 @@ padding: 42px 0 130px;
 color: #1d1d1f;
 }
 
+.header {
+display: flex;
+align-items: center;
+
+}
+
+.agregarProductoTitulo {
+margin-left: 20px;
+display: inline-flex;
+align-items: center;
+gap: 7px;
+color: #86868b;
+font-size: 15px;
+font-weight: 600;
+letter-spacing: 0.2px;
+line-height: 1;
+text-align: left;
+text-transform: uppercase;
+}
+
+.agregarProductoTitulo svg {
+margin-left: 0;
+width: 22px;
+height: 22px;
+}
+
 .productoVolver {
 height: 38px;
 margin-bottom: 22px;

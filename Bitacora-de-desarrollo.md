@@ -357,3 +357,5 @@ service cloud.firestore {
 ### Lunes 14 de Septiembre
 
 - feat, fix: agregamos libreria para estandarizar numeros de clientes, solucionamos errores en el selector de colegios.
+
+- styles: agrega textos claros de titulo de cada bloque, editar producto, pedido y editar
