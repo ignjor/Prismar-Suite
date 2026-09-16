@@ -1,6 +1,6 @@
 import "./AgregarPedidoDatosCliente.css";
 import { parsePhoneNumberFromString } from "libphonenumber-js/min";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ArrowLeft, ShoppingBag } from "lucide-react";
@@ -26,13 +26,14 @@ const validarNumero = (valor, pais) => {
   return null;
 };
 
-export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, onClienteChange, onTelefonoChange, onColegioChange} ) {
+export default function AgregarPedidoProductos({cliente, telefono, colegio, onClienteChange, onTelefonoChange, onColegioChange} ) {
     const navigate = useNavigate();
     const [selectorAbierto, setSelectorAbierto] = useState(null);
 
     const [errorNombre, setErrorNombre] = useState("");
 
     const [pais, setPais] = useState("CL");
+    const [telefonoInput, setTelefonoInput] = useState("");
     const [errorTelefono, setErrorTelefono] = useState("");
 
     const nombreCliente = (event) => {
@@ -40,10 +41,21 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
         setErrorNombre(validarTextoDeInput(nombre))
         onClienteChange(nombre);
     };
+
+    const normalizarTelefono = (telefono, pais) => {
+      const numeroTelefonico = parsePhoneNumberFromString(telefono, pais);
+      if (!numeroTelefonico || !numeroTelefonico.isValid()) {
+        return null;
+      }
+      return numeroTelefonico.number;
+    };
+
     const telefonoCliente = (event) => {
         const valor = event.target.value;
+        setTelefonoInput(valor);
         setErrorTelefono(validarNumero(valor, pais));
-        onTelefonoChange(valor);
+        const telefonoNormalizado  = normalizarTelefono(valor, pais)
+        onTelefonoChange(telefonoNormalizado ?? "");
     };
 
     const cambiarPais = (event) => {
@@ -56,18 +68,6 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
       }
     };
 
-    const normalizarTelefono = (telefono, pais) => {
-      const numeroTelefonico = parsePhoneNumberFromString(telefono, pais);
-      if (!numeroTelefonico || !numeroTelefonico.isValid()) {
-        return null;
-      }
-      return numeroTelefonico.number;
-    };
-
-    const telefonoNormalizado = useMemo(() => {
-        return normalizarTelefono(telefono, pais);
-    }, [telefono, pais]);
-
     const abrirSelectorColegio = () => {
         setSelectorAbierto("colegio");
     };
@@ -77,10 +77,9 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
     };
 
     const seleccionarColegio = (colegioSeleccionado) => {
-      onColegioChange(colegioSeleccionado);
+      onColegioChange(colegioSeleccionado.nombre);
       cerrarSelector()
     };
-
   return (
     <section className="agregarPedidoDatosCliente">
         <div className="header"> 
@@ -94,7 +93,6 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
         </button>
         <span className="agregarPedidoTitulo">Agregar Pedido <ShoppingBag/></span>
         </div>
-
 
       <div className="agregarPedidoDatosClienteHeader">
           <h2 className="agregarPedidoDatosClienteTitulo">
@@ -117,7 +115,6 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
             autoComplete="off"
             maxLength={32}
           />
-
           {errorNombre && (
             <p className="agregarPedidoCampoError">
               {errorNombre}
@@ -150,14 +147,13 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
             <input
               id="telefonoCliente"
               type="tel"
-              value={telefono}
+              value={telefonoInput}
               onChange={telefonoCliente}
               placeholder="Ej. 912345678"
               autoComplete="off"
               maxLength={15}
             />
           </div>
-
           {errorTelefono && (
             <p className="agregarPedidoCampoError">
               {errorTelefono}
@@ -165,24 +161,24 @@ export default function AgregarPedidoDatosCliente({cliente, telefono, colegio, o
           )}
         </div>
 
-
         <div className="agregarPedidoCampo agregarPedidoCampoColegio">
           <label>Empresa o Colegio Afiliado el Pedido (opcional)</label>
           <button
             type="button"
             className={`agregarPedidoColegioSelector ${
-              colegio?.nombre
+              colegio
                 ? "agregarPedidoColegioSelectorSeleccionado"
                 : ""
             }`}
             onClick={abrirSelectorColegio}
           >
             <span className="agregarPedidoColegioNombre">
-              {colegio?.nombre || "Seleccionar empresa o colegio"}
+              {colegio || "Seleccionar empresa o colegio"}
             </span>
           </button>
         </div>
       </div>
+
       <ModalSelector
         tipo={selectorAbierto}
         modalAbierto={Boolean(selectorAbierto)}
