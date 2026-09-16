@@ -19,10 +19,13 @@ function AgregarPedido() {
         onTelefonoChange={setTelefono}
         onColegioChange={setColegio}
       />
-
+      
       <AgregarPedidoProductos />
-
       <AgregarPedidoPagos />
+
+      <h1> {cliente} </h1>
+      <h1> {telefono} </h1>
+      <h1> {colegio} </h1>
 
     </div>
   );

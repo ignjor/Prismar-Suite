@@ -38,8 +38,7 @@ export default function Tallas() {
     const cerrarModal = () => {
         setTallaAEditar(null); setEstadoDelModalEditar(false); 
     };
-
-
+    
     const abrirModalParaEliminar = (datoTallaEspecifica) => {
         setTallaAEliminar(datoTallaEspecifica); setEstadoDelModalEliminar(true);
     };
@@ -65,7 +64,7 @@ export default function Tallas() {
       <main className="adminColegios">
         <header className="adminColegiosHeader">
           <h1 className="adminColegiosTitle">
-            Tallas
+            Unidades de Medida
           </h1>
           
           <div className="colegiosBuscador">

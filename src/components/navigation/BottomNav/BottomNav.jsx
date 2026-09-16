@@ -16,29 +16,24 @@ const rutasDeNavegacionBotonPlus = [
     {name: "Agregar Gasto", path: "/agregar-gasto", icon: BanknoteArrowDown},
     {name: "Empresas", path: "/colegios", icon: School},
     {name: "Tipos de Prenda", path: "/tipo-prenda", icon: Shirt},
-    {name: "Tallas", path: "/tallas", icon: Tag}
+    {name: "Unidades de Medida", path: "/tallas", icon: Tag}
 ];
-
 
 export default function BottomNav() {
     const [estadoBotonPlus, setEstadoBotonPlus] = useState(false);
     const RefAreaBotonPlus = useRef(null);
     const cambiarEstadoBotonPlus = () => setEstadoBotonPlus(estado => !estado);
 
-    
     useEffect(() => {
         if (!estadoBotonPlus) return;
-        
         const clickFueraBotonPlus = (event) => { 
             if (RefAreaBotonPlus.current && !RefAreaBotonPlus.current.contains(event.target)){
                 setEstadoBotonPlus(false);
             }
         };
         document.addEventListener("mousedown", clickFueraBotonPlus);
-
         return () => {document.removeEventListener("mousedown", clickFueraBotonPlus)};
     }, [estadoBotonPlus]);
-
 
     return (
         <div className="bottomContainer"> 
