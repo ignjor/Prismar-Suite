@@ -2,7 +2,7 @@
 width: min(92%, 920px);
 min-width: 0;
 margin: 0 auto;
-padding: 42px 0 0px;
+padding: 0;
 box-sizing: border-box;
 font-family:
 -apple-system,
@@ -13,72 +13,11 @@ sans-serif;
 color: #1d1d1f;
 }
 
-.header {
-display: flex;
-align-items: center;
-
-}
-
-.agregarPedidoTitulo {
-margin-left: 20px;
-display: inline-flex;
-align-items: center;
-gap: 7px;
-color: #86868b;
-font-size: 15px;
-font-weight: 600;
-letter-spacing: 0.2px;
-line-height: 1;
-text-align: left;
-text-transform: uppercase;
-}
-
-.agregarPedidoTitulo svg {
-margin-left: 0;
-width: 22px;
-height: 22px;
-}
-
 .agregarPedidoDatosCliente .productoDetalleHeader {
 width: 100%;
 display: flex;
 align-items: center;
 margin-bottom: 22px;
-}
-
-.productoVolver {
-height: 38px;
-margin-bottom: 22px;
-padding: 0 14px;
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 7px;
-border: 1px solid rgba(0, 0, 0, 0.06);
-border-radius: 30px;
-background: rgba(255, 255, 255, 0.72);
-color: #424245;
-font-family: inherit;
-font-size: 12px;
-font-weight: 500;
-cursor: pointer;
-box-shadow: 0 5px 16px rgba(0, 0, 0, 0.035);
-backdrop-filter: blur(14px);
--webkit-backdrop-filter: blur(14px);
-transition:
-background 0.2s ease,
-transform 0.2s ease,
-box-shadow 0.2s ease;
--webkit-tap-highlight-color: transparent;
-}
-
-.productoVolver:hover {
-background: rgba(255, 255, 255, 0.9);
-box-shadow: 0 7px 20px rgba(0, 0, 0, 0.055);
-}
-
-.productoVolver:active {
-transform: scale(0.97);
 }
 
 .agregarPedidoDatosClienteHeader {
@@ -283,7 +222,6 @@ background: rgba(0, 0, 0, 0.07);
 @media (max-width: 760px) {
 .agregarPedidoDatosCliente {
 width: min(94%, 760px);
-padding-top: 35px;
 }
 
 }
@@ -291,7 +229,6 @@ padding-top: 35px;
 @media (max-width: 560px) {
 .agregarPedidoDatosCliente {
 width: min(94%, 420px);
-padding-top: 32px;
 }
 
 .agregarPedidoDatosCliente .productoDetalleHeader {
@@ -348,7 +285,6 @@ margin-top: 23px;
 @media (max-width: 360px) {
 .agregarPedidoDatosCliente {
 width: 94%;
-padding-top: 28px;
 }
 
 .agregarPedidoCampo input,

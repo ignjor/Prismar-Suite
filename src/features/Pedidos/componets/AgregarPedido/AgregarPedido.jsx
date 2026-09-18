@@ -2,7 +2,7 @@ import "./AgregarPedido.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CircleX, CirclePlus } from "lucide-react";
+import { ArrowLeft, ShoppingBag } from "lucide-react";
 
 import AgregarPedidoDatosCliente from "./AgregarPedidoDatosCliente/AgregarPedidoDatosCliente";
 import AgregarPedidoProductos from "./AgregarPedidoProductos/AgregarPedidoProductos";
@@ -19,6 +19,22 @@ function AgregarPedido() {
 
   return (
     <div className="agregarPedido">
+      <div className="agregarPedidoEncabezado">
+        <div className="header">
+          <button
+            type="button"
+            className="productoVolver"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft size={17} strokeWidth={2} />
+            Salir de Agregar pedido
+          </button>
+          <span className="agregarPedidoTitulo">
+            Agregar Pedido <ShoppingBag />
+          </span>
+        </div>
+      </div>
+
       <div className="agregarPedidoColumnaCliente">
         <AgregarPedidoDatosCliente
           cliente={cliente}
@@ -43,44 +59,6 @@ function AgregarPedido() {
           onPagosChange={setPagos}
           />
       </div>
-
-
-      <div className="productoCrearActions">
-            <button
-              type="button"
-              className="productoCrearButton productoCrearButtonCancel"
-              onClick={() => navigate(-1)}
-            >
-              <CircleX
-                size={17}
-                strokeWidth={2}
-              />
-              <span>
-                Cancelar
-              </span>
-            </button>
-
-            <button
-              type="submit"
-              className="productoCrearButton productoCrearButtonPrimary"
-            >
-              <CirclePlus
-                size={17}
-                strokeWidth={2}
-              />
-              <span>
-              Agregar
-              </span>
-            </button>
-      </div>
-
-
-      <div>
-        <h1>{telefono}</h1>
-        <h1>{cliente}</h1>
-        <h1>{colegio}</h1>
-      </div>
-      
     </div>
   );
 }
