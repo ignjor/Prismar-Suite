@@ -272,7 +272,7 @@ export default function EditarProducto() {
             size={17}
             strokeWidth={2}
           />
-          Salir de Editar producto
+          Volver
         </button>
         <span className="agregarProductoTitulo">EDITAR PRODUCTO <Package/></span>
       </div>

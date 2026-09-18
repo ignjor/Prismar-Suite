@@ -79,7 +79,7 @@
   width: min(92%, 920px);
   min-width: 0;
   margin: 0 auto;
-  padding: 42px 0 0px;
+  padding: 10px 10px 0px;
   box-sizing: border-box;
   grid-column: 1;
   grid-row: 1;

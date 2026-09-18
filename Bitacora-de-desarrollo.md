@@ -369,3 +369,5 @@ service cloud.firestore {
 - feat: define la estructuras para el correcto desarrollo de pedidos, divide los bloques por columnas, añade los botones cancelar y agregar dentro de pedidos.
 
 - feat: Añade modal selector de productos funcional, falta poder filtrar busqueda por colegio y tipo de prenda y añadir botones de crear producto y editar producto dentro. Añade AgregarPedidoProductos listando los productos y limpiandolos para pasarlos al padre y poder guardarlos (lo hace independiente de productos con un snapshot historico y convierte las id en los nombres correspodientes.)
+
+- feat, styles: agrega mensajes de error al seleccionar productos sin tipo de prenda, y productos repetidos, hicimos redondos las fotos dentro del modal selector de productos. Cambia los mensajes de Salir de {...} por solo Volver.

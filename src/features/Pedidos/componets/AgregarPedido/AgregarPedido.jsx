@@ -1,12 +1,13 @@
 import "./AgregarPedido.css";
+import { addDoc } from "firebase/firestore";
+import { db } from "../../../../firebase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { ArrowLeft, ShoppingBag } from "lucide-react";
-
 import AgregarPedidoDatosCliente from "./AgregarPedidoDatosCliente/AgregarPedidoDatosCliente";
 import AgregarPedidoProductos from "./AgregarPedidoProductos/AgregarPedidoProductos";
 import AgregarPedidoPagos from "./AgregarPedidoPagos/AgregarPedidoPagos";
+
+import { ArrowLeft, ShoppingBag, CircleX, CirclePlus } from "lucide-react";
 
 function AgregarPedido() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function AgregarPedido() {
             onClick={() => navigate(-1)}
           >
             <ArrowLeft size={17} strokeWidth={2} />
-            Salir de Agregar pedido
+            Volver
           </button>
           <span className="agregarPedidoTitulo">
             Agregar Pedido <ShoppingBag />
@@ -58,7 +59,35 @@ function AgregarPedido() {
           pagosAgregados={pagos}
           onPagosChange={setPagos}
           />
+{/*
       </div>
+          <div className="productoCrearActions">
+            <button
+              type="button"
+              className="productoCrearButton productoCrearButtonCancel"
+              onClick={() => navigate(-1)}
+            >
+              <CircleX
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                Cancelar
+              </span>
+            </button>
+            <button
+              type="submit"
+              className="productoCrearButton productoCrearButtonPrimary"
+            >
+              <CirclePlus
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                  Guardar
+              </span>
+            </button>  */}
+          </div>
     </div>
   );
 }
