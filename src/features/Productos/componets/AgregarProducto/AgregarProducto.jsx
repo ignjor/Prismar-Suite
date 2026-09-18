@@ -211,7 +211,7 @@ export default function AgregarProducto() {
             size={17}
             strokeWidth={2}
           />
-          Salir de Agregar producto
+          Volver
         </button>
         <span className="agregarProductoTitulo">AGREGAR PRODUCTO <Package/></span>
       </div>

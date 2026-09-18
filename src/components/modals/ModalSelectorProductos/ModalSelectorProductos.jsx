@@ -197,7 +197,7 @@ export default function ModalSelectorProductos({
                       {producto.imagen ? (
                         <img src={producto.imagen} alt="" />
                       ) : (
-                        <Shirt size={18} strokeWidth={1.7} />
+                        <Shirt size={18} strokeWidth={1.5} />
                       )}
                     </div>
 

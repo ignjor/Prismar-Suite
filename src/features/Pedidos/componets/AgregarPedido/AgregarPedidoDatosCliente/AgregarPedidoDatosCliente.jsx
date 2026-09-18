@@ -163,13 +163,14 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, onCl
           </button>
         </div>
       </div>
-
+      
+      {selectorAbierto && (
       <ModalSelector
         tipo={selectorAbierto}
         modalAbierto={Boolean(selectorAbierto)}
         onCerrarModal={cerrarSelector}
         onSeleccionarColegio={seleccionarColegio}
-      />
+      />)}
     </section>
   );
 }
