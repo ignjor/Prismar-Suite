@@ -363,3 +363,9 @@ service cloud.firestore {
 ### Miercoles 16 de Septiembre
 
 - styles, fix: oculta la barra de scroll, soluciona bug al imprimir el colegio seleccionado en agregar pedido.
+
+### Viernes 18 de Septiembre
+
+- feat: define la estructuras para el correcto desarrollo de pedidos, divide los bloques por columnas, añade los botones cancelar y agregar dentro de pedidos.
+
+- feat: Añade modal selector de productos funcional, falta poder filtrar busqueda por colegio y tipo de prenda y añadir botones de crear producto y editar producto dentro. Añade AgregarPedidoProductos listando los productos y limpiandolos para pasarlos al padre y poder guardarlos (lo hace independiente de productos con un snapshot historico y convierte las id en los nombres correspodientes.)

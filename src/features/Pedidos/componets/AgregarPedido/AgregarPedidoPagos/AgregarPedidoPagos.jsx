@@ -1,3 +1,3 @@
-export default function AgregarPedidoPagos(){
+export default function AgregarPedidoPagos({pagosAgregados, onPagosChange}){
     
 }

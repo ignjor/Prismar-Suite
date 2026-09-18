@@ -149,10 +149,6 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   ¿Seguro que quieres borrar este/a {" "}
                   {configuracionActual.etiqueta}?
                 </h3>
-
-                <p className="modalEliminacionDescription">
-                  Estás a punto de borrar:
-                </p>
                 <div className="modalEliminacionDato">
                   <IconoPrincipal
                   size={18}
@@ -178,9 +174,6 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                 <h3 className="modalEliminacionQuestion">
                   ¿Estás completamente seguro?
                 </h3>
-                <p className="modalEliminacionDescription">
-                  Si tienes datos asociados se van a ver afectados
-                </p>
                 <div className="modalEliminacionDato modalEliminacionDatoDanger">
                   <IconoPrincipal
                   size={18}
