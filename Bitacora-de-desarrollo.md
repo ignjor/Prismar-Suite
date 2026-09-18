@@ -363,3 +363,7 @@ service cloud.firestore {
 ### Miercoles 16 de Septiembre
 
 - styles, fix: oculta la barra de scroll, soluciona bug al imprimir el colegio seleccionado en agregar pedido.
+
+### Viernes 18 de Septiembre
+
+- feat: define la estructuras para el correcto desarrollo de pedidos, divide los bloques por columnas, añade los botones cancelar y agregar dentro de pedidos.

@@ -1,0 +1,127 @@
+.productoCrearError {
+  margin: 22px 0 0;
+  padding: 11px 13px;
+  box-sizing: border-box;
+  border: 1px solid rgba(215, 0, 21, 0.08);
+  border-radius: 12px;
+  background: rgba(215, 0, 21, 0.06);
+  color: #d70015;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.productoCrearActions {
+  width: 100%;
+  margin-top: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.productoCrearButton {
+  flex: 1;
+  height: 45px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 40px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.productoCrearButtonCancel {
+  background: #dfdfe6;
+  color: #424245;
+}
+
+.productoCrearButtonCancel:hover:not(:disabled) {
+  background: #fff0f0;
+  color: #d70015;
+}
+
+.productoCrearButtonPrimary {
+  background: #22b84b;
+  color: #ffffff;
+}
+
+.productoCrearButtonPrimary:hover:not(:disabled) {
+  background: #1fa943;
+}
+
+.productoCrearButton:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.productoCrearButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.agregarPedido {
+  width: min(92%, 1200px);
+  margin: 0 auto;
+  padding: 35px 0 50px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 35px;
+  align-items: start;
+}
+
+.agregarPedidoColumnaCliente {
+  min-width: 0;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.agregarPedidoColumnaProductos {
+  min-width: 0;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.agregarPedidoColumnaPagos {
+  min-width: 0;
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin-top: 10px;
+}
+
+@media (max-width: 850px) {
+  .agregarPedido {
+    width: min(94%, 760px);
+    grid-template-columns: 1fr;
+    row-gap: 0;
+    column-gap: 0;
+  }
+
+  .agregarPedidoColumnaCliente {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .agregarPedidoColumnaProductos {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .agregarPedidoColumnaPagos {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .agregarPedido {
+    width: 94%;
+    padding-top: 25px;
+  }
+}

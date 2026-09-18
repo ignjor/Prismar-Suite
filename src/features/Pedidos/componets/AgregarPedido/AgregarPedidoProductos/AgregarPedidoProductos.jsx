@@ -1,4 +1,3 @@
+export default function AgregarPedidoProductos({productosPedido, setProductosPedido}){
 
-export default function AgregarPedidoProductos() {
-  
 }
