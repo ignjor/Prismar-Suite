@@ -7,6 +7,7 @@ import ModalSelector from "../../../../../components/modals/ModalSelector/ModalS
 const caracteresPermitidos = /^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s.'\-&()]+$/;
 const validarTextoDeInput = (nombre) => {
     const textoValidado = nombre.trim();
+    if (!textoValidado) { return "El nombre del cliente es obligatorio."}
     if (!caracteresPermitidos.test(textoValidado)) {return "El nombre contiene caracteres no invalidos.";}
     if (textoValidado.length < 2) {return "El nombre debe tener al menos 2 caracteres.";}
     if (textoValidado.length > 32) {return "El nombre no puede superar 32 caracteres.";}
@@ -19,7 +20,6 @@ const validarNumero = (valor, pais) => {
   if (!/^[0-9\s()+-]+$/.test(numeroLimpio)) { return "El número contiene caracteres no válidos.";}
 
   const numeroTelefonico = parsePhoneNumberFromString( numeroLimpio, pais);
-  if (!numeroTelefonico) { return "Ingresa un número de teléfono válido.";}
   if (!numeroTelefonico.isValid()) { return "El número de teléfono no es válido.";}
   return null;
 };

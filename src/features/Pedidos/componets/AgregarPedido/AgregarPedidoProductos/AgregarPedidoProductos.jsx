@@ -4,7 +4,6 @@ import { useColegios } from "../../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../../TiposProducto/querys/useTipoPrenda";
 
 import ModalSelectorProductos from "../../../../../components/modals/ModalSelectorProductos/ModalSelectorProductos";
-
 import { Trash2, Shirt, Minus, Plus, Ghost } from "lucide-react";
 
 export default function AgregarPedidoProductos({productosPedido = [], onProductoChange}){
@@ -83,7 +82,7 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
     };
 
     const cambiarCantidad = (index, nuevaCantidad) => {
-        const cantidad = Math.max(1, Number(nuevaCantidad) || 1);
+        const cantidad = Math.min(50, Math.max(1, Number(nuevaCantidad) || 1));
         const nuevosProductos = productosPedido.map((producto, i) => 
         i === index
             ? {... producto, cantidad}
@@ -128,15 +127,12 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
             {productosPedido.length === 0 ? (
             <div className="agregarPedidoProductosEmpty">
                 <div>
-                    
                 <h3>
-                    <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/> El pedido esta vacio
+                    <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/> No hay nada por aquí
                 </h3>
                 </div>
             </div>
-            
             ) : (
-
         productosPedido.map((producto, index) => {
             const precioUnitario = Number(producto.precio_talla || 0);
             const cantidad = Number(producto.cantidad || 1);
@@ -165,7 +161,6 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             <h3>
                                 {producto.nombre}
                             </h3>
-
                             <span className="agregarPedidoProductoTalla">
                                 Medida / Talla {producto.talla}
                             </span>
@@ -176,7 +171,6 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             </span>
                         </div>
                     </div>
-
                     <div className="agregarPedidoProductoPrecio">
                         <span>
                             Precio u.
@@ -186,7 +180,6 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             ${precioUnitario.toLocaleString("es-CL")}
                         </strong>
                     </div>
-
                     <div className="agregarPedidoProductoCantidad">
                         <div className="agregarPedidoProductoCantidadControl">
                             <button
@@ -204,19 +197,20 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             <input
                                 type="number"
                                 min="1"
+                                max="50"
                                 value={cantidad}
                                 onChange={(e) =>
                                     cambiarCantidad(index, e.target.value)
                                 }
                                 aria-label={`Cantidad de ${producto.nombre}`}
                             />
-
                             <button
                                 type="button"
                                 onClick={() =>
                                     cambiarCantidad(index, cantidad + 1)
                                 }
                                 aria-label={`Aumentar cantidad de ${producto.nombre}`}
+                                disabled={cantidad >= 50}
                             >
                                 <Plus  
                                     size={16}
@@ -224,17 +218,14 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             </button>
                         </div>
                     </div>
-
                     <div className="agregarPedidoProductoTotal">
                         <span>
                             Total
                         </span>
-
                         <strong>
                             ${precioTotal.toLocaleString("es-CL")}
                         </strong>
                     </div>
-
                     <button
                         type="button"
                         className="agregarPedidoProductoEliminar"
@@ -252,7 +243,6 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
             );
             })
         )}
-        
         </div>
         {selectorAbierto && (
         <ModalSelectorProductos

@@ -274,13 +274,13 @@
   justify-content: center;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.055);
-  border-radius: 20px;
+  border-radius: 5px;
   background: rgba(255, 255, 255, 0.65);
 }
 
 .agregarPedidoProductoCantidadControl button {
-  width: 29px;
-  height: 29px;
+  width: 45px;
+  height: 45px;
   margin: 0;
   padding: 0;
   display: flex;

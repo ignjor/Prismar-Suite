@@ -142,12 +142,15 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
 
     const seleccionarDato = (dato)  => {
       if (tipo === "colegio") { onSeleccionarColegio?.(dato);
+        onCerrarModal();
         return;
       }
       if (tipo === "tipoPrenda") { onSeleccionarTipoPrenda?.(dato);
+        onCerrarModal();
         return;
       }
       if (tipo === "talla") { onSeleccionarTalla?.(dato);
+        onCerrarModal();
         return;
       }
     };
