@@ -1,35 +1,56 @@
 import "./ModalSelectorProductos.css";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useProductos } from "../../../features/Productos/querys/useProductos";
+import { useColegios } from "../../../features/Colegios/querys/useColegios";
+import { useTipoPrenda } from "../../../features/TiposProducto/querys/useTipoPrenda";
+
+import ModalSelector from "../ModalSelector/ModalSelector";
+
 import { X, Search, Shirt, Tag } from "lucide-react";
 
 const body = document.body;
 
-export default function ModalSelectorProductos({
-  modalAbierto,
-  onCerrarModal,
-  onSeleccionarProducto,
-}) {
+export default function ModalSelectorProductos({modalAbierto, onCerrarModal, onSeleccionarProducto}) {
   const RefAreaDelModal = useRef(null);
   const [buscador, setBuscador] = useState("");
   const [productoSeleccionado, setProductoSeleccionado] = useState(null);
   const { data: datosDeProductos = [], isLoading } = useProductos();
+  const { data: datosDeColegios = [] } = useColegios();
+  const { data: datosDeTipoPrenda = []} = useTipoPrenda();
+
+  const tipoPrendaMap = useMemo(() => {
+     return new Map(datosDeTipoPrenda.map(
+      (tipo_prenda) => [tipo_prenda.id, tipo_prenda.tipo]
+    ));
+  }, [datosDeTipoPrenda]);
+  const colegiosMap = useMemo(() => {
+    return new Map(datosDeColegios.map(
+      (colegio) => [colegio.id, colegio.nombre]
+    ));
+   }, [datosDeColegios]);
 
   const buscadorNormalizado = buscador.trim().toLowerCase();
-
   const productosOrdenados = useMemo(() => {
     return [...datosDeProductos].sort((a, b) => {
       const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
       const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
       return fechaB - fechaA;
-    });
-  }, [datosDeProductos]);
+        })
+      .map((producto) => ({
+        ...producto,
+        nombreColegio: producto.colegio_id
+          ? colegiosMap.get(producto.colegio_id) ?? "Sin Afiliado"
+          : "Sin Afiliado",
+        nombreTipoPrenda: producto.tipo_prenda_id
+          ? tipoPrendaMap.get(producto.tipo_prenda_id) ?? "Sin Afiliado"
+          : "Sin Afiliado"
+       }));
+  }, [datosDeProductos, colegiosMap, tipoPrendaMap]);
 
   const productosFiltrados = useMemo(() => {
     if (!buscadorNormalizado) {
       return productosOrdenados;
     }
-
     return productosOrdenados.filter((producto) =>
       producto.nombre?.toLowerCase().includes(buscadorNormalizado)
     );
@@ -203,7 +224,7 @@ export default function ModalSelectorProductos({
 
                     <div className="modalSelectorProductosItemContent">
                       <span className="modalSelectorProductosItemName">
-                        {producto.nombre || "Producto sin nombre"}
+                        {producto.nombre || "Producto sin nombre"} - <strong><em>({producto.nombreColegio})</em></strong>
                       </span>
                       <span className="modalSelectorProductosItemMeta">
                         {Object.entries(producto.precios_tallas || {})
@@ -321,4 +342,4 @@ export default function ModalSelectorProductos({
       </div>
     </div>
   );
-}
+} 
