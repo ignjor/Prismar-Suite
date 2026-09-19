@@ -24,7 +24,7 @@ const validarNumero = (valor, pais) => {
   return null;
 };
 
-export default function AgregarPedidoProductos({cliente, telefono, colegio, onClienteChange, onTelefonoChange, onColegioChange} ) {
+export default function AgregarPedidoProductos({cliente, telefono, colegio, fechaEntrega, onClienteChange, onTelefonoChange, onColegioChange, onFechaEntregaChange} ) {
     const [selectorAbierto, setSelectorAbierto] = useState(null);
 
     const [errorNombre, setErrorNombre] = useState("");
@@ -66,7 +66,7 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, onCl
     };
 
     const abrirSelectorColegio = () => {
-        setSelectorAbierto("colegio");
+      setSelectorAbierto("colegio");
     };
 
     const cerrarSelector = () => {
@@ -77,6 +77,12 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, onCl
       onColegioChange(colegioSeleccionado.nombre);
       cerrarSelector()
     };
+
+    const elegirFechaEntrega = (event) => {
+      const fechaEntrega = event.target.value;
+      onFechaEntregaChange(fechaEntrega);
+    };
+
   return (
     <section className="agregarPedidoDatosCliente">
       <div className="agregarPedidoDatosClienteHeader">
@@ -161,6 +167,19 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, onCl
               {colegio || "Seleccionar empresa o colegio"}
             </span>
           </button>
+        </div>
+
+        <div className="agregarPedidoCampo agregarPedidoFechaEntrega">
+          <label htmlFor="nombreCliente">
+            Fecha de Entrega
+          </label>
+          <input
+            id="nombreCliente"
+            type="date"
+            value={fechaEntrega}
+            onChange={elegirFechaEntrega}
+            autoComplete="off"
+          />
         </div>
       </div>
       
