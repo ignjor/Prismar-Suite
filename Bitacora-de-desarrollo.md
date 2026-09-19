@@ -373,3 +373,7 @@ service cloud.firestore {
 - feat, styles: agrega mensajes de error al seleccionar productos sin tipo de prenda, y productos repetidos, hicimos redondos las fotos dentro del modal selector de productos. Cambia los mensajes de Salir de {...} por solo Volver.
 
 - feat: agrega cantidad maxima dentro de PedidoProducto, agrega impresion de colegio/empresa dentro del modal Selector de Productos.
+
+### Sabado 19 de Septiembre
+
+- feat: agrega fecha de entrega dentro de los datos de cliente en agregar pedido.

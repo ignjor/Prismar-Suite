@@ -14,6 +14,7 @@ function AgregarPedido() {
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
   const [colegio, setColegio] = useState(null);
+  const [fechaEntrega, setFechaEntrega] = useState("");
   
   const [productosPedido, setProductosPedido] = useState([]);
   const [pagos, setPagos] = useState([])
@@ -41,9 +42,12 @@ function AgregarPedido() {
           cliente={cliente}
           telefono={telefono}
           colegio={colegio}
+          fechaEntrega={fechaEntrega}
           onClienteChange={setCliente}
           onTelefonoChange={setTelefono}
           onColegioChange={setColegio}
+          onFechaEntregaChange={setFechaEntrega}
+
         />
       </div>
 
@@ -57,37 +61,21 @@ function AgregarPedido() {
       <div className="agregarPedidoColumnaPagos">
         <AgregarPedidoPagos
           pagosAgregados={pagos}
+          
           onPagosChange={setPagos}
-          />
-{/*
+        
+          />   
+        <div style={{ maxWidth: "100%", overflow: "hidden" }}>
+          <h4>{fechaEntrega}</h4>
+          <h4>{cliente}</h4>
+          <h4>{telefono}</h4>
+          <h4>{colegio}</h4>
+          <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
+            {JSON.stringify(productosPedido, null, 2)}
+          </pre>
+        </div>
       </div>
-          <div className="productoCrearActions">
-            <button
-              type="button"
-              className="productoCrearButton productoCrearButtonCancel"
-              onClick={() => navigate(-1)}
-            >
-              <CircleX
-                size={17}
-                strokeWidth={2}
-              />
-              <span>
-                Cancelar
-              </span>
-            </button>
-            <button
-              type="submit"
-              className="productoCrearButton productoCrearButtonPrimary"
-            >
-              <CirclePlus
-                size={17}
-                strokeWidth={2}
-              />
-              <span>
-                  Guardar
-              </span>
-            </button>  */}
-          </div>
+        
     </div>
   );
 }

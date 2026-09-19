@@ -48,6 +48,10 @@ width: 100%;
 min-width: 0;
 }
 
+.agregarPedidoFechaEntrega{
+max-width: 200px;
+}
+
 .agregarPedidoCampoColegio {
 grid-column: 1 / -1;
 width: fit-content;
@@ -229,6 +233,10 @@ width: min(94%, 760px);
 @media (max-width: 560px) {
 .agregarPedidoDatosCliente {
 width: min(94%, 420px);
+}
+
+.agregarPedidoFechaEntrega{
+max-width: 200px;
 }
 
 .agregarPedidoDatosCliente .productoDetalleHeader {

@@ -63,14 +63,18 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
         }
 
         const nuevoProductoPedido = {
-        producto_id: productoSeleccionado.id || null,
         nombre: productoSeleccionado.nombre,
         colegio:  colegioAsignado?.nombre || "Sin colegio asignado",
+
         tipo_prenda: tipoPrendaAsignado?.tipo || "Sin tipo de prenda asignado",
+        medidas_asig: tipoPrendaAsignado?.medidas_asig,
+
         talla: productoSeleccionado.talla || "",
         precio_talla: Number(productoSeleccionado.precio || 0 ),
-        imagen: productoSeleccionado.imagen || "",
         cantidad: 1,
+
+        imagen: productoSeleccionado.imagen || "",
+        estado_producto: "Pendiente"
         };
 
         const nuevosProductos = [

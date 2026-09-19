@@ -161,13 +161,13 @@
 .agregarPedidoColumnaProductos {
   min-width: 0;
   grid-column: 2;
-  grid-row: 2;
+  grid-row: 2 / span 2;
   margin-top: 25px;
 }
 
 .agregarPedidoColumnaPagos {
   min-width: 0;
-  grid-column: 1 / -1;
+  grid-column: 1;
   grid-row: 3;
   margin-top: 10px;
 }
