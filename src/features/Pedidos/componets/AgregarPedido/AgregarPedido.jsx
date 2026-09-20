@@ -1,16 +1,21 @@
 import "./AgregarPedido.css";
-import { addDoc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import AgregarPedidoDatosCliente from "./AgregarPedidoDatosCliente/AgregarPedidoDatosCliente";
 import AgregarPedidoProductos from "./AgregarPedidoProductos/AgregarPedidoProductos";
 import AgregarPedidoPagos from "./AgregarPedidoPagos/AgregarPedidoPagos";
+import ModalGuardarBorrador from "../../../../components/modals/ModalGuardarBorrador/ModalGuardarBorrador";
 
 import { ArrowLeft, ShoppingBag, CircleX, CirclePlus } from "lucide-react";
 
 function AgregarPedido() {
   const navigate = useNavigate();
+  const [estadoModalGuardarBorrador, setEstadoModalGuardarBorrador] = useState(false);
+  
+  const [error, setError] = useState("");
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
   const [colegio, setColegio] = useState(null);
@@ -19,6 +24,69 @@ function AgregarPedido() {
   const [productosPedido, setProductosPedido] = useState([]);
   const [pagos, setPagos] = useState([])
 
+  const abrirModalGuardarBorrador = (productoSeleccionado) => {
+    if (!cliente.trim()) {
+      setError("El nombre del cliente es obligatorio");
+      return;
+    }
+    if (!productoSeleccionado) {
+      return;
+    }
+    if (productoSeleccionado.tipo_prenda === "Sin tipo de prenda asignado") {
+      setError("El producto no tiene un tipo de prenda asignado, por lo que no podrás agregar medidas personalizadas con este producto.");
+      return;
+    }
+    setError("")
+    setEstadoModalGuardarBorrador(true);
+  };
+
+  const botonVolver = () => {
+    const hayCliente = cliente.trim() !== "";
+    const hayProductos = productosPedido.length > 0;
+    if (hayCliente && hayProductos) {
+      setError("");
+      setEstadoModalGuardarBorrador(true);
+      return;
+    }
+    setError("");
+    navigate(-1);
+  };
+
+  const cerrarModalGuardarBorrador = () => {
+    setEstadoModalGuardarBorrador(false);
+  };
+
+  const guardarBorradorTomarMedidas = async () => {
+    try {
+      const pedidoRef = await addDoc(collection(db, "pedidos"),{
+        estado_guardado: "borrador",
+        fecha_entrega: fechaEntrega || "Sin fecha de entrega",
+        cliente: cliente.trim(),
+        telefono: telefono || "Sin número de contacto",
+        colegio: colegio || "Sin Afiliado",
+        fecha_creacion: serverTimestamp()
+      });
+      const productosRef = collection(db, "pedidos", pedidoRef.id, "productos");
+      for (const producto of productosPedido) {
+        await addDoc(productosRef, {
+          producto_id: producto.producto_id,
+          nombre: producto.nombre,
+          colegio: producto.colegio || "Sin afiliado",
+          tipo_prenda: producto.tipo_prenda,
+          talla: producto.talla,
+          precio_talla: Number(producto.precio_talla,),
+          imagen: producto.imagen || "",
+          cantidad: Number(producto.cantidad,),
+          fecha_actualizacion: serverTimestamp()
+        });
+      }
+      navigate(-1);
+    }catch(error){
+      setError("Error al guardar el pedido como borrador.")
+      console.error("Error al gaurdar el pedido", error)
+    }
+  };
+
   return (
     <div className="agregarPedido">
       <div className="agregarPedidoEncabezado">
@@ -26,7 +94,7 @@ function AgregarPedido() {
           <button
             type="button"
             className="productoVolver"
-            onClick={() => navigate(-1)}
+            onClick={botonVolver}
           >
             <ArrowLeft size={17} strokeWidth={2} />
             Volver
@@ -52,9 +120,17 @@ function AgregarPedido() {
       </div>
 
       <div className="agregarPedidoColumnaProductos">
+
+            {error && (
+            <p className="productoCrearError">
+            {error}
+            </p>
+        )}
         <AgregarPedidoProductos
           productosPedido={productosPedido}
           onProductoChange={setProductosPedido}
+          onTomarMedidas={guardarBorradorTomarMedidas}
+          onAbrirModalGuardarBorrador={abrirModalGuardarBorrador}
         />
       </div>
 
@@ -75,7 +151,14 @@ function AgregarPedido() {
           </pre>
         </div>
       </div>
-        
+        {estadoModalGuardarBorrador && (
+        <ModalGuardarBorrador
+          tipo = "pedido"
+          dato = {cliente}
+          modalAbierto= {estadoModalGuardarBorrador}
+          onCerrarModal= {cerrarModalGuardarBorrador}
+          onConfirmarGuardarBorrador= {guardarBorradorTomarMedidas}
+        /> )}  
     </div>
   );
 }

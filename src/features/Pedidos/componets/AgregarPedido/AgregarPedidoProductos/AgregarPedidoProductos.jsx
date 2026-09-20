@@ -6,7 +6,7 @@ import { useTipoPrenda } from "../../../../TiposProducto/querys/useTipoPrenda";
 import ModalSelectorProductos from "../../../../../components/modals/ModalSelectorProductos/ModalSelectorProductos";
 import { Trash2, Shirt, Minus, Plus, Ghost } from "lucide-react";
 
-export default function AgregarPedidoProductos({productosPedido = [], onProductoChange}){
+export default function AgregarPedidoProductos({productosPedido = [], onProductoChange, onAbrirModalGuardarBorrador}){
     const [error, setError] = useState("");
     const [selectorAbierto, setSelectorAbierto] = useState(false);
 
@@ -63,6 +63,7 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
         }
 
         const nuevoProductoPedido = {
+        producto_id: productoSeleccionado.id,
         nombre: productoSeleccionado.nombre,
         colegio:  colegioAsignado?.nombre || "Sin colegio asignado",
 
@@ -168,6 +169,16 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             <span className="agregarPedidoProductoTalla">
                                 Medida / Talla {producto.talla}
                             </span>
+
+                            <button 
+                                type="button"
+                                onClick={ () => onAbrirModalGuardarBorrador(producto)}
+                            >
+                                <span>
+                                    Tomar Medidas
+                                </span>
+                            </button>
+
                         </div>
                         <div className="agregarPedidoProductoMeta">
                             <span>
@@ -175,6 +186,7 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                             </span>
                         </div>
                     </div>
+
                     <div className="agregarPedidoProductoPrecio">
                         <span>
                             Precio u.
