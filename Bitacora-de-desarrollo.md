@@ -377,3 +377,11 @@ service cloud.firestore {
 ### Sabado 19 de Septiembre
 
 - feat: agrega fecha de entrega dentro de los datos de cliente en agregar pedido.
+
+- feat: agregar guardar como borrador dentro de las funciones, el boton tomar medidas guarda el borrador.
+
+- feat: agrega modal para guardar borrador al salir de la ventana de agregar pedido solo cuando tienes nombre del cliente y un pedido por lo menos. Lo guarda con el estado_guardado:"borrador".
+
+### Domingo 20 de Septiembre
+
+- fix: agregarpedidoCliente ahora envia el nombre cliente de la misma forma que telefono, cuando tiene un error NO lo envia al padre. Antes lo enviaba al padre aunque tuviera digitos especiales.

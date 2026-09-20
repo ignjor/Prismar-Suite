@@ -1,35 +1,30 @@
-import "./ModalConfirmarEliminacion.css";
+import "./ModalGuardarBorrador.css";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package } from "lucide-react";
+import { X, NotebookPen, ArrowLeft, Package, Save, ShoppingBag, Trash2, TriangleAlert } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
-  colegio: { titulo: "Borrar Colegio / Empresa", etiqueta: "Afiliado", icono: School
+  producto: { titulo: "Guardar Borrador", etiqueta: "Producto", icono: Package,
   },
-  talla: { titulo: "Borrar Talla", etiqueta: "Talla", icono: Tag
-  },
-  tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Ruler,
-  },
-  producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package,
+  pedido: { titulo: "Guardar Borrador", etiqueta: "Pedido", icono: ShoppingBag,
   },
 };
 
-export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onCerrarModal, onConfirmarEliminacion}) {
+export default function ModalGuardarBorrador({tipo, dato, modalAbierto, onCerrarModal, onConfirmarGuardarBorrador}) {
+    const navigate = useNavigate();
     const RefAreaDelModal = useRef(null);
     
     const [pasoConfirmacion, setPasoConfirmacion] = useState(1);
-    const [eliminando, setEliminando] = useState(false);
+    const [guardarBorrador, setGuardarBorrador] = useState(false);
 
     const configuracionActual = configuracion[tipo];
 
     const obtenerNombreDato = (datoActual) => {
-      if (!datoActual) { return "Sin nombre";
-      }
-      if (tipo === "colegio") { return datoActual.nombre || "Sin nombre" }
-      if (tipo === "tipoPrenda") { return datoActual.tipo || "Sin tipo" }
-      if (tipo === "talla") { return datoActual.talla || "Sin talla" }
-      if (tipo === "producto") { return datoActual.nombre || "Sin nombre" }
+      if (!datoActual) { return "Sin nombre" }
+      if (tipo === "pedido") { return datoActual || "Sin Cliente" }
+      if (tipo === "producto") { return datoActual.nombre || "Sin Nombre" }
       return "Sin nombre";
     };
     const nombreDato = obtenerNombreDato(dato)
@@ -37,29 +32,29 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
       : "";
     const IconoPrincipal = configuracionActual?.icono;
 
-    const continuarConfirmacion = () => {
-      if (eliminando) {return;    
+    const continuarGuardandoBorrador = () => {
+      if (guardarBorrador) {return;    
       }
       setPasoConfirmacion(2);
     };
     const volverConfirmacion = () => {
-      if (eliminando) {return;    
+      if (guardarBorrador) {return;    
       }
       setPasoConfirmacion(1);
     };
 
-    const confirmarEliminacion = async () => {
-      if (eliminando) {
+    const confirmarGuardandoBorrador = async () => {
+      if (guardarBorrador) {
         return;
       }
       try {
-        setEliminando(true);
-        await onConfirmarEliminacion?.(dato);
+        setGuardarBorrador(true);
+        await onConfirmarGuardarBorrador?.(dato);
         onCerrarModal();
 
-      } catch (error) { console.error("Error al eliminar:", error);
+      } catch (error) { console.error("Error al guardar el borrador", error);
       } finally {
-        setEliminando(false);
+        setGuardarBorrador(false);
       }
     };
 
@@ -67,12 +62,12 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
         if (!modalAbierto) {
             body.style.overflow="";
             setPasoConfirmacion(1);
-            setEliminando(false);
+            setGuardarBorrador(false);
             return;
         }
         body.style.overflow="hidden";
         setPasoConfirmacion(1);
-        setEliminando(false);
+        setGuardarBorrador(false);
         return () => {
             body.style.overflow = "";
         };
@@ -91,7 +86,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
         document.addEventListener("mousedown", clickFueraDelModal);
         return () => {document.removeEventListener("mousedown", clickFueraDelModal);
         };
-    }, [modalAbierto, eliminando, onCerrarModal]);
+    }, [modalAbierto, guardarBorrador, onCerrarModal]);
 
     if (!modalAbierto || !configuracionActual || !dato) {
       return null;
@@ -125,7 +120,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
               className="modalEliminacionClose"
               onClick={onCerrarModal}
               aria-label="Cerrar"
-              disabled={eliminando}
+              disabled={guardarBorrador}
             >
               <X
                 size={17}
@@ -138,15 +133,15 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
 
               <>
                 <div className="modalEliminacionWarningIcon">
-                  <AlertTriangle
+                  <NotebookPen
                     size={25}
                     strokeWidth={1.8}
                   />
                 </div>
 
                 <h3 className="modalEliminacionQuestion">
-                  ¿Seguro que quieres borrar este/a {" "}
-                  {configuracionActual.etiqueta}?
+                  Antes de ir a otra ventana ¿quieres guardar este/a {" "}
+                  {configuracionActual.etiqueta} como borrador?
                 </h3>
                 <div className="modalEliminacionDato">
                   <IconoPrincipal
@@ -154,6 +149,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   strokeWidth={2}
                 />
                   <span>
+                    {tipo === "pedido" && <strong>Cliente: </strong>}
                     {nombreDato}
                   </span>
                 </div>
@@ -164,14 +160,14 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
 
               <>
                 <div className="modalEliminacionDangerIcon">
-                  <AlertTriangle
+                  <TriangleAlert
                     size={25}
                     strokeWidth={1.9}
                   />
                 </div>
 
                 <h3 className="modalEliminacionQuestion">
-                  ¿Estás completamente seguro?
+                  ¿Seguro quieres salir sin guardar como Borrador?
                 </h3>
                 <div className="modalEliminacionDato modalEliminacionDatoDanger">
                   <IconoPrincipal
@@ -179,13 +175,14 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   strokeWidth={2}
                 />
                   <span>
+                    {tipo === "pedido" && <strong>Cliente: </strong>}
                     {nombreDato}
                   </span>
                 </div>
 
                 <div className="modalEliminacionDangerMessage">
                   <strong>
-                    Esta acción es DEFINITIVA y NO se puede DESHACER.
+                    Perderas todos los datos del {tipo} y no los podras recuperar
                   </strong>
 
                 </div>
@@ -199,27 +196,28 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                 <button
                   type="button"
                   className="modalEliminacionButton modalEliminacionButtonCancel"
-                  onClick={onCerrarModal}
-                  disabled={eliminando}
+                  onClick={continuarGuardandoBorrador}
+                  disabled={guardarBorrador}
                 >
-                  <CircleX
+                  <Trash2
                     size={17}
                     strokeWidth={2}
                   />
                   <span>
-                    Cancelar
+                    Salir sin Guardar
                   </span>
                 </button>
                 <button
                   type="button"
                   className="modalEliminacionButton modalEliminacionButtonContinue"
-                  onClick={continuarConfirmacion}
-                  disabled={eliminando}
+                  onClick={confirmarGuardandoBorrador}
+                  disabled={guardarBorrador}
                 >
-                  <span>
-                    Continuar
-                  </span>
-                  <ArrowRight
+                    {guardarBorrador
+                      ? "Guardando..."
+                      : "Guardar Borrador"
+                    }
+                  <Save
                     size={17}
                     strokeWidth={2}
                   />
@@ -233,7 +231,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   type="button"
                   className="modalEliminacionButton modalEliminacionButtonCancel"
                   onClick={volverConfirmacion}
-                  disabled={eliminando}
+                  disabled={guardarBorrador}
                 >
                   <ArrowLeft
                     size={17}
@@ -247,18 +245,15 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                 <button
                   type="button"
                   className="modalEliminacionButton modalEliminacionButtonDelete"
-                  onClick={confirmarEliminacion}
-                  disabled={eliminando}
+                  onClick={() => navigate(-1)}
+                  disabled={guardarBorrador}
                 >
                   <Trash2
                     size={17}
                     strokeWidth={2}
                   />
                   <span>
-                    {eliminando
-                      ? "Borrando..."
-                      : "Borrar definitivamente"
-                    }
+                      Salir sin Guardar
                   </span>
                 </button>
               </>
