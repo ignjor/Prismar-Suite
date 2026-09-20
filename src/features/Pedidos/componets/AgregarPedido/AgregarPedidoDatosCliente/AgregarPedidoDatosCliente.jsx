@@ -35,8 +35,9 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, fech
 
     const nombreCliente = (event) => {
         const nombre = event.target.value;
-        setErrorNombre(validarTextoDeInput(nombre))
-        onClienteChange(nombre);
+        const error = validarTextoDeInput(nombre)
+        setErrorNombre(error);
+        onClienteChange(error ? "" : nombre.trim());
     };
 
     const normalizarTelefono = (telefono, pais) => {
@@ -100,7 +101,7 @@ export default function AgregarPedidoProductos({cliente, telefono, colegio, fech
           <input
             id="nombreCliente"
             type="text"
-            value={cliente}
+            defaultValue={cliente}
             onChange={nombreCliente}
             placeholder="Ej. María González"
             autoComplete="off"

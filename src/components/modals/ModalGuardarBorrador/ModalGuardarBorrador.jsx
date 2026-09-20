@@ -6,9 +6,9 @@ import { X, NotebookPen, ArrowLeft, Package, Save, ShoppingBag, Trash2, Triangle
 
 const body = document.body;
 const configuracion = {
-  producto: { titulo: "¿Guardar Borrador?", etiqueta: "Producto", icono: Package,
+  producto: { titulo: "Guardar Borrador", etiqueta: "Producto", icono: Package,
   },
-  pedido: { titulo: "¿Guardar Borrador?", etiqueta: "Pedido", icono: ShoppingBag,
+  pedido: { titulo: "Guardar Borrador", etiqueta: "Pedido", icono: ShoppingBag,
   },
 };
 
