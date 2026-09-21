@@ -17,6 +17,9 @@ import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
 import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
 import VerPedido from "./features/Pedidos/componets/VerPedido/VerPedido";
 
+import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
+import CuentasBancarias from "./features/Cuentas/componets/cuentasBancarias/cuentasBancarias";
+
 function AppContent() {
   const location = useLocation();
   const rutasSinBottomNav = ["/agregar-producto", "/agregar-pedido"];
@@ -79,6 +82,18 @@ function AppContent() {
           path="/ver-pedido/:id" 
           element={<VerProducto />} 
         />
+
+
+        <Route 
+          path="/cuentas" 
+          element={<Cuentas />} 
+        />
+        <Route 
+          path="/cuentas-bancarias" 
+          element={<CuentasBancarias />} 
+        />
+        
+
         
       </Routes>
       {!ocultarNav && <BottomNav />}

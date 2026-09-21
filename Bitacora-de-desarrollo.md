@@ -385,3 +385,5 @@ service cloud.firestore {
 ### Domingo 20 de Septiembre
 
 - fix: agregarpedidoCliente ahora envia el nombre cliente de la misma forma que telefono, cuando tiene un error NO lo envia al padre. Antes lo enviaba al padre aunque tuviera digitos especiales.
+
+- fix, feat: quita el autoComplete dentro de Tallas, Tipoprenda, Pedidos y Productos. Agrega CuentasBancarias, agrega modal para crear cuentas bancarias. Se hizo antes de pedidos para poder crear los pagos dentro de pedidos asignandoles la cuenta bancaria a ese pago especifico.

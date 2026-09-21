@@ -1,8 +1,18 @@
-export default function Cuentas() {
-  return (
+import { useNavigate } from "react-router-dom"
 
-    <h1>
-        Pag Cuentas
-    </h1>
+export default function Cuentas() {
+  const navigate = useNavigate();
+
+
+  return (
+      <div>
+        <button
+        onClick={() => navigate("/cuentas-bancarias")}
+
+        >
+          Cuentas Bancarias
+        </button>
+        
+      </div>
   )
 };

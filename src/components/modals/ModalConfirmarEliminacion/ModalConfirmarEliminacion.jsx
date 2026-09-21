@@ -1,7 +1,7 @@
 import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
 
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
@@ -12,6 +12,8 @@ const configuracion = {
   tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Ruler,
   },
   producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package,
+  },
+  cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard,
   },
 };
 
@@ -30,6 +32,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
       if (tipo === "tipoPrenda") { return datoActual.tipo || "Sin tipo" }
       if (tipo === "talla") { return datoActual.talla || "Sin talla" }
       if (tipo === "producto") { return datoActual.nombre || "Sin nombre" }
+      if (tipo === "cuentaBancaria") {return datoActual.nombre || "Sin nombre"}
       return "Sin nombre";
     };
     const nombreDato = obtenerNombreDato(dato)
@@ -185,7 +188,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
 
                 <div className="modalEliminacionDangerMessage">
                   <strong>
-                    Esta acción es DEFINITIVA y NO se puede DESHACER.
+                    Esta acción es DEFINITIVA, NO se puede DESHACER y puede afectar a los datos relacionados
                   </strong>
 
                 </div>

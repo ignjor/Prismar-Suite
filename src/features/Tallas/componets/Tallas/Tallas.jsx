@@ -80,6 +80,7 @@ export default function Tallas() {
               value={buscador}
               onChange={(e) => setBuscador(e.target.value)}
               aria-label="Buscar talla"
+              autoComplete="off"
             />
           </div>
         </header>

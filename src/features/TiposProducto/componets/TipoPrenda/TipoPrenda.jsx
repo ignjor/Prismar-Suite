@@ -82,6 +82,7 @@ export default function TipoPrenda() {
               value={buscador}
               onChange={(e) => setBuscador(e.target.value)}
               aria-label="Buscar tipo de prenda o producto"
+              autoComplete="off"
             />
           </div>
         </header>
