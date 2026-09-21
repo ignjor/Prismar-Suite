@@ -83,6 +83,7 @@ export default function Colegios() {
               value={buscador}
               onChange={(e) => setBuscador(e.target.value)}
               aria-label="Buscar empresa o colegio"
+              autoComplete="off"
             />
           </div>
         </header>

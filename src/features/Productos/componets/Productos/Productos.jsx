@@ -76,6 +76,7 @@ export default function Productos() {
               value={buscador}
               onChange={(e) => setBuscador(e.target.value)}
               aria-label="Buscar Colegio"
+              autoComplete="off"
             />
           </div>
         </header>
