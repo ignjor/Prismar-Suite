@@ -73,6 +73,7 @@ function AgregarPedido() {
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,
+          medidas_asig: producto.medidas_asig,
           talla: producto.talla,
           precio_talla: Number(producto.precio_talla,),
           imagen: producto.imagen || "",

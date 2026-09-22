@@ -1,0 +1,288 @@
+.modalMedidasOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modalMedidas {
+    width: min(100%, 500px);
+    max-height: min(720px, calc(100vh - 40px));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "SF Pro Text",
+        sans-serif;
+
+    color: #1d1d1f;
+}
+
+.modalMedidasHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 22px 22px 18px;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalMedidasTitle {
+    margin: 0;
+
+    color: #1d1d1f;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.45px;
+}
+
+.modalMedidasSubtitle {
+    margin: 5px 0 0;
+
+    color: #98989d;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.modalMedidasClose {
+    flex: 0 0 auto;
+
+    width: 32px;
+    height: 32px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f5f5f7;
+    color: #6e6e73;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        transform 0.18s ease;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+.modalMedidasClose:hover {
+    background: #e9e9ed;
+    color: #1d1d1f;
+}
+
+.modalMedidasClose:active {
+    transform: scale(0.94);
+}
+
+.modalMedidasContent {
+    padding: 22px;
+    overflow-y: auto;
+}
+
+.modalMedidasInfo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 18px;
+    padding: 13px 16px;
+
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+
+    background: #f5f5f7;
+}
+
+.modalMedidasInfo span {
+    color: #6e6e73;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.modalMedidasInfo strong {
+    color: #1d1d1f;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modalMedidasLista {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+.modalMedidasField {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.modalMedidasField label {
+    padding-left: 4px;
+
+    color: #424245;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
+}
+
+.modalMedidasField input {
+    width: 100%;
+    height: 44px;
+    padding: 0 18px;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    outline: none;
+
+    background: #f5f5f7;
+    color: #1d1d1f;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.modalMedidasField input::placeholder {
+    color: #98989d;
+}
+
+.modalMedidasField input:focus {
+    background: #ffffff;
+    border-color: rgba(0, 122, 255, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.modalMedidasSinDatos {
+    margin: 0;
+    padding: 18px;
+
+    border-radius: 14px;
+
+    background: #f5f5f7;
+    color: #6e6e73;
+
+    font-size: 13px;
+    line-height: 1.5;
+    text-align: center;
+}
+
+.modalMedidasActions {
+    display: flex;
+    gap: 10px;
+
+    padding: 18px 22px 22px;
+
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalMedidasButton {
+    flex: 1;
+
+    height: 42px;
+    padding: 0 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    border: 1px solid transparent;
+    border-radius: 40px;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.modalMedidasButton:active {
+    transform: scale(0.97);
+}
+
+.modalMedidasButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.modalMedidasButtonCancel {
+    background: #f5f5f7;
+    color: #424245;
+}
+
+.modalMedidasButtonCancel:hover:not(:disabled) {
+    background: #fff0f0;
+    color: #d70015;
+}
+
+.modalMedidasButtonPrimary {
+    background: #22b84b;
+    color: #ffffff;
+}
+
+.modalMedidasButtonPrimary:hover:not(:disabled) {
+    background: #1fa943;
+}
+
+@media (max-width: 480px) {
+    .modalMedidasOverlay {
+        padding: 16px;
+    }
+
+    .modalMedidas {
+        max-height: calc(100vh - 32px);
+        border-radius: 22px;
+    }
+
+    .modalMedidasHeader {
+        padding: 20px 18px 16px;
+    }
+
+    .modalMedidasContent {
+        padding: 20px 18px;
+    }
+
+    .modalMedidasActions {
+        padding: 16px 18px 18px;
+    }
+
+    .modalMedidasTitle {
+        font-size: 19px;
+    }
+}

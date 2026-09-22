@@ -391,3 +391,5 @@ service cloud.firestore {
 ### Martes 22 de Septiembre
 
 - feat: agregar las medidas_asig dentro de agregar producto con un toggle y el boton EDITAR MEDIDAS dentro del toggle, que no aparece si un producto no tiene tipo prenda asignado por cualquier cosa
+
+- fix, feat: fix: arregla duplicado de productos, se volvio a activar por si algun pedido requiere mismo producto y misma talla pero distintas medidas (2 hijos o gemelos), feat: agrega modal para las medidas asignadas, actualiza del map solo el dato, no el nombre, ya que ese se modifica dentro de  tipo prenda.

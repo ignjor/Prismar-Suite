@@ -11,7 +11,9 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
     const [error, setError] = useState("");
     const [selectorAbierto, setSelectorAbierto] = useState(false);
     const [modalTomarMedidasAbierto, setModalTomarMedidasAbierto] = useState(false);
+
     const [medidasAbiertas, setMedidasAbiertas] = useState({});
+    const [productoEditarMedidas, setProdutoEditarMedidas] = useState(null);
 
     const { data: datosDeColegios = [] } = useColegios();
     const { data: datosDeTipoPrenda = [] } = useTipoPrenda();
@@ -59,9 +61,8 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
         );
 
         if (productoYaAgregado) {
-            setError("El producto ya esta en la lista.");
+            setError("El producto se agrego nuevamente, pero ya estaba en la lista, si no es intencional recomendamos borrar el producto duplicado");
             cerrarSelectorProducto();
-            return;
         }
 
         const nuevoProductoPedido = {
@@ -104,16 +105,28 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
     };
 
 
-    const abrirTomarMedidas = () => {
+    const abrirTomarMedidas = (producto, index) => {
         setError("");
+        setProdutoEditarMedidas({producto, index});
         setModalTomarMedidasAbierto(true);
     };
     const cerrarTomarMedidas = () => {
+        setProdutoEditarMedidas(null);
         setModalTomarMedidasAbierto(false);
     };
-    const editarMedidas = () => {
-        onProductoChange(productosPedido)
-        
+    const editarMedidas = (nuevasMedidas) => {
+        if (!productoEditarMedidas) {
+            return;
+        }
+        const { index } = productoEditarMedidas;
+        const nuevosProductos = productosPedido.map((producto, i) =>
+            i === index
+                ? {
+                    ...producto, medidas_asig: nuevasMedidas,
+                }
+                : producto
+        );
+        onProductoChange(nuevosProductos);
     };
 
     const toggleMedidas = (index) => {
@@ -270,12 +283,12 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
                         />
                     </button>
                     {medidas.length > 0 && (
-
                         <div className="agregarPedidoProductoMedidas">
-
                             {medidasAbiertas[index] && (
                                 <div className="agregarPedidoProductoMedidasLista">
-                                <button className="tomarMedidasButton">
+                                <button className="tomarMedidasButton"
+                                onClick={() => abrirTomarMedidas(producto, index)}
+                                >
                                     EDITAR MEDIDAS
                                 </button>
                                     {medidas.map(([nombre, valor]) => (
@@ -323,14 +336,15 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
             })
         )}
         </div>
-        {modalTomarMedidasAbierto && (
-        <ModalTomarMedidas
-            modalAbierto={modalTomarMedidasAbierto}
-            producto={productosPedido}
-            onEditarMedidas={editarMedidas}
-            onCerrarModal={cerrarTomarMedidas}
-        /> )}
 
+        {modalTomarMedidasAbierto && (
+            <ModalTomarMedidas
+                modalAbierto={modalTomarMedidasAbierto}
+                producto={productoEditarMedidas?.producto}
+                onEditarMedidas={editarMedidas}
+                onCerrarModal={cerrarTomarMedidas}
+            />
+        )}
         {selectorAbierto && (
         <ModalSelectorProductos
             modalAbierto={selectorAbierto}
