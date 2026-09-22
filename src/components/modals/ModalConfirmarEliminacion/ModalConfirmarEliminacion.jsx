@@ -1,7 +1,9 @@
 import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
+import { collection, collectionGroup, query, where, limit, getDocs } from "firebase/firestore";
+import { db } from "../../../firebase";
 
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard, Group } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
@@ -16,14 +18,53 @@ const configuracion = {
   cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard,
   },
 };
+const referencias = {
+  colegio: [
+    { coleccion: "productos", campo: "colegio_id" },
+    { coleccion: "pedidos", campo: "colegio_id" },
+  ],
+
+  tipoPrenda: [
+    { coleccion: "productos", campo: "tipo_prenda_id" },
+  ],
+
+  producto: [
+    { coleccion: "pedidos", campo: "producto_id", grupo: true },
+  ],
+
+  cuentaBancaria: [
+    { coleccion: "pagos", campo: "cuenta_bancaria_id", grupo: true }
+  ],
+};
 
 export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onCerrarModal, onConfirmarEliminacion}) {
     const RefAreaDelModal = useRef(null);
+    const [error, setError] = useState("");
     
     const [pasoConfirmacion, setPasoConfirmacion] = useState(1);
     const [eliminando, setEliminando] = useState(false);
 
     const configuracionActual = configuracion[tipo];
+
+    const verificarReferencias = async () => {
+      const referenciasActuales = referencias[tipo] ?? [];
+      for (const referencia of referenciasActuales) {
+        const origen = referencia.grupo
+          ? collectionGroup(db, referencia.coleccion)
+          : collection(db, referencia.coleccion);
+
+        const q = query(
+          origen,
+          where(referencia.campo, referencia.operador || "==", dato.id),
+          limit(1)
+        );
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+          return true;
+        }
+      }
+      return false;
+    };
 
     const obtenerNombreDato = (datoActual) => {
       if (!datoActual) { return "Sin nombre";
@@ -52,21 +93,29 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
     };
 
     const confirmarEliminacion = async () => {
-      if (eliminando) {
-        return;
-      }
+      if (eliminando) return;
       try {
         setEliminando(true);
+        setError("");
+        const tieneReferencias = await verificarReferencias();
+        if (tieneReferencias) {
+          setError(
+            `No se puede borrar ${configuracionActual.etiqueta.toLowerCase()} porque está siendo utilizado por otros datos.`
+          );
+          return;
+        }
         await onConfirmarEliminacion?.(dato);
         onCerrarModal();
-
-      } catch (error) { console.error("Error al eliminar:", error);
+      } catch (error) {
+        console.error("Error al eliminar:", error);
+        setError("No se pudo completar la eliminación.");
       } finally {
         setEliminando(false);
       }
     };
 
     useEffect(() => {
+        setError("");
         if (!modalAbierto) {
             body.style.overflow="";
             setPasoConfirmacion(1);
@@ -190,8 +239,13 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   <strong>
                     Esta acción es DEFINITIVA, NO se puede DESHACER y puede afectar a los datos relacionados
                   </strong>
-
                 </div>
+
+                {error && (
+                  <div className="modalEliminacionError">
+                    {error}
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -251,7 +305,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
                   type="button"
                   className="modalEliminacionButton modalEliminacionButtonDelete"
                   onClick={confirmarEliminacion}
-                  disabled={eliminando}
+                  disabled={eliminando || !!error}
                 >
                   <Trash2
                     size={17}

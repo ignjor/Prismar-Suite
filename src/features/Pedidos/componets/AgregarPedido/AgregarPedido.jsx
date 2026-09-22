@@ -69,7 +69,6 @@ function AgregarPedido() {
       const productosRef = collection(db, "pedidos", pedidoRef.id, "productos");
       for (const producto of productosPedido) {
         await addDoc(productosRef, {
-          producto_id: producto.producto_id,
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,

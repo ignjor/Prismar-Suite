@@ -11,6 +11,21 @@
     -webkit-backdrop-filter: blur(8px);
 }
 
+.modalEliminacionError {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 14px;
+  padding: 10px 12px;
+
+  border-radius: 8px;
+  background: #fff5f5;
+
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .modalEliminacion {
     width: min(100%, 430px);
     overflow: hidden;
