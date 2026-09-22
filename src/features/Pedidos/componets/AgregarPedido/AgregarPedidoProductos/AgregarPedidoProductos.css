@@ -1,586 +1,725 @@
 .agregarPedidoProductos {
-  width: min(92%, 920px);
-  min-width: 0;
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
-  color: #1d1d1f;
+width: min(92%, 920px);
+min-width: 0;
+margin: 0 auto;
+padding: 0;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+gap: 20px;
+font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+color: #1d1d1f;
 }
 
 .agregarPedidoProductosHeader {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-top: 0;
-  margin-bottom: 15px;
-  gap: 10px;
+width: 100%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: flex-start;
+margin-top: 0;
+margin-bottom: 15px;
+gap: 10px;
 }
 
 .agregarPedidoProductosEyebrow {
-  margin: 0;
-  color: #86868b;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
-  text-align: left;
-  text-transform: uppercase;
+margin: 0;
+color: #86868b;
+font-size: 12px;
+font-weight: 600;
+letter-spacing: 0.2px;
+line-height: 1.2;
+text-align: left;
+text-transform: uppercase;
 }
 
 .agregarPedidoProductosButton {
-  width: fit-content;
-  max-width: 100%;
-  min-height: 25px;
-  margin: 0;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  border: 1px solid rgba(0, 0, 0, 0.045);
-  border-radius: 30px;
-  background: rgba(245, 245, 247, 0.75);
-  color: #69696e;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.2px;
-  line-height: 1.2;
-  text-align: center;
-  text-transform: uppercase;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+width: fit-content;
+max-width: 100%;
+min-height: 25px;
+margin: 0;
+padding: 5px 10px;
+box-sizing: border-box;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+color: #69696e;
+font-family: inherit;
+font-size: 12px;
+font-weight: 400;
+letter-spacing: 0.2px;
+line-height: 1.2;
+text-align: center;
+text-transform: uppercase;
+outline: none;
+cursor: pointer;
+transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+-webkit-tap-highlight-color: transparent;
+}
+
+.tomarMedidasButton {
+margin-left: auto;
+margin-right: auto;
+width: 200px;
+max-width: 100%;
+min-height: 25px;
+margin-bottom: 10px;
+padding: 5px 10px;
+box-sizing: border-box;
+display: grid;
+align-items: center;
+justify-content: center;
+gap: 7px;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.75);
+color: #69696e;
+font-family: inherit;
+font-size: 12px;
+font-weight: 400;
+letter-spacing: 0.2px;
+line-height: 1.2;
+text-align: center;
+text-transform: uppercase;
+outline: none;
+cursor: pointer;
+transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+-webkit-tap-highlight-color: transparent;
 }
 
 .agregarPedidoProductosButton:hover {
-  background: rgba(235, 235, 238, 0.9);
-  border-color: rgba(0, 0, 0, 0.07);
+background: rgba(235, 235, 238, 0.9);
+border-color: rgba(0, 0, 0, 0.07);
 }
 
 .agregarPedidoProductosButton:focus {
-  border-color: rgba(0, 122, 255, 0.25);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+border-color: rgba(0, 122, 255, 0.25);
+box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
 }
 
 .agregarPedidoProductosButton:active {
-  transform: scale(0.97);
+transform: scale(0.97);
 }
 
 .agregarPedidoProductosButton span {
-  color: inherit;
+color: inherit;
 }
 
 .agregarPedidoProductosError {
-  margin: 0;
-  padding: 9px 12px;
-  box-sizing: border-box;
-  border: 1px solid rgba(215, 0, 21, 0.12);
-  border-radius: 15px;
-  background: rgba(255, 245, 245, 0.85);
-  color: #d70015;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 1.4;
+margin: 0;
+padding: 9px 12px;
+box-sizing: border-box;
+border: 1px solid rgba(215, 0, 21, 0.12);
+border-radius: 15px;
+background: rgba(255, 245, 245, 0.85);
+color: #d70015;
+font-size: 11px;
+font-weight: 500;
+line-height: 1.4;
 }
 
 .agregarPedidoProductosLista {
-  width: 100%;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+width: 100%;
+min-width: 0;
+display: flex;
+flex-direction: column;
+gap: 10px;
 }
 
 .agregarPedidoProductosEmpty {
-  width: 100%;
-  min-height: 90px;
-  padding: 20px;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  border: 1px dashed rgba(0, 0, 0, 0.09);
-  border-radius: 15px;
-  background: rgba(245, 245, 247, 0.55);
+width: 100%;
+min-height: 90px;
+padding: 20px;
+box-sizing: border-box;
+display: flex;
+align-items: center;
+gap: 14px;
+border: 1px dashed rgba(0, 0, 0, 0.09);
+border-radius: 15px;
+background: rgba(245, 245, 247, 0.55);
 }
 
 .agregarPedidoProductosEmpty h3 {
-  margin: 0;
-  color: #424245;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
+margin: 0;
+color: #424245;
+font-size: 13px;
+font-weight: 600;
+line-height: 1.3;
 }
 
 .agregarPedidoProductoItem {
-  width: 100%;
-  min-width: 0;
-  padding: 12px;
-  box-sizing: border-box;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  gap: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.045);
-  border-radius: 15px;
-  background: rgba(245, 245, 247, 0.65);
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+width: 100%;
+min-width: 0;
+padding: 12px;
+box-sizing: border-box;
+display: grid;
+grid-template-columns: minmax(0, 1fr);
+grid-template-rows: auto auto;
+gap: 12px;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 15px;
+background: rgba(245, 245, 247, 0.65);
+transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .agregarPedidoProductoImagen {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.045);
-  border-radius: 50%;
-  background: rgba(245, 245, 247, 0.8);
-  color: #86868b;
+width: 48px;
+height: 48px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+overflow: hidden;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 50%;
+background: rgba(245, 245, 247, 0.8);
+color: #86868b;
 }
 
 .agregarPedidoProductoImagen img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
+width: 100%;
+height: 100%;
+display: block;
+object-fit: cover;
+border-radius: 50%;
 }
 
 .agregarPedidoProductoContenido {
-  min-width: 0;
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  column-gap: 12px;
-  align-items: center;
-  overflow: hidden;
+min-width: 0;
+display: grid;
+grid-template-columns: 48px minmax(0, 1fr);
+column-gap: 12px;
+align-items: center;
+overflow: hidden;
 }
 
 .agregarPedidoProductoContenido::before {
-  content: "";
-  width: 48px;
-  height: 48px;
-  grid-column: 1;
-  grid-row: 1 / span 2;
+content: "";
+width: 48px;
+height: 48px;
+grid-column: 1;
+grid-row: 1 / span 2;
 }
 
 .agregarPedidoProductoContenido > .agregarPedidoProductoPrincipal {
-  grid-column: 2;
-  grid-row: 1;
+grid-column: 2;
+grid-row: 1;
 }
 
 .agregarPedidoProductoContenido > .agregarPedidoProductoMeta {
-  grid-column: 2;
-  grid-row: 2;
+grid-column: 2;
+grid-row: 2;
 }
 
 .agregarPedidoProductoPrincipal {
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 7px;
+min-width: 0;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+gap: 7px;
 }
 
 .agregarPedidoProductoPrincipal h3 {
-  min-width: 0;
-  max-width: 100%;
-  margin: 0;
-  color: #424245;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+min-width: 0;
+max-width: 100%;
+margin: 0;
+color: #424245;
+font-size: 13px;
+font-weight: 600;
+line-height: 1.3;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
 
 .agregarPedidoProductoTalla {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  padding: 3px 7px;
-  border: 1px solid rgba(0, 0, 0, 0.035);
-  border-radius: 30px;
-  background: rgba(245, 245, 247, 0.85);
-  color: #69696e;
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 1.2;
+display: inline-flex;
+align-items: center;
+flex-shrink: 0;
+padding: 3px 7px;
+border: 1px solid rgba(0, 0, 0, 0.035);
+border-radius: 30px;
+background: rgba(245, 245, 247, 0.85);
+color: #69696e;
+font-size: 11px;
+font-weight: 600;
+line-height: 1.2;
 }
 
 .agregarPedidoProductoMeta {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 5px;
-  color: #86868b;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.3;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+gap: 6px;
+margin-top: 5px;
+color: #86868b;
+font-size: 13px;
+font-weight: 500;
+line-height: 1.3;
 }
 
 .agregarPedidoProductoPrecio {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 2px;
-  margin: 0;
+min-width: 0;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: center;
+gap: 2px;
+margin: 0;
 }
 
 .agregarPedidoProductoPrecio span,
 .agregarPedidoProductoCantidad > span,
 .agregarPedidoProductoTotal > span {
-  color: #86868b;
-  font-size: 10px;
-  font-weight: 500;
-  line-height: 1.2;
+color: #86868b;
+font-size: 10px;
+font-weight: 500;
+line-height: 1.2;
 }
 
 .agregarPedidoProductoPrecio strong {
-  color: #424245;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
+color: #424245;
+font-size: 13px;
+font-weight: 600;
+line-height: 1.2;
 }
 
 .agregarPedidoProductoCantidad {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+min-width: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 4px;
 }
 
 .agregarPedidoProductoCantidadControl {
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.055);
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.65);
+height: 30px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+border: 1px solid rgba(0, 0, 0, 0.055);
+border-radius: 5px;
+background: rgba(255, 255, 255, 0.65);
 }
 
 .agregarPedidoProductoCantidadControl button {
-  width: 45px;
-  height: 45px;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  background: transparent;
-  color: #69696e;
-  font-family: inherit;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1;
-  outline: none;
-  cursor: pointer;
-  transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
-  -webkit-tap-highlight-color: transparent;
+width: 45px;
+height: 45px;
+margin: 0;
+padding: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 0;
+background: transparent;
+color: #69696e;
+font-family: inherit;
+font-size: 16px;
+font-weight: 500;
+line-height: 1;
+outline: none;
+cursor: pointer;
+transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+-webkit-tap-highlight-color: transparent;
 }
 
 .agregarPedidoProductoCantidadControl button:hover:not(:disabled) {
-  background: rgba(235, 235, 238, 0.8);
-  color: #1d1d1f;
+background: rgba(235, 235, 238, 0.8);
+color: #1d1d1f;
 }
 
 .agregarPedidoProductoCantidadControl button:active:not(:disabled) {
-  transform: scale(0.9);
+transform: scale(0.9);
 }
 
 .agregarPedidoProductoCantidadControl button:disabled {
-  color: #c7c7cc;
-  cursor: not-allowed;
+color: #c7c7cc;
+cursor: not-allowed;
 }
 
 .agregarPedidoProductoCantidadControl input {
-  width: 32px;
-  height: 29px;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  border: 0;
-  border-left: 1px solid rgba(0, 0, 0, 0.045);
-  border-right: 1px solid rgba(0, 0, 0, 0.045);
-  border-radius: 0;
-  background: transparent;
-  color: #424245;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1;
-  text-align: center;
-  outline: none;
-  appearance: textfield;
-  -moz-appearance: textfield;
+width: 32px;
+height: 29px;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+border: 0;
+border-left: 1px solid rgba(0, 0, 0, 0.045);
+border-right: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 0;
+background: transparent;
+color: #424245;
+font-family: inherit;
+font-size: 12px;
+font-weight: 600;
+line-height: 1;
+text-align: center;
+outline: none;
+appearance: textfield;
+-moz-appearance: textfield;
 }
 
 .agregarPedidoProductoCantidadControl input::-webkit-outer-spin-button,
 .agregarPedidoProductoCantidadControl input::-webkit-inner-spin-button {
-  margin: 0;
-  appearance: none;
+margin: 0;
+appearance: none;
 }
 
 .agregarPedidoProductoCantidadControl input:focus {
-  background: rgba(0, 122, 255, 0.045);
+background: rgba(0, 122, 255, 0.045);
 }
 
 .agregarPedidoProductoTotal {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 2px;
+min-width: 0;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+justify-content: center;
+gap: 2px;
 }
 
 .agregarPedidoProductoTotal strong {
-  color: #1d1d1f;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.2;
+color: #1d1d1f;
+font-size: 13px;
+font-weight: 600;
+line-height: 1.2;
 }
 
 .agregarPedidoProductoEliminar {
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  padding: 0;
-  border: 1px solid rgba(0, 0, 0, 0.045);
-  border-radius: 12px;
-  background: rgba(245, 245, 247, 0.8);
-  color: #86868b;
-  outline: none;
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+width: 34px;
+height: 34px;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-shrink: 0;
+padding: 0;
+border: 1px solid rgba(0, 0, 0, 0.045);
+border-radius: 12px;
+background: rgba(245, 245, 247, 0.8);
+color: #86868b;
+outline: none;
+cursor: pointer;
+transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+-webkit-tap-highlight-color: transparent;
 }
 
 .agregarPedidoProductoEliminar:hover {
-  border-color: rgba(215, 0, 21, 0.12);
-  background: rgba(255, 245, 245, 0.9);
-  color: #d70015;
+border-color: rgba(215, 0, 21, 0.12);
+background: rgba(255, 245, 245, 0.9);
+color: #d70015;
 }
 
 .agregarPedidoProductoEliminar:focus {
-  border-color: rgba(0, 122, 255, 0.25);
-  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+border-color: rgba(0, 122, 255, 0.25);
+box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
 }
 
 .agregarPedidoProductoEliminar:active {
-  transform: scale(0.95);
+transform: scale(0.95);
 }
 
 .agregarPedidoProductos::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 1px;
-  margin-top: 8px;
-  background: rgba(0, 0, 0, 0.07);
+content: "";
+display: block;
+width: 100%;
+height: 1px;
+margin-top: 8px;
+background: rgba(0, 0, 0, 0.07);
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoImagen {
-  display: flex;
-  grid-column: 1;
-  grid-row: 1;
-  position: relative;
-  z-index: 2;
+display: flex;
+grid-column: 1;
+grid-row: 1;
+position: relative;
+z-index: 2;
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoContenido {
-  grid-column: 1;
-  grid-row: 1;
+grid-column: 1;
+grid-row: 1;
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoPrecio {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: start;
+grid-column: 1;
+grid-row: 2;
+justify-self: start;
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoCantidad {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: center;
+grid-column: 1;
+grid-row: 2;
+justify-self: center;
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoTotal {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: end;
-  margin-right: 46px;
+grid-column: 1;
+grid-row: 2;
+justify-self: end;
+margin-right: 46px;
 }
 
 .agregarPedidoProductoItem > .agregarPedidoProductoEliminar {
-  grid-column: 1;
-  grid-row: 2;
-  justify-self: end;
+grid-column: 1;
+grid-row: 2;
+justify-self: end;
 }
 
 .agregarPedidoProductoContenido {
-  grid-template-columns: 48px minmax(0, 1fr);
+grid-template-columns: 48px minmax(0, 1fr);
 }
 
 .agregarPedidoProductoContenido::before {
-  display: block;
-  background: transparent;
+display: block;
+background: transparent;
+}
+
+.agregarPedidoProductoItem > .agregarPedidoProductoMedidas {
+grid-column: 1;
+grid-row: 3;
+width: 100%;
+min-width: 0;
+display: flex;
+flex-direction: column;
+align-items: stretch;
+gap: 6px;
+margin-top: 2px;
+padding-top: 10px;
+border-top: 1px solid rgba(0, 0, 0, 0.045);
+}
+
+.agregarPedidoProductoMedidasLista {
+width: 100%;
+min-width: 0;
+display: flex;
+flex-direction: column;
+gap: 5px;
+padding: 8px 10px;
+box-sizing: border-box;
+border-radius: 9px;
+background: rgba(255, 255, 255, 0.55);
+}
+
+.agregarPedidoProductoMedida {
+width: 100%;
+min-width: 0;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 15px;
+padding: 3px 0;
+box-sizing: border-box;
+color: #69696e;
+font-size: 13px;
+font-weight: 500;
+line-height: 1.3;
+}
+
+.agregarPedidoProductoMedida span {
+min-width: 0;
+color: #86868b;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.agregarPedidoProductoMedida strong {
+flex-shrink: 0;
+color: #424245;
+font-size: 12px;
+font-weight: 600;
+}
+
+.agregarPedidoProductoMedidasToggle {
+width: 100%;
+min-height: 28px;
+margin: 0;
+padding: 5px 4px;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 2px;
+border: 0;
+border-radius: 8px;
+background: transparent;
+color: #86868b;
+font-family: inherit;
+font-size: 10px;
+font-weight: 500;
+line-height: 1.2;
+text-align: center;
+outline: none;
+cursor: pointer;
+transition: background 0.18s ease, color 0.18s ease;
+-webkit-tap-highlight-color: transparent;
+}
+
+.agregarPedidoProductoMedidasToggle:hover {
+background: rgba(235, 235, 238, 0.65);
+color: #424245;
+}
+
+.agregarPedidoProductoMedidasToggle span {
+color: inherit;
+}
+
+.agregarPedidoProductoMedidasIcon {
+flex-shrink: 0;
+transition: transform 0.2s ease;
+}
+
+.agregarPedidoProductoMedidasIcon.abierta {
+transform: rotate(180deg);
 }
 
 @media (max-width: 560px) {
-  .agregarPedidoProductos {
-    width: min(94%, 420px);
-    gap: 16px;
-  }
+.agregarPedidoProductos {
+width: min(94%, 420px);
+gap: 16px;
+}
 
-  .agregarPedidoProductosHeader {
-    margin-top: 0;
-    margin-bottom: 15px;
-  }
+.agregarPedidoProductosHeader {
+margin-top: 0;
+margin-bottom: 15px;
+}
 
-  .agregarPedidoProductosButton {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
+.agregarPedidoProductosButton {
+padding: 5px 10px;
+font-size: 11px;
+}
 
-  .agregarPedidoProductosEmpty {
-    min-height: 85px;
-    padding: 14px;
-    gap: 11px;
-    border-radius: 15px;
-  }
+.agregarPedidoProductosEmpty {
+min-height: 85px;
+padding: 14px;
+gap: 11px;
+border-radius: 15px;
+}
 
-  .agregarPedidoProductosEmpty h3 {
-    font-size: 12px;
-  }
+.agregarPedidoProductosEmpty h3 {
+font-size: 12px;
+}
 
-  .agregarPedidoProductoItem {
-    padding: 10px;
-    gap: 10px;
-  }
+.agregarPedidoProductoItem {
+padding: 10px;
+gap: 10px;
+}
 
-  .agregarPedidoProductoContenido {
-    grid-template-columns: 42px minmax(0, 1fr);
-    column-gap: 9px;
-  }
+.agregarPedidoProductoContenido {
+grid-template-columns: 42px minmax(0, 1fr);
+column-gap: 9px;
+}
 
-  .agregarPedidoProductoContenido::before {
-    width: 42px;
-    height: 42px;
-  }
+.agregarPedidoProductoContenido::before {
+width: 42px;
+height: 42px;
+}
 
-  .agregarPedidoProductoPrecio {
-    align-items: flex-start;
-  }
+.agregarPedidoProductoPrecio {
+align-items: flex-start;
+}
 
-  .agregarPedidoProductoCantidad {
-    justify-self: center;
-  }
+.agregarPedidoProductoCantidad {
+justify-self: center;
+}
 
-  .agregarPedidoProductoTotal {
-    margin-right: 42px;
-  }
+.agregarPedidoProductoTotal {
+margin-right: 42px;
+}
 
-  .agregarPedidoProductoImagen {
-    width: 42px;
-    height: 42px;
-  }
+.agregarPedidoProductoImagen {
+width: 42px;
+height: 42px;
+}
 
-  .agregarPedidoProductoPrincipal h3 {
-    font-size: 12px;
-  }
+.agregarPedidoProductoPrincipal h3 {
+font-size: 12px;
+}
 
-  .agregarPedidoProductoCantidadControl {
-    height: 29px;
-  }
+.agregarPedidoProductoCantidadControl {
+height: 29px;
+}
 
-  .agregarPedidoProductoCantidadControl button {
-    width: 28px;
-    height: 28px;
-  }
+.agregarPedidoProductoCantidadControl button {
+width: 28px;
+height: 28px;
+}
 
-  .agregarPedidoProductoCantidadControl input {
-    width: 31px;
-    height: 28px;
-  }
+.agregarPedidoProductoCantidadControl input {
+width: 31px;
+height: 28px;
+}
 
-  .agregarPedidoProductoEliminar {
-    width: 32px;
-    height: 32px;
-    border-radius: 11px;
-  }
+.agregarPedidoProductoEliminar {
+width: 32px;
+height: 32px;
+border-radius: 11px;
+}
 
-  .agregarPedidoProductos::after {
-    margin-top: 7px;
-  }
+.agregarPedidoProductos::after {
+margin-top: 7px;
+}
+
+.agregarPedidoProductoItem > .agregarPedidoProductoMedidas {
+grid-column: 1;
+grid-row: 3;
+}
 }
 
 @media (max-width: 360px) {
-  .agregarPedidoProductos {
-    width: 94%;
-  }
+.agregarPedidoProductos {
+width: 94%;
+}
 
-  .agregarPedidoProductosButton {
-    padding: 5px 9px;
-    font-size: 10px;
-  }
+.agregarPedidoProductosButton {
+padding: 5px 9px;
+font-size: 10px;
+}
 
-  .agregarPedidoProductoItem {
-    padding: 9px;
-    gap: 8px;
-  }
+.agregarPedidoProductoItem {
+padding: 9px;
+gap: 8px;
+}
 
-  .agregarPedidoProductoContenido {
-    grid-template-columns: 40px minmax(0, 1fr);
-    column-gap: 8px;
-  }
+.agregarPedidoProductoContenido {
+grid-template-columns: 40px minmax(0, 1fr);
+column-gap: 8px;
+}
 
-  .agregarPedidoProductoContenido::before {
-    width: 40px;
-    height: 40px;
-  }
+.agregarPedidoProductoContenido::before {
+width: 40px;
+height: 40px;
+}
 
-  .agregarPedidoProductoPrincipal h3 {
-    font-size: 11px;
-  }
+.agregarPedidoProductoPrincipal h3 {
+font-size: 11px;
+}
 
-  .agregarPedidoProductoCantidadControl button {
-    width: 27px;
-  }
+.agregarPedidoProductoCantidadControl button {
+width: 27px;
+}
 
-  .agregarPedidoProductoCantidadControl input {
-    width: 29px;
-  }
+.agregarPedidoProductoCantidadControl input {
+width: 29px;
+}
 
-  .agregarPedidoProductoTotal {
-    margin-right: 38px;
-  }
+.agregarPedidoProductoTotal {
+margin-right: 38px;
+}
 
-  .agregarPedidoProductoEliminar {
-    width: 30px;
-    height: 30px;
-  }
+.agregarPedidoProductoEliminar {
+width: 30px;
+height: 30px;
+}
+
+.agregarPedidoProductoItem > .agregarPedidoProductoMedidas {
+grid-column: 1;
+grid-row: 3;
+}
 }

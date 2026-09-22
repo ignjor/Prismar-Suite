@@ -4,8 +4,6 @@ import { useProductos } from "../../../features/Productos/querys/useProductos";
 import { useColegios } from "../../../features/Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../features/TiposProducto/querys/useTipoPrenda";
 
-import ModalSelector from "../ModalSelector/ModalSelector";
-
 import { X, Search, Shirt, Tag } from "lucide-react";
 
 const body = document.body;
