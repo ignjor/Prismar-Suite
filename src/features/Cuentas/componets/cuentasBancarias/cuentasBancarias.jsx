@@ -20,7 +20,6 @@ export default function CuentasBancarias() {
     const [estadoDelModal, setEstadoDelModal] = useState(false);
     const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
      
-
     const listarCuentas = [...datosDeCuentas].sort((a, b) => {
           const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
           const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;

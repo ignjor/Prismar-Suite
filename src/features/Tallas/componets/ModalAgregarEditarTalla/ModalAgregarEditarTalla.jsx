@@ -147,7 +147,7 @@ export default function ModalAgregarEditarTalla({datoTallaEditar, modalAbierto, 
                         id="nombreColegio"
                         type="text"
                         className="modalColegioInput"
-                        placeholder="Ej. Colegio San José"
+                        placeholder="Ej. XL, XS, L, M"
                         value={talla}
                         onChange={(event) => {
                             setTalla(event.target.value);

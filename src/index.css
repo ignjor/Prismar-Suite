@@ -5,22 +5,6 @@
   box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-  display: none;
-}
-
-html,
-body,
-#root {
-
-  margin: 0;
-
-  min-height: 100%;
-
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-
-}
 body {
 
   font-family:
