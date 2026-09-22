@@ -23,7 +23,6 @@ const referencias = {
     { coleccion: "productos", campo: "colegio_id" },
     { coleccion: "pedidos", campo: "colegio_id" },
   ],
-
   tipoPrenda: [
     { coleccion: "productos", campo: "tipo_prenda_id" },
   ],
@@ -100,7 +99,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
         const tieneReferencias = await verificarReferencias();
         if (tieneReferencias) {
           setError(
-            `No se puede borrar ${configuracionActual.etiqueta.toLowerCase()} porque está siendo utilizado por otros datos.`
+            `No se puede borrar ${configuracionActual.etiqueta}. Esta siendo utilizada por otros datos del sistema.`
           );
           return;
         }
@@ -108,7 +107,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
         onCerrarModal();
       } catch (error) {
         console.error("Error al eliminar:", error);
-        setError("No se pudo completar la eliminación.");
+        setError("No se pudo completar la eliminación. Esta siendo utilizada por otros datos del sistema.");
       } finally {
         setEliminando(false);
       }

@@ -32,10 +32,6 @@ function AgregarPedido() {
     if (!productoSeleccionado) {
       return;
     }
-    if (productoSeleccionado.tipo_prenda === "Sin tipo de prenda asignado") {
-      setError("El producto no tiene un tipo de prenda asignado, por lo que no podrás agregar medidas personalizadas con este producto.");
-      return;
-    }
     setError("")
     setEstadoModalGuardarBorrador(true);
   };
@@ -56,7 +52,17 @@ function AgregarPedido() {
     setEstadoModalGuardarBorrador(false);
   };
 
-  const guardarBorradorTomarMedidas = async () => {
+  const guardarBorrador = async () => {
+    if (!cliente.trim()) {
+      setError("El nombre del cliente es obligatorio");
+      return;
+    }
+    if (productosPedido.length === 0) {
+      setError(
+        "Debes agregar al menos un producto antes de guardar el pedido como borrador."
+      );
+      return;
+    }
     try {
       const pedidoRef = await addDoc(collection(db, "pedidos"),{
         estado_guardado: "borrador",
@@ -69,6 +75,7 @@ function AgregarPedido() {
       const productosRef = collection(db, "pedidos", pedidoRef.id, "productos");
       for (const producto of productosPedido) {
         await addDoc(productosRef, {
+          producto_id: producto.producto_id,
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,
@@ -129,8 +136,6 @@ function AgregarPedido() {
         <AgregarPedidoProductos
           productosPedido={productosPedido}
           onProductoChange={setProductosPedido}
-          onTomarMedidas={guardarBorradorTomarMedidas}
-          onAbrirModalGuardarBorrador={abrirModalGuardarBorrador}
         />
       </div>
 
@@ -151,13 +156,15 @@ function AgregarPedido() {
           </pre>
         </div>
       </div>
+
+      
         {estadoModalGuardarBorrador && (
         <ModalGuardarBorrador
           tipo = "pedido"
           dato = {cliente}
           modalAbierto= {estadoModalGuardarBorrador}
           onCerrarModal= {cerrarModalGuardarBorrador}
-          onConfirmarGuardarBorrador= {guardarBorradorTomarMedidas}
+          onConfirmarGuardarBorrador= {guardarBorrador}
         /> )}  
     </div>
   );
