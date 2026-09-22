@@ -393,3 +393,5 @@ service cloud.firestore {
 - feat: agregar las medidas_asig dentro de agregar producto con un toggle y el boton EDITAR MEDIDAS dentro del toggle, que no aparece si un producto no tiene tipo prenda asignado por cualquier cosa
 
 - fix, feat: fix: arregla duplicado de productos, se volvio a activar por si algun pedido requiere mismo producto y misma talla pero distintas medidas (2 hijos o gemelos), feat: agrega modal para las medidas asignadas, actualiza del map solo el dato, no el nombre, ya que ese se modifica dentro de  tipo prenda.
+
+- refactor: el modal eliminar NO ELIMINA si alguna id del dato se llama en otro sitio, por ej no borra un colegio si un producto lo esta usando, asi evitamos "Sin afiliado", y preparamos el camino para los comprobante de pagos a ciertas cuentas bancarias especificas, asi no podemos borrar las cuentas.
