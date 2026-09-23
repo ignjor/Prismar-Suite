@@ -28,7 +28,7 @@ const referencias = {
   ],
 
   producto: [
-    { coleccion: "pedidos", campo: "producto_id", grupo: true },
+    { coleccion: "productos", campo: "producto_id", grupo: true },
   ],
 
   cuentaBancaria: [
@@ -66,8 +66,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
     };
 
     const obtenerNombreDato = (datoActual) => {
-      if (!datoActual) { return "Sin nombre";
-      }
+      if (!datoActual) { return "Sin nombre" }
       if (tipo === "colegio") { return datoActual.nombre || "Sin nombre" }
       if (tipo === "tipoPrenda") { return datoActual.tipo || "Sin tipo" }
       if (tipo === "talla") { return datoActual.talla || "Sin talla" }

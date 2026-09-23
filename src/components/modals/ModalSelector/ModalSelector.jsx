@@ -4,12 +4,13 @@ import { useEffect, useRef, useState, useMemo } from "react";
 import { useColegios } from "../../../features/Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../features/TiposProducto/querys/useTipoPrenda";
 import { useTallas } from "../../../features/Tallas/querys/useTallas";
+import { useCuentas } from "../../../features/Cuentas/querys/useCuentas";
 
 import ModalAgregarEditarColegio from "../../../features/Colegios/components/ModalAgregarEditarColegio/ModalAgregarEditarColegio";
 import ModalAgregarEditarTalla from "../../../features/Tallas/componets/ModalAgregarEditarTalla/ModalAgregarEditarTalla";
 import ModalAgregarEditarTipoPrenda from "../../../features/TiposProducto/componets/ModalAgregarEditarTipoPrenda/ModalAgregarEditarTipoPrenda";
 
-import { X, Search, Plus, School, Tag, Ruler } from "lucide-react";
+import { X, Search, Plus, School, Tag, Ruler, CreditCard } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
@@ -31,15 +32,22 @@ const configuracion = {
     icono: Tag,
     crearTexto: "Crear talla"
     },
+  cuentaBancaria: {
+    titulo: "Cuentas Bancarias",
+    placeholder: "Buscar cuenta por nombre...",
+    icono: CreditCard,
+    crearTexto: "Ir a Cuentas Bancarias (saldras de la página)"
+  }
   };
 
-export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSeleccionarColegio, onSeleccionarTipoPrenda, onSeleccionarTalla}) {
+export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSeleccionarColegio, onSeleccionarTipoPrenda, onSeleccionarTalla, onSeleccionarCuenta}) {
     const RefAreaDelModal = useRef(null);
     const [modalCrearAbierto, setModalCrearAbierto] = useState(null);
      
     const { data: datosDecolegios = []} = useColegios();
     const { data: datosDeTipoPrenda = []} = useTipoPrenda();
     const { data: datosDeTallas = []} = useTallas();
+    const { data: datosDeCuentas = []} = useCuentas();
   
     const [buscador, setBuscador] = useState("");
     const buscadorNormalizado = buscador
@@ -85,7 +93,20 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
           ?.toLowerCase()
           .includes(buscadorNormalizado)
     );
-    
+
+    const listarCuentas = useMemo(() => {
+      return [...datosDeCuentas]
+        .sort((a, b) => {
+          const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+          const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
+          return fechaB - fechaA;
+        })}, [datosDeTipoPrenda])
+    const buscadorDeCuentas = listarCuentas.filter(
+      (cuenta) => cuenta.nombre
+          ?.toLowerCase()
+          .includes(buscadorNormalizado)
+    );
+
     useEffect(() => {
       if (!modalAbierto) {
         body.style.overflow = "";
@@ -139,6 +160,7 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
     if (tipo === "colegio") { datosFiltrados = buscadorDeColegios};
     if (tipo === "tipoPrenda") { datosFiltrados = buscadorDeTipoPrenda};
     if (tipo === "talla") { datosFiltrados = buscadorDeTallas};
+    if (tipo === "cuentaBancaria") { datosFiltrados = buscadorDeCuentas};
 
     const seleccionarDato = (dato)  => {
       if (tipo === "colegio") { onSeleccionarColegio?.(dato);
@@ -153,6 +175,10 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
         onCerrarModal();
         return;
       }
+      if (tipo === "cuentaBancaria") { onSeleccionarCuenta?.(dato);
+        onCerrarModal();
+        return;
+      }
     };
     const obtenerNombreDato = (dato) => {
       if (tipo === "colegio") { return dato.nombre || "Sin nombre";
@@ -161,10 +187,11 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
       }
       if (tipo === "talla") { return dato.talla || "Sin talla";
       }
+      if (tipo === "cuentaBancaria") { return dato.nombre || "Sin nombre";
+      }
       return "Sin nombre";
     };
     
-
     const abrirModalCrear = () => { setModalCrearAbierto(tipo);
     };
     const cerrarDespuesDeCrear = () => { setModalCrearAbierto(null);

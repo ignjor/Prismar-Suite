@@ -1,8 +1,9 @@
 import "./EditarProducto.css";
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { db } from "../../../../firebase";
+import { db, storage } from "../../../../firebase";
 import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { useProductos } from "../../querys/useProductos";
 import { useColegios } from "../../../Colegios/querys/useColegios";
@@ -36,6 +37,8 @@ export default function EditarProducto() {
 
     const [error, setError] = useState("");
     const [imagen, setImagen] = useState("");
+    const [imagenPendiente, setImagenPendiente] = useState(null);
+    const [previewImagenPendiente, setPreviewImagenPendiente] = useState("");
     
     const [selectorAbierto, setSelectorAbierto] = useState(false);
     const [estadoDelModalFoto, setEstadoDelModalFoto] = useState(false);
@@ -221,20 +224,34 @@ export default function EditarProducto() {
           preciosMap[item.talla] = Number(item.precio);
         }
 
-        const productoActualizado = {
-          nombre: nombreDeProducto.trim(),
-          colegio_id: colegioId || null,
-          tipo_prenda_id: tipoPrendaId,
-          precios_tallas: preciosMap,
-          imagen: imagen || "",
-          fecha_actualizacion: serverTimestamp(),
-        };
 
         try {
           setGuardandoProducto(true);
-          await updateDoc(doc(db, "productos", id), productoActualizado
-          );
-          navigate(-1);
+          const productoRef = doc( db, "productos", id );
+          await updateDoc(productoRef, {
+            nombre: nombreDeProducto.trim(),
+            colegio_id: colegioId || null,
+            tipo_prenda_id: tipoPrendaId,
+            precios_tallas: preciosMap,
+            fecha_actualizacion:
+              serverTimestamp(),
+          });
+          if (imagenPendiente) {
+            const rutaStorage =`productos/${id}/imagen.webp`;
+            const imagenRef = ref( storage, rutaStorage );
+
+            await uploadBytes( imagenRef,imagenPendiente, { contentType: "image/webp" });
+            const nuevaUrl = await getDownloadURL( imagenRef );
+
+            await updateDoc(productoRef, 
+              {
+                imagen: nuevaUrl,
+                fecha_actualizacion: serverTimestamp()     
+            });
+            setImagen(nuevaUrl);
+          }
+          navigate(`/producto/${id}`);
+          
         } catch (error) {
           console.error(
             "Error al editar producto:", error);
@@ -265,7 +282,7 @@ export default function EditarProducto() {
         <button
           type="button"
           className="productoVolver"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate(`/producto/${id}`)}
           disabled={guardandoProducto}
         >
           <ArrowLeft
@@ -281,9 +298,9 @@ export default function EditarProducto() {
         onSubmit={guardarProducto}
       >
         <div className="productoDetalleImagenWrapper">
-          {imagen ? (
+          {previewImagenPendiente || imagen ? (
             <img
-              src={imagen}
+              src={previewImagenPendiente || imagen}
               alt={`Imagen de ${
                 nombreDeProducto || "producto"
               }`}
@@ -487,7 +504,7 @@ export default function EditarProducto() {
               type="button"
               className="productoCrearButton productoCrearButtonCancel"
               disabled={guardandoProducto}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate(`/producto/${id}`)}
             >
               <CircleX
                 size={17}
@@ -518,15 +535,15 @@ export default function EditarProducto() {
 
       {estadoDelModalFoto && (
       <ModalFotoProducto
-        producto={{
-          id, nombreDeProducto, imagen,
-        }}
+        producto={{ nombre: nombreDeProducto, imagen }}
         modalAbierto={estadoDelModalFoto}
         onCerrarModal={() =>
           setEstadoDelModalFoto(false)
         }
-        onFotoGuardada={(url) => {
-          setImagen(url);
+        onFotoGuardada={(blob) => {
+          setImagenPendiente(blob);
+          const url = URL.createObjectURL(blob);
+          setPreviewImagenPendiente(url);
           setEstadoDelModalFoto(false);
         }}
       /> )}

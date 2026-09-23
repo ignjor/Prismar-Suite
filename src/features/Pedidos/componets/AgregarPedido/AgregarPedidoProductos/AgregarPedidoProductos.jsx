@@ -165,7 +165,7 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
             <div className="agregarPedidoProductosEmpty">
                 <div>
                 <h3>
-                    <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/> No hay nada por aquí
+                    <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/> No hay productos por aquí
                 </h3>
                 </div>
             </div>
@@ -338,12 +338,12 @@ export default function AgregarPedidoProductos({productosPedido = [], onProducto
         </div>
 
         {modalTomarMedidasAbierto && (
-            <ModalTomarMedidas
-                modalAbierto={modalTomarMedidasAbierto}
-                producto={productoEditarMedidas?.producto}
-                onEditarMedidas={editarMedidas}
-                onCerrarModal={cerrarTomarMedidas}
-            />
+        <ModalTomarMedidas
+            modalAbierto={modalTomarMedidasAbierto}
+            producto={productoEditarMedidas?.producto}
+            onEditarMedidas={editarMedidas}
+            onCerrarModal={cerrarTomarMedidas}
+        />
         )}
         {selectorAbierto && (
         <ModalSelectorProductos
