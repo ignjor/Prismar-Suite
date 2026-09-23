@@ -53,7 +53,7 @@ function AgregarPedido() {
       return;
     }
     setError("");
-    navigate(-1);
+    navigate("/pedidos");
   };
 
   const cerrarModalGuardarBorrador = () => {
@@ -95,7 +95,7 @@ function AgregarPedido() {
           fecha_actualizacion: serverTimestamp()
         });
       }
-      
+
       navigate("/pedidos");
 
     }catch(error){

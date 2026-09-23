@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./ModalFotoProducto.css";
 
-import { db, storage } from "../../../../firebase";
-import { updateDoc, doc} from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-
 import { Camera, Check, ImagePlus, Upload, CircleX, X } from "lucide-react";
 
 const body = document.body;
@@ -53,11 +49,7 @@ const procesarImagen = (archivo) => {
         imagen.src = url;
     });
 };
-
-const obtenerRutaImagen = (productoId) => {return `productos/${productoId}/imagen.webp`;
-};
-
-export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModal }) {
+export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModal, onFotoGuardada }) {
     const inputArchivoRef = useRef(null);
     const inputCamaraRef = useRef(null);
     const RefAreaDelModal = useRef(null)
@@ -68,8 +60,7 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
     const [error, setError] = useState("");  
 
     const estaOcupado =
-    estado === ESTADOS.PROCESSING ||
-    estado === ESTADOS.UPLOADING;
+    estado === ESTADOS.PROCESSING
     const puedeCerrar = !estaOcupado;
     const puedeGuardar =
         archivoSeleccionado &&
@@ -158,26 +149,16 @@ export default function ModalFotoProducto({ producto, modalAbierto, onCerrarModa
             setError("");
             setEstado(ESTADOS.PROCESSING);
             const imagenWebp = await procesarImagen(archivoSeleccionado);
-            setEstado(ESTADOS.UPLOADING);
-
-            const rutaStorage = obtenerRutaImagen(producto.id);
-            const imagenRef = ref(storage, rutaStorage);
-
-            await uploadBytes(imagenRef, imagenWebp, {contentType: FORMATO_IMAGEN});
-
-            const nuevaUrl = await getDownloadURL(imagenRef);
-            const productoRef = doc(db, "productos", producto.id);
-            await updateDoc(productoRef, {imagen: nuevaUrl});
+            onFotoGuardada(imagenWebp);
             setEstado(ESTADOS.SUCCESS);
+            setTimeout(() => {onCerrarModal();}, 600);
 
-            setTimeout(() => {onCerrarModal();}, 900);
         }catch (error) {
             console.error("Error al subir la imagen",error);
             setEstado(ESTADOS.ERROR);
-            setError(error?.message || "No se pudo actualizar la foto.");
+            setError(error?.message || "No se pudo procesar la foto.");
         }
     };
-
     if (!modalAbierto) {
         return null;
     }

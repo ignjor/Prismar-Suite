@@ -1,8 +1,9 @@
 import "./AgregarProducto.css";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { db } from "../../../../firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, storage } from "../../../../firebase";
+import { addDoc, collection, serverTimestamp, updateDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { useColegios } from "../../../Colegios/querys/useColegios";
 import { useTipoPrenda } from "../../../TiposProducto/querys/useTipoPrenda";
@@ -33,6 +34,8 @@ export default function AgregarProducto() {
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const [imagen, setImagen] = useState("");
+    const [imagenPendiente, setImagenPendiente] = useState(null);
+    const [previewImagenPendiente, setPreviewImagenPendiente] = useState("");
     
     const [selectorAbierto, setSelectorAbierto] = useState(false);
     const [estadoDelModalFoto, setEstadoDelModalFoto] = useState(false);
@@ -170,25 +173,42 @@ export default function AgregarProducto() {
             return;
           }
         }
-
         const preciosMap = {};
         for (const item of preciosPorTallas) {
           preciosMap[item.talla] = Number(item.precio);
         }
 
-        const nuevoProducto = {
-          nombre: nombreDeProducto.trim(),
-          colegio_id: colegioId || null,
-          tipo_prenda_id: tipoPrendaId,
-          precios_tallas: preciosMap,
-          imagen: imagen || "",
-          fecha_actualizacion: serverTimestamp(),
-        };
-
         try {
           setGuardandoProducto(true);
-          await addDoc(collection(db, "productos"), nuevoProducto
+
+          const productoRef = await addDoc(
+            collection(db, "productos"),
+            {
+              nombre: nombreDeProducto.trim(),
+              colegio_id: colegioId || null,
+              tipo_prenda_id: tipoPrendaId,
+              precios_tallas: preciosMap,
+              imagen: "",
+              fecha_actualizacion:
+                serverTimestamp(),
+            }
           );
+          const productoId = productoRef.id;
+          if (imagenPendiente) {
+            const rutaStorage = `productos/${productoId}/imagen.webp`;
+            const imagenRef = ref( storage, rutaStorage );
+
+            await uploadBytes( imagenRef,imagenPendiente, { contentType: "image/webp" });
+            const nuevaUrl = await getDownloadURL( imagenRef );
+
+            await updateDoc(
+              doc( db, "productos", productoId ),
+              {
+                imagen: nuevaUrl,
+                fecha_actualizacion: serverTimestamp(),
+              }
+            );
+          }
           navigate("/productos");
         } catch (error) {
           console.error(
@@ -205,7 +225,7 @@ export default function AgregarProducto() {
         <button
           type="button"
           className="productoVolver"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/productos")}
         >
           <ArrowLeft
             size={17}
@@ -220,9 +240,9 @@ export default function AgregarProducto() {
         onSubmit={guardarProducto}
       >
         <div className="productoDetalleImagenWrapper">
-          {imagen ? (
+          {previewImagenPendiente || imagen ? (
             <img
-              src={imagen}
+              src={previewImagenPendiente || imagen}
               alt={`Imagen de ${
                 nombreDeProducto || "producto"
               }`}
@@ -407,7 +427,7 @@ export default function AgregarProducto() {
                   </div>
                 ))}
               </div>
-              
+
             ) : (
               <p className="productoDetalleSinDatos">
                 {tipoPrendaId
@@ -426,7 +446,7 @@ export default function AgregarProducto() {
               type="button"
               className="productoCrearButton productoCrearButtonCancel"
               disabled={guardandoProducto}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/productos")}
             >
               <CircleX
                 size={17}
@@ -456,16 +476,15 @@ export default function AgregarProducto() {
       </form>
 
       <ModalFotoProducto
-        producto={{
-          nombreDeProducto,
-          imagen,
-        }}
+        producto={{ nombreDeProducto, imagen }}
         modalAbierto={estadoDelModalFoto}
         onCerrarModal={() =>
           setEstadoDelModalFoto(false)
         }
-        onFotoGuardada={(url) => {
-          setImagen(url);
+        onFotoGuardada={(blob) => {
+          setImagenPendiente(blob);
+          const url = URL.createObjectURL(blob);
+          setPreviewImagenPendiente(url);
           setEstadoDelModalFoto(false);
         }}
       />

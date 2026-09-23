@@ -401,3 +401,5 @@ service cloud.firestore {
 ### Miercoles 23 de Septiembre
 
 - fix: arregla bug que no permitia borrar productos aunque no esten relacionados (se agrego indixe de firestore para acceder a la subcollecion de productos dentro de pedidos)
+
+- refactor, fix: el modal para agregar fotos ahora NO guarda directamente en storage, lo hace el padre, el modal entrega el blob con la foto procesada y el padre se encarga, ahora agregar producto puede agregar foto sin el bug de doc no encontrado.

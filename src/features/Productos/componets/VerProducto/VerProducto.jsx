@@ -65,7 +65,7 @@ export default function VerProducto() {
       }};
 
       await deleteDoc(doc(db, "productos", producto.id)); 
-      navigate(-1);
+      navigate("/productos");
     }catch (error) {
        console.error("Error al eliminar el Producto:", error);
        throw error;
@@ -87,7 +87,7 @@ export default function VerProducto() {
         <button
           type="button"
           className="productoVolver"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/productos")}
         >
           <ArrowLeft size={17} strokeWidth={2} />
           Volver a productos
@@ -109,15 +109,7 @@ export default function VerProducto() {
               </span>
             </div>
           )}
-          <button
-            type="button"
-            className="productoEditarFoto"
-            onClick={() => setEstadoDelModal(true)}
-          >
-            <span>
-              Editar foto
-            </span>
-          </button>
+
         </div>
 
         <div className="productoDetalleContenido">
