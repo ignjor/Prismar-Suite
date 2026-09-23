@@ -1,7 +1,7 @@
 import "./AgregarPedido.css";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../../../../firebase";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import AgregarPedidoDatosCliente from "./AgregarPedidoDatosCliente/AgregarPedidoDatosCliente";
@@ -23,6 +23,14 @@ function AgregarPedido() {
   
   const [productosPedido, setProductosPedido] = useState([]);
   const [pagos, setPagos] = useState([])
+
+  const totalPrecio = useMemo(() => {
+    return productosPedido.reduce((total, producto) => {
+      const precio = Number(producto.precio_talla);
+      const cantidad = Number(producto.cantidad);
+      return total + precio * cantidad;
+    }, 0);
+  }, [productosPedido]);
 
   const abrirModalGuardarBorrador = (productoSeleccionado) => {
     if (!cliente.trim()) {
@@ -87,7 +95,9 @@ function AgregarPedido() {
           fecha_actualizacion: serverTimestamp()
         });
       }
-      navigate(-1);
+      
+      navigate("/pedidos");
+
     }catch(error){
       setError("Error al guardar el pedido como borrador.")
       console.error("Error al gaurdar el pedido", error)
@@ -122,12 +132,10 @@ function AgregarPedido() {
           onTelefonoChange={setTelefono}
           onColegioChange={setColegio}
           onFechaEntregaChange={setFechaEntrega}
-
         />
       </div>
 
       <div className="agregarPedidoColumnaProductos">
-
             {error && (
             <p className="productoCrearError">
             {error}
@@ -142,22 +150,22 @@ function AgregarPedido() {
       <div className="agregarPedidoColumnaPagos">
         <AgregarPedidoPagos
           pagosAgregados={pagos}
-          
           onPagosChange={setPagos}
-        
+          totalPedido={totalPrecio}
           />   
+
         <div style={{ maxWidth: "100%", overflow: "hidden" }}>
           <h4>{fechaEntrega}</h4>
           <h4>{cliente}</h4>
           <h4>{telefono}</h4>
           <h4>{colegio}</h4>
+          
           <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
             {JSON.stringify(productosPedido, null, 2)}
           </pre>
         </div>
       </div>
 
-      
         {estadoModalGuardarBorrador && (
         <ModalGuardarBorrador
           tipo = "pedido"
@@ -169,5 +177,4 @@ function AgregarPedido() {
     </div>
   );
 }
-
 export default AgregarPedido;

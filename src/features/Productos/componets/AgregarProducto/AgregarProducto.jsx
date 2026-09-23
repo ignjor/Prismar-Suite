@@ -189,7 +189,7 @@ export default function AgregarProducto() {
           setGuardandoProducto(true);
           await addDoc(collection(db, "productos"), nuevoProducto
           );
-          navigate(-1);
+          navigate("/productos");
         } catch (error) {
           console.error(
             "Error al crear producto:", error);
@@ -407,7 +407,7 @@ export default function AgregarProducto() {
                   </div>
                 ))}
               </div>
-
+              
             ) : (
               <p className="productoDetalleSinDatos">
                 {tipoPrendaId

@@ -1,4 +1,4 @@
-import { use, useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./ModalFotoProducto.css";
 
 import { db, storage } from "../../../../firebase";
