@@ -95,7 +95,6 @@ function AgregarPedido() {
           fecha_actualizacion: serverTimestamp()
         });
       }
-
       navigate("/pedidos");
 
     }catch(error){
@@ -162,6 +161,9 @@ function AgregarPedido() {
           
           <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
             {JSON.stringify(productosPedido, null, 2)}
+          </pre>
+          <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
+            {JSON.stringify(pagos, null, 2)}
           </pre>
         </div>
       </div>

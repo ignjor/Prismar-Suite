@@ -100,7 +100,7 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
           const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
           const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
           return fechaB - fechaA;
-        })}, [datosDeTipoPrenda])
+        })}, [datosDeCuentas])
     const buscadorDeCuentas = listarCuentas.filter(
       (cuenta) => cuenta.nombre
           ?.toLowerCase()

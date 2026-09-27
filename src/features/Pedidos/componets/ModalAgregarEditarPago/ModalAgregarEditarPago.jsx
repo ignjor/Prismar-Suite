@@ -1,1 +1,0 @@
-import "./ModalAgregarEditarPago.css";
