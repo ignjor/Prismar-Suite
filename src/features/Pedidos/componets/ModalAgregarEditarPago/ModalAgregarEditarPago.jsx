@@ -314,6 +314,7 @@ export default function ModalAgregarEditarPago({ modalAbierto, onCerrarModal, on
                                     }}
                                     placeholder="0"
                                     disabled={estaOcupado}
+                                    autoComplete="off"
                                 />
                             </div>
                         </div>
