@@ -58,7 +58,7 @@ function AgregarPedido() {
     setEstadoModalGuardarBorrador(false);
   };
 
-  
+
   const guardarBorrador = async () => {
     if (!cliente.trim()) {
       setError("El nombre del cliente es obligatorio");
@@ -312,7 +312,7 @@ function AgregarPedido() {
                 strokeWidth={2}
               />
               <span>
-                  Agregar
+                  Guardar
               </span>
             </button>
           </div>
