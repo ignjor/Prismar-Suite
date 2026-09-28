@@ -1,6 +1,7 @@
 import "./AgregarPedido.css";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../../../../firebase";
+import { addDoc, collection, serverTimestamp, updateDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../../../firebase";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -32,6 +33,15 @@ function AgregarPedido() {
     }, 0);
   }, [productosPedido]);
 
+  const totalPagado = useMemo(() => {
+    return pagos.reduce((total, pago) => {
+      return total + Number(pago.total_pago || 0);
+    }, 0);
+  }, [pagos]);
+  const estadoPago = totalPagado >= totalPrecio
+    ? "pagado"
+    : "pendiente";
+
   const abrirModalGuardarBorrador = (productoSeleccionado) => {
     if (!cliente.trim()) {
       setError("El nombre del cliente es obligatorio");
@@ -60,6 +70,7 @@ function AgregarPedido() {
     setEstadoModalGuardarBorrador(false);
   };
 
+
   const guardarBorrador = async () => {
     if (!cliente.trim()) {
       setError("El nombre del cliente es obligatorio");
@@ -72,37 +83,77 @@ function AgregarPedido() {
       return;
     }
     try {
-      const pedidoRef = await addDoc(collection(db, "pedidos"),{
-        estado_guardado: "borrador",
-        fecha_entrega: fechaEntrega || "Sin fecha de entrega",
-        cliente: cliente.trim(),
-        telefono: telefono || "Sin número de contacto",
-        colegio: colegio || "Sin Afiliado",
-        fecha_creacion: serverTimestamp()
-      });
-      const productosRef = collection(db, "pedidos", pedidoRef.id, "productos");
-      for (const producto of productosPedido) {
-        await addDoc(productosRef, {
-          producto_id: producto.producto_id,
+      const pedidoRef = await addDoc( collection(db, "pedidos"),
+        {
+          estado_guardado: "borrador",
+          estado_pedido: "pendiente",
+          estado_productos: "pendiente",
+          estado_pago: estadoPago,
+          fecha_entrega: fechaEntrega || "Sin fecha de entrega",
+          cliente: cliente.trim(),
+          telefono: telefono || "Sin número de contacto",
+          colegio: colegio || "Sin Afiliado",
+          fecha_creacion: serverTimestamp(),
+          fecha_actualizacion: serverTimestamp(),
+        }
+      );
+      const pedidoId = pedidoRef.id;
+      const productosRef = collection( db, "pedidos", pedidoId, "productos" );
+      for (const producto of productosPedido) {await addDoc(productosRef, 
+        {
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,
           medidas_asig: producto.medidas_asig,
           talla: producto.talla,
-          precio_talla: Number(producto.precio_talla,),
+          precio_talla: Number(producto.precio_talla),
           imagen: producto.imagen || "",
-          cantidad: Number(producto.cantidad,),
-          fecha_actualizacion: serverTimestamp()
+          cantidad: Number(producto.cantidad),
+          estado_producto: "pendiente",
+          fecha_actualizacion: serverTimestamp(),
         });
       }
-      navigate("/pedidos");
 
-    }catch(error){
-      setError("Error al guardar el pedido como borrador.")
-      console.error("Error al gaurdar el pedido", error)
+      const pagosRef = collection( db, "pedidos", pedidoId, "pagos" );
+      for (const pago of pagos) {
+        const pagoRef = await addDoc(pagosRef, {
+          total_pago: Number(pago.total_pago),
+          fecha_pago: pago.fecha_pago,
+          cuenta_bancaria_id: pago.cuenta_bancaria_id,
+          comprobante_url: "",
+          fecha_actualizacion: serverTimestamp(),
+        });
+        const pagoId = pagoRef.id;
+        if (pago.comprobante_archivo) {
+          const archivo = pago.comprobante_archivo;
+          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/${pago.comprobante_nombre}`;
+          const comprobanteRef = ref( storage, rutaStorage );
+          await uploadBytes( comprobanteRef, archivo,
+            {
+              contentType: archivo.type,
+            }
+          );
+          const comprobanteUrl = await getDownloadURL( comprobanteRef );
+          await updateDoc( doc( db, "pedidos", pedidoId, "pagos", pagoId
+            ),
+            {
+              comprobante_url: comprobanteUrl,
+              fecha_actualizacion: serverTimestamp(),
+            }
+          );
+        }
+      }
+      navigate("/pedidos");
+    } catch (error) {
+      console.error(
+        "Error al guardar el pedido:",
+        error
+      );
+      setError(
+        "Error al guardar el pedido como borrador."
+      );
     }
   };
-
   return (
     <div className="agregarPedido">
       <div className="agregarPedidoEncabezado">
