@@ -1,0 +1,541 @@
+.modalAgregarEditarPagoOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.modalAgregarEditarPago {
+    width: min(100%, 500px);
+    max-height: min(720px, calc(100vh - 40px));
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.16);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
+    color: #1d1d1f;
+}
+
+.modalAgregarEditarPagoHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 22px 18px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalAgregarEditarPagoHeader h2 {
+    margin: 0;
+    color: #1d1d1f;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.45px;
+}
+
+.modalAgregarEditarPagoCerrar {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: #f5f5f7;
+    color: #6e6e73;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.modalAgregarEditarPagoCerrar:hover {
+    background: #e9e9ed;
+    color: #1d1d1f;
+}
+
+.modalAgregarEditarPagoCerrar:active {
+    transform: scale(0.94);
+}
+
+.modalAgregarEditarPagoCerrar:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.modalAgregarEditarPagoContenido {
+    padding: 22px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
+}
+
+.modalAgregarEditarPagoContenido::-webkit-scrollbar {
+    width: 5px;
+}
+
+.modalAgregarEditarPagoContenido::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modalAgregarEditarPagoContenido::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.modalAgregarEditarPagoCampo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 16px;
+}
+
+.modalAgregarEditarPagoCampo:last-of-type {
+    margin-bottom: 0;
+}
+
+.modalAgregarEditarPagoCampo label {
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: #424245;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: -0.1px;
+}
+
+.modalAgregarEditarPagoInputMoneda,
+.modalAgregarEditarPagoInputIcono {
+    width: 100%;
+    height: 44px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    outline: none;
+    background: #f5f5f7;
+    transition: background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.modalAgregarEditarPagoInputMoneda:focus-within,
+.modalAgregarEditarPagoInputIcono:focus-within {
+    background: #ffffff;
+    border-color: rgba(0, 122, 255, 0.45);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.modalAgregarEditarPagoInputMoneda > span {
+    padding-left: 18px;
+    color: #424245;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.modalAgregarEditarPagoInputMoneda input {
+    width: 100%;
+    height: 100%;
+    padding: 0 18px 0 7px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #1d1d1f;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.modalAgregarEditarPagoInputMoneda input::placeholder {
+    color: #98989d;
+}
+
+.modalAgregarEditarPagoInputMoneda input::-webkit-outer-spin-button,
+.modalAgregarEditarPagoInputMoneda input::-webkit-inner-spin-button {
+    margin: 0;
+    appearance: none;
+}
+
+.modalAgregarEditarPagoInputMoneda input {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.modalAgregarEditarPagoInputIcono {
+    padding: 0 18px;
+    gap: 9px;
+    color: #86868b;
+}
+
+.modalAgregarEditarPagoInputIcono input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #424245;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.modalAgregarEditarPagoSelector {
+    width: 100%;
+    min-height: 52px;
+    padding: 7px 11px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    background: #f5f5f7;
+    color: #424245;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+
+.modalAgregarEditarPagoSelector:hover {
+    background: #eeeeF0;
+    border-color: rgba(0, 0, 0, 0.13);
+}
+
+.modalAgregarEditarPagoSelector:active {
+    transform: scale(0.985);
+}
+
+.modalAgregarEditarPagoSelector:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.modalAgregarEditarPagoSelectorIcono {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #69696e;
+}
+
+.modalAgregarEditarPagoSelectorTexto {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: #424245;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modalAgregarEditarPagoSelectorFlecha {
+    flex-shrink: 0;
+    color: #98989d;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.modalAgregarEditarPagoInputArchivo {
+    display: none;
+}
+
+.modalAgregarEditarPagoComprobante {
+    width: 100%;
+    min-height: 52px;
+    padding: 7px 11px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px dashed rgba(0, 0, 0, 0.13);
+    border-radius: 40px;
+    background: #f5f5f7;
+    color: #69696e;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.modalAgregarEditarPagoComprobante:hover {
+    background: #eeeeF0;
+    border-color: rgba(0, 0, 0, 0.18);
+    color: #424245;
+}
+
+.modalAgregarEditarPagoComprobante:active {
+    transform: scale(0.985);
+}
+
+.modalAgregarEditarPagoComprobante:disabled {
+    cursor: default;
+    opacity: 0.55;
+}
+
+.modalAgregarEditarPagoComprobanteIcono {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #69696e;
+}
+
+.modalAgregarEditarPagoComprobante > span:nth-child(2) {
+    flex: 1;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado {
+    width: 100%;
+    min-height: 55px;
+    padding: 8px 9px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(0, 122, 255, 0.16);
+    border-radius: 40px;
+    background: rgba(242, 248, 255, 0.85);
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionadoIcono {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #007aff;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado > div:nth-child(2) {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado strong {
+    max-width: 100%;
+    overflow: hidden;
+    color: #424245;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado span {
+    color: #86868b;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado > button {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #86868b;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado > button:hover {
+    background: #fff0f0;
+    color: #d70015;
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado > button:active {
+    transform: scale(0.92);
+}
+
+.modalAgregarEditarPagoComprobanteSeleccionado > button:disabled {
+    cursor: default;
+    opacity: 0.5;
+}
+
+.modalAgregarEditarPagoProcesando,
+.modalAgregarEditarPagoEstadoExito {
+    min-height: 42px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.modalAgregarEditarPagoProcesando {
+    color: #69696e;
+}
+
+.modalAgregarEditarPagoEstadoExito {
+    color: #22a447;
+    font-size: 13px;
+}
+
+.modalAgregarEditarPagoSpinner {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    border-top-color: #007aff;
+    border-radius: 50%;
+    animation: modalAgregarEditarPagoSpin 0.7s linear infinite;
+}
+
+.modalAgregarEditarPagoSpinnerBlanco {
+    width: 14px;
+    height: 14px;
+    border-color: rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+}
+
+@keyframes modalAgregarEditarPagoSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.modalAgregarEditarPagoError {
+    margin: 13px 0 0;
+    padding: 10px 13px;
+    box-sizing: border-box;
+    border: 1px solid rgba(215, 0, 21, 0.08);
+    border-radius: 14px;
+    background: #fff0f0;
+    color: #d70015;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.modalAgregarEditarPagoFooter {
+    display: flex;
+    gap: 10px;
+    padding: 18px 22px 22px;
+    border-top: 1px solid rgba(0, 0, 0, 0.055);
+}
+
+.modalAgregarEditarPagoCancelar,
+.modalAgregarEditarPagoGuardar {
+    flex: 1;
+    height: 42px;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.modalAgregarEditarPagoCancelar {
+    background: #f5f5f7;
+    color: #424245;
+}
+
+.modalAgregarEditarPagoCancelar:hover:not(:disabled) {
+    background: #fff0f0;
+    color: #d70015;
+}
+
+.modalAgregarEditarPagoGuardar {
+    background: #22b84b;
+    color: #ffffff;
+}
+
+.modalAgregarEditarPagoGuardar:hover:not(:disabled) {
+    background: #1fa943;
+}
+
+.modalAgregarEditarPagoCancelar:active,
+.modalAgregarEditarPagoGuardar:active {
+    transform: scale(0.97);
+}
+
+.modalAgregarEditarPagoCancelar:disabled,
+.modalAgregarEditarPagoGuardar:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+@media (max-width: 480px) {
+    .modalAgregarEditarPagoOverlay {
+        padding: 16px;
+    }
+
+    .modalAgregarEditarPago {
+        max-height: calc(100vh - 32px);
+        border-radius: 22px;
+    }
+
+    .modalAgregarEditarPagoHeader {
+        padding: 20px 18px 16px;
+    }
+
+    .modalAgregarEditarPagoHeader h2 {
+        font-size: 19px;
+    }
+
+    .modalAgregarEditarPagoContenido {
+        padding: 20px 18px;
+    }
+
+    .modalAgregarEditarPagoFooter {
+        padding: 16px 18px 18px;
+    }
+}
+
+@media (max-width: 360px) {
+    .modalAgregarEditarPagoFooter {
+        flex-direction: column;
+    }
+
+    .modalAgregarEditarPagoCancelar,
+    .modalAgregarEditarPagoGuardar {
+        width: 100%;
+    }
+}

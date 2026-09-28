@@ -407,3 +407,5 @@ service cloud.firestore {
 ### Domingo 27 de Septiembre
 
 - feat, fix: agrega Pedido pagos, falta crear el modal para crear el pago, arregla el bug del selector de la cuenta bancaria.
+
+- feat: agrega modalagregarpago, agrega dentro de agregar pedido pagos reestricciones para agregar pagos, en pedido produtos el boton eliminar se movio a la esquina derecha.
