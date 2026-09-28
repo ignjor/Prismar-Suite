@@ -121,51 +121,40 @@ function AgregarPedido() {
         </div>
       </div>
 
-      <div className="agregarPedidoColumnaCliente">
-        <AgregarPedidoDatosCliente
-          cliente={cliente}
-          telefono={telefono}
-          colegio={colegio}
-          fechaEntrega={fechaEntrega}
-          onClienteChange={setCliente}
-          onTelefonoChange={setTelefono}
-          onColegioChange={setColegio}
-          onFechaEntregaChange={setFechaEntrega}
-        />
+      <div className="agregarPedidoColumnaIzquierda">
+        <div className="agregarPedidoColumnaCliente">
+          <AgregarPedidoDatosCliente
+            cliente={cliente}
+            telefono={telefono}
+            colegio={colegio}
+            fechaEntrega={fechaEntrega}
+            onClienteChange={setCliente}
+            onTelefonoChange={setTelefono}
+            onColegioChange={setColegio}
+            onFechaEntregaChange={setFechaEntrega}
+          />
+        </div>
+
+        <div className="agregarPedidoColumnaPagos">
+          <AgregarPedidoPagos
+            pagosAgregados={pagos}
+            onPagosChange={setPagos}
+            totalPedido={totalPrecio}
+          />
+        </div>
       </div>
 
       <div className="agregarPedidoColumnaProductos">
-            {error && (
-            <p className="productoCrearError">
+        {error && (
+          <p className="productoCrearError">
             {error}
-            </p>
+          </p>
         )}
+
         <AgregarPedidoProductos
           productosPedido={productosPedido}
           onProductoChange={setProductosPedido}
         />
-      </div>
-
-      <div className="agregarPedidoColumnaPagos">
-        <AgregarPedidoPagos
-          pagosAgregados={pagos}
-          onPagosChange={setPagos}
-          totalPedido={totalPrecio}
-          />   
-
-        <div style={{ maxWidth: "100%", overflow: "hidden" }}>
-          <h4>{fechaEntrega}</h4>
-          <h4>{cliente}</h4>
-          <h4>{telefono}</h4>
-          <h4>{colegio}</h4>
-          
-          <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
-            {JSON.stringify(productosPedido, null, 2)}
-          </pre>
-          <pre style={{ textAlign: "left", background: "#f4f4f4", padding: "10px"}}>
-            {JSON.stringify(pagos, null, 2)}
-          </pre>
-        </div>
       </div>
 
         {estadoModalGuardarBorrador && (
