@@ -403,3 +403,9 @@ service cloud.firestore {
 - fix: arregla bug que no permitia borrar productos aunque no esten relacionados (se agrego indixe de firestore para acceder a la subcollecion de productos dentro de pedidos)
 
 - refactor, fix: el modal para agregar fotos ahora NO guarda directamente en storage, lo hace el padre, el modal entrega el blob con la foto procesada y el padre se encarga, ahora agregar producto puede agregar foto sin el bug de doc no encontrado.
+
+### Domingo 27 de Septiembre
+
+- feat, fix: agrega Pedido pagos, falta crear el modal para crear el pago, arregla el bug del selector de la cuenta bancaria.
+
+- feat: agrega modalagregarpago, agrega dentro de agregar pedido pagos reestricciones para agregar pagos, en pedido produtos el boton eliminar se movio a la esquina derecha.
