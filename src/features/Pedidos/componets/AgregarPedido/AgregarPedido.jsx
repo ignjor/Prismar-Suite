@@ -42,18 +42,6 @@ function AgregarPedido() {
     ? "pagado"
     : "pendiente";
 
-  const abrirModalGuardarBorrador = (productoSeleccionado) => {
-    if (!cliente.trim()) {
-      setError("El nombre del cliente es obligatorio");
-      return;
-    }
-    if (!productoSeleccionado) {
-      return;
-    }
-    setError("")
-    setEstadoModalGuardarBorrador(true);
-  };
-
   const botonVolver = () => {
     const hayCliente = cliente.trim() !== "";
     const hayProductos = productosPedido.length > 0;
@@ -70,7 +58,7 @@ function AgregarPedido() {
     setEstadoModalGuardarBorrador(false);
   };
 
-
+  
   const guardarBorrador = async () => {
     if (!cliente.trim()) {
       setError("El nombre del cliente es obligatorio");
@@ -152,8 +140,102 @@ function AgregarPedido() {
       setError(
         "Error al guardar el pedido como borrador."
       );
-    }
+    };
   };
+
+  
+  const guardarCompleto = async () => {
+    if (!cliente.trim()) {
+      setError("El nombre del cliente es obligatorio");
+      return;
+    }
+    if (productosPedido.length === 0) {
+      setError(
+        "Debes agregar al menos un producto antes de guardar el pedido."
+      );
+      return;
+    }
+    if (!telefono.trim()){
+      setError("El telefono del cliente es obligatorio");
+      return;
+    }
+    if (!fechaEntrega.trim()){
+      setError("La fecha de entrega del pedido es obligatoria");
+      return;
+    }
+
+    try {
+      const pedidoRef = await addDoc( collection(db, "pedidos"),
+        {
+          estado_guardado: "guardado",
+          estado_pedido: "pendiente",
+          estado_productos: "pendiente",
+          estado_pago: estadoPago,
+          fecha_entrega: fechaEntrega,
+          cliente: cliente.trim(),
+          telefono: telefono,
+          colegio: colegio || "Sin Afiliado",
+          fecha_creacion: serverTimestamp(),
+          fecha_actualizacion: serverTimestamp(),
+        }
+      );
+      const pedidoId = pedidoRef.id;
+      const productosRef = collection( db, "pedidos", pedidoId, "productos" );
+      for (const producto of productosPedido) {await addDoc(productosRef, 
+        {
+          nombre: producto.nombre,
+          colegio: producto.colegio || "Sin afiliado",
+          tipo_prenda: producto.tipo_prenda,
+          medidas_asig: producto.medidas_asig,
+          talla: producto.talla,
+          precio_talla: Number(producto.precio_talla),
+          imagen: producto.imagen || "",
+          cantidad: Number(producto.cantidad),
+          estado_producto: "pendiente",
+          fecha_actualizacion: serverTimestamp(),
+        });
+      }
+      const pagosRef = collection( db, "pedidos", pedidoId, "pagos" );
+      for (const pago of pagos) {
+        const pagoRef = await addDoc(pagosRef, {
+          total_pago: Number(pago.total_pago),
+          fecha_pago: pago.fecha_pago,
+          cuenta_bancaria_id: pago.cuenta_bancaria_id,
+          comprobante_url: "",
+          fecha_actualizacion: serverTimestamp(),
+        });
+        const pagoId = pagoRef.id;
+        if (pago.comprobante_archivo) {
+          const archivo = pago.comprobante_archivo;
+          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/${pago.comprobante_nombre}`;
+          const comprobanteRef = ref( storage, rutaStorage );
+          await uploadBytes( comprobanteRef, archivo,
+            {
+              contentType: archivo.type,
+            }
+          );
+          const comprobanteUrl = await getDownloadURL( comprobanteRef );
+          await updateDoc( doc( db, "pedidos", pedidoId, "pagos", pagoId
+            ),
+            {
+              comprobante_url: comprobanteUrl,
+              fecha_actualizacion: serverTimestamp(),
+            }
+          );
+        }
+      }
+      navigate("/pedidos");
+    } catch (error) {
+      console.error(
+        "Error al guardar el pedido:",
+        error
+      );
+      setError(
+        "Error al guardar el pedido."
+      );
+    };
+  };
+
   return (
     <div className="agregarPedido">
       <div className="agregarPedidoEncabezado">
@@ -206,6 +288,34 @@ function AgregarPedido() {
           productosPedido={productosPedido}
           onProductoChange={setProductosPedido}
         />
+          <div className="productoCrearActions">
+            <button
+              type="button"
+              className="productoCrearButton productoCrearButtonCancel"
+              onClick={botonVolver}
+            >
+              <CircleX
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                Cancelar
+              </span>
+            </button>
+            <button
+              type="submit"
+              className="productoCrearButton productoCrearButtonPrimary"
+              onClick={guardarCompleto}
+            >
+              <CirclePlus
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                  Agregar
+              </span>
+            </button>
+          </div>
       </div>
 
         {estadoModalGuardarBorrador && (
