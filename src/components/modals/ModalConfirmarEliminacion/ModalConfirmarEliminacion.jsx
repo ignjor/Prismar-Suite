@@ -42,7 +42,6 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
     
     const [pasoConfirmacion, setPasoConfirmacion] = useState(1);
     const [eliminando, setEliminando] = useState(false);
-
     const configuracionActual = configuracion[tipo];
 
     const verificarReferencias = async () => {

@@ -415,3 +415,5 @@ service cloud.firestore {
 - feat: guarda pedido/pagos en firestore y storage, agrega los estodos de pago dentro de firestore comparando el total del pedido con el total pagado.
 
 - feat: agrega boton para guardar como guardado y borrador, al guardar con el modal borrador se guarda con el estado borrador, al guardar con boton agregar se guarda con estado guardado y se muestra en la ventana primera de pedidos.
+
+- fix: modal selector de cuentas bancarias ya no muestra el boton para crear cuenta y ademas solo muestra las cuentas activas.

@@ -102,7 +102,9 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
           return fechaB - fechaA;
         })}, [datosDeCuentas])
     const buscadorDeCuentas = listarCuentas.filter(
-      (cuenta) => cuenta.nombre
+      (cuenta) => 
+          cuenta.activo !== false &&
+          cuenta.nombre
           ?.toLowerCase()
           .includes(buscadorNormalizado)
     );
@@ -313,6 +315,7 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
             </div>
           </div>
 
+          {tipo !== "cuentaBancaria" && (
           <footer className="modalSelectorActions">
             <button
               type="button"
@@ -328,6 +331,7 @@ export default function ModalSelector({tipo, modalAbierto, onCerrarModal, onSele
               </span>
             </button>
           </footer>
+          )}
         </div>
       </div>
 
