@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./BottomNav.css";
 
-import { Home, ShoppingBag, Package, PiggyBank, Plus, School, BanknoteArrowDown, Shirt, Tag } from "lucide-react";
+import { ShoppingBag, Package, PiggyBank, Plus, School, BanknoteArrowDown, Shirt, Tag, Birdhouse } from "lucide-react";
 
 const rutasDeNavegacion = [
-    {name: "Inicio", path: "/", icon: Home},
+    {name: "Inicio", path: "/", icon: Birdhouse},
     {name: "Pedidos", path: "/pedidos", icon: ShoppingBag},
     {name: "Productos", path: "/productos", icon: Package},
     {name: "Cuentas", path: "/cuentas", icon: PiggyBank},

@@ -1,112 +1,200 @@
 import "./Pedidos.css";
 import { usePedidos } from "../../querys/usePedidos";
-
 import { useMemo, useState } from "react";
-
-import { Search, Eye} from "lucide-react";
+import { Search, Eye, Eraser } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Pedidos() {
-    const navigate = useNavigate();
-    const [buscador, setBuscador] = useState("");
+  const navigate = useNavigate();
+  const [buscador, setBuscador] = useState("");
+  const {data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
 
-    const { data: datosDePedidos = [],
-      isLoading, isError, error} = usePedidos();
+  const listarPedidos = useMemo(() => {
+    return [...datosDePedidos]
+      .filter(
+        (pedido) =>
+          String(pedido.estado_guardado || "") === "Guardado"
+      )
+      .sort((a, b) => {
+        const fechaA = a.fecha_creacion?.toMillis?.() || 0;
+        const fechaB = b.fecha_creacion?.toMillis?.() || 0;
+        return fechaB - fechaA;
+      });
+  }, [datosDePedidos]);
 
-
-    const listarPedidos = useMemo(() => {
-      return [...datosDePedidos]
-        .sort((a, b) => {
-          const fechaA = a.fecha_entrega?.toMillis?.() || 0;
-          const fechaB = b.fecha_entrega?.toMillis?.() || 0;
-          return fechaB - fechaA;
-        })
-    });
-
-    const buscadorDePedidos = listarPedidos.filter(
-      (pedido) =>
-        pedido.cliente
-          ?.toLowerCase()
-          .includes(buscador.toLowerCase())
+  const buscadorDePedidos = useMemo(() => {
+    const texto = buscador.toLowerCase().trim();
+    if (!texto) {
+      return listarPedidos;
+    }
+    return listarPedidos.filter((pedido) =>
+      String(pedido.cliente || "").toLowerCase().includes(texto)
     );
+  }, [listarPedidos, buscador]);
 
-    if (isLoading) { return <p>Cargando los Pedidos...</p>}
-    if (isError) { return <p>Error: {error.message}. Error al Cargar los Pedidos, recargue la página.</p>}
+  const formatearPrecio = (valor) => {
+    return `$${Number(valor || 0).toLocaleString("es-CL")}`;
+  };
+  
+  const formatearFecha = (fecha) => {
+    if (typeof fecha === "string") {
+      return fecha === "Sin fecha de entrega"
+        ? fecha
+        : fecha.substring(0, 10).split("-").reverse().join("-");
+    }
+    return "Sin fecha de entrega";
+  };
 
-    return(
-      <main className="adminColegios">
-        <header className="adminColegiosHeader">
-          <h1 className="adminColegiosTitle">
-            Pedidos
-          </h1>
-          
-          <div className="colegiosBuscador">
-            <Search
-              className="colegiosBuscadorIcon"
-              size={18}
-              strokeWidth={2}
-            />
-            <input
-              type="text"
-              className="colegiosBuscadorInput"
-              placeholder="Buscar un pedido con nombre del cliente..."
-              value={buscador}
-              onChange={(e) => setBuscador(e.target.value)}
-              aria-label="Buscar Colegio"
-              autoComplete="off"
-            />
-          </div>
-        </header>
-        <section className="colegiosGrid">
+  const obtenerNombresProductos = (productos = []) => {
+    const nombres = productos.map((producto) => producto.nombre).filter(Boolean);
+    const visibles = nombres.slice(0, 3);
+    const restantes = nombres.length - visibles.length;
+    return { visibles, restantes };
+  };
 
-          {buscadorDePedidos.map((datoPedidoEspecifico) => (
-            <article
-              key={datoPedidoEspecifico.id}
-              className="colegioCard"
-            >
-              <div className="colegioCardContent">
+  const obtenerTotalPagado = (pagos = []) => {
+    return pagos.reduce(
+      (total, pago) => total + Number(pago.total_pago || 0), 0);
+  };
 
-                <div className="productoCardHeader">
+  const obtenerTotalPendiente = (pedido) => {
+    const totalPedido = Number(pedido.total_pedido || 0);
+    const totalPagado = obtenerTotalPagado(pedido.pagos);
+    return Math.max(totalPedido - totalPagado, 0);
+  };
 
-                <div className="productoCardInfo">
+  if (isLoading) {
+    return <p>Cargando los Pedidos...</p>;
+  }
+  if (isError) {
+    return (
+      <p>
+        Error: {error.message}. Error al Cargar los Pedidos, recargue la página.
+      </p>
+    );
+  }
 
-                  <h2 className="colegioNombre">
-                    {datoPedidoEspecifico.cliente}
-                  </h2>
+  return (
+    <main className="adminPedidos">
+      <header className="adminPedidosHeader">
+        <h1 className="adminPedidosTitle">Pedidos</h1>
+        <div className="pedidosBuscador">
+          <Search className="pedidosBuscadorIcon" size={18} strokeWidth={2} />
+          <input
+            type="text"
+            className="pedidosBuscadorInput"
+            placeholder="Buscar un pedido..."
+            value={buscador}
+            onChange={(e) => setBuscador(e.target.value)}
+            aria-label="Buscar pedido"
+            autoComplete="off"
+          />
+        </div>
+      </header>
 
+      <section className="pedidosLista">
+        {buscadorDePedidos.map((pedido) => {
+          const { visibles, restantes } = obtenerNombresProductos(pedido.productos);
+          const totalPendiente = obtenerTotalPendiente(pedido);
+          return (
+            <article key={pedido.id} className="pedidoRow">
+              <div className="pedidoCliente">
+                <span className="pedidoLabel">Fecha de Entrega</span>
+                <h2>{formatearFecha(pedido.fecha_entrega)}</h2>
+                <span className="pedidoClienteNombre">
+                  {pedido.cliente}
+                </span>
+                <span className="pedidoColegio">
+                  {pedido.colegio}
+                </span>
+              </div>
 
-                  <span className="TipoPrendaAsignadoTitle">
-                    {datoPedidoEspecifico.numero_pedido}
-                  </span>
-
+              <div className="pedidoProductos">
+                <span className="pedidoLabel">Productos</span>
+                <div className="pedidoProductosNombres">
+                  {visibles.length > 0 ? (
+                    visibles.map((nombre, index) => (
+                      <span
+                        key={`${nombre}-${index}`}
+                        className="pedidoProductoNombre"
+                      >
+                        {nombre}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="pedidoProductoVacio">
+                      Sin productos
+                    </span>
+                  )}
+                  {restantes > 0 && (
+                    <span className="pedidoProductosMas">
+                      +{restantes}
+                    </span>
+                  )}
                 </div>
+              </div>
+              <div className="pedidoTotales">
+                <span className="pedidoLabel">PAGO PENDIENTE</span>
+                <strong>{Number(totalPendiente) <= 0
+                  ? "Pedido Pagado"
+                  : formatearPrecio(totalPendiente)} </strong>
 
+                <span className="pedidoPendiente">
+                  Total del pedido: {formatearPrecio(pedido.total_pedido)}
+                </span>
               </div>
 
-
-                <h2 className="medidasAsignadasTitle">
-                  Total:
-                </h2>
-                    <span className="atributosTipoPrenda">
-                       ${Number(datoPedidoEspecifico.total).toLocaleString("es-CL")}
-                     </span>
+              <div className="pedidoEstados">
+                <span className="pedidoLabel">Estados del Pedido</span>
+                <span
+                  className={`pedidoEstado ${
+                    pedido.estado_productos === "Completado"
+                      ? "pedidoEstadoProductosListos"
+                      : "pedidoEstadoProductosPendiente"
+                  }`}
+                >
+                  Proceso: {pedido.estado_productos}
+                </span>
+                <span
+                  className={`pedidoEstado ${
+                    pedido.estado_pedido === "Entregado" ||
+                    pedido.estado_pedido === "Completado"
+                      ? "pedidoEstadoPedidoEntregado"
+                      : "pedidoEstadoPedidoPendiente"
+                  }`}
+                >
+                  Entrega: {pedido.estado_pedido}
+                </span>
               </div>
-              <div className="colegioActions">
+
+              <div className="pedidoAction">
                 <button
                   type="button"
-                  className="colegioAction colegioActionEye"
-                  aria-label={`Editar ${datoPedidoEspecifico.cliente}`}
-                  onClick={() => navigate(`/pedido/${datoPedidoEspecifico.id}`)}
+                  className="pedidoActionButton"
+                  aria-label={`Abrir pedido de ${pedido.cliente}`}
+                  onClick={() => navigate(`/pedido/${pedido.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
-                  <span>
-                    Abrir
-                  </span>
+                  <span>Gestionar</span>
                 </button>
               </div>
             </article>
-          ))}
-        </section>
-      </main>
-    );
+          );
+        })}
+      </section>
+      <section className="agregarColegio">
+        <p className="agregarColegioTexto">
+          Revisa tus borradores
+        </p>
+        <button
+          type="button"
+          className="agregarColegioButton"
+          aria-label="Ver pedidos borradores"
+          onClick={() => navigate("/pedidos-borradores")}
+        >
+          <Eraser size={21} strokeWidth={2} />
+        </button>
+      </section>
+    </main>
+  );
 }
