@@ -417,3 +417,7 @@ service cloud.firestore {
 - feat: agrega boton para guardar como guardado y borrador, al guardar con el modal borrador se guarda con el estado borrador, al guardar con boton agregar se guarda con estado guardado y se muestra en la ventana primera de pedidos.
 
 - fix: modal selector de cuentas bancarias ya no muestra el boton para crear cuenta y ademas solo muestra las cuentas activas.
+
+### Martes 29 de Septiembre
+
+- feat: agrega pedidos y las vistas previas de los pedidos, cambia los estados "guardado" "borrador" por "Guardado" "Borrador". Modifica las query de pedidos para poder cargar en cache las subcolecciones de pedidos.

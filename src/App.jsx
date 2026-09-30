@@ -14,6 +14,7 @@ import TipoPrenda from "./features/TiposProducto/componets/TipoPrenda/TipoPrenda
 import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 
 import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
+import PedidosBorradores from "./features/Pedidos/componets/Pedidos/PedidosBorradores";
 import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
 import VerPedido from "./features/Pedidos/componets/VerPedido/VerPedido";
 
@@ -69,6 +70,10 @@ function AppContent() {
         <Route 
           path="/pedidos" 
           element={<Pedidos />} 
+        />
+        <Route 
+          path="/pedidos-borradores" 
+          element={<PedidosBorradores />} 
         />
         <Route 
           path="/agregar-pedido" 
