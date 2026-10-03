@@ -425,3 +425,5 @@ service cloud.firestore {
 ### Viernes 2 de Octubre
 
 - feat: agrega filtros de busqueda dentro de pedidos, de PROCESO, ENTREGA, y PAGO.
+
+- feat: conectamos con firebase hosting la rama main de github. 
