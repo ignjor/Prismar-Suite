@@ -176,7 +176,7 @@ export default function Pedidos() {
                   onClick={() => navigate(`/pedido/${pedido.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
-                  <span>Gestionar</span>
+                  <span>Revisar</span>
                 </button>
               </div>
             </article>

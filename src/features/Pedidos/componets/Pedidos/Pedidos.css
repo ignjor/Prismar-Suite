@@ -1,479 +1,464 @@
 .adminPedidos {
-width: min(94%, 1180px);
-margin: 0 auto;
-padding: 42px 0 130px;
-font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
-color: #1d1d1f;
+width:min(94%,1180px);
+margin:0 auto;
+padding:42px 0 130px;
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif;
+color:#1d1d1f;
 }
-
 .adminPedidosHeader {
-  margin-top: 10px;
-  margin-bottom: 50px;
-  text-align: center;
+margin-top:10px;
+margin-bottom:50px;
+text-align:center;
 }
-
 .adminPedidosTitle {
-  margin: 50px 0;
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  color: #1d1d1f;
+margin:50px 0;
+font-size:34px;
+font-weight:700;
+letter-spacing:-1px;
+color:#1d1d1f;
 }
-
 .pedidosBuscador {
-  width: min(100%, 300px);
-  height: 48px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 16px;
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.68);
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 30px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.045);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+width:min(100%,300px);
+height:48px;
+margin:0 auto;
+display:flex;
+align-items:center;
+gap:10px;
+padding:0 16px;
+box-sizing:border-box;
+background:rgba(255,255,255,.68);
+border:1px solid rgba(0,0,0,.07);
+border-radius:30px;
+box-shadow:0 6px 20px rgba(0,0,0,.045);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
 }
-
 .pedidosBuscadorIcon {
-flex-shrink: 0;
-color: #86868b;
-transition: color 0.2s ease;
+flex-shrink:0;
+color:#86868b;
+transition:color .2s ease;
 }
-
 .pedidosBuscadorInput {
-width: 100%;
-min-width: 0;
-height: 100%;
-padding: 0;
-border: none;
-outline: none;
-background: transparent;
-color: #1d1d1f;
-font-family: inherit;
-font-size: 14px;
-font-weight: 400;
-letter-spacing: -0.15px;
+width:100%;
+min-width:0;
+height:100%;
+padding:0;
+border:none;
+outline:none;
+background:transparent;
+color:#1d1d1f;
+font-family:inherit;
+font-size:14px;
+font-weight:400;
+letter-spacing:-.15px;
 }
-
 .pedidosBuscadorInput::placeholder {
-color: #98989d;
-opacity: 1;
+color:#98989d;
+opacity:1;
 }
-
 .pedidosBuscador:focus-within {
-background: rgba(255, 255, 255, 0.82);
-border-color: rgba(34, 184, 75, 0.35);
-box-shadow: 0 0 0 3px rgba(34, 184, 75, 0.08), 0 8px 24px rgba(0, 0, 0, 0.055);
+background:rgba(255,255,255,.82);
+border-color:rgba(34,184,75,.35);
+box-shadow:0 0 0 3px rgba(34,184,75,.08),0 8px 24px rgba(0,0,0,.055);
 }
-
 .pedidosBuscador:focus-within .pedidosBuscadorIcon {
-color: #22b84b;
+color:#22b84b;
 }
-
+.pedidosFiltros {
+width:min(100%,700px);
+margin:18px auto 0;
+display:flex;
+justify-content:center;
+align-items:flex-end;
+gap:12px;
+}
+.pedidoFiltro {
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:5px;
+}
+.pedidoFiltro span {
+padding-left:5px;
+color:#86868b;
+font-size:11px;
+font-weight:600;
+letter-spacing:.2px;
+text-transform:uppercase;
+}
+.pedidoFiltro select {
+min-width:140px;
+height:38px;
+padding:0 34px 0 13px;
+border:1px solid rgba(0,0,0,.07);
+border-radius:20px;
+outline:none;
+background:rgba(255,255,255,.72);
+color:#424245;
+font-family:inherit;
+font-size:13px;
+cursor:pointer;
+box-shadow:0 5px 16px rgba(0,0,0,.035);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+transition:border-color .2s ease,box-shadow .2s ease;
+}
+.pedidoFiltro select:focus {
+border-color:rgba(34,184,75,.35);
+box-shadow:0 0 0 3px rgba(34,184,75,.08),0 6px 18px rgba(0,0,0,.045);
+}
 .pedidosLista {
-width: 100%;
-display: flex;
-flex-direction: column;
-gap: 14px;
+width:100%;
+display:flex;
+flex-direction:column;
+gap:14px;
 }
-
 .pedidoRow {
-width: 100%;
-min-width: 0;
-display: grid;
-grid-template-columns: 1.15fr 2fr 0.9fr 1.15fr auto;
-align-items: center;
-gap: 30px;
-padding: 27px 28px;
-box-sizing: border-box;
-background: rgba(255, 255, 255, 0.72);
-border: 1px solid rgba(0, 0, 0, 0.055);
-border-radius: 24px;
-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.055);
-backdrop-filter: blur(18px);
--webkit-backdrop-filter: blur(18px);
-transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+width:100%;
+min-width:0;
+display:grid;
+grid-template-columns:1.15fr 2fr .9fr 1.15fr auto;
+align-items:center;
+gap:45px;
+padding:27px 28px;
+box-sizing:border-box;
+background:rgba(255,255,255,.72);
+border:1px solid rgba(0,0,0,.055);
+border-radius:24px;
+box-shadow:0 8px 24px rgba(0,0,0,.055);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
 }
-
 .pedidoRow:hover {
-transform: translateY(-2px);
-box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-border-color: rgba(0, 0, 0, 0.08);
+transform:translateY(-2px);
+box-shadow:0 12px 30px rgba(0,0,0,.08);
+border-color:rgba(0,0,0,.08);
 }
-
 .pedidoLabel {
-display: block;
-margin-bottom: 8px;
-color: #86868b;
-font-size: 12px;
-font-weight: 600;
-letter-spacing: 0.2px;
-text-transform: uppercase;
+display:block;
+margin-bottom:8px;
+color:#86868b;
+font-size:12px;
+font-weight:600;
+letter-spacing:.2px;
+text-transform:uppercase;
 }
-
 .pedidoCliente {
-min-width: 0;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
+min-width:0;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
 }
-
 .pedidoCliente h2 {
-margin: 0;
-color: #1d1d1f;
-font-size: 20px;
-line-height: 1.2;
-font-weight: 600;
-letter-spacing: -0.3px;
-overflow-wrap: anywhere;
+margin:0;
+color:#1d1d1f;
+font-size:20px;
+line-height:1.2;
+font-weight:600;
+letter-spacing:-.3px;
+overflow-wrap:anywhere;
 }
-
 .pedidoClienteNombre {
-margin-top: 6px;
-color: #424245;
-font-size: 14px;
-line-height: 1.2;
-font-weight: 500;
+margin-top:6px;
+color:#424245;
+font-size:14px;
+line-height:1.2;
+font-weight:500;
 }
-
 .pedidoColegio {
-margin-top: 3px;
-color: #98989d;
-font-size: 12px;
-line-height: 1.2;
+margin-top:3px;
+color:#98989d;
+font-size:12px;
+line-height:1.2;
 }
-
 .pedidoProductos {
-min-width: 0;
+min-width:0;
 }
-
 .pedidoProductosNombres {
-min-width: 0;
-display: flex;
-align-items: center;
-flex-wrap: wrap;
-gap: 7px;
+min-width:0;
+display:flex;
+align-items:center;
+flex-wrap:wrap;
+gap:7px;
 }
-
 .pedidoProductoNombre {
-max-width: 170px;
-padding: 4px 8px;
-box-sizing: border-box;
-border-radius: 30px;
-background: rgba(245, 245, 247, 0.75);
-border: 1px solid rgba(0, 0, 0, 0.045);
-color: #69696e;
-font-size: 13px;
-font-weight: 400;
-letter-spacing: 0.15px;
-line-height: 1.2;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
+max-width:170px;
+padding:4px 8px;
+box-sizing:border-box;
+border-radius:30px;
+background:rgba(245,245,247,.75);
+border:1px solid rgba(0,0,0,.045);
+color:#69696e;
+font-size:13px;
+font-weight:400;
+letter-spacing:.15px;
+line-height:1.2;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
 }
-
 .pedidoProductosMas {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-min-width: 30px;
-height: 28px;
-padding: 0 8px;
-box-sizing: border-box;
-border-radius: 30px;
-background: rgba(245, 245, 247, 0.75);
-border: 1px solid rgba(0, 0, 0, 0.045);
-color: #69696e;
-font-size: 12px;
-font-weight: 500;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+min-width:30px;
+height:28px;
+padding:0 8px;
+box-sizing:border-box;
+border-radius:30px;
+background:rgba(245,245,247,.75);
+border:1px solid rgba(0,0,0,.045);
+color:#69696e;
+font-size:12px;
+font-weight:500;
 }
-
 .pedidoProductoVacio {
-color: #98989d;
-font-size: 13px;
+color:#98989d;
+font-size:13px;
 }
-
 .pedidoTotales {
-min-width: 0;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
+min-width:0;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
 }
-
 .pedidoTotales strong {
-color: #1d1d1f;
-font-size: 20px;
-line-height: 1.2;
-font-weight: 600;
-letter-spacing: -0.3px;
+color:#1d1d1f;
+font-size:20px;
+line-height:1.2;
+font-weight:600;
+letter-spacing:-.3px;
 }
-
 .pedidoPendiente {
-margin-top: 6px;
-color: #86868b;
-font-size: 12px;
-line-height: 1.2;
+margin-top:6px;
+color:#86868b;
+font-size:12px;
+line-height:1.2;
 }
-
 .pedidoEstados {
-min-width: 0;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 7px;
+min-width:0;
+display:flex;
+flex-direction:column;
+align-items:flex-start;
+gap:7px;
 }
-
 .pedidoEstado {
-display: inline-flex;
-align-items: center;
-min-height: 32px;
-padding: 6px 10px;
-box-sizing: border-box;
-border-radius: 30px;
-background: rgba(245, 245, 247, 0.75);
-border: 1px solid rgba(0, 0, 0, 0.045);
-color: #69696e;
-font-size: 13px;
-font-weight: 400;
-line-height: 1.2;
-letter-spacing: 0.1px;
-white-space: nowrap;
+display:inline-flex;
+align-items:center;
+min-height:32px;
+padding:6px 10px;
+box-sizing:border-box;
+border-radius:30px;
+background:rgba(245,245,247,.75);
+border:1px solid rgba(0,0,0,.045);
+color:#69696e;
+font-size:13px;
+font-weight:400;
+line-height:1.2;
+letter-spacing:.1px;
+white-space:nowrap;
 }
-
-.pedidoEstadoPagoPagado,
-.pedidoEstadoPedidoEntregado,
-.pedidoEstadoProductosListos {
-background: rgba(34, 184, 75, 0.10);
-border-color: rgba(34, 184, 75, 0.12);
-color: #22a447;
+.pedidoEstadoPagoPagado,.pedidoEstadoPedidoEntregado,.pedidoEstadoProductosListos {
+background:rgba(34,184,75,.10);
+border-color:rgba(34,184,75,.12);
+color:#22a447;
 }
-
-.pedidoEstadoPagoPendiente,
-.pedidoEstadoPedidoPendiente,
-.pedidoEstadoProductosPendiente {
-background: rgba(245, 166, 35, 0.11);
-border-color: rgba(245, 166, 35, 0.13);
-color: #9a6a12;
+.pedidoEstadoPagoPendiente,.pedidoEstadoPedidoPendiente,.pedidoEstadoProductosPendiente {
+background:rgba(245,166,35,.11);
+border-color:rgba(245,166,35,.13);
+color:#9a6a12;
 }
-
 .pedidoAction {
-display: flex;
-align-items: center;
-justify-content: flex-end;
-padding-left: 4px;
+display:flex;
+align-items:center;
+justify-content:flex-end;
+padding-left:4px;
 }
-
 .pedidoActionButton {
-min-width: 92px;
-height: 40px;
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 6px;
-padding: 0 12px;
-border: 1px solid transparent;
-border-radius: 40px;
-background: #f5f5f7;
-color: #424245;
-font-family: inherit;
-font-size: 12px;
-font-weight: 500;
-cursor: pointer;
-transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+min-width:92px;
+height:40px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+padding:0 12px;
+border:1px solid transparent;
+border-radius:40px;
+background:#f5f5f7;
+color:#424245;
+font-family:inherit;
+font-size:12px;
+font-weight:500;
+cursor:pointer;
+transition:background .2s ease,color .2s ease,transform .2s ease;
 }
-
 .pedidoActionButton:hover {
-background: #e9e9ed;
-color: #1d1d1f;
+background:#e9e9ed;
+color:#1d1d1f;
 }
-
 .pedidoActionButton:active {
-transform: scale(0.97);
+transform:scale(.97);
 }
-
-@media (max-width: 950px) {
+@media (max-width:950px) {
 .pedidoRow {
-grid-template-columns: 1fr 1.5fr 0.9fr 1fr auto;
-gap: 20px;
-padding: 24px;
+grid-template-columns:1fr 1.5fr .9fr 1fr auto;
+gap:20px;
+padding:24px;
 }
-
 .pedidoProductoNombre {
-max-width: 145px;
+max-width:145px;
 }
 }
-
-@media (max-width: 700px) {
+@media (max-width:700px) {
 .adminPedidos {
-width: min(94%, 500px);
-padding-top: 32px;
+width:min(94%,500px);
+padding-top:32px;
 }
-
 .adminPedidosHeader {
-margin-bottom: 30px;
+margin-bottom:30px;
 }
-
 .adminPedidosTitle {
-font-size: 30px;
+font-size:30px;
 }
-
+.pedidosFiltros {
+width:100%;
+flex-wrap:wrap;
+gap:10px;
+}
+.pedidoFiltro {
+flex:1;
+min-width:130px;
+}
+.pedidoFiltro select {
+width:100%;
+min-width:0;
+}
 .pedidoRow {
-display: grid;
-grid-template-columns: 1fr auto;
-gap: 20px;
-padding: 23px 20px;
-border-radius: 21px;
+display:grid;
+grid-template-columns:1fr auto;
+gap:20px;
+padding:23px 20px;
+border-radius:21px;
 }
-
 .pedidoCliente {
-grid-column: 1;
-grid-row: 1;
+grid-column:1;
+grid-row:1;
 }
-
 .pedidoAction {
-grid-column: 2;
-grid-row: 1;
-align-self: start;
-padding-left: 0;
+grid-column:2;
+grid-row:1;
+align-self:start;
+padding-left:0;
 }
-
 .pedidoProductos {
-grid-column: 1 / -1;
-grid-row: 2;
+grid-column:1 / -1;
+grid-row:2;
 }
-
 .pedidoTotales {
-grid-column: 1;
-grid-row: 3;
+grid-column:1;
+grid-row:3;
 }
-
 .pedidoEstados {
-grid-column: 2;
-grid-row: 3;
-align-items: flex-end;
+grid-column:2;
+grid-row:3;
+align-items:flex-end;
 }
 }
-
-@media (max-width: 480px) {
+@media (max-width:480px) {
 .adminPedidos {
-width: min(94%, 420px);
-padding-top: 32px;
+width:min(94%,420px);
+padding-top:32px;
 }
-
 .adminPedidosHeader {
-margin-bottom: 22px;
+margin-bottom:22px;
 }
-
 .adminPedidosTitle {
-font-size: 30px;
+font-size:30px;
 }
-
 .pedidoRow {
-padding: 20px 17px;
-gap: 18px;
-border-radius: 18px;
+padding:20px 17px;
+gap:18px;
+border-radius:18px;
 }
-
 .pedidoCliente h2 {
-font-size: 16px;
+font-size:16px;
 }
-
 .pedidoClienteNombre {
-font-size: 13px;
+font-size:13px;
 }
-
 .pedidoColegio {
-font-size: 11px;
+font-size:11px;
 }
-
 .pedidoProductoNombre {
-max-width: 125px;
-padding: 3px 7px;
-font-size: 10px;
+max-width:125px;
+padding:3px 7px;
+font-size:10px;
 }
-
 .pedidoProductosMas {
-height: 25px;
-min-width: 26px;
-font-size: 10px;
+height:25px;
+min-width:26px;
+font-size:10px;
 }
-
 .pedidoTotales strong {
-font-size: 17px;
+font-size:17px;
 }
-
 .pedidoLabel {
-font-size: 10px;
+font-size:10px;
 }
-
 .pedidoEstado {
-min-height: 27px;
-padding: 5px 8px;
-font-size: 10px;
+min-height:27px;
+padding:5px 8px;
+font-size:10px;
 }
-
 .pedidoActionButton {
-min-width: 72px;
-height: 34px;
-padding: 0 9px;
-font-size: 10px;
+min-width:72px;
+height:34px;
+padding:0 9px;
+font-size:10px;
 }
-
 .pedidoActionButton svg {
-width: 15px;
-height: 15px;
+width:15px;
+height:15px;
 }
 }
-
-@media (max-width: 360px) {
+@media (max-width:360px) {
 .adminPedidos {
-width: 94%;
+width:94%;
 }
-
 .pedidoRow {
-padding: 17px 13px;
-gap: 14px;
+padding:17px 13px;
+gap:14px;
 }
-
 .pedidoCliente h2 {
-font-size: 14px;
+font-size:14px;
 }
-
 .pedidoClienteNombre {
-font-size: 12px;
+font-size:12px;
 }
-
 .pedidoColegio {
-font-size: 10px;
+font-size:10px;
 }
-
 .pedidoProductoNombre {
-max-width: 105px;
-font-size: 9px;
+max-width:105px;
+font-size:9px;
 }
-
 .pedidoTotales strong {
-font-size: 16px;
+font-size:16px;
 }
-
 .pedidoEstado {
-min-height: 25px;
-padding: 4px 7px;
-font-size: 9px;
+min-height:25px;
+padding:4px 7px;
+font-size:9px;
 }
-
 .pedidoActionButton {
-min-width: 34px;
-width: 34px;
-height: 34px;
-padding: 0;
+min-width:34px;
+width:34px;
+height:34px;
+padding:0;
 }
-
 .pedidoActionButton span {
-display: none;
+display:none;
 }
 }
