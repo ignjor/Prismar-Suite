@@ -1,23 +1,23 @@
-.adminPedidos {
+.adminPedidos{
 width:min(94%,1180px);
 margin:0 auto;
 padding:42px 0 130px;
 font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif;
-color:#1d1d1f;
+color:#1d1d1f
 }
-.adminPedidosHeader {
+.adminPedidosHeader{
 margin-top:10px;
 margin-bottom:50px;
-text-align:center;
+text-align:center
 }
-.adminPedidosTitle {
+.adminPedidosTitle{
 margin:50px 0;
 font-size:34px;
 font-weight:700;
 letter-spacing:-1px;
-color:#1d1d1f;
+color:#1d1d1f
 }
-.pedidosBuscador {
+.pedidosBuscador{
 width:min(100%,300px);
 height:48px;
 margin:0 auto;
@@ -32,14 +32,14 @@ border-radius:30px;
 box-shadow:0 6px 20px rgba(0,0,0,.045);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
-transition:border-color .2s ease,box-shadow .2s ease,background .2s ease;
+transition:border-color .2s ease,box-shadow .2s ease,background .2s ease
 }
-.pedidosBuscadorIcon {
+.pedidosBuscadorIcon{
 flex-shrink:0;
 color:#86868b;
-transition:color .2s ease;
+transition:color .2s ease
 }
-.pedidosBuscadorInput {
+.pedidosBuscadorInput{
 width:100%;
 min-width:0;
 height:100%;
@@ -51,46 +51,51 @@ color:#1d1d1f;
 font-family:inherit;
 font-size:14px;
 font-weight:400;
-letter-spacing:-.15px;
+letter-spacing:-.15px
 }
-.pedidosBuscadorInput::placeholder {
+.pedidosBuscadorInput::placeholder{
 color:#98989d;
-opacity:1;
+opacity:1
 }
-.pedidosBuscador:focus-within {
+.pedidosBuscador:focus-within{
 background:rgba(255,255,255,.82);
 border-color:rgba(34,184,75,.35);
-box-shadow:0 0 0 3px rgba(34,184,75,.08),0 8px 24px rgba(0,0,0,.055);
+box-shadow:0 0 0 3px rgba(34,184,75,.08),0 8px 24px rgba(0,0,0,.055)
 }
-.pedidosBuscador:focus-within .pedidosBuscadorIcon {
-color:#22b84b;
+.pedidosBuscador:focus-within .pedidosBuscadorIcon{
+color:#22b84b
 }
-.pedidosFiltros {
-width:min(100%,700px);
+.pedidosFiltros{
+width:min(100%,450px);
 margin:18px auto 0;
 display:flex;
 justify-content:center;
 align-items:flex-end;
 gap:12px;
+flex-wrap:nowrap
 }
-.pedidoFiltro {
+.pedidoFiltro{
+flex:1 1 0;
+min-width:0;
 display:flex;
 flex-direction:column;
 align-items:flex-start;
-gap:5px;
+gap:5px
 }
-.pedidoFiltro span {
+.pedidoFiltro span{
 padding-left:5px;
 color:#86868b;
 font-size:11px;
 font-weight:600;
 letter-spacing:.2px;
 text-transform:uppercase;
+white-space:nowrap
 }
-.pedidoFiltro select {
-min-width:140px;
+.pedidoFiltro select{
+width:100%;
+min-width:0;
 height:38px;
-padding:0 34px 0 13px;
+padding:0 28px 0 10px;
 border:1px solid rgba(0,0,0,.07);
 border-radius:20px;
 outline:none;
@@ -102,19 +107,19 @@ cursor:pointer;
 box-shadow:0 5px 16px rgba(0,0,0,.035);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
-transition:border-color .2s ease,box-shadow .2s ease;
+transition:border-color .2s ease,box-shadow .2s ease
 }
-.pedidoFiltro select:focus {
+.pedidoFiltro select:focus{
 border-color:rgba(34,184,75,.35);
-box-shadow:0 0 0 3px rgba(34,184,75,.08),0 6px 18px rgba(0,0,0,.045);
+box-shadow:0 0 0 3px rgba(34,184,75,.08),0 6px 18px rgba(0,0,0,.045)
 }
-.pedidosLista {
+.pedidosLista{
 width:100%;
 display:flex;
 flex-direction:column;
-gap:14px;
+gap:14px
 }
-.pedidoRow {
+.pedidoRow{
 width:100%;
 min-width:0;
 display:grid;
@@ -129,61 +134,61 @@ border-radius:24px;
 box-shadow:0 8px 24px rgba(0,0,0,.055);
 backdrop-filter:blur(18px);
 -webkit-backdrop-filter:blur(18px);
-transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease
 }
-.pedidoRow:hover {
+.pedidoRow:hover{
 transform:translateY(-2px);
 box-shadow:0 12px 30px rgba(0,0,0,.08);
-border-color:rgba(0,0,0,.08);
+border-color:rgba(0,0,0,.08)
 }
-.pedidoLabel {
+.pedidoLabel{
 display:block;
 margin-bottom:8px;
 color:#86868b;
 font-size:12px;
 font-weight:600;
 letter-spacing:.2px;
-text-transform:uppercase;
+text-transform:uppercase
 }
-.pedidoCliente {
+.pedidoCliente{
 min-width:0;
 display:flex;
 flex-direction:column;
-align-items:flex-start;
+align-items:flex-start
 }
-.pedidoCliente h2 {
+.pedidoCliente h2{
 margin:0;
 color:#1d1d1f;
 font-size:20px;
 line-height:1.2;
 font-weight:600;
 letter-spacing:-.3px;
-overflow-wrap:anywhere;
+overflow-wrap:anywhere
 }
-.pedidoClienteNombre {
+.pedidoClienteNombre{
 margin-top:6px;
 color:#424245;
 font-size:14px;
 line-height:1.2;
-font-weight:500;
+font-weight:500
 }
-.pedidoColegio {
+.pedidoColegio{
 margin-top:3px;
 color:#98989d;
 font-size:12px;
-line-height:1.2;
+line-height:1.2
 }
-.pedidoProductos {
-min-width:0;
+.pedidoProductos{
+min-width:0
 }
-.pedidoProductosNombres {
+.pedidoProductosNombres{
 min-width:0;
 display:flex;
 align-items:center;
 flex-wrap:wrap;
-gap:7px;
+gap:7px
 }
-.pedidoProductoNombre {
+.pedidoProductoNombre{
 max-width:170px;
 padding:4px 8px;
 box-sizing:border-box;
@@ -197,9 +202,9 @@ letter-spacing:.15px;
 line-height:1.2;
 overflow:hidden;
 text-overflow:ellipsis;
-white-space:nowrap;
+white-space:nowrap
 }
-.pedidoProductosMas {
+.pedidoProductosMas{
 display:inline-flex;
 align-items:center;
 justify-content:center;
@@ -212,39 +217,39 @@ background:rgba(245,245,247,.75);
 border:1px solid rgba(0,0,0,.045);
 color:#69696e;
 font-size:12px;
-font-weight:500;
+font-weight:500
 }
-.pedidoProductoVacio {
+.pedidoProductoVacio{
 color:#98989d;
-font-size:13px;
+font-size:13px
 }
-.pedidoTotales {
+.pedidoTotales{
 min-width:0;
 display:flex;
 flex-direction:column;
-align-items:flex-start;
+align-items:flex-start
 }
-.pedidoTotales strong {
+.pedidoTotales strong{
 color:#1d1d1f;
 font-size:20px;
 line-height:1.2;
 font-weight:600;
-letter-spacing:-.3px;
+letter-spacing:-.3px
 }
-.pedidoPendiente {
+.pedidoPendiente{
 margin-top:6px;
 color:#86868b;
 font-size:12px;
-line-height:1.2;
+line-height:1.2
 }
-.pedidoEstados {
+.pedidoEstados{
 min-width:0;
 display:flex;
 flex-direction:column;
 align-items:flex-start;
-gap:7px;
+gap:7px
 }
-.pedidoEstado {
+.pedidoEstado{
 display:inline-flex;
 align-items:center;
 min-height:32px;
@@ -258,25 +263,25 @@ font-size:13px;
 font-weight:400;
 line-height:1.2;
 letter-spacing:.1px;
-white-space:nowrap;
+white-space:nowrap
 }
-.pedidoEstadoPagoPagado,.pedidoEstadoPedidoEntregado,.pedidoEstadoProductosListos {
+.pedidoEstadoPagoPagado,.pedidoEstadoPedidoEntregado,.pedidoEstadoProductosListos{
 background:rgba(34,184,75,.10);
 border-color:rgba(34,184,75,.12);
-color:#22a447;
+color:#22a447
 }
-.pedidoEstadoPagoPendiente,.pedidoEstadoPedidoPendiente,.pedidoEstadoProductosPendiente {
+.pedidoEstadoPagoPendiente,.pedidoEstadoPedidoPendiente,.pedidoEstadoProductosPendiente{
 background:rgba(245,166,35,.11);
 border-color:rgba(245,166,35,.13);
-color:#9a6a12;
+color:#9a6a12
 }
-.pedidoAction {
+.pedidoAction{
 display:flex;
 align-items:center;
 justify-content:flex-end;
-padding-left:4px;
+padding-left:4px
 }
-.pedidoActionButton {
+.pedidoActionButton{
 min-width:92px;
 height:40px;
 display:flex;
@@ -292,173 +297,204 @@ font-family:inherit;
 font-size:12px;
 font-weight:500;
 cursor:pointer;
-transition:background .2s ease,color .2s ease,transform .2s ease;
+transition:background .2s ease,color .2s ease,transform .2s ease
 }
-.pedidoActionButton:hover {
+.pedidoActionButton:hover{
 background:#e9e9ed;
-color:#1d1d1f;
+color:#1d1d1f
 }
-.pedidoActionButton:active {
-transform:scale(.97);
+.pedidoActionButton:active{
+transform:scale(.97)
 }
-@media (max-width:950px) {
-.pedidoRow {
+@media (max-width:950px){
+.pedidoRow{
 grid-template-columns:1fr 1.5fr .9fr 1fr auto;
 gap:20px;
-padding:24px;
+padding:24px
 }
-.pedidoProductoNombre {
-max-width:145px;
+.pedidoProductoNombre{
+max-width:145px
 }
 }
-@media (max-width:700px) {
-.adminPedidos {
+@media (max-width:700px){
+.adminPedidos{
 width:min(94%,500px);
-padding-top:32px;
+padding-top:32px
 }
-.adminPedidosHeader {
-margin-bottom:30px;
+.adminPedidosHeader{
+margin-bottom:30px
 }
-.adminPedidosTitle {
-font-size:30px;
+.adminPedidosTitle{
+font-size:30px
 }
-.pedidosFiltros {
+.pedidosFiltros{
 width:100%;
-flex-wrap:wrap;
-gap:10px;
+gap:7px;
+flex-wrap:nowrap
 }
-.pedidoFiltro {
-flex:1;
-min-width:130px;
+.pedidoFiltro{
+flex:1 1 0;
+min-width:0
 }
-.pedidoFiltro select {
+.pedidoFiltro span{
+font-size:9px;
+padding-left:3px
+}
+.pedidoFiltro select{
 width:100%;
 min-width:0;
+height:35px;
+padding:0 23px 0 8px;
+font-size:11px
 }
-.pedidoRow {
+.pedidoRow{
 display:grid;
 grid-template-columns:1fr auto;
 gap:20px;
 padding:23px 20px;
-border-radius:21px;
+border-radius:21px
 }
-.pedidoCliente {
+.pedidoCliente{
 grid-column:1;
-grid-row:1;
+grid-row:1
 }
-.pedidoAction {
+.pedidoAction{
 grid-column:2;
 grid-row:1;
 align-self:start;
-padding-left:0;
+padding-left:0
 }
-.pedidoProductos {
+.pedidoProductos{
 grid-column:1 / -1;
-grid-row:2;
+grid-row:2
 }
-.pedidoTotales {
+.pedidoTotales{
 grid-column:1;
-grid-row:3;
+grid-row:3
 }
-.pedidoEstados {
+.pedidoEstados{
 grid-column:2;
 grid-row:3;
-align-items:flex-end;
+align-items:flex-end
 }
 }
-@media (max-width:480px) {
-.adminPedidos {
+@media (max-width:480px){
+.adminPedidos{
 width:min(94%,420px);
-padding-top:32px;
+padding-top:32px
 }
-.adminPedidosHeader {
-margin-bottom:22px;
+.adminPedidosHeader{
+margin-bottom:22px
 }
-.adminPedidosTitle {
-font-size:30px;
+.adminPedidosTitle{
+font-size:30px
 }
-.pedidoRow {
+.pedidosFiltros{
+gap:5px
+}
+.pedidoFiltro span{
+font-size:8px;
+letter-spacing:0
+}
+.pedidoFiltro select{
+height:33px;
+padding:0 19px 0 7px;
+font-size:10px;
+border-radius:18px
+}
+.pedidoRow{
 padding:20px 17px;
 gap:18px;
-border-radius:18px;
+border-radius:18px
 }
-.pedidoCliente h2 {
-font-size:16px;
+.pedidoCliente h2{
+font-size:16px
 }
-.pedidoClienteNombre {
-font-size:13px;
+.pedidoClienteNombre{
+font-size:13px
 }
-.pedidoColegio {
-font-size:11px;
+.pedidoColegio{
+font-size:11px
 }
-.pedidoProductoNombre {
+.pedidoProductoNombre{
 max-width:125px;
 padding:3px 7px;
-font-size:10px;
+font-size:10px
 }
-.pedidoProductosMas {
+.pedidoProductosMas{
 height:25px;
 min-width:26px;
-font-size:10px;
+font-size:10px
 }
-.pedidoTotales strong {
-font-size:17px;
+.pedidoTotales strong{
+font-size:17px
 }
-.pedidoLabel {
-font-size:10px;
+.pedidoLabel{
+font-size:10px
 }
-.pedidoEstado {
+.pedidoEstado{
 min-height:27px;
 padding:5px 8px;
-font-size:10px;
+font-size:10px
 }
-.pedidoActionButton {
+.pedidoActionButton{
 min-width:72px;
 height:34px;
 padding:0 9px;
-font-size:10px;
+font-size:10px
 }
-.pedidoActionButton svg {
+.pedidoActionButton svg{
 width:15px;
-height:15px;
+height:15px
 }
 }
-@media (max-width:360px) {
-.adminPedidos {
-width:94%;
+@media (max-width:360px){
+.adminPedidos{
+width:94%
 }
-.pedidoRow {
+.pedidosFiltros{
+gap:4px
+}
+.pedidoFiltro span{
+font-size:7px
+}
+.pedidoFiltro select{
+height:31px;
+padding:0 17px 0 6px;
+font-size:9px
+}
+.pedidoRow{
 padding:17px 13px;
-gap:14px;
+gap:14px
 }
-.pedidoCliente h2 {
-font-size:14px;
+.pedidoCliente h2{
+font-size:14px
 }
-.pedidoClienteNombre {
-font-size:12px;
+.pedidoClienteNombre{
+font-size:12px
 }
-.pedidoColegio {
-font-size:10px;
+.pedidoColegio{
+font-size:10px
 }
-.pedidoProductoNombre {
+.pedidoProductoNombre{
 max-width:105px;
-font-size:9px;
+font-size:9px
 }
-.pedidoTotales strong {
-font-size:16px;
+.pedidoTotales strong{
+font-size:16px
 }
-.pedidoEstado {
+.pedidoEstado{
 min-height:25px;
 padding:4px 7px;
-font-size:9px;
+font-size:9px
 }
-.pedidoActionButton {
+.pedidoActionButton{
 min-width:34px;
 width:34px;
 height:34px;
-padding:0;
+padding:0
 }
-.pedidoActionButton span {
-display:none;
+.pedidoActionButton span{
+display:none
 }
 }
