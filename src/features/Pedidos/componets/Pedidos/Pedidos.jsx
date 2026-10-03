@@ -7,6 +7,13 @@ import { useNavigate } from "react-router-dom";
 export default function Pedidos() {
   const navigate = useNavigate();
   const [buscador, setBuscador] = useState("");
+  const [filtroProceso, setFiltroProceso] = useState("Todos");
+  const [filtroEntrega, setFiltroEntrega] = useState("Todos");
+  const [filtroPago, setFiltroPago] = useState("Todos");
+
+
+
+
   const {data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
 
   const listarPedidos = useMemo(() => {
@@ -22,15 +29,44 @@ export default function Pedidos() {
       });
   }, [datosDePedidos]);
 
+  const obtenerTotalPagado = (pagos = []) => {
+    return pagos.reduce(
+      (total, pago) => total + Number(pago.total_pago || 0), 0);
+  };
+
+  const obtenerTotalPendiente = (pedido) => {
+    const totalPedido = Number(pedido.total_pedido || 0);
+    const totalPagado = obtenerTotalPagado(pedido.pagos);
+    return Math.max(totalPedido - totalPagado, 0);
+  };
+
   const buscadorDePedidos = useMemo(() => {
     const texto = buscador.toLowerCase().trim();
-    if (!texto) {
-      return listarPedidos;
-    }
-    return listarPedidos.filter((pedido) =>
-      String(pedido.cliente || "").toLowerCase().includes(texto)
-    );
-  }, [listarPedidos, buscador]);
+    return listarPedidos.filter((pedido) => {
+      const buscadorCliente = 
+        !texto ||
+        String(pedido.cliente || "")
+          .toLowerCase()
+          .includes(texto);
+      const buscadorProceso =
+        filtroProceso === "Todos" ||
+        String(pedido.estado_productos || "") === filtroProceso;
+      const buscadorEntrega =
+        filtroEntrega === "Todos" ||
+        String(pedido.estado_pedido || "") === filtroEntrega;
+      
+      const totalPendiente = obtenerTotalPendiente(pedido);
+      const pagado = totalPendiente <= 0;
+      const coincidePago = 
+        filtroPago === "Todos" || (filtroPago === "Pagado" && pagado) || (filtroPago === "Pendiente" && !pagado);
+      return (
+      buscadorCliente &&
+      buscadorProceso &&
+      buscadorEntrega &&
+      coincidePago
+      );
+    });
+  }, [ listarPedidos, buscador, filtroProceso, filtroEntrega, filtroPago ]);
 
   const formatearPrecio = (valor) => {
     return `$${Number(valor || 0).toLocaleString("es-CL")}`;
@@ -50,17 +86,6 @@ export default function Pedidos() {
     const visibles = nombres.slice(0, 3);
     const restantes = nombres.length - visibles.length;
     return { visibles, restantes };
-  };
-
-  const obtenerTotalPagado = (pagos = []) => {
-    return pagos.reduce(
-      (total, pago) => total + Number(pago.total_pago || 0), 0);
-  };
-
-  const obtenerTotalPendiente = (pedido) => {
-    const totalPedido = Number(pedido.total_pedido || 0);
-    const totalPagado = obtenerTotalPagado(pedido.pagos);
-    return Math.max(totalPedido - totalPagado, 0);
   };
 
   if (isLoading) {
@@ -90,6 +115,41 @@ export default function Pedidos() {
             autoComplete="off"
           />
         </div>
+        <div className="pedidosFiltros">
+          <label className="pedidoFiltro">
+            <span>Proceso</span>
+            <select
+              value={filtroProceso}
+              onChange={(e) => setFiltroProceso(e.target.value)}
+            >
+              <option value="Todos">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Completado">Completado</option>
+            </select>
+          </label>
+          <label className="pedidoFiltro">
+            <span>Entrega</span>
+            <select
+              value={filtroEntrega}
+              onChange={(e) => setFiltroEntrega(e.target.value)}
+            >
+              <option value="Todos">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Entregado">Entregado</option>
+            </select>
+          </label>
+          <label className="pedidoFiltro">
+            <span>Pago</span>
+            <select
+              value={filtroPago}
+              onChange={(e) => setFiltroPago(e.target.value)}
+            >
+              <option value="Todos">Todos</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Pagado">Pagado</option>
+            </select>
+          </label>
+        </div>
       </header>
 
       <section className="pedidosLista">
@@ -101,12 +161,8 @@ export default function Pedidos() {
               <div className="pedidoCliente">
                 <span className="pedidoLabel">Fecha de Entrega</span>
                 <h2>{formatearFecha(pedido.fecha_entrega)}</h2>
-                <span className="pedidoClienteNombre">
-                  {pedido.cliente}
-                </span>
-                <span className="pedidoColegio">
-                  {pedido.colegio}
-                </span>
+                <span className="pedidoClienteNombre">{pedido.cliente}</span>
+                <span className="pedidoColegio">{pedido.colegio}</span>
               </div>
 
               <div className="pedidoProductos">
@@ -133,12 +189,14 @@ export default function Pedidos() {
                   )}
                 </div>
               </div>
+
               <div className="pedidoTotales">
                 <span className="pedidoLabel">PAGO PENDIENTE</span>
-                <strong>{Number(totalPendiente) <= 0
-                  ? "Pedido Pagado"
-                  : formatearPrecio(totalPendiente)} </strong>
-
+                <strong>
+                  {Number(totalPendiente) <= 0
+                    ? "Pedido Pagado"
+                    : formatearPrecio(totalPendiente)}
+                </strong>
                 <span className="pedidoPendiente">
                   Total del pedido: {formatearPrecio(pedido.total_pedido)}
                 </span>
@@ -157,8 +215,7 @@ export default function Pedidos() {
                 </span>
                 <span
                   className={`pedidoEstado ${
-                    pedido.estado_pedido === "Entregado" ||
-                    pedido.estado_pedido === "Completado"
+                    pedido.estado_pedido === "Entregado"
                       ? "pedidoEstadoPedidoEntregado"
                       : "pedidoEstadoPedidoPendiente"
                   }`}
@@ -182,10 +239,9 @@ export default function Pedidos() {
           );
         })}
       </section>
+
       <section className="agregarColegio">
-        <p className="agregarColegioTexto">
-          Revisa tus borradores
-        </p>
+        <p className="agregarColegioTexto">Revisa tus borradores</p>
         <button
           type="button"
           className="agregarColegioButton"
@@ -197,4 +253,5 @@ export default function Pedidos() {
       </section>
     </main>
   );
+
 }

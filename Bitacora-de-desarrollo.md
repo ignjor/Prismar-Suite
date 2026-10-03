@@ -420,4 +420,8 @@ service cloud.firestore {
 
 ### Martes 29 de Septiembre
 
-- feat: agrega pedidos y las vistas previas de los pedidos, cambia los estados "guardado" "borrador" por "Guardado" "Borrador". Modifica las query de pedidos para poder cargar en cache las subcolecciones de pedidos.
+- feat: agrega pedidos y las vistas previas de los pedidos, cambia los estados guardado borrador por Guardado Borrador. Modifica las query de pedidos para poder cargar en cache las subcolecciones de pedidos.
+
+### Viernes 2 de Octubre
+
+- feat: agrega filtros de busqueda dentro de pedidos, de PROCESO, ENTREGA, y PAGO.
