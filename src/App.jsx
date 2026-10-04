@@ -16,7 +16,9 @@ import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
 import PedidosBorradores from "./features/Pedidos/componets/Pedidos/PedidosBorradores";
 import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
-import VerPedido from "./features/Pedidos/componets/VerPedido/VerPedido";
+
+import VerPedido from "./features/Pedidos/componets/TrabajarPedido/VerPedido/VerPedido";
+import GestionarProducto from "./features/Pedidos/componets/TrabajarPedido/GestionarProducto/GestionarProducto";
 
 import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
 import CuentasBancarias from "./features/Cuentas/componets/cuentasBancarias/cuentasBancarias";
@@ -79,27 +81,28 @@ function AppContent() {
           path="/agregar-pedido" 
           element={<AgregarPedido />} 
         />
-        <Route 
-          path="/pedido/:id" 
-          element={<VerPedido />} 
+
+
+        <Route
+          path="/pedido/:id"
+          element={<VerPedido />}
         />
-        <Route 
-          path="/ver-pedido/:id" 
-          element={<VerProducto />} 
+        <Route
+          path="/pedido/:pedidoId/gestionar-producto/:productoId"
+          element={<GestionarProducto />}
         />
 
 
+
         <Route 
-          path="/cuentas" 
+          path="/cuentas"
           element={<Cuentas />} 
         />
         <Route 
           path="/cuentas-bancarias" 
           element={<CuentasBancarias />} 
         />
-        
 
-        
       </Routes>
       {!ocultarNav && <BottomNav />}
     </>

@@ -17,6 +17,7 @@ function AgregarPedido() {
   const [estadoModalGuardarBorrador, setEstadoModalGuardarBorrador] = useState(false);
   
   const [error, setError] = useState("");
+  const [guardando, setGuardando] = useState(false);
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
   const [colegio, setColegio] = useState(null);
@@ -90,6 +91,7 @@ function AgregarPedido() {
       const productosRef = collection( db, "pedidos", pedidoId, "productos" );
       for (const producto of productosPedido) {await addDoc(productosRef, 
         {
+          producto_id: producto.producto_id,
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,
@@ -98,7 +100,7 @@ function AgregarPedido() {
           precio_talla: Number(producto.precio_talla),
           imagen: producto.imagen || "",
           cantidad: Number(producto.cantidad),
-          estado_producto: "pendiente",
+          estado_producto: "Pendiente",
           fecha_actualizacion: serverTimestamp(),
         });
       }
@@ -164,6 +166,7 @@ function AgregarPedido() {
       setError("La fecha de entrega del pedido es obligatoria");
       return;
     }
+    setGuardando(true);
 
     try {
       const pedidoRef = await addDoc( collection(db, "pedidos"),
@@ -185,6 +188,7 @@ function AgregarPedido() {
       const productosRef = collection( db, "pedidos", pedidoId, "productos" );
       for (const producto of productosPedido) {await addDoc(productosRef, 
         {
+          producto_id: producto.producto_id,
           nombre: producto.nombre,
           colegio: producto.colegio || "Sin afiliado",
           tipo_prenda: producto.tipo_prenda,
@@ -193,7 +197,7 @@ function AgregarPedido() {
           precio_talla: Number(producto.precio_talla),
           imagen: producto.imagen || "",
           cantidad: Number(producto.cantidad),
-          estado_producto: "pendiente",
+          estado_producto: "Pendiente",
           fecha_actualizacion: serverTimestamp(),
         });
       }
@@ -235,7 +239,9 @@ function AgregarPedido() {
       setError(
         "Error al guardar el pedido."
       );
-    };
+    } finally { 
+      setGuardando(false);
+    }
   };
 
   return (
@@ -308,13 +314,14 @@ function AgregarPedido() {
               type="submit"
               className="productoCrearButton productoCrearButtonPrimary"
               onClick={guardarCompleto}
+              disabled={guardando}
             >
               <CirclePlus
                 size={17}
                 strokeWidth={2}
               />
               <span>
-                  Guardar
+                {guardando ? "Guardando..." : "Guardar"}
               </span>
             </button>
           </div>
