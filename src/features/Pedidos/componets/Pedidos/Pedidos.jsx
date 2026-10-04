@@ -10,10 +10,6 @@ export default function Pedidos() {
   const [filtroProceso, setFiltroProceso] = useState("Todos");
   const [filtroEntrega, setFiltroEntrega] = useState("Todos");
   const [filtroPago, setFiltroPago] = useState("Todos");
-
-
-
-
   const {data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
 
   const listarPedidos = useMemo(() => {

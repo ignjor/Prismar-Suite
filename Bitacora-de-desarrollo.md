@@ -427,3 +427,7 @@ service cloud.firestore {
 - feat: agrega filtros de busqueda dentro de pedidos, de PROCESO, ENTREGA, y PAGO.
 
 - feat: conectamos con firebase hosting la rama main de github. 
+
+### Domingo 4 de Octubre
+
+- feat, refactor: agregar VerPedido completo, la seccion es solo visual, revisar comprobante envia redirige al link del comprobante de pago, gestionar redirecciona al pedido dentro del producto. Se modificaron las querys de pedidos para mantener productos y pagos dentro del snapshot de firestore
