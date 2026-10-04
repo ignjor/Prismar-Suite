@@ -249,5 +249,4 @@ export default function Pedidos() {
       </section>
     </main>
   );
-
 }

@@ -184,7 +184,6 @@ export default function VerPedido() {
           </div>
         ) : (
           <div className="verPedidoSinDatos">
-            <CreditCard size={25} strokeWidth={1.5} />
             <p>No hay pagos registrados para este pedido.</p>
           </div>
         )}
