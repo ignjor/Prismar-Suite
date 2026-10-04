@@ -431,3 +431,5 @@ service cloud.firestore {
 ### Domingo 4 de Octubre
 
 - feat, refactor: agregar VerPedido completo, la seccion es solo visual, revisar comprobante envia redirige al link del comprobante de pago, gestionar redirecciona al pedido dentro del producto. Se modificaron las querys de pedidos para mantener productos y pagos dentro del snapshot de firestore
+
+- fix: arregla bug de listener del snapshot de pedidos, al agregar un pedido se perdia e listener de las subcolecciones

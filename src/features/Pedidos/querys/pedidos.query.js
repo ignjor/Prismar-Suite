@@ -14,13 +14,21 @@ export const IniciarsuscribirseAPedidos = ( queryClient ) => {
   }
 
   unsubscribePedidos = onSnapshot( pedidosRef, (snapshot) => {
+      const pedidosActuales = queryClient.getQueryData(PEDIDOS_QUERY_KEY) ?? [];
+
       const pedidos = snapshot.docs.map(
-        (pedidoDoc) => ({
-          id: pedidoDoc.id,
-          ...pedidoDoc.data(),
-          productos: [],
-          pagos: [],
-        })
+        (pedidoDoc) => {
+          const pedidoAnterior = pedidosActuales.find(
+            (pedido) => pedido.id === pedidoDoc.id
+          );
+
+          return {
+            id: pedidoDoc.id,
+            ...pedidoDoc.data(),
+            productos: pedidoAnterior?.productos ?? [],
+            pagos: pedidoAnterior?.pagos ?? [],
+          };
+        }
       );
 
       queryClient.setQueryData( PEDIDOS_QUERY_KEY, pedidos );
@@ -40,11 +48,18 @@ export const IniciarsuscribirseAPedidos = ( queryClient ) => {
         if (unsubscribeSubColecciones.has(pedidoId)) {
           return;
         }
+
         const productosRef = collection( db, "pedidos", pedidoId, "productos" );
         const pagosRef = collection( db, "pedidos", pedidoId, "pagos" );
 
-        let productos = [];
-        let pagos = [];
+        let productos = pedidos.find(
+          (pedido) => pedido.id === pedidoId
+        )?.productos ?? [];
+
+        let pagos = pedidos.find(
+          (pedido) => pedido.id === pedidoId
+        )?.pagos ?? [];
+
         const actualizarPedido = () => {
           queryClient.setQueryData(
             PEDIDOS_QUERY_KEY,
@@ -111,6 +126,7 @@ export const IniciarsuscribirseAPedidos = ( queryClient ) => {
         "Error al obtener los Pedidos:",
         error
       );
+
       queryClient.setQueryData(
         PEDIDOS_QUERY_KEY,
         (pedidosActuales) => pedidosActuales ?? []
@@ -121,6 +137,7 @@ export const IniciarsuscribirseAPedidos = ( queryClient ) => {
 
 export const DetenersuscribirseAPedidos = () => {
   cantidadDeSubs--;
+
   if (cantidadDeSubs <= 0 && unsubscribePedidos) {
     unsubscribePedidos();
     unsubscribePedidos = null;
