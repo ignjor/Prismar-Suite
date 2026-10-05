@@ -171,7 +171,7 @@ function AgregarPedido() {
     setGuardando(true);
 
     try {
-      const identificadorPedido = `PED-${Date.now().toString().slice(-6)}`;
+      const identificadorPedido = `PED-${Date.now().toString().slice(-7)}`;
       const pedidoRef = await addDoc( collection(db, "pedidos"),
         {
           numero_pedido: identificadorPedido,
