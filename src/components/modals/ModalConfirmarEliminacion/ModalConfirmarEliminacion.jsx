@@ -2,8 +2,7 @@ import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
 import { collection, collectionGroup, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
-
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard, Group } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
