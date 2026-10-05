@@ -1,29 +1,4 @@
-## Este archivo NO ES DOCUMENTACION, es una Bitácora para la correcta guia del desarrollo.
-
-
-### Todos los cambios y todo el código que se aplican en el proyecto se tienen que documentar. Todas las solicitudes de pull son bienvenidas.
-
----
-
-## Comentarios de PARTES PENDIENTES del desarrollo.
-
-### 28 de agosto.
-
-- Feat de paginado para todas las paginas que lean de firestore para no sobrecargar las lecturas de Firestore, pense ne un size de 6 cada pagina.
-
-- Asegurate de que en tipo de productos y en pedidos, NO cargue todo de inmediato en la vista previa cuando abramos la ventan de productos y pedidos, porque o sino va a chupar lecturas de firestore COMO LOCO. ES PRIORIDAD.
-
-### 10 de septiembre.
-
-- Agrega fecha de actualizacion a todos los componentes pequeños y que se actualicen automaticamente al editarlos o crearlos, para listarlos mejor dentro del modal de seleccion y para encontrarlos mas rapidos dentro de sus propias ventanas.
-
-- Crea modal de Doble confirmacion para eliminar, estandarizado y reutilizable dentro de todo el proyecto
-
-- Crea modal de confirmacion para Editar o Crear, estandarizado y reutilizable dentro de todo el proyecto, asi no creas y editas nada por accidente.
-
-- El modal de foto de agregar no funciona, fixealo, el modal intenta buscar una id que un no tiene porque aun no lo creas. 
-
-
+## Este archivo es una Bitácora de la correcta guía del desarrollo.
 
 ## Objetivos y Orden de Prioridades✅❌
 
@@ -33,7 +8,7 @@
 
 - [x] 3. Crear la estructura de Tipos de Prendas / Productos.
 
-- [X] 4. Crear la esutructura de Productos
+- [X] 4. Crear la estructura de Productos
 
 - [ ] 5. Crear la estructura de Pedidos
 
@@ -43,8 +18,7 @@
 
 - [ ] 8. Crear la estructura del Login.
 
-- [ ] 9. Asegurar la seguridad y la estabilidad del sistema antes de sacarlo a produccion.
-
+- [ ] 9. Asegurar la seguridad y la escalabilidad del sistema antes de sacar a producción.
 
 
 ## Orden y estructura para el desarrollo
@@ -52,67 +26,91 @@
 <img src="/Fotos%20Readme/Diagrama.jpg" width="700">
 
 
--  1. El boton de navegacion lo definimos como global en toda la app, de esa forma ahorramos lineas de codigo en los otros docs y no necesitamos llamarlo a cada rato en toodas las ventanas, lo que puede provocar bugs.
- 
--  2. Primero organicemos la estructura colegioss y luego de los productos, por que? prque toda la estructura depende de los productos, pero productos depende de los colegios obvio. de productos los pedidos depende de ello, la cuentas. Entonces primero organizamos dentro de firestore la estrucutra de productos y las funciones para leer, para crearlos borrarlos y modificarlos, no te preocupes mucho por lo visual aun, luego nos encargamos de eso así seguimos la misma guia visual para todo el proyecto
- 
--  3. Luego de los productos que funcioen bien nos aseguramos de los pedidos obvio, ya que pedidos usa a productos necesitamos que para crear un pedido podamos llamarlo logicamente, y dentro de su estructura para crear un pedido necesitamos que por ej podamos irnos a crear productos para cuando nos falte 1 o sea personalizado.
- 
--  4. Cuentas depende de productos y pedidos asi que lo dejamos para casi el final, no problema.
- 
--  5. Home depende de todo, quiero que tenga un calendario de 1 semana arriba y que obvio se mueva con la fecha, mostrando los pedidos de esa semana, tambien quiero que tenga reusmenes de cuentas. Notiicaciones si podemos con los clouds functions y eso.
- 
--  6. Luego con todas las funciones listas nos enfocamos en lo visual si se ve feo y no sigue la linea minimalismo util que queremos, una mezcla correcta de rendimiento animaciones y estilos.
- 
--  7. Para terminar preparamos produccion y capacitamos a la empresa de Prismar para el correcto uso.
- 
+-  1. El botón de navegación lo definimos como global en toda la app, de esa forma ahorramos líneas de código en los otros componentes y no necesitamos llamarlo repetidamente en todas las ventanas, lo que puede provocar bugs.
 
+-  2. Primero organicemos la estructura de colegios y luego la de productos, ¿por qué? Porque toda la estructura depende de los productos, pero productos depende de los colegios. De productos dependen los pedidos y las cuentas. Entonces primero organizamos dentro de Firestore la estructura de productos y las funciones para leerlos, crearlos, borrarlos y modificarlos. No prioricemos aún lo visual; luego nos encargamos de eso para seguir la misma guía visual en todo el proyecto.
 
+-  3. Luego de que los productos funcionen bien nos aseguramos de los pedidos, ya que pedidos utiliza productos necesitamos que para crear un pedido podamos llamarlo lógicamente, y dentro de su estructura para crear un pedido necesitamos que, por ejemplo, podamos ir a crear productos para cuando nos falte 1 o sea personalizado.
 
+-  4. Cuentas depende de productos y pedidos, así que lo dejamos para casi el final, sin problema.
 
+-  5. Home depende de todo, quiero que tenga un calendario de 1 semana arriba y que se mueva con la fecha, mostrando los pedidos de esa semana. También quiero que tenga resúmenes de cuentas y notificaciones, si podemos implementarlas con Cloud Functions.
+
+-  6. Luego con todas las funciones listas nos enfocamos en lo visual, si no sigue la línea de minimalismo útil que queremos, buscando una mezcla correcta de rendimiento, animaciones y estilos.
+
+-  7. Para terminar preparamos producción y capacitamos a la empresa de Prismar para el correcto uso.
 
 ---
+
 # 📅 Historial 2026
+
+### 28 de agosto.
+
+- Feat de paginado para todas las páginas que lean de Firestore para no sobrecargar las lecturas de Firestore, pensé en un size de 6 por página.
+
+- Asegúrate de que en tipo de productos y en pedidos, NO cargue todo de inmediato en la vista previa cuando abramos la ventana de productos y pedidos, porque de lo contrario va a generar un consumo elevado de lecturas de Firestore. ES PRIORIDAD.
+
+### 10 de septiembre.
+
+- Agrega fecha de actualización a todos los componentes pequeños y que se actualicen automáticamente al editarlos o crearlos, para listarlos mejor dentro del modal de selección y para encontrarlos más rápido dentro de sus propias ventanas.
+
+- Crea modal de Doble confirmacion para eliminar, estandarizado y reutilizable dentro de todo el proyecto
+
+- Crea modal de confirmación para Editar o Crear, estandarizado y reutilizable dentro de todo el proyecto, así evitamos crear o editar algo por accidente.
+
+- El modal de foto de agregar no funciona, corrígelo; el modal intenta buscar una ID que aún no existe porque el documento todavía no ha sido creado. 
 
 ### Viernes 07 de Agosto
 
 - Creación del proyecto en React Vite con JS, nombre del proyecto: prismar-app
+
 - Se instalaron los iconos de ```npm install lucide-react```
+
 - Se instalo la dependencia ```npm install react-router-dom```
 
 - Se creo toda la estructura inicial del proyecto con los archivos dentro de /src/Pages
+
 - Se creo el archivo Global para la correcta navegación entre las ventanas.
-
-
 
 ### Viernes 07 de Agosto v2
 
 - Se agregaron las fuentes de texto dentro de index.css para que se vea mejor el proyecto.
+
 - Se comento todo el codigo de BottomNav.jsx.
+
 
 
 ### Viernes 07 de Agosto v3 
 
 - Se establecio la conexión de Firebase y Firestore
+
 - Se creo la ventana Productos.
+
 - Se conecto la ventana Productos con Firestore.
+
 - Se agrego la lectura de documentos de la colección productos.
+
 - Se agregaron estilos minimalistas.
+
 - Se comprobo que los productos se muestran correctamente.
 
 <img src="/Fotos%20Readme/07-08.png" width="400">
 
 
+
 ### Sábado 08 de Agosto
 
 - Agregamos boton junto a la barra de navegación para agregar productos y pedidos.
-- Para buena practicas las funciones de Click solo escuchan cuando el menu esta abierto.
+
+- Para buenas prácticas, las funciones de Click solo escuchan cuando el menú está abierto.
+
 - Creamos los archivos AgregarPedido y AgregarProducto para las pruebas.
+
 <img src="/Fotos%20Readme/08-08.png" width="400">
 
 ### Sábado 15 de Agosto
 
-- Agregamos nueva estructura para el proyecto y orden.
+- Agregamos nueva estructura para el proyecto y organización.
 
 ### Domingo 16 de Agosto
 
@@ -125,11 +123,12 @@
 - Agregamos la estructura verdadera y correcta de los estilos para ver los colegios desde Firestore, esperamos como diseño final basándonos en un balance entre estilos minimalistas y rendimiento
 
 - Agregamos el boton Agregar Colegios dentro de los estilos NO FUNCIONALES, pero esta en la ventana al final, lo agregamos al final de la estructura, lo decidimos así porque los colegios o empresas afiliadas a los productos no son muchas y cuando no hayan agregados ese boton sube en consecuencia, tambien lo elegimos asi para no complicarnos demas con codigo, pensamos en agregarlo sobre el botton nav pero seria cambiar mucha estructura y agregar codigo innecsario que puede facilitar los bugs, como mencioanmos, balance entre rendimiento, estilo y funcionalidad.
+
 - <img src="/Fotos%20Readme/colegiosvista.png" width="600">
 
 ### Lunes 17 de Agosto v2
 
-- Dejamos el paso hecho para crear los modals, creamos carpeta para modals donde queremos meter el modal para crear colegios, y un modal reutilizable para confirmar la eliminacio nde cualquier cosa, que sea con una confirmacion doble, sea de colegio, de producto o de pedidos. De esa forma evitamos primero, una hiteracion de codigo y segundo, mantenemos una linea visual.
+- Dejamos el paso hecho para crear los modals, creamos carpeta para modals donde queremos meter el modal para crear colegios, y un modal reutilizable para confirmar la eliminación de cualquier cosa, que sea con una confirmación doble, sea de colegio, de producto o de pedidos. De esa forma evitamos, primero, una reiteración de código y, segundo, mantenemos una línea visual.
 
 ### Martes 18 de Agosto
 
@@ -137,71 +136,42 @@
 
 ### Miercoles 19 de Agosto
 
-- Desarrollamos un Diagrama UML para guiarnos dentro del desarrollo, detectamos el tema de los tipos de prendas, por ej asignar distintas crud para medidas en cada pedido, sea un vestido usa medidas distintas que un pantalon, sea espalda, ancho, caderas, cada tipo de prenda activa tipos distintos de medidas, menos mal detectamos el problema antes de desarrollar los productos. Así que tenemos que asignarlo a cada producto, creamos la clase TipoPrenda
+- Desarrollamos un Diagrama UML para guiarnos dentro del desarrollo, detectamos el tema de los tipos de prendas, por ejemplo asignar distintas CRUD para medidas en cada pedido, sea un vestido usa medidas distintas que un pantalón, sea espalda, ancho, caderas, cada tipo de prenda activa tipos distintos de medidas. Afortunadamente detectamos el problema antes de desarrollar los productos. Así que tenemos que asignarlo a cada producto, creamos la clase TipoPrenda
 
 ### Miercoles 19 de Agosto v2
 
 - Agregamos toda la estructura necesario del modal para poder Crear Colegios y poder editarlos, ademas modificamos las reglas de Firestore para hacerlo mas seguro
 
-```Firebase Security Rules
-rules_version = '2';
 
-service cloud.firestore {
-  match /databases/{database}/documents {
-// Claves de seguridad para la base de datos, especificamente para los input, asi limitamos las insercioens de codigo
-
-
-		// Validaciones para los inputs dentro de la collecion de COLEGIOS, colegios solo tiene NOMBRE como su
-    // dato input tipo string, le colocamos un varchar de 64 para no exedernos
-    // y limitamos el unico dato que puede tener COLEGIO, a NOMBRE, entonces evitamos si alguien quiere meter algun otro dato
-    match /colegios/{colegioId} {
-
-      allow read: if true;
-
-      allow create: if
-        request.resource.data.keys().hasOnly([
-          "nombre"
-        ])
-        && request.resource.data.nombre is string
-        && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 64;
-
-      allow update: if
-        request.resource.data.keys().hasOnly([
-          "nombre"
-        ])
-        && request.resource.data.nombre is string
-        && request.resource.data.nombre.size() >= 2
-        && request.resource.data.nombre.size() <= 64;
-
-      allow delete: if true;
-    }
-  }
-}
-```
 <img src="/Fotos%20Readme/modalvista.png" width="400">
 
 ### Viernes 20 de Agosto
 
--	DEscartamos la idea de un modal doble, creamos la vitacora de bugs para poder registrar nuestro bugs e ir mejorando poco a poco nuestro criterio, hoy principalmete debugeamos, arreglamos un bug del modal que mas que de uso era visual, era que simplemente no limpiamos los state del input al cerrar el modal con el click fuera del modal, esa funcion que cerraba el modal no limpiaba el input.
+- Descartamos la idea de un modal doble, creamos la bitácora de bugs para poder registrar nuestros bugs e ir mejorando poco a poco nuestro criterio. Hoy principalmente debugeamos, arreglamos un bug del modal que más que de uso era visual; se debía a que no limpiábamos los state del input al cerrar el modal con el click fuera del modal, esa función que cerraba el modal no limpiaba el input.
 
--	Tambien arreglamos un bug de firestore que no me dejaba escribir en la base de datos, despues de cranearla como loco, las reglas de firestore me dejaron como imbecil porque solo era eso JJAJAJAJ, TEN CUIDADO CON LAS REGLAS DE FIRESTORE.
+- También arreglamos un bug de Firestore que no me permitía escribir en la base de datos. Después de revisarlo en detalle, detecté que el problema estaba en las reglas de Firestore. ES IMPORTANTE REVISAR LAS REGLAS DE FIRESTORE.
 
-  
+
+
+
 
 ### Sábado 22 de Agosto
 
--	Hoy no tiramos mucho codigo, casi nada practicamente ademas de solucionar una tontera en la base de datos, me di cuenta que claro, tenemos nombreLimpio para guardar pero a la hora de guardar llamamos a la variable sin limpiar con trim(), todo mal, solucionado, demasiado vergonzoso para anotarlo en el Bestiario de bugs
+- Hoy no incorporamos mucho código, prácticamente nada, además de solucionar un detalle menor en la base de datos. Detecté que tenemos nombreLimpio para guardar, pero a la hora de guardar llamamos a la variable sin limpiar con trim(). Se corrigió. No lo considero un bug relevante para registrar en el Bestiario de bugs.
 
--	Nos creanos la estructura REAL del proyecto, hasta el momento hemos avanzado poco en codigo porque nos hemos asegurado de dejar todo claro, como este proyecto es un proyecto real par PRISMAR, vamos a manejar una estructura de usuario real para mejorar primero, LA CLARA DEFICIENCIA en seguridad que tenemos a fecha de hoy, el problema esque eso nos va a atrasar unos días el proyecto pero prefiero hacerlo ahora antes que despues, vamos a manejar los usuarios con una arquitectura RBAC, creamos los usuarios con Cloud Functions, y firestore valida que rol tiene accignado y que puede hacer con cada rol, la idea de manejar los datos desde Cloud Functios nos coquetea bonito.
+- Creamos la estructura REAL del proyecto, hasta el momento hemos avanzado poco en código porque nos hemos asegurado de dejar todo claro. Como este proyecto es un proyecto real para PRISMAR, vamos a manejar una estructura de usuario real para mejorar primero la principal deficiencia en seguridad que tenemos a fecha de hoy. El problema es que eso nos va a atrasar unos días el proyecto, pero prefiero hacerlo ahora antes que después. Vamos a manejar los usuarios con una arquitectura RBAC, creamos los usuarios con Cloud Functions, y Firestore valida qué rol tiene asignado y qué puede hacer con cada rol. También consideramos manejar los datos desde Cloud Functions.
 
--	Tenemos la pared de la pieza llena de papeles de diagramas, si el proyecto no queda lo mejor posible me pongo a llorar ajajajaja
+- Tenemos la pared de la pieza llena de papeles con diagramas; buscamos que el proyecto quede lo mejor posible.
+
+
 
 
 
 ### Domingo 23 de Agosto
 
-- Descargarmos la idea de hacer directamente aplicar en el desarrollo el tema del login claro POR AHORA, solo POR AHORA, al final cuando tengamos todo estructurado vamos a dedicar el tiempo necesesario al login y la estrucutra de RBAC de los daots. Peparamos algunos diagramas y lo pegamos en la pared jasjd
+- Descartamos la idea de aplicar directamente en el desarrollo el tema del login por el momento. Al final, cuando tengamos todo estructurado, vamos a dedicar el tiempo necesario al login y la estructura de RBAC de los datos. Preparamos algunos diagramas y los pegamos en la pared.
+
+
 
 
 
@@ -211,39 +181,47 @@ service cloud.firestore {
 
 
 
+
+
 ### Domingo 23 de Agosto v3
 
 - La estructura de crear modal tipo de prenda quedo bien, falta testearla bajo estres para confirmar que no tiene bugs, las reglas de firestore hasta el momento (sin login), estas seguras dentro de lo posible.
+
 
 
 <img src="/Fotos%20Readme/modaltipocolegio.png" width="400">
 
 
 
+
+
 ### Martes 25 de Agosto
 
 - Creamos la doc oficial para el sistema dentro de Readme.md
+
 - Refactorizamos completo Botton nav aplicando las 5S de Clean Code.
+
 - 
 
 ### Miercoles 26 de Agosto
 
-- Refactorizamos el completamente la seccion de Admin colegios, quedo pro, variables y funciones claras, sin comentarios redundantes e innesesarios.
+- Refactorizamos completamente la sección de Admin colegios, quedó bien estructurada, variables y funciones claras, sin comentarios redundantes e innecesarios.
 
 ### Miercoles 26 de Agosto v2
 
-- Comenzamos la Refactiracion de Modal para crear colegio, no lo completamos por resfrio. Pero separamos la funcion que estaba con un if, la cambiamos a 2 distintas mas claras para ser mas claro.
+- Comenzamos la Refactorización de Modal para crear colegio, no lo completamos por resfrío. Pero separamos la función que estaba con un if, la cambiamos a 2 distintas más claras para ser más claro.
 
 ### Jueves 27 de Agosto
 
-- Refactor completo del modal agrar colegio, funciona bien y quedo mucho mas legible y mejor estructurado
+- Refactor completo del modal agregar colegio, funciona bien y quedó mucho más legible y mejor estructurado
 
 - Refactor de todas las carpetas del proyecto, de la redistribucion.
 
 
+
 ### Viernes 28 de Agosto
 
-- Refactor completo del componte  de TipoPrenda.jsx
+- Refactor completo del componte  de TipoPrenda.jsx
 
 ### Viernes 28 de Agosto v2
 
@@ -251,15 +229,15 @@ service cloud.firestore {
 
 ### Sabado 29 de Agosto
 
-- Terminamos el refactor del modal para agregar y editar tipo de prenda, renombramos y solucionamos bugs de ambos archivos, tipoprenda y modal de tipo prenda, quedo funcionando, y completamos oficialmente todo el refactor de todo el codigo que teniamos hasta este momento dentro del proyecto.
+- Terminamos el refactor del modal para agregar y editar tipo de prenda, renombramos y solucionamos bugs de ambos archivos, tipoprenda y modal de tipo prenda, quedó funcionando, y completamos oficialmente todo el refactor de todo el código que teníamos hasta este momento dentro del proyecto.
 
 ### Sabado 29 de Agosto v2
 
-- feat: buscador completo funcional para tipo de prenda y para colegio, por el momento lo hicimos así, busca dentro de todo lo que trajo firestore, cuando hagamos la paginacion, al no traer todo de firestore vamos a tener que usar otra forma para buscar sin necedidad de traer todo de firestore, pense en indices pero hay que verlo luego.
-  
-- doc: Vamos a comenzar con la estructura de productos, la idea es que tengamos la ventana previa tipida que tenemos como en tipoprenda y colegios, pero en lugar del boton editar que tengamos un boton para ver, y que nos abra a otra ventana con su id, algo como /producto/id=XXXXXX, una cosa asi. 
+- feat: buscador completo funcional para tipo de prenda y para colegio, por el momento lo implementamos así, busca dentro de todo lo que trajo Firestore, cuando hagamos la paginación, al no traer todo de Firestore vamos a tener que usar otra forma para buscar sin necesidad de traer todo de Firestore, pensé en índices, pero queda pendiente evaluarlo.
 
-- feat: Comenzamos ofialmente con la estructura de productos, puede ser la mas desafiante del proyecto porque esta misma la podemos usar como base para pedidos, creamos la carpeta VerProducto, EditarProducto y AgregarProducto.
+- doc: Vamos a comenzar con la estructura de productos, la idea es que tengamos la ventana previa típica que tenemos como en tipoprenda y colegios, pero en lugar del botón editar que tengamos un botón para ver, y que nos abra a otra ventana con su ID, algo como /producto/id=XXXXXX, una estructura similar. 
+
+- feat: Comenzamos oficialmente con la estructura de productos, puede ser la más desafiante del proyecto porque esta misma la podemos usar como base para pedidos, creamos la carpeta VerProducto, EditarProducto y AgregarProducto.
 
 ### Domingo 30 de Agosto
 
@@ -320,17 +298,18 @@ service cloud.firestore {
 ### Domingo 06 de Septiembre
 
 - feat: producto y verProducto muestra los precios en orden de menor a mayor.
+
 - feat: muestra las medidas de tipo de prenda dentro de verProducto
 
 ### Lunes 07 de Septiembre
 
-- feat: crear producto funcion con firestore, falta configurar el modal de la foto para que sirva cuando aun no tenemos id de producto, intente hacerlo lo mas parecido a verProducto pero no me convensen los estilos.
+- feat: crear producto función con Firestore, falta configurar el modal de la foto para que sirva cuando aún no tenemos ID de producto, intenté hacerlo lo más parecido a verProducto, pero no me convencen los estilos.
 
 - feat: agrega boton cancelar dentro de agregar-producto, y quita el bottom nav dentro de esa pagina para evitar salir por accidente cuando estes agregando un producto
 
 ### Martes 08 de Septiembre
 
-- feat: crea ModalSelector, un selector que remplata al label tipico, así estandarizamos para que se vea igual en movil y en pc. Falta modificar el modalFoto para correrlo directamente  desde agregar foto. Todo lo escencial de crear producto para funcionar quedo funcional y estable.
+- feat: crea ModalSelector, un selector que reemplaza al label típico, así estandarizamos para que se vea igual en móvil y en PC. Falta modificar el modalFoto para correrlo directamente desde agregar foto. Todo lo esencial de crear producto para funcionar quedó funcional y estable.
 
 ### Miercoles 09 de Septiembre
 
@@ -338,7 +317,7 @@ service cloud.firestore {
 
 ### Jueves 10 de Septiembre
 
-- feat: crea Pedidos.jsx, lee el pedido que ingresamos manual dentro de firestore, hay que hacer que los pedidos se lean de vista horizontal por filas. Cambia el Diagrama UML que prepara la estructura de pedidos.
+- feat: crea Pedidos.jsx, lee el pedido que ingresamos manual dentro de Firestore, hay que hacer que los pedidos se lean de vista horizontal por filas. Cambia el Diagrama UML que prepara la estructura de pedidos.
 
 ### Viernes 11 de Septiembre
 
@@ -346,9 +325,9 @@ service cloud.firestore {
 
 - feat, fix: agrega modal eliminacion con doble confirmacion, dentro de tallas, tipo prenda, y soluciona errores dentro del hidden del scroll dentro de los modals
 
-- feat: agrega ScrollTop, asegura que siempre que cambiemos de pagina la pagina estre sin scrollear, mejora la UX. Cambiamos los estilos dentro de verProducto los botones de editar y eliminar estan abajo a la derecha
+- feat: agrega ScrollTop, asegura que siempre que cambiemos de página la página esté sin scroll, mejora la UX. Cambiamos los estilos dentro de verProducto; los botones de editar y eliminar están abajo a la derecha.
 
-- feat: agregar borrar dentro de verProducto, borra tanto el doc de firestore como el doc de storage, producto manejamos borrado definitivo porque no es un dato indispensable.
+- feat: agregar borrar dentro de verProducto, borra tanto el doc de Firestore como el doc de Storage, producto manejamos borrado definitivo porque no es un dato indispensable.
 
 ### Domingo 13 de Septiembre
 
@@ -392,7 +371,7 @@ service cloud.firestore {
 
 - feat: agregar las medidas_asig dentro de agregar producto con un toggle y el boton EDITAR MEDIDAS dentro del toggle, que no aparece si un producto no tiene tipo prenda asignado por cualquier cosa
 
-- fix, feat: fix: arregla duplicado de productos, se volvio a activar por si algun pedido requiere mismo producto y misma talla pero distintas medidas (2 hijos o gemelos), feat: agrega modal para las medidas asignadas, actualiza del map solo el dato, no el nombre, ya que ese se modifica dentro de  tipo prenda.
+- fix, feat: fix: arregla duplicado de productos, se volvio a activar por si algun pedido requiere mismo producto y misma talla pero distintas medidas (2 hijos o gemelos), feat: agrega modal para las medidas asignadas, actualiza del map solo el dato, no el nombre, ya que ese se modifica dentro de  tipo prenda.
 
 - refactor: el modal eliminar NO ELIMINA si alguna id del dato se llama en otro sitio, por ej no borra un colegio si un producto lo esta usando, asi evitamos "Sin afiliado", y preparamos el camino para los comprobante de pagos a ciertas cuentas bancarias especificas, asi no podemos borrar las cuentas.
 
@@ -438,6 +417,13 @@ service cloud.firestore {
 
 - fix: arregla el que borrador guarda slice 7 y pedido completo a 6, se definio a 7.
 
-### Luneas 5 de Octubre.
+### Luneas 5 de Octubre
 
 - feat: agregar botones dentro de Gestionar Producto para cambiar el estado del producto, agrega ModalConfirmar para confirmar el cambio de estado.
+
+### Lunes 5 de Octubre v2
+
+- feat, fix: Agrega functions, agrega los componentes y cambios necesarios para aislar el eslint del backend(functions) con el del frontend(vitejs), la funcion detecta cambios dentro de productos pedidos y cambia el estado del pedido cuando esta completado.
+
+- doc: cambiamos la bitacora de desarrollo por un DEVELOPMENT_LOG mas profesional y acorde al proyecto
+
