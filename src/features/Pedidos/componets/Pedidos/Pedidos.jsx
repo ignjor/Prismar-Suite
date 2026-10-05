@@ -230,6 +230,9 @@ export default function Pedidos() {
                   <Eye size={17} strokeWidth={2} />
                   <span>Gestionar</span>
                 </button>
+                <span className="pedidoIdentificador">
+                  {pedido.numero_pedido || "Sin ID"}
+                </span>
               </div>
             </article>
           );
