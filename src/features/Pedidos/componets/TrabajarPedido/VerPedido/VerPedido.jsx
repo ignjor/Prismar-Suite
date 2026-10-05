@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
-import { ArrowLeft, CreditCard, Shirt, Eye } from "lucide-react";
+import { ArrowLeft, CreditCard, Shirt, Eye, Ghost } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
@@ -64,10 +64,6 @@ export default function VerPedido() {
     }
     return fecha;
   };
-
-  const abrirProducto = (producto) => {
-    window.open(`/pedido/${pedido.id}/gestionar-producto/${producto.id}`);
-  };
   if (isLoading) { return <p>Cargando el pedido...</p> }
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Pedido, recargue la página.</p> }
   if (!pedido) {
@@ -84,7 +80,11 @@ export default function VerPedido() {
           <ArrowLeft size={17} strokeWidth={2} />
           Volver a pedidos
         </button>
+        <span className="pedidoIdentificadorVerPedido">
+          {pedido.numero_pedido || "Sin ID"}
+        </span>
       </header>
+      
 
       <section className="verPedidoCliente">
         <div className="verPedidoClientePrincipal">
@@ -125,7 +125,7 @@ export default function VerPedido() {
           </div>
 
           <div className="verPedidoResumenItem">
-            <span>Restante</span>
+            <span>Pendiente</span>
             <strong>{formatearPrecio(restantePedido)}</strong>
           </div>
         </div>
@@ -183,8 +183,13 @@ export default function VerPedido() {
             })}
           </div>
         ) : (
-          <div className="verPedidoSinDatos">
-            <p>No hay pagos registrados para este pedido.</p>
+          <div className="verPedidoEmpty">
+            <div>
+              <h3>
+                <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/>
+                No hay pagos por aquí
+              </h3>
+            </div>
           </div>
         )}
       </section>
@@ -249,7 +254,7 @@ export default function VerPedido() {
                       type="button"
                       className={`verPedidoProductoButton ${!productoTieneId ? "verPedidoProductoButtonDisabled" : ""}`}
                       disabled={!productoTieneId}
-                      onClick={() => abrirProducto(producto)}
+                      onClick={() => navigate(`/pedido/${pedido.id}/gestionar-producto/${producto.id}`)}
                     >
                     <Eye size={17} strokeWidth={2} />
                     <span>Gestionar</span>
@@ -260,8 +265,13 @@ export default function VerPedido() {
             })}
           </div>
         ) : (
-          <div className="verPedidoSinDatos">
-            <p>Este pedido no tiene productos registrados.</p>
+          <div className="verPedidoEmpty">
+            <div>
+              <h3>
+                <Ghost size={17} strokeWidth={1.5} style={{marginRight: "10px"}}/>
+                No hay productos por aquí
+              </h3>
+            </div>
           </div>
         )}
       </section>

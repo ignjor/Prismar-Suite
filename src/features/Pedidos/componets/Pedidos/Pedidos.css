@@ -276,11 +276,23 @@ border-color:rgba(245,166,35,.13);
 color:#9a6a12
 }
 .pedidoAction{
-display:flex;
-align-items:center;
-justify-content:flex-end;
-padding-left:4px
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding-left:4px
 }
+
+.pedidoIdentificador{
+  color:#98989d;
+  font-size:9px;
+  font-weight:500;
+  letter-spacing:.3px;
+  line-height:1;
+  white-space:nowrap
+}
+
 .pedidoActionButton{
 min-width:92px;
 height:40px;
