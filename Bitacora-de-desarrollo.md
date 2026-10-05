@@ -437,3 +437,7 @@ service cloud.firestore {
 - feat: agrega GestionarProducto, permite ver el producto que esta dentro del pedido y ver su estado y sus medidas asigandas, falta que permita cambiar el estado a completado. Agregar numero_pedido, un identificador simple visual con datenow de 7 digitos, es solo para caracter visual y reconocerlo en caso de necesitar buscar un pedido. Se agrego dentro de Pedido, verPedido y GestionarProducto
 
 - fix: arregla el que borrador guarda slice 7 y pedido completo a 6, se definio a 7.
+
+### Luneas 5 de Octubre.
+
+- feat: agregar botones dentro de Gestionar Producto para cambiar el estado del producto, agrega ModalConfirmar para confirmar el cambio de estado.

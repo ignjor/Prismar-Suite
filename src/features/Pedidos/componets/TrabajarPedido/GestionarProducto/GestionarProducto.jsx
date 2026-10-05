@@ -1,14 +1,20 @@
 import "./GestionarProducto.css";
 import { usePedidos } from "../../../querys/usePedidos";
-import { useMemo } from "react";
+import { db } from "../../../../../firebase";
+import { updateDoc, doc, serverTimestamp } from "firebase/firestore";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ArrowLeft, Shirt } from "lucide-react";
+import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
 
 export default function GestionarProducto() {
     const { pedidoId, productoId } = useParams();
     const navigate = useNavigate();
-    const { data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
+    const [estadoDelModal, setEstadoDelModal] = useState(false);
+
+    const [estadoActual, setEstadoActual] = useState(null);
+    const { data: datosDePedidos = [], isLoading, isError } = usePedidos();
 
     const pedido = useMemo(() => {
         return datosDePedidos.find(
@@ -34,23 +40,43 @@ export default function GestionarProducto() {
         return `$${Number(valor || 0).toLocaleString("es-CL")}`;
     };
 
+    const abrirModal = (producto) => {
+        setEstadoActual(producto); setEstadoDelModal(true);
+    }
+    const cerrarModal = () => {
+        setEstadoActual(null); setEstadoDelModal(false);
+    }
+    const cambiarEstado = async (datoActual) => {
+        try {
+            const nuevoEstado = datoActual.estado_producto === "Completado"
+                    ? "Pendiente"
+                    : "Completado";
+
+            const productoRef = doc( db, "pedidos", pedidoId, "productos", productoId );
+            await updateDoc(productoRef, {
+            estado_producto: nuevoEstado,
+            fecha_actualizacion: serverTimestamp(),
+            });
+        } catch (error) {
+            console.error("Error al cambiar el estado:", error);
+            throw error;
+        }
+    };
+
     if (isLoading) {
         return <p>Cargando el producto...</p>;
     }
-
     if (isError) {
         return (
         <p>
-            Error: {error.message}. Error al Cargar el Producto, recargue la
+            Error al Cargar el Producto, recargue la
             página.
         </p>
         );
     }
-
     if (!pedido) {
         return <p>Pedido no encontrado.</p>;
     }
-
     if (!producto) {
         return <p>Producto no encontrado dentro del pedido.</p>;
     }
@@ -71,7 +97,7 @@ export default function GestionarProducto() {
             </button>
             
             <span className="pedidoIdentificadorGestionarProducto">
-            {pedido.numero_pedido || "Sin ID"}
+            {pedido.numero_pedido}
             </span>
         </div>
 
@@ -181,8 +207,42 @@ export default function GestionarProducto() {
                 </p>
                 )}
             </div>
+            <div className="botonesAccionProducto">
+            <button
+                type="button"
+                className="productoVolverPedido"
+                onClick={() => navigate(`/pedido/${pedidoId}`)}
+            >
+                <span>
+                Volver al Pedido
+                </span>
+            </button>
+            <button
+                type="button"
+                className={`productoCambiarEstado ${
+                producto.estado_producto === "Pendiente"
+                    ? "productoCambiarEstadoCompletado"
+                    : "productoCambiarEstadoPendiente"
+                }`}
+                onClick={() => abrirModal(producto)}
+            >
+                <span>
+                {producto.estado_producto === "Pendiente"
+                    ? "Completar"
+                    : "Cambiar estado a Pendiente"}
+                </span>
+            </button>
+            </div>
             </div>
         </section>
+         {estadoDelModal && (
+         <ModalConfirmar
+           tipo = "producto"
+           dato = {estadoActual}
+           modalAbierto= {estadoDelModal}
+           onCerrarModal= {cerrarModal}
+           onConfirmar= {cambiarEstado}
+         /> )}
         </main>
     );
 }
