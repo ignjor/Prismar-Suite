@@ -159,7 +159,7 @@ export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal,
               <>
                 <div className="modalEstadoConfirmIcon">
                   <IconoPrincipal
-                  size={18}
+                  size={25}
                   strokeWidth={2}
                 />
                 </div>
