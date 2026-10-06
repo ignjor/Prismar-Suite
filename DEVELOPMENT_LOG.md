@@ -432,3 +432,5 @@
 - fix, style: cambiamos las maxinstances de functions de 10 a solo 1 por cualquier cosa, no necesitamos mas practicamente. Cambiamos size del icono dentro de modal confirmar
 
 - feat: agregar cuantos dias faltan para la entrega o hace cuantos dias fue la entrega o si el pedido esta entregado en Pedidos y VerPedido
+
+- feat: agrega boton de cambiar estado de entrega dentro de verPedido

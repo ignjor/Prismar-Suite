@@ -1,14 +1,19 @@
 import "./VerPedido.css";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../../../../firebase";
 import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
+
+import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
 import { ArrowLeft, CreditCard, Shirt, Eye, Ghost } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
   const navigate = useNavigate();
+  const [estadoDelModal, setEstadoDelModal] = useState(false);
+  const [estadoActual, setEstadoActual] = useState(null);
   const {data: datosDePedidos = [], isLoading, isError, error} = usePedidos();
   const {data: datosDeCuentas = []} = useCuentas();
 
@@ -19,8 +24,6 @@ export default function VerPedido() {
   const cuentasMap = useMemo(() => {
     return new Map(datosDeCuentas.map((cuenta) => [cuenta.id, cuenta.nombre]));
   }, [datosDeCuentas]);
-
-
 
   const totalPedido = Number(pedido?.total_pedido || 0);
   const totalPagado = Number(pedido?.total_pagado || 0);
@@ -88,6 +91,29 @@ export default function VerPedido() {
     };  
   };
 
+  const abrirModal = (pedido) => {
+      setEstadoActual(pedido); setEstadoDelModal(true);
+  }
+  const cerrarModal = () => {
+      setEstadoActual(null); setEstadoDelModal(false);
+  }
+  const cambiarEstado = async (datoActual) => {
+      try {
+          const nuevoEstado = datoActual.estado_pedido === "Entregado"
+                  ? "Pendiente"
+                  : "Entregado";
+
+          const pedidoRef = doc( db, "pedidos", id );
+          await updateDoc(pedidoRef, {
+          estado_pedido: nuevoEstado,
+          fecha_actualizacion: serverTimestamp(),
+          });
+      } catch (error) {
+          console.error("Error al cambiar el estado de entrega:", error);
+          throw error;
+      }
+  };
+
   if (isLoading) { return <p>Cargando el pedido...</p> }
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Pedido, recargue la página.</p> }
   if (!pedido) {
@@ -112,7 +138,26 @@ export default function VerPedido() {
       <section className="verPedidoCliente">
         <div className="verPedidoClientePrincipal">
           <span className="verPedidoSeccionLabel">CLIENTE</span>
-          <h1>{pedido.cliente || "Sin cliente"}</h1>
+
+          <div className="verPedidoClienteTitulo">
+            <h1>{pedido.cliente || "Sin cliente"}</h1>
+            
+            <button
+              type="button"
+              className={`pedidoCambiarEstado ${
+                pedido.estado_pedido === "Entregado"
+                  ? "pedidoCambiarEstadoEntregado"
+                  : "pedidoCambiarEstadoPendiente"
+              }`}
+              onClick={() => abrirModal(pedido)}
+            >
+              <span>
+                {pedido.estado_pedido === "Entregado"
+                  ? "Entregado"
+                  : "Marcar como entregado"}
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="verPedidoClienteDatos">
@@ -318,6 +363,14 @@ export default function VerPedido() {
           </div>
         )}
       </section>
+       {estadoDelModal && (
+       <ModalConfirmar
+         tipo = "pedidoEntrega"
+         dato = {estadoActual}
+         modalAbierto= {estadoDelModal}
+         onCerrarModal= {cerrarModal}
+         onConfirmar= {cambiarEstado}
+       /> )}
     </main>
   );
 }

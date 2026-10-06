@@ -6,9 +6,8 @@ const body = document.body;
 const configuracion = {
   producto: { titulo: "Actualizar estado del producto", etiqueta: "Producto", icono: Package,
   },
-  pedidoEntrega: { titulo: "Actualizar estado de la entrega", etiqueta: "Entrega del Pedido", icono: Truck,
+  pedidoEntrega: { titulo: "Actualizar estado de la entrega", etiqueta: "Pedido", icono: Truck,
   },
-
 
 };
 export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal, onConfirmar}) {
