@@ -53,11 +53,11 @@ export default function ModalTomarMedidas({ producto, modalAbierto, onEditarMedi
         }));
     };
 
-    const guardarMedidas = () => {
+    const guardarMedidas = async () => {
         if (!producto) {
             return;
         }
-        onEditarMedidas(medidas);
+        await onEditarMedidas(medidas);
         onCerrarModal();
     };
 

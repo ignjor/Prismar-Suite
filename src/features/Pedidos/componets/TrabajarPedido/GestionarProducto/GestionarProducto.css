@@ -2,8 +2,7 @@
   width: min(92%, 920px);
   margin: 0 auto;
   padding: 42px 0 130px;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "SF Pro Text", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif;
   color: #1d1d1f;
 }
 
@@ -42,8 +41,7 @@
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.035);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  transition: background 0.2s ease, transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -118,7 +116,7 @@
   gap: 7px;
 }
 
-.productoDetalleEtiquetas .ColegioAsignadoTitle {
+.productoDetalleEtiquetas > span.ColegioAsignadoTitle {
   min-height: 25px;
   margin: 0;
   padding: 5px 10px;
@@ -138,16 +136,73 @@
   overflow-wrap: anywhere;
 }
 
-.productoDetalleEtiquetas .productoDetalleEstadoPendiente {
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle {
+  flex: 0 0 auto;
+  min-height: 30px;
+  margin: 0;
+  padding: 5px 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: rgba(255, 193, 7, 0.14);
+  color: #a66b00;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25px;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle:active {
+  transform: scale(0.97);
+}
+
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle:has(.productoDetalleEstadoCompleto) {
+  background: rgba(34, 184, 75, 0.1);
+  color: #16883a;
+  border-color: rgba(34, 184, 75, 0.12);
+}
+
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle:has(.productoDetalleEstadoCompleto):hover {
+  background: rgba(34, 184, 75, 0.16);
+  border-color: rgba(34, 184, 75, 0.2);
+}
+
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle:has(.productoDetalleEstadoPendiente) {
   background: rgba(255, 193, 7, 0.14);
   color: #a66b00;
   border-color: rgba(255, 193, 7, 0.18);
 }
 
-.productoDetalleEtiquetas .productoDetalleEstadoCompleto {
-  background: rgba(34, 184, 75, 0.1);
-  color: #16883a;
-  border-color: rgba(34, 184, 75, 0.12);
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle:has(.productoDetalleEstadoPendiente):hover {
+  background: rgba(255, 193, 7, 0.21);
+  border-color: rgba(255, 193, 7, 0.25);
+}
+
+.productoDetalleEtiquetas > button.ColegioAsignadoTitle > span.ColegioAsignadoTitle {
+  min-height: auto;
+  margin: 0;
+  padding: 0;
+  display: inline;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  text-transform: inherit;
 }
 
 .productoDetalleSeparador {
@@ -172,8 +227,58 @@
   text-transform: uppercase;
 }
 
-.productoDetalleSeccion .medidasAsignadasTitle {
+.productoDetalleMedidasHeader {
   margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.productoDetalleSeccion .medidasAsignadasTitle {
+  margin: 0 0 15px;
+}
+
+.productoEditarMedidasButton {
+  width: fit-content;
+  min-height: 25px;
+  margin: 0 0 15px;
+  padding: 5px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.045);
+  border-radius: 30px;
+  background: rgba(245, 245, 247, 0.75);
+  color: #69696e;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.18s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.productoEditarMedidasButton:hover {
+  background: rgba(235, 235, 238, 0.9);
+  border-color: rgba(0, 0, 0, 0.07);
+  color: #424245;
+}
+
+.productoEditarMedidasButton:focus {
+  border-color: rgba(0, 122, 255, 0.25);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.07);
+}
+
+.productoEditarMedidasButton:active {
+  transform: scale(0.97);
 }
 
 .productoDetallePrecios {

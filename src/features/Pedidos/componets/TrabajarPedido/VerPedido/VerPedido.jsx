@@ -7,7 +7,7 @@ import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
 
 import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
-import { ArrowLeft, CreditCard, Shirt, Eye, Ghost } from "lucide-react";
+import { ArrowLeft, CreditCard, Shirt, Eye, Ghost, WalletCards } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
@@ -280,6 +280,14 @@ export default function VerPedido() {
             </div>
           </div>
         )}
+        <div className="verPedidoGestionarPagosButton">
+            <button
+              type="button"
+            >
+            <WalletCards size={17} strokeWidth={2} />
+            <span>Gestionar pagos</span>
+            </button>
+          </div>
       </section>
 
       <section className="verPedidoSeccion verPedidoProductosSeccion">
