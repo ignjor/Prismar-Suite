@@ -434,3 +434,7 @@
 - feat: agregar cuantos dias faltan para la entrega o hace cuantos dias fue la entrega o si el pedido esta entregado en Pedidos y VerPedido
 
 - feat: agrega boton de cambiar estado de entrega dentro de verPedido
+
+### Martes 6 de Octubre
+
+- feat, styles: agregar editar medidas dentro gestionar productos, cambia del boton para cambiar estado de produto, agrega boton Gestionar Pagos dentro de VerPedidos no funcional aun.

@@ -7,12 +7,15 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { ArrowLeft, Shirt } from "lucide-react";
 import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
+import ModalTomarMedidas from "../../ModalTomarMedidas/ModalTomarMedidas";
 
 export default function GestionarProducto() {
     const { pedidoId, productoId } = useParams();
     const navigate = useNavigate();
     const [estadoDelModal, setEstadoDelModal] = useState(false);
+    const [estadoDelModalMedidas, setEstadoDelModalMedidas] = useState(false);
 
+    const [medidasActuales, setMedidasActuales] = useState(null);
     const [estadoActual, setEstadoActual] = useState(null);
     const { data: datosDePedidos = [], isLoading, isError } = usePedidos();
 
@@ -62,6 +65,28 @@ export default function GestionarProducto() {
             throw error;
         }
     };
+    const abrirModalMedidas = (producto) => {
+        setMedidasActuales(producto); setEstadoDelModalMedidas(true);
+    }
+    const cerrarModalMedidas = () => {
+        setMedidasActuales(null); setEstadoDelModalMedidas(false);
+    }
+
+    const editarMedidas = async (nuevasMedidas) => {
+        if (!producto) {
+            return;
+        }
+        try {
+            const productoRef = doc( db, "pedidos", pedidoId, "productos", productoId );
+            await updateDoc(productoRef, {
+                medidas_asig: nuevasMedidas,
+                fecha_actualizacion: serverTimestamp(),
+            });
+        } catch (error) {
+            console.error("Error al actualizar las medidas:", error);
+            throw error;
+        }
+    };
 
     if (isLoading) {
         return <p>Cargando el producto...</p>;
@@ -97,7 +122,7 @@ export default function GestionarProducto() {
             </button>
             
             <span className="pedidoIdentificadorGestionarProducto">
-            {pedido.numero_pedido}
+            PRODUCTO - {pedido.numero_pedido}
             </span>
         </div>
 
@@ -124,15 +149,24 @@ export default function GestionarProducto() {
             </h1>
 
             <div className="productoDetalleEtiquetas">
-                <span
-                className={`ColegioAsignadoTitle ${
-                    producto.estado_producto === "Completado"
-                    ? "productoDetalleEstadoCompleto"
-                    : "productoDetalleEstadoPendiente"
-                }`}
+                <button 
+                    type="button"
+                    className="ColegioAsignadoTitle"
+                    onClick={() => abrirModal(producto)}
                 >
-                {(producto.estado_producto || "Pendiente").toUpperCase()}
-                </span>
+                    <span
+                    className={`ColegioAsignadoTitle ${
+                        producto.estado_producto === "Completado"
+                        ? "productoDetalleEstadoCompleto"
+                        : "productoDetalleEstadoPendiente"
+                    }`}
+                    >
+                    {(producto.estado_producto === "Pendiente"
+                        ? "Marcar como completado"
+                        : "Completado"
+                    ).toUpperCase()}
+                    </span>
+                </button>
                 
                 <span className="ColegioAsignadoTitle">
                 {producto.colegio || "Sin Empresa o Colegio Afiliado"}
@@ -180,9 +214,19 @@ export default function GestionarProducto() {
             </div>
 
             <div className="productoDetalleSeccion">
-                <h2 className="medidasAsignadasTitle">
-                MEDIDAS ASIGNADAS
-                </h2>
+                <div className="productoDetalleMedidasHeader">
+                    <h2 className="medidasAsignadasTitle">
+                        MEDIDAS ASIGNADAS
+                    </h2>
+
+                    <button
+                        type="button"
+                        className="productoEditarMedidasButton"
+                        onClick={() => abrirModalMedidas(producto)}
+                    >
+                        Editar medidas
+                    </button>
+                </div>
 
                 {medidas.length > 0 ? (
                 <div className="productoDetalleMedidas">
@@ -207,32 +251,6 @@ export default function GestionarProducto() {
                 </p>
                 )}
             </div>
-            <div className="botonesAccionProducto">
-            <button
-                type="button"
-                className="productoVolverPedido"
-                onClick={() => navigate(`/pedido/${pedidoId}`)}
-            >
-                <span>
-                Volver al Pedido
-                </span>
-            </button>
-            <button
-                type="button"
-                className={`productoCambiarEstado ${
-                producto.estado_producto === "Pendiente"
-                    ? "productoCambiarEstadoCompletado"
-                    : "productoCambiarEstadoPendiente"
-                }`}
-                onClick={() => abrirModal(producto)}
-            >
-                <span>
-                {producto.estado_producto === "Pendiente"
-                    ? "Completar"
-                    : "Cambiar estado a Pendiente"}
-                </span>
-            </button>
-            </div>
             </div>
         </section>
          {estadoDelModal && (
@@ -242,6 +260,13 @@ export default function GestionarProducto() {
            modalAbierto= {estadoDelModal}
            onCerrarModal= {cerrarModal}
            onConfirmar= {cambiarEstado}
+         /> )}
+         {estadoDelModalMedidas && (
+         <ModalTomarMedidas
+           producto = {medidasActuales}
+           modalAbierto= {estadoDelModalMedidas}
+           onEditarMedidas= {editarMedidas}
+           onCerrarModal= {cerrarModalMedidas}
          /> )}
         </main>
     );

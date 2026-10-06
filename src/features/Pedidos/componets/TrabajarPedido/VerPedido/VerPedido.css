@@ -54,6 +54,7 @@ box-shadow:0 7px 20px rgba(0,0,0,.055);
 .verPedidoVolver:active,
 .verPedidoProductoButton:active,
 .verPedidoPagoComprobanteDisponible:active,
+.verPedidoGestionarPagosButton button:active,
 .pedidoCambiarEstado:active {
 transform:scale(.97);
 }
@@ -334,6 +335,37 @@ color:#424245;
 .verPedidoPagoComprobanteDisponible:focus {
 border-color:rgba(0,122,255,.25);
 box-shadow:0 0 0 3px rgba(0,122,255,.07);
+}
+
+.verPedidoGestionarPagosButton {
+margin-top:24px;
+display:flex;
+justify-content:center;
+}
+
+.verPedidoGestionarPagosButton button {
+width:50%;
+height:40px;
+padding:0 10px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:6px;
+border:1px solid transparent;
+border-radius:40px;
+background:#f5f5f7;
+color:#424245;
+font-family:inherit;
+font-size:12px;
+font-weight:500;
+cursor:pointer;
+transition:background .2s ease,color .2s ease,transform .2s ease;
+-webkit-tap-highlight-color:transparent;
+}
+
+.verPedidoGestionarPagosButton button:hover {
+background:#e9e9ed;
+color:#1d1d1f;
 }
 
 .verPedidoEmpty {
@@ -739,6 +771,18 @@ gap:5px 12px;
 .verPedidoPagoComprobante {
 min-height:25px;
 padding:5px 9px;
+font-size:10px;
+}
+
+.verPedidoGestionarPagosButton {
+margin-top:18px;
+}
+
+.verPedidoGestionarPagosButton button {
+height:34px;
+padding:0 6px;
+gap:4px;
+border-radius:10px;
 font-size:10px;
 }
 
