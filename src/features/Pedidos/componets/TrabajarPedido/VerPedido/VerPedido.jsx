@@ -1,14 +1,19 @@
 import "./VerPedido.css";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../../../../firebase";
 import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
+
+import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
 import { ArrowLeft, CreditCard, Shirt, Eye, Ghost } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
   const navigate = useNavigate();
+  const [estadoDelModal, setEstadoDelModal] = useState(false);
+  const [estadoActual, setEstadoActual] = useState(null);
   const {data: datosDePedidos = [], isLoading, isError, error} = usePedidos();
   const {data: datosDeCuentas = []} = useCuentas();
 
@@ -49,6 +54,66 @@ export default function VerPedido() {
     }
     return fecha;
   };
+
+  const textoFechaEntrega = (fecha) => {
+    if (!fecha) return "";
+    let fechaEntrega;
+    if (typeof fecha?.toDate === "function") {
+      fechaEntrega = fecha.toDate();
+    } else {
+      fechaEntrega = new Date(fecha);
+    }
+    if (Number.isNaN(fechaEntrega.getTime())) return "";
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+    fechaEntrega.setHours(0, 0, 0, 0);
+
+    const diferenciaMs = fechaEntrega.getTime() - hoy.getTime();
+    const diferenciaDias = Math.round(diferenciaMs / (1000 * 60 * 60 * 24));
+
+    if (diferenciaDias === 0) {
+      return {
+        texto: "Entrega hoy",
+        urgente: true
+      };
+    }
+    if (diferenciaDias > 0) {
+      return {
+        texto: `Entrega en ${diferenciaDias} ${diferenciaDias === 1 ? "día" : "días"}`,
+        urgente: diferenciaDias <= 3
+      };
+    }
+    const diasPasados = Math.abs(diferenciaDias);
+    return {
+      texto: `Entrega hace ${diasPasados} ${diasPasados === 1 ? "día" : "días"}`,
+      urgente: true
+    };  
+  };
+
+  const abrirModal = (pedido) => {
+      setEstadoActual(pedido); setEstadoDelModal(true);
+  }
+  const cerrarModal = () => {
+      setEstadoActual(null); setEstadoDelModal(false);
+  }
+  const cambiarEstado = async (datoActual) => {
+      try {
+          const nuevoEstado = datoActual.estado_pedido === "Entregado"
+                  ? "Pendiente"
+                  : "Entregado";
+
+          const pedidoRef = doc( db, "pedidos", id );
+          await updateDoc(pedidoRef, {
+          estado_pedido: nuevoEstado,
+          fecha_actualizacion: serverTimestamp(),
+          });
+      } catch (error) {
+          console.error("Error al cambiar el estado de entrega:", error);
+          throw error;
+      }
+  };
+
   if (isLoading) { return <p>Cargando el pedido...</p> }
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Pedido, recargue la página.</p> }
   if (!pedido) {
@@ -73,13 +138,52 @@ export default function VerPedido() {
       <section className="verPedidoCliente">
         <div className="verPedidoClientePrincipal">
           <span className="verPedidoSeccionLabel">CLIENTE</span>
-          <h1>{pedido.cliente || "Sin cliente"}</h1>
+
+          <div className="verPedidoClienteTitulo">
+            <h1>{pedido.cliente || "Sin cliente"}</h1>
+            
+            <button
+              type="button"
+              className={`pedidoCambiarEstado ${
+                pedido.estado_pedido === "Entregado"
+                  ? "pedidoCambiarEstadoEntregado"
+                  : "pedidoCambiarEstadoPendiente"
+              }`}
+              onClick={() => abrirModal(pedido)}
+            >
+              <span>
+                {pedido.estado_pedido === "Entregado"
+                  ? "Entregado"
+                  : "Marcar como entregado"}
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="verPedidoClienteDatos">
           <div className="verPedidoDato">
             <span>Fecha de entrega</span>
             <strong>{formatearFecha(pedido.fecha_entrega)}</strong>
+            {pedido.estado_pedido === "Entregado" ? (
+              <small className="verPedidoFechaEntregaEntregado">
+                Pedido entregado
+              </small>
+            ) : (
+              (() => {
+                const fechaEntregaInfo = textoFechaEntrega(pedido.fecha_entrega);
+                return fechaEntregaInfo ? (
+                  <small
+                    className={
+                      fechaEntregaInfo.urgente
+                        ? "verPedidoFechaEntregaUrgente"
+                        : "verPedidoFechaEntregaNormal"
+                    }
+                  >
+                    {fechaEntregaInfo.texto}
+                  </small>
+                ) : null;
+              })()
+            )}
           </div>
 
           <div className="verPedidoDato">
@@ -259,6 +363,14 @@ export default function VerPedido() {
           </div>
         )}
       </section>
+       {estadoDelModal && (
+       <ModalConfirmar
+         tipo = "pedidoEntrega"
+         dato = {estadoActual}
+         modalAbierto= {estadoDelModal}
+         onCerrarModal= {cerrarModal}
+         onConfirmar= {cambiarEstado}
+       /> )}
     </main>
   );
 }

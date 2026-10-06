@@ -53,7 +53,8 @@ box-shadow:0 7px 20px rgba(0,0,0,.055);
 
 .verPedidoVolver:active,
 .verPedidoProductoButton:active,
-.verPedidoPagoComprobanteDisponible:active {
+.verPedidoPagoComprobanteDisponible:active,
+.pedidoCambiarEstado:active {
 transform:scale(.97);
 }
 
@@ -71,14 +72,70 @@ padding-bottom:28px;
 border-bottom:1px solid rgba(0,0,0,.07);
 }
 
+.verPedidoClientePrincipal {
+min-width:0;
+}
+
+.verPedidoClienteTitulo {
+margin-top:8px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:18px;
+min-width:0;
+}
+
 .verPedidoClientePrincipal h1 {
-margin:8px 0 0;
+margin:0;
+min-width:0;
 color:#1d1d1f;
 font-size:34px;
 line-height:1.15;
 font-weight:700;
 letter-spacing:-1px;
 overflow-wrap:anywhere;
+}
+
+.pedidoCambiarEstado {
+flex:0 0 auto;
+min-height:30px;
+padding:5px 11px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+border-radius:30px;
+font-family:inherit;
+font-size:12px;
+font-weight:600;
+letter-spacing:.25px;
+line-height:1.2;
+white-space:nowrap;
+cursor:pointer;
+outline:none;
+transition:background .2s ease,border-color .2s ease,color .2s ease,transform .18s ease,box-shadow .2s ease;
+-webkit-tap-highlight-color:transparent;
+}
+
+.pedidoCambiarEstadoEntregado {
+background:rgba(34,184,75,.1);
+color:#16883a;
+border:1px solid rgba(34,184,75,.12);
+}
+
+.pedidoCambiarEstadoEntregado:hover {
+background:rgba(34,184,75,.16);
+border-color:rgba(34,184,75,.2);
+}
+
+.pedidoCambiarEstadoPendiente {
+background:rgba(255,193,7,.14);
+color:#a66b00;
+border:1px solid rgba(255,193,7,.18);
+}
+
+.pedidoCambiarEstadoPendiente:hover {
+background:rgba(255,193,7,.21);
+border-color:rgba(255,193,7,.25);
 }
 
 .verPedidoClienteDatos,
@@ -119,6 +176,30 @@ font-size:13px;
 font-weight:600;
 line-height:1.25;
 overflow-wrap:anywhere;
+}
+
+.verPedidoFechaEntregaNormal {
+display:block;
+margin-top:2px;
+color:#000;
+font-size:12px;
+font-weight:600;
+}
+
+.verPedidoFechaEntregaUrgente {
+display:block;
+margin-top:2px;
+color:#dc2626;
+font-size:12px;
+font-weight:600;
+}
+
+.verPedidoFechaEntregaEntregado {
+display:block;
+margin-top:2px;
+color:#16a34a;
+font-size:12px;
+font-weight:600;
 }
 
 .verPedidoResumen {
@@ -529,8 +610,19 @@ width:min(94%,420px);
 padding-top:32px;
 }
 
+.verPedidoClienteTitulo {
+align-items:flex-start;
+gap:10px;
+}
+
 .verPedidoClientePrincipal h1 {
 font-size:28px;
+}
+
+.pedidoCambiarEstado {
+margin-top:2px;
+font-size:10px;
+padding:5px 9px;
 }
 
 .verPedidoClienteDatos {
@@ -667,8 +759,17 @@ font-size:12px;
 width:94%;
 }
 
+.verPedidoClienteTitulo {
+gap:8px;
+}
+
 .verPedidoClientePrincipal h1 {
 font-size:25px;
+}
+
+.pedidoCambiarEstado {
+font-size:9px;
+padding:4px 8px;
 }
 
 .verPedidoProductosGrid {

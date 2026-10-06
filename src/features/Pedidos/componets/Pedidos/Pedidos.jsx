@@ -71,6 +71,42 @@ export default function Pedidos() {
     return "Sin fecha de entrega";
   };
 
+  const textoFechaEntrega = (fecha) => {
+    if (!fecha) return "";
+    let fechaEntrega;
+    if (typeof fecha?.toDate === "function") {
+      fechaEntrega = fecha.toDate();
+    } else {
+      fechaEntrega = new Date(fecha);
+    }
+    if (Number.isNaN(fechaEntrega.getTime())) return "";
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+    fechaEntrega.setHours(0, 0, 0, 0);
+
+    const diferenciaMs = fechaEntrega.getTime() - hoy.getTime();
+    const diferenciaDias = Math.round(diferenciaMs / (1000 * 60 * 60 * 24));
+
+    if (diferenciaDias === 0) {
+      return {
+        texto: "Entrega hoy",
+        urgente: true
+      };
+    }
+    if (diferenciaDias > 0) {
+      return {
+        texto: `Entrega en ${diferenciaDias} ${diferenciaDias === 1 ? "día" : "días"}`,
+        urgente: diferenciaDias <= 3
+      };
+    }
+    const diasPasados = Math.abs(diferenciaDias);
+    return {
+      texto: `Entrega hace ${diasPasados} ${diasPasados === 1 ? "día" : "días"}`,
+      urgente: true
+    };  
+  };
+
   const obtenerNombresProductos = (productos = []) => {
     const nombres = productos.map((producto) => producto.nombre).filter(Boolean);
     const visibles = nombres.slice(0, 3);
@@ -151,6 +187,26 @@ export default function Pedidos() {
               <div className="pedidoCliente">
                 <span className="pedidoLabel">Fecha de Entrega</span>
                 <h2>{formatearFecha(pedido.fecha_entrega)}</h2>
+                {pedido.estado_pedido === "Entregado" ? (
+                  <small className="PedidoFechaEntregaEntregado">
+                    Pedido entregado
+                  </small>
+                ) : (
+                  (() => {
+                    const fechaEntregaInfo = textoFechaEntrega(pedido.fecha_entrega);
+                    return fechaEntregaInfo ? (
+                      <small
+                        className={
+                          fechaEntregaInfo.urgente
+                            ? "PedidoFechaEntregaUrgente"
+                            : "PedidoFechaEntregaNormal"
+                        }
+                      >
+                        {fechaEntregaInfo.texto}
+                      </small>
+                    ) : null;
+                  })()
+                )}
                 <span className="pedidoClienteNombre">{pedido.cliente}</span>
                 <span className="pedidoColegio">{pedido.colegio}</span>
               </div>
