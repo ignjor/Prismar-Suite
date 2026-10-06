@@ -57,6 +57,30 @@ box-shadow:0 7px 20px rgba(0,0,0,.055);
 transform:scale(.97);
 }
 
+.verPedidoFechaEntregaNormal {
+  display: block;
+  margin-top: 2px;
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verPedidoFechaEntregaUrgente {
+  display: block;
+  margin-top: 2px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.verPedidoFechaEntregaEntregado {
+  display: block;
+  color: #16a34a;
+  margin-top: 2px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
 .verPedidoSeccionLabel {
 display:block;
 color:#86868b;

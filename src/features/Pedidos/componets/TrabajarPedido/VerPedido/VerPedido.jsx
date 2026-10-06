@@ -20,6 +20,8 @@ export default function VerPedido() {
     return new Map(datosDeCuentas.map((cuenta) => [cuenta.id, cuenta.nombre]));
   }, [datosDeCuentas]);
 
+
+
   const totalPedido = Number(pedido?.total_pedido || 0);
   const totalPagado = Number(pedido?.total_pagado || 0);
   const restantePedido = Math.max(totalPedido - totalPagado, 0);
@@ -49,6 +51,43 @@ export default function VerPedido() {
     }
     return fecha;
   };
+
+  const textoFechaEntrega = (fecha) => {
+    if (!fecha) return "";
+    let fechaEntrega;
+    if (typeof fecha?.toDate === "function") {
+      fechaEntrega = fecha.toDate();
+    } else {
+      fechaEntrega = new Date(fecha);
+    }
+    if (Number.isNaN(fechaEntrega.getTime())) return "";
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+    fechaEntrega.setHours(0, 0, 0, 0);
+
+    const diferenciaMs = fechaEntrega.getTime() - hoy.getTime();
+    const diferenciaDias = Math.round(diferenciaMs / (1000 * 60 * 60 * 24));
+
+    if (diferenciaDias === 0) {
+      return {
+        texto: "Entrega hoy",
+        urgente: true
+      };
+    }
+    if (diferenciaDias > 0) {
+      return {
+        texto: `Entrega en ${diferenciaDias} ${diferenciaDias === 1 ? "día" : "días"}`,
+        urgente: diferenciaDias <= 3
+      };
+    }
+    const diasPasados = Math.abs(diferenciaDias);
+    return {
+      texto: `Entrega hace ${diasPasados} ${diasPasados === 1 ? "día" : "días"}`,
+      urgente: true
+    };  
+  };
+
   if (isLoading) { return <p>Cargando el pedido...</p> }
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Pedido, recargue la página.</p> }
   if (!pedido) {
@@ -80,6 +119,26 @@ export default function VerPedido() {
           <div className="verPedidoDato">
             <span>Fecha de entrega</span>
             <strong>{formatearFecha(pedido.fecha_entrega)}</strong>
+            {pedido.estado_pedido === "Entregado" ? (
+              <small className="verPedidoFechaEntregaEntregado">
+                Pedido entregado
+              </small>
+            ) : (
+              (() => {
+                const fechaEntregaInfo = textoFechaEntrega(pedido.fecha_entrega);
+                return fechaEntregaInfo ? (
+                  <small
+                    className={
+                      fechaEntregaInfo.urgente
+                        ? "verPedidoFechaEntregaUrgente"
+                        : "verPedidoFechaEntregaNormal"
+                    }
+                  >
+                    {fechaEntregaInfo.texto}
+                  </small>
+                ) : null;
+              })()
+            )}
           </div>
 
           <div className="verPedidoDato">

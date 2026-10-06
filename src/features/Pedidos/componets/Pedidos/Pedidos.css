@@ -150,6 +150,34 @@ font-weight:600;
 letter-spacing:.2px;
 text-transform:uppercase
 }
+
+.PedidoFechaEntregaNormal {
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.PedidoFechaEntregaUrgente {
+  display: block;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.PedidoFechaEntregaEntregado {
+  display: block;
+  color: #16a34a;
+  margin-top: 2px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
 .pedidoCliente{
 min-width:0;
 display:flex;

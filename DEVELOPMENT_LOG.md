@@ -430,3 +430,5 @@
 - refactor, feat: refactor de functions separando la arquitectura de index.js para prepararla para mas functions. Agrega function para calcular total de pago y total del pedido mediante cloud, siendo independiente del front end. Modifica los componentes que usan la estructura antigua para usar la nueva.
 
 - fix, style: cambiamos las maxinstances de functions de 10 a solo 1 por cualquier cosa, no necesitamos mas practicamente. Cambiamos size del icono dentro de modal confirmar
+
+- feat: agregar cuantos dias faltan para la entrega o hace cuantos dias fue la entrega o si el pedido esta entregado en Pedidos y VerPedido
