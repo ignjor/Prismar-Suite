@@ -34,15 +34,6 @@ function AgregarPedido() {
     }, 0);
   }, [productosPedido]);
 
-  const totalPagado = useMemo(() => {
-    return pagos.reduce((total, pago) => {
-      return total + Number(pago.total_pago || 0);
-    }, 0);
-  }, [pagos]);
-  const estadoPago = totalPagado >= totalPrecio
-    ? "Pagado"
-    : "Pendiente";
-
   const botonVolver = () => {
     const hayCliente = cliente.trim() !== "";
     const hayProductos = productosPedido.length > 0;
@@ -79,12 +70,13 @@ function AgregarPedido() {
           estado_guardado: "Borrador",
           estado_pedido: "Pendiente",
           estado_productos: "Pendiente",
-          estado_pago: estadoPago,
+          estado_pago: "Pendiente",
+          total_pedido: 0,
+          total_pagado: 0,
           fecha_entrega: fechaEntrega || "Sin fecha de entrega",
           cliente: cliente.trim(),
           telefono: telefono || "Sin número de contacto",
           colegio: colegio || "Sin Afiliado",
-          total_pedido: totalPrecio,
           fecha_creacion: serverTimestamp(),
           fecha_actualizacion: serverTimestamp(),
         }
@@ -178,12 +170,13 @@ function AgregarPedido() {
           estado_guardado: "Guardado",
           estado_pedido: "Pendiente",
           estado_productos: "Pendiente",
-          estado_pago: estadoPago,
+          estado_pago: "Pendiente",
+          total_pedido: 0,
+          total_pagado: 0,
           fecha_entrega: fechaEntrega,
           cliente: cliente.trim(),
           telefono: telefono,
           colegio: colegio || "Sin Afiliado",
-          total_pedido: totalPrecio,
           fecha_creacion: serverTimestamp(),
           fecha_actualizacion: serverTimestamp(),
         }

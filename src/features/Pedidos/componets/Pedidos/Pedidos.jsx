@@ -25,14 +25,9 @@ export default function Pedidos() {
       });
   }, [datosDePedidos]);
 
-  const obtenerTotalPagado = (pagos = []) => {
-    return pagos.reduce(
-      (total, pago) => total + Number(pago.total_pago || 0), 0);
-  };
-
   const obtenerTotalPendiente = (pedido) => {
     const totalPedido = Number(pedido.total_pedido || 0);
-    const totalPagado = obtenerTotalPagado(pedido.pagos);
+    const totalPagado = Number(pedido.total_pagado || 0);
     return Math.max(totalPedido - totalPagado, 0);
   };
 
@@ -50,11 +45,10 @@ export default function Pedidos() {
       const buscadorEntrega =
         filtroEntrega === "Todos" ||
         String(pedido.estado_pedido || "") === filtroEntrega;
-      
-      const totalPendiente = obtenerTotalPendiente(pedido);
-      const pagado = totalPendiente <= 0;
-      const coincidePago = 
-        filtroPago === "Todos" || (filtroPago === "Pagado" && pagado) || (filtroPago === "Pendiente" && !pagado);
+
+      const coincidePago =
+        filtroPago === "Todos" || String(pedido.estado_pago || "") === filtroPago;
+
       return (
       buscadorCliente &&
       buscadorProceso &&
