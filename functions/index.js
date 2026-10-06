@@ -1,6 +1,6 @@
 const { setGlobalOptions } = require("firebase-functions");
 
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({ maxInstances: 1 });
 
 const {
   actualizarProductosPedido,
