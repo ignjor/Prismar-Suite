@@ -427,3 +427,4 @@
 
 - doc: cambiamos la bitacora de desarrollo por un DEVELOPMENT_LOG mas profesional y acorde al proyecto
 
+- refactor, feat: refactor de functions separando la arquitectura de index.js para prepararla para mas functions. Agrega function para calcular total de pago y total del pedido mediante cloud, siendo independiente del front end. Modifica los componentes que usan la estructura antigua para usar la nueva.

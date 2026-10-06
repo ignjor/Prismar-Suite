@@ -20,25 +20,10 @@ export default function VerPedido() {
     return new Map(datosDeCuentas.map((cuenta) => [cuenta.id, cuenta.nombre]));
   }, [datosDeCuentas]);
 
-  const totalPedido = useMemo(() => {
-    if (pedido?.total_pedido !== undefined) {
-      return Number(pedido.total_pedido) || 0;
-    }
-
-    return (pedido?.productos || []).reduce(
-      (total, producto) => total + (Number(producto.precio_talla) || 0) * (Number(producto.cantidad) || 0),
-      0
-    );
-  }, [pedido]);
-
-  const totalPagado = useMemo(() => {
-    return (pedido?.pagos || []).reduce(
-      (total, pago) => total + (Number(pago.total_pago) || 0),
-      0
-    );
-  }, [pedido]);
-
+  const totalPedido = Number(pedido?.total_pedido || 0);
+  const totalPagado = Number(pedido?.total_pagado || 0);
   const restantePedido = Math.max(totalPedido - totalPagado, 0);
+
   const formatearPrecio = (valor) => {
     return `$${Number(valor || 0).toLocaleString("es-CL")}`;
   };
@@ -85,7 +70,6 @@ export default function VerPedido() {
         </span>
       </header>
       
-
       <section className="verPedidoCliente">
         <div className="verPedidoClientePrincipal">
           <span className="verPedidoSeccionLabel">CLIENTE</span>
