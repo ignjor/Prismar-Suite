@@ -28,6 +28,13 @@ export default function VerPedido() {
   const totalPedido = Number(pedido?.total_pedido || 0);
   const totalPagado = Number(pedido?.total_pagado || 0);
   const restantePedido = Math.max(totalPedido - totalPagado, 0);
+  const estadoPagoMostrado = restantePedido <= 0 ? "Pagado" : pedido.estado_pago || "Pendiente";
+
+  const porcentajePagado = totalPedido > 0
+    ? Math.min(Math.round((totalPagado / totalPedido) * 100), 100)
+    : restantePedido <= 0
+    ? 100
+    : 0;
 
   const productos = pedido?.productos || [];
   const productosCompletados = productos.filter((producto) =>
@@ -234,7 +241,34 @@ export default function VerPedido() {
           </div>
         </div>
 
-        <span className="verPedidoSeccionLabel">RESUMEN FINANCIERO</span>
+        <div className="verPedidoProgreso">
+          <div className="verPedidoProgresoHeader">
+            <div className="verPedidoSeccionLabel">
+              <span>RESUMEN FINANCIERO: </span>
+              <strong
+                className={
+                  estadoPagoMostrado === "Pagado"
+                    ? "verPedidoProgresoEstadoCompletado"
+                    : "verPedidoProgresoEstadoPendiente"
+                }
+              >
+                {estadoPagoMostrado.toUpperCase()}
+              </strong>
+            </div>
+
+            <strong className="verPedidoProgresoPorcentaje">
+              {porcentajePagado}%
+            </strong>
+          </div>
+
+          <div className="verPedidoProgresoBarra">
+            <div
+              className="verPedidoProgresoBarraFill"
+              style={{ width: `${porcentajePagado}%` }}
+            />
+          </div>
+        </div>
+
         <div className="verPedidoResumenGrid">
           <div className="verPedidoResumenItem">
             <span>Total del pedido</span>

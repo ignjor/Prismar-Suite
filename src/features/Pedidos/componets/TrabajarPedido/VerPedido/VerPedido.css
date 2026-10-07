@@ -67,6 +67,8 @@
 }
 
 .verPedidoSeccionLabel {
+  margin-top: 10px;
+  margin-bottom: 5px;
   display: block;
   color: #86868b;
   font-size: 12px;
