@@ -19,9 +19,11 @@ import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPed
 
 import VerPedido from "./features/Pedidos/componets/TrabajarPedido/VerPedido/VerPedido";
 import GestionarProducto from "./features/Pedidos/componets/TrabajarPedido/GestionarProducto/GestionarProducto";
+import GestionarPagos from "./features/Pedidos/componets/TrabajarPedido/GestionarPagos/GestionarPagos";
 
 import Cuentas from "./features/Cuentas/componets/Cuentas/Cuentas";
 import CuentasBancarias from "./features/Cuentas/componets/cuentasBancarias/cuentasBancarias";
+
 
 function AppContent() {
   const location = useLocation();
@@ -91,7 +93,10 @@ function AppContent() {
           path="/pedido/:pedidoId/gestionar-producto/:productoId"
           element={<GestionarProducto />}
         />
-
+        <Route
+          path="/pedido/:pedidoId/gestionar-pagos"
+          element={<GestionarPagos />}
+        />
 
 
         <Route 

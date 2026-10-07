@@ -210,7 +210,7 @@ export default function VerPedido() {
       <section className="verPedidoResumen">
         <div className="verPedidoProgreso">
           <div className="verPedidoProgresoHeader">
-            <div className="verPedidoProgresoTitulo">
+            <div className="verPedidoSeccionLabel">
               <span>RESUMEN DE PRODUCCIÓN: </span>
               <strong className={
                 pedido.estado_productos === "Completado"
@@ -232,10 +232,6 @@ export default function VerPedido() {
               style={{ width: `${porcentajeCompletado}%` }}
             />
           </div>
-
-          <span className="verPedidoProgresoDetalle">
-            {productosCompletados} de {totalProductos} productos completados
-          </span>
         </div>
 
         <span className="verPedidoSeccionLabel">RESUMEN FINANCIERO</span>
