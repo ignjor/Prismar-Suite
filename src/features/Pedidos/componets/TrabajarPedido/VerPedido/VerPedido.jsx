@@ -29,6 +29,15 @@ export default function VerPedido() {
   const totalPagado = Number(pedido?.total_pagado || 0);
   const restantePedido = Math.max(totalPedido - totalPagado, 0);
 
+  const productos = pedido?.productos || [];
+  const productosCompletados = productos.filter((producto) =>
+    producto.estado_producto === "Completado").length;
+  const totalProductos = productos.length;
+
+  const porcentajeCompletado = totalProductos > 0
+    ? Math.round((productosCompletados / totalProductos) * 100)
+    : 0;
+
   const formatearPrecio = (valor) => {
     return `$${Number(valor || 0).toLocaleString("es-CL")}`;
   };
@@ -152,9 +161,9 @@ export default function VerPedido() {
               onClick={() => abrirModal(pedido)}
             >
               <span>
-                {pedido.estado_pedido === "Entregado"
+                {(pedido.estado_pedido === "Entregado"
                   ? "Entregado"
-                  : "Marcar como entregado"}
+                  : "Marcar como entregado").toUpperCase()}
               </span>
             </button>
           </div>
@@ -199,8 +208,37 @@ export default function VerPedido() {
       </section>
 
       <section className="verPedidoResumen">
-        <span className="verPedidoSeccionLabel">RESUMEN FINANCIERO</span>
+        <div className="verPedidoProgreso">
+          <div className="verPedidoProgresoHeader">
+            <div className="verPedidoProgresoTitulo">
+              <span>RESUMEN DE PRODUCCIÓN: </span>
+              <strong className={
+                pedido.estado_productos === "Completado"
+                  ? "verPedidoProgresoEstadoCompletado"
+                  : "verPedidoProgresoEstadoPendiente"
+              }>
+                {(pedido.estado_productos || "Pendiente").toUpperCase()}
+              </strong>
+            </div>
 
+            <strong className="verPedidoProgresoPorcentaje">
+              {porcentajeCompletado}%
+            </strong>
+          </div>
+
+          <div className="verPedidoProgresoBarra">
+            <div
+              className="verPedidoProgresoBarraFill"
+              style={{ width: `${porcentajeCompletado}%` }}
+            />
+          </div>
+
+          <span className="verPedidoProgresoDetalle">
+            {productosCompletados} de {totalProductos} productos completados
+          </span>
+        </div>
+
+        <span className="verPedidoSeccionLabel">RESUMEN FINANCIERO</span>
         <div className="verPedidoResumenGrid">
           <div className="verPedidoResumenItem">
             <span>Total del pedido</span>
@@ -283,6 +321,7 @@ export default function VerPedido() {
         <div className="verPedidoGestionarPagosButton">
             <button
               type="button"
+              onClick={() => navigate(`/pedido/${pedido.id}/gestionar-pagos/`)}
             >
             <WalletCards size={17} strokeWidth={2} />
             <span>Gestionar pagos</span>
@@ -300,7 +339,6 @@ export default function VerPedido() {
             {pedido.productos.map((producto, index) => {
               const precioUnitario = Number(producto.precio_talla) || 0;
               const cantidad = Number(producto.cantidad) || 0;
-              const productoTieneId = Boolean(producto.producto_id);
 
               return (
                 <article className="verPedidoProductoCard" key={producto.id || index}>
@@ -348,8 +386,7 @@ export default function VerPedido() {
                   <div className="verPedidoProductoAcciones">
                     <button
                       type="button"
-                      className={`verPedidoProductoButton ${!productoTieneId ? "verPedidoProductoButtonDisabled" : ""}`}
-                      disabled={!productoTieneId}
+                      className={"verPedidoProductoButton"}
                       onClick={() => navigate(`/pedido/${pedido.id}/gestionar-producto/${producto.id}`)}
                     >
                     <Eye size={17} strokeWidth={2} />

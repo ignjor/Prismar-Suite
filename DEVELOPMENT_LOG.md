@@ -438,3 +438,5 @@
 ### Martes 6 de Octubre
 
 - feat, styles: agregar editar medidas dentro gestionar productos, cambia del boton para cambiar estado de produto, agrega boton Gestionar Pagos dentro de VerPedidos no funcional aun.
+
+- feat, style: agrega barra de proceso dentro de VerPedido como resumen de produccion del pedido, no toca ninguna función, es completamente visual solamente
