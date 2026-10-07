@@ -184,7 +184,7 @@ export default function AgregarProducto() {
           const productoRef = await addDoc(
             collection(db, "productos"),
             {
-              nombre: nombreDeProducto.trim(),
+              nombre: nombreDeProducto.trim().toUpperCase(),
               colegio_id: colegioId || null,
               tipo_prenda_id: tipoPrendaId,
               precios_tallas: preciosMap,

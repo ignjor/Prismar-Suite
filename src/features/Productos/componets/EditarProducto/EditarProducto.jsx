@@ -224,12 +224,11 @@ export default function EditarProducto() {
           preciosMap[item.talla] = Number(item.precio);
         }
 
-
         try {
           setGuardandoProducto(true);
           const productoRef = doc( db, "productos", id );
           await updateDoc(productoRef, {
-            nombre: nombreDeProducto.trim(),
+            nombre: nombreDeProducto.trim().toUpperCase(),
             colegio_id: colegioId || null,
             tipo_prenda_id: tipoPrendaId,
             precios_tallas: preciosMap,

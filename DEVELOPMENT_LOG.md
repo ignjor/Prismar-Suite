@@ -444,3 +444,7 @@
 - style: deja resumen de produccion de acuerdo a los estilos del sistema.
 
 - fix: los nombres de los clientes de pedido ahora lo guarda como upper.
+
+### Miercoles 7 de Octubre
+
+- feat: agrega la barra de progreso de pago dentro de resumen financiero, agregar en upper para los nombres de los productos tambien para mejorar la legibilidad de los datos.
