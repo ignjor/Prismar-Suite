@@ -442,3 +442,5 @@
 - feat, style: agrega barra de proceso dentro de VerPedido como resumen de produccion del pedido, no toca ninguna función, es completamente visual solamente
 
 - style: deja resumen de produccion de acuerdo a los estilos del sistema.
+
+- fix: los nombres de los clientes de pedido ahora lo guarda como upper.
