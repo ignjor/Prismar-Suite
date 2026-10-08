@@ -236,11 +236,6 @@
   overflow-wrap: anywhere;
 }
 
-
-/* ==========================================
-   BLOQUE DE BOTONES DE CADA PAGO
-   ========================================== */
-
 .verPedidoPagoAcciones {
   flex: 0 0 auto;
   display: flex;
@@ -251,17 +246,12 @@
 }
 
 .verPedidoPagoAccionesFila {
+  margin-top: 10px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 5px;
 }
-
-
-/* ==========================================
-   BOTÓN AGREGAR PAGO
-   MISMO ESTILO QUE REVISAR
-   ========================================== */
 
 .agregarPedidoPagosButton {
   width: fit-content;
@@ -310,11 +300,6 @@
   cursor: not-allowed;
 }
 
-
-/* ==========================================
-   BOTÓN REVISAR
-   ========================================== */
-
 .verPedidoPagoComprobante {
   width: fit-content;
   max-width: 100%;
@@ -348,12 +333,6 @@
 .verPedidoPagoComprobante:active {
   transform: none;
 }
-
-
-/* ==========================================
-   BOTONES EDITAR / ELIMINAR
-   EXACTAMENTE COMO AGREGARPEDIDOPAGO
-   ========================================== */
 
 .agregarPedidoPagoEditar,
 .agregarPedidoPagoEliminar {
@@ -414,7 +393,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
-
 
 .verPedidoEmpty {
   width: 100%;
@@ -528,7 +506,7 @@
   }
 
   .gestionarPagosCuentaInfo strong {
-    font-size: 14px;
+    font-size: 13px;
     line-height: 1.25;
   }
 
@@ -624,7 +602,7 @@
   }
 
   .gestionarPagosCuentaInfo strong {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .gestionarPagosCuentaMonto {

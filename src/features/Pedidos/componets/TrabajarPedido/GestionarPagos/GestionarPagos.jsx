@@ -3,8 +3,8 @@ import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { db, storage } from "../../../../../firebase";
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { deleteObject as deleteStorageObject, getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection, doc, serverTimestamp, updateDoc, deleteDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 
 import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
@@ -17,9 +17,11 @@ export default function GestionarPagos() {
     const {pedidoId} = useParams();
     const navigate = useNavigate();
     const [estadoDelModal, setEstadoDelModal] = useState(false);
-    const [estadoDelModalBorrar, setEstadoDelModalBorrar] = useState(false);
+    const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
 
+    const [pagoAEliminar, setPagoAEliminar] = useState("")
     const [pagoActual, setPagoActual] = useState(null);
+
     const [guardandoPago, setGuardandoPago] = useState(false);
     const {data: datosDePedidos = [], isLoading, isError, error} = usePedidos();
     const {data: datosDeCuentas = []} = useCuentas();
@@ -136,7 +138,7 @@ export default function GestionarPagos() {
                 if (oldStoragePath && pago.comprobante_archivo) {
                     try {
                         const oldRef = ref(storage, oldStoragePath);
-                        await deleteStorageObject(oldRef);
+                        await deleteObject(oldRef);
                     } catch (deleteError) {
                         console.warn("No se pudo eliminar el comprobante antiguo, pero los datos se actualizaron correctamente.", deleteError);
                     }
@@ -178,30 +180,37 @@ export default function GestionarPagos() {
         }
     };   
 
-    const abrirModalEliminarPago = (pago) => {
-        setPagoActual(pago);
-        setEstadoDelModalBorrar(true);
+    const abrirModalEliminar = (pago) => {
+        setPagoAEliminar(pago);
+        setEstadoDelModalEliminar(true);
     };
-    const cerrarModalEliminarPago = () => {
+    const cerrarModalEliminar = () => {
         if (guardandoPago) return;
-        setEstadoDelModalBorrar(false);
-        setPagoActual(null);
+        setEstadoDelModalEliminar(false);
+        setPagoAEliminar(null);
     };
 
-    const eliminarPago = async () => {
-        if (!pedidoId || !pagoActual?.id) return;
-        try {
-            setGuardandoPago(true);
-            const pagoRef = doc( db, "pedidos", pedidoId, "pagos", pagoActual.id );
-            await deleteDoc(pagoRef);
-            cerrarModalEliminarPago();
-        } catch (error) {
-            console.error("Error al eliminar el pago:", error);
-            throw new Error( "No se pudo eliminar el pago." );
-        } finally {
-            setGuardandoPago(false);
+    const eliminarPago = async (pago) => {
+        if (!pago?.id) {
+        console.error("No ser pudo encontrar el Pago. Recarga la página.");
+        throw new Error("El Pago no tiene identificador valido.");
+        }
+        try{
+            try {
+                const carpetaPago = ref( storage, `pedidos/${pedidoId}/pagos/${pago.id}` );
+                const archivos = await listAll(carpetaPago);
+                await Promise.all(archivos.items.map((archivo) => deleteObject(archivo)));
+            }catch (error) {
+                if (error.code !== "storage/object-not-found") 
+                { throw error }};
+        const pagoRef = doc(db, "pedidos", pedidoId, "pagos", pago.id);
+        await deleteDoc(pagoRef);
+        }catch (error) {
+        console.error("Error al eliminar el Pago:", error);
+        throw error;
         }
     };
+
     if (isLoading) { return <p>Cargando el pedido...</p> }
     if (isError) { return <p>Error: {error.message}. Error al Cargar el Pedido, recargue la página.</p> }
     if (!pedido) {
@@ -280,65 +289,62 @@ export default function GestionarPagos() {
 
                     return (
                         <article className="verPedidoPagoCard" key={pago.id || index}>
-                        <div className="verPedidoPagoIcon">
-                            <CreditCard size={19} strokeWidth={1.7} />
-                        </div>
-
-                        <div className="verPedidoPagoContenido">
-                            <strong className="verPedidoPagoMonto">
-                            {formatearPrecio(pago.total_pago)}
-                            </strong>
-
-                            <div className="verPedidoPagoDatos">
-                            <div>
-                                <span>Cuenta</span>
-                                <strong>{nombreCuenta}</strong>
+                            <div className="verPedidoPagoIcon">
+                                <CreditCard size={19} strokeWidth={1.7} />
                             </div>
 
-                            <div>
-                                <span>Fecha</span>
-                                <strong>{formatearFecha(pago.fecha_pago)}</strong>
-                            </div>
-                            </div>
+                            <div className="verPedidoPagoContenido">
+                                <strong className="verPedidoPagoMonto">
+                                {formatearPrecio(pago.total_pago)}
+                                </strong>
 
-                        </div>
+                                <div className="verPedidoPagoDatos">
+                                <div>
+                                    <span>Cuenta</span>
+                                    <strong>{nombreCuenta}</strong>
+                                </div>
 
-                        <div className="verPedidoPagoAcciones">
-                            {pago.comprobante_url && (
-                                <button
-                                    type="button"
-                                    className="verPedidoPagoComprobante verPedidoPagoComprobanteDisponible"
-                                    onClick={() =>
-                                        window.open( pago.comprobante_url, "_blank", "noopener,noreferrer" )   
-                                    }
-                                >
-                                    <span>REVISAR</span>
-                                </button>
-                            )}
-
-                        </div>
-                            <div className="verPedidoPagoAccionesFila">
-                                <button
-                                    type="button"
-                                    className="agregarPedidoPagoEditar"
-                                    onClick={() => abrirModalEditarPago(pago)}
-                                    disabled={guardandoPago}
-                                    aria-label="Editar pago"
-                                >
-                                    <Pencil size={15} strokeWidth={1.8} />
-                                </button>
-
-                                <button
-                                    type="button"
-                                    className="agregarPedidoPagoEliminar"
-                                    onClick={() => abrirModalEliminarPago(pago)}
-                                    disabled={guardandoPago}
-                                    aria-label="Eliminar pago"
-                                >
-                                    <Trash2 size={16} strokeWidth={1.8} />
-                                </button>
+                                <div>
+                                    <span>Fecha</span>
+                                    <strong>{formatearFecha(pago.fecha_pago)}</strong>
+                                </div>
+                                </div>
+                                <div className="verPedidoPagoAccionesFila">
+                                    <button
+                                        type="button"
+                                        className="agregarPedidoPagoEditar"
+                                        onClick={() => abrirModalEditarPago(pago)}
+                                        disabled={guardandoPago}
+                                        aria-label="Editar pago"
+                                    >
+                                        <Pencil size={15} strokeWidth={1.8} />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="agregarPedidoPagoEliminar"
+                                        onClick={() => abrirModalEliminar(pago)}
+                                        disabled={guardandoPago}
+                                        aria-label="Eliminar pago"
+                                    >
+                                        <Trash2 size={16} strokeWidth={1.8} />
+                                    </button>
+                                </div>
                             </div>
 
+                            <div className="verPedidoPagoAcciones">
+                                {pago.comprobante_url && (
+                                    <button
+                                        type="button"
+                                        className="verPedidoPagoComprobante verPedidoPagoComprobanteDisponible"
+                                        onClick={() =>
+                                            window.open( pago.comprobante_url, "_blank", "noopener,noreferrer" )   
+                                        }
+                                    >
+                                        <span>REVISAR</span>
+                                    </button>
+                                )}
+
+                            </div>
                         </article>
                     );
                     })}
@@ -367,6 +373,14 @@ export default function GestionarPagos() {
                     }
                 />
             )}
+            {estadoDelModalEliminar && (
+            <ModalConfirmarEliminacion
+            tipo = "pago"
+            dato = {pagoAEliminar}
+            modalAbierto = {estadoDelModalEliminar}
+            onCerrarModal = {cerrarModalEliminar}
+            onConfirmarEliminacion = {eliminarPago}
+            /> )}
         </main>
     )
 }

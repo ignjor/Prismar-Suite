@@ -61,8 +61,8 @@ export default function VerProducto() {
           archivos.items.map((archivo) => deleteObject(archivo))
         );
       }catch (error) {
-        if (error.code !== "storage/object-not-found") { throw error;
-      }};
+        if (error.code !== "storage/object-not-found") 
+        { throw error }};
 
       await deleteDoc(doc(db, "productos", producto.id)); 
       navigate("/productos");
@@ -70,7 +70,7 @@ export default function VerProducto() {
        console.error("Error al eliminar el Producto:", error);
        throw error;
      }
-   }
+   };
 
   if (isLoading) { return <p>Cargando el Producto...</p>}
   if (isError) { return <p>Error: {error.message}. Error al Cargar el Producto, recargue la página.</p>}

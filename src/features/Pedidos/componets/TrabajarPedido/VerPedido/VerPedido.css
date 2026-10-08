@@ -406,7 +406,7 @@
 .verPedidoGestionarPagosButton {
   margin-top: 24px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .verPedidoGestionarPagosButton button,
@@ -425,7 +425,7 @@
 }
 
 .verPedidoGestionarPagosButton button {
-  width: 35%;
+  width: 150px;
   height: 40px;
   padding: 0 10px;
 }
