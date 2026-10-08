@@ -3,8 +3,7 @@ import "./AgregarPedidoPagos.css";
 import { useMemo, useState } from "react";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
 
-import { Trash2, Ghost, Pencil, FileText, CreditCard, CalendarDays } from "lucide-react";
-
+import { Trash2, Ghost, Pencil, FileText, CreditCard } from "lucide-react";
 import ModalAgregarEditarPago from "../../ModalAgregarEditarPago/ModalAgregarEditarPago";
 
 export default function AgregarPedidoPagos({ pagosAgregados = [], onPagosChange, totalPedido = 0 }) {
@@ -162,13 +161,10 @@ export default function AgregarPedidoPagos({ pagosAgregados = [], onPagosChange,
 
                                     <div className="agregarPedidoPagoMeta">
                                         <span>
-                                            <CalendarDays size={13} strokeWidth={1.8} />
-                                            {formatearFecha(pago.fecha_pago)}
+                                            Cuenta: {cuentaBancaria?.nombre || "Sin cuenta bancaria"}
                                         </span>
-
                                         <span>
-                                            <CreditCard size={13} strokeWidth={1.8} />
-                                            {cuentaBancaria?.nombre || "Sin cuenta bancaria"}
+                                            Fecha: {formatearFecha(pago.fecha_pago)}
                                         </span>
                                     </div>
 
@@ -194,7 +190,6 @@ export default function AgregarPedidoPagos({ pagosAgregados = [], onPagosChange,
                                     >
                                         <Pencil size={15} strokeWidth={1.8} />
                                     </button>
-
                                     <button
                                         type="button"
                                         className="agregarPedidoPagoEliminar"
@@ -209,7 +204,6 @@ export default function AgregarPedidoPagos({ pagosAgregados = [], onPagosChange,
                     })
                 )}
             </div>
-
             <ModalAgregarEditarPago
                 modalAbierto={modalPagoAbierto}
                 onCerrarModal={cerrarModalPago}

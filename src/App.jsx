@@ -94,7 +94,7 @@ function AppContent() {
           element={<GestionarProducto />}
         />
         <Route
-          path="/pedido/:pedidoId/gestionar-pagos"
+          path="/pedido/:pedidoId/gestionar-pagos/:pedidoId"
           element={<GestionarPagos />}
         />
 
