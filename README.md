@@ -1,80 +1,108 @@
-# EN DESARROLLO - Prismar Suite.
-
-Desarrollo de sistema empresarial interno para gestión de productos, pedidos y finanzas. Diseño de modelo de datos en Firestore, autorización basada en roles y reglas de seguridad, junto con optimización de lecturas mediante cache por TanStack Query
-
-## Características principales
-
-### Gestión de Productos
-
-El sistema para la correcta gestión de productos y evitar la iteración de datos se divide en 3 componentes:
-
-- Empresas / Colegios
-- Tipos de Prenda / Productos
-- Unidades de Medida / Tallas
-
-#### Empresas / Colegios
-El sistema permite crear sea una empresa o un colegio para luego afiliarlo a un producto especifico, ademas, los pedidos se pueden asignar completos a una empresa o colegio, lo que permite relacionarlos inmediatamente con el diseño (sobretodo para los uniformes escolares).
-
-#### Tipos de Prenda / Productos
-El sistema permite crear Tipos de Prenda o productos para luego asignarlos a un producto, estos tipos de prenda incluyen un map con medidas asignadas, medidas que se pueden asignar a un tipo de producto especifico, para luego al tomar el pedido, se puedan anotar las medidas que corresponden dentro del producto del pedido segun el tipo de prenda que corresponda, por ej para un Vestido de Cueca especifico que tiene asignado tipo de prenda Vestido, las medidas disponibles al tomar el pedido serian Largo del Vestido, Caderas, Hombros, segun las medidas que el usuario estipule para ese tipo de prenda, componente reutilizable en todos los productos que se necesiten.
-
-#### Unidades de Medida / Tallas
-El sistema permite crear Tallas o Unides de medidas para luego asignar varias a un producto y un producto a cada talla, eso permite no tener que crear varios productos identicos solo para diferenciar la talla y el precio, podemos crear un solo producto con distintos precios segun cualquier unidad de medida segun estipule el usuario.
-
-### Productos
+# Prismar Suite. 
 
 
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.2-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Firebase](https://img.shields.io/badge/Firebase-12.17-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![TanStack Query](https://img.shields.io/badge/TanStack_Query-5.102-FF4154?logo=react-query&logoColor=white)](https://tanstack.com/query/latest)
+[![Node.js](https://img.shields.io/badge/Node.js-22.22.3-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+
+### Descripción General
+
+Prismar Suite es una aplicación web empresarial desarrollada para Prismar, diseñada como sistema de gestión interna que centraliza el 100% de procesos administrativos de la empresa (la administración de productos, pedidos de clientes, cuentas bancarias y finanzas). El sistema implementa una arquitectura basada en roles con seguridad empresarial y optimizaciones avanzadas para minimizar costos.
+
+### Propósito del Proyecto
+ 
+- **Digitalización completa de procesos** empresariales tradicionales de Prismar
+- **Reducción de errores logisticos** en gestión de pedidos y finanzas de la empresa
+- **Control financiero** con seguimiento de pagos y estados de entrega
+
+---
+### 📦 Gestión de Productos (Sistema de 3 Componentes)
+
+#### 1. **Empresas / Colegios**
+- Creación y gestión de instituciones afiliadas
+- Vinculación directa con productos y pedidos
+- Especialmente diseñado para uniformes escolares con diseños específicos por institución
+
+#### 2. **Tipos de Prenda / Productos**
+- Sistema de **medidas personalizables** por tipo de prenda
+- Mapas de medidas reutilizables (ej: Vestido usa "Largo", "Caderas", "Hombros")
+- Asignación dinámica de medidas según el tipo de producto en pedidos
+
+#### 3. **Unidades de Medida / Tallas**
+- Gestión de múltiples tallas dentro de un solo producto
+- **Precios variables** por talla/unidad de medida
+- Elimina la necesidad de crear productos duplicados por talla
+
+---
+### 🛒 Gestión Avanzada de Pedidos
+
+- **Información del cliente** con validación y estandarización de números telefónicos
+- **Selector inteligente de productos** con filtros por colegio y tipo de prenda
+- **Toma de medidas personalizadas** por producto según el tipo de prenda
+- **Sistema de borradores** para pedidos incompletos
+- **Cálculo automático** de estados de pago mediante Cloud Functions
+- **Seguimiento de entrega** con contador de días restantes/atrasados
+- **Múltiples productos** por pedido con tallas y medidas independientes
+- **Comprobantes de pago** con gestión de archivos en Firebase Storage
+
+---
+### 💰 Gestión Financiera
+
+- **Cuentas bancarias** múltiples para diferentes operaciones de finanzas
+- **Pagos registrados** con asignación a cuenta bancaria específica
+- **Resumen financiero** con barra de progreso de pagos
+- **Historial de transacciones** por pedido
+
+---
+### 🏠 Dashboard Principal (En Desarrollo)
+
+- Calendario semanal de pedidos
+- Resúmenes financieros
+- Sistema de notificaciones (mediante Cloud Functions)
 
 
+## Arquitectura Técnica
+
+### Frontend
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| **React** | 19.2.8 | Biblioteca UI principal |
+| **Vite** | 8.2.0 | Build tool ultrarrápido |
+| **JavaScript ES6+** | Nativo | Lenguaje de programación |
+| **Node.js** | 22.22.3 | Desarrollo |
+| **React Router DOM** | 7.18.2 | Enrutamiento SPA |
+| **TanStack Query** | 5.102.8 | Gestión de estado del servidor y caché |
+| **Lucide React** | 1.30.0 | Biblioteca de iconos moderna |
+| **libphonenumber-js** | 1.13.13 | Estandarización de números telefónicos |
+
+---
+### Backend y Infraestructura Cloud
+| Servicio | Uso |
+|----------|-----|
+| **Firestore** | Base de datos NoSQL principal |
+| **Firebase Storage** | Almacenamiento de imágenes y comprobantes |
+| **Cloud Functions** | Lógica de negocio sensible y triggers |
+| **Firebase Authentication** | Autenticación de usuarios (Google) |
+| **Firebase Hosting** | Despliegue de la aplicación |
 
 
-## Tecnologías
-
-Framework: **React con Vite.**
-
-Lenguaje: **JavaScript.**
-
-Base de datos: [Firestore de Firebase](https://firebase.google.com)
-
-Backend: con **Cloud Functions** de [Firebase](https://firebase.google.com)
-según lo requiera para la creación de usuarios.
-
-Manejo de Cache y Lecturas: Tan Stack Query.
-
-
-## Paquetes de dependencias
-
-- React
-- Vite
-- Firebase
-- React Router DOM
-- TanStack Query
-- Lucide React
-- Libphonenumber
-
-```bash
-git clone https://github.com/ignjor/Prismar-Suite.git
-cd prismar-suite
-npm install
-npm run dev
-```
-
-
-## Arquitectura
-
-### Diagrama UML
-
-La base de datos del proyecto es Firestore de [Firebase](https://firebase.google.com)
-
-![Diagrama UML](./Fotos%20Readme/Diagrama.jpg)
-
-
-
+## Seguridad y Autorización
 
 ### Estructura RBAC
 
-Usuarios - Mediante Cloud Functions.
-| CRUD                      | Admin   | Other Users |          
+El sistema implementa 4 roles principales con permisos granulares:
+
+| Rol | Responsabilidades |
+|-----|-------------------|
+| **Admin** | Control total del sistema, gestión de usuarios |
+| **Manager** | Administración de productos, pedidos y finanzas |
+| **Tienda** | Gestión de pedidos y productos |
+| **Contabilidad** | Administración de cuentas y pagos |
+
+
+| Users                      | Admin   | Other Users |          
 | :---:                     | :---:   |   :---:     |     
 | CREATE                    | ✔️      |   ✖️       |                        
 | READ                      | ✔️      |   ✖️       |            
@@ -82,8 +110,8 @@ Usuarios - Mediante Cloud Functions.
 | DELETE                    | ✔️      |   ✖️       |
 
 
-Tipo de Prenda
-| CRUD                      | Admin   | Manager     | Tienda |    Contabilidad       
+ 
+Tipo de Prenda                      | Admin   | Manager     | Tienda |    Contabilidad       
 | :---:                     | :---:   |   :---:     | :---:  |  :---:
 | CREATE                    | ✔️      |   ✔️       |  ✖️    |    ✖️               
 | READ                      | ✔️      |   ✔️       |  ✖️    |    ✖️   
@@ -91,8 +119,8 @@ Tipo de Prenda
 | DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
 
 
-Colegio
-| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+
+| Colegio                      | Admin   | Manager     | Tienda |   Contabilidad       
 | :---:                     | :---:   |   :---:     | :---:  |   :---:
 | CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️               
 | READ                      | ✔️      |   ✔️       |  ✖️    |   ✖️   
@@ -100,8 +128,8 @@ Colegio
 | DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
 
 
-Producto
-| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+
+| Producto                      | Admin   | Manager     | Tienda |   Contabilidad       
 | :---:                     | :---:   |   :---:     | :---:  |   :---:
 | CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✖️               
 | READ                      | ✔️      |   ✔️       |  ✔️    |   ✖️   
@@ -109,16 +137,15 @@ Producto
 | DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
 
 
-Pedidos
-| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+| Pedidos                      | Admin   | Manager     | Tienda |   Contabilidad       
 | :---:                     | :---:   |   :---:     | :---:  |   :---:
 | CREATE                    | ✔️      |   ✔️       |  ✔️    |   ✖️               
 | READ                      | ✔️      |   ✔️       |  ✔️    |   ✖️   
 | UPDATE                    | ✔️      |   ✔️       |  ✔️    |   ✖️
 | DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✖️
 
-Contabilidad
-| CRUD                      | Admin   | Manager     | Tienda |   Contabilidad       
+
+| Contabilidad                      | Admin   | Manager     | Tienda |   Contabilidad       
 | :---:                     | :---:   |   :---:     | :---:  |   :---:
 | CREATE                    | ✔️      |   ✔️       |  ✖️    |   ✔️               
 | READ                      | ✔️      |   ✔️       |  ✖️    |   ✔️   
@@ -126,20 +153,51 @@ Contabilidad
 | DELETE                    | ✔️      |   ✔️       |  ✖️    |   ✔️
 
 
-## Seguridad
+### Medidas de Seguridad
 
-### Reglas de Firestore (Sujetas a Cambios).
-
-> ⚠️ Estas reglas corresponden al estado actual del desarrollo y no representan todavía la configuración definitiva para producción. El acceso será restringido mediante autenticación y RBAC antes del despliegue.
-
-```Firebase
-En desarrollo.
-```
-### Login (en desarrrollo).
+-  **Reglas de Firestore** para validación de acceso a datos
+-  **Cloud Functions** para operaciones sensibles (creación de usuarios)
+-  **Autenticación Auth** con Google
+-  **Sanitización de inputs** para prevenir inyección de código
+-  **Confirmaciones dobles** para operaciones destructivas
 
 
-La autenticación de usuarios se realiza mediante Google utilizando Firebase Authentication, solo el administrador tiene acceso a la ventana de usuarios.
+##  CI/CD y Despliegue
 
-La autorización de acceso a los recursos se controla mediante roles y Firebase Security Rules.
+### Pipeline Automatizado con GitHub Actions
 
-Las operaciones administrativas relacionadas con usuarios se ejecutan mediante Cloud Functions, evitando realizar directamente estas operaciones sensibles desde el cliente.
+- **Despliegue automático** a Firebase Hosting en merge a `main`
+- **Preview deployments** para cada Pull Request
+- **Validación de código** con ESLint
+- **Build optimizado** con Vite
+
+---
+
+## Documentación Adicional
+
+- [Bitácora de Desarrollo](./DEVELOPMENT_LOG.md) - Historial detallado del desarrollo
+
+
+### ¿Por qué estas tecnologías?
+
+- **React + Vite**: Combinación moderna para desarrollo rápido con hot reload instantáneo
+- **TanStack Query**: Manejo eficiente de estado del servidor con caché inteligente
+- **Firebase**: Backend serverless que permite desarrollo rápido sin infraestructura
+- **Cloud Functions**: Lógica de negocio segura y escalable
+- **React Router v7**: Enrutamiento moderno con data loading integrado
+
+
+## Desarrollador
+
+**Ignacio Jorquera Díaz**
+- LinkedIn: [Ignacio Jorquera Díaz](https://www.linkedin.com/in/ignacio-jorquera-d%C3%ADaz-88646640a/)
+- Email: [ignaciojorqueradiaz.ij@gmail.com](ignaciojorqueradiaz.ij@gmail.com)
+
+---
+
+<div align="center">
+
+### Proyecto en constante desarrollo
+[Solicitar Feature o Reportar Bug](https://github.com/ignjor/Prismar-Suite/issues)
+
+</div>
