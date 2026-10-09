@@ -191,7 +191,7 @@ Tipo de Prenda                      | Admin   | Manager     | Tienda |    Contab
 
 **Ignacio Jorquera Díaz**
 - LinkedIn: [Ignacio Jorquera Díaz](https://www.linkedin.com/in/ignacio-jorquera-d%C3%ADaz-88646640a/)
-- Email: [ignaciojorqueradiaz.ij@gmail.com](ignaciojorqueradiaz.ij@gmail.com)
+- Email: ignaciojorqueradiaz.ij@gmail.com
 
 ---
 
