@@ -173,6 +173,11 @@ Tipo de Prenda                      | Admin   | Manager     | Tienda |    Contab
 
 ---
 
+## Documentación Adicional
+
+- [Bitácora de Desarrollo](./DEVELOPMENT_LOG.md) - Historial detallado del desarrollo
+
+
 ### ¿Por qué estas tecnologías?
 
 - **React + Vite**: Combinación moderna para desarrollo rápido con hot reload instantáneo
