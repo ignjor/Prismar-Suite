@@ -454,3 +454,5 @@
 - feat: agrega GestionarPagos completo, edita y agregar pagos. Agrega min intances 0 en functions. Agrega comprobante_path dentro de AgregarPedido para evitar comprobantes duplicados.
 
 - fix, feat: agrega eliminar pago mediante modalconfireliminacion, arregla bug de duplicacion de comprobantes.
+
+- doc: se modifico el readme.md
