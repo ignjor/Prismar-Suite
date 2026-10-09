@@ -31,7 +31,7 @@ export default function VerPedido() {
   const estadoPagoMostrado = restantePedido <= 0 ? "Pagado" : pedido.estado_pago || "Pendiente";
 
   const porcentajePagado = totalPedido > 0
-    ? Math.min(Math.round((totalPagado / totalPedido) * 100), 100)
+    ? Math.min(((totalPagado / totalPedido) * 100), 100)
     : restantePedido <= 0
     ? 100
     : 0;
@@ -351,10 +351,10 @@ export default function VerPedido() {
         <div className="verPedidoGestionarPagosButton">
             <button
               type="button"
-              onClick={() => navigate(`/pedido/${pedido.id}/gestionar-pagos/`)}
+              onClick={() => navigate(`/pedido/${pedido.id}/gestionar-pagos/${pedido.id}`)}
             >
             <WalletCards size={17} strokeWidth={2} />
-            <span>Gestionar pagos</span>
+            <span>Editar pagos</span>
             </button>
           </div>
       </section>

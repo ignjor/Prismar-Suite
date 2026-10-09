@@ -106,40 +106,32 @@ function AgregarPedido() {
           fecha_pago: pago.fecha_pago,
           cuenta_bancaria_id: pago.cuenta_bancaria_id,
           comprobante_url: "",
+          comprobante_path: "",
           fecha_actualizacion: serverTimestamp(),
         });
         const pagoId = pagoRef.id;
         if (pago.comprobante_archivo) {
           const archivo = pago.comprobante_archivo;
-          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/${pago.comprobante_nombre}`;
-          const comprobanteRef = ref( storage, rutaStorage );
-          await uploadBytes( comprobanteRef, archivo,
-            {
+          const extension = archivo.name.split('.').pop();
+          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/comprobante_${Date.now()}.${extension}`;
+          const comprobanteRef = ref(storage, rutaStorage);
+          await uploadBytes(comprobanteRef, archivo, {
               contentType: archivo.type,
-            }
-          );
-          const comprobanteUrl = await getDownloadURL( comprobanteRef );
-          await updateDoc( doc( db, "pedidos", pedidoId, "pagos", pagoId
-            ),
-            {
+          });
+          const comprobanteUrl = await getDownloadURL(comprobanteRef);
+          await updateDoc(doc(db, "pedidos", pedidoId, "pagos", pagoId), {
               comprobante_url: comprobanteUrl,
+              comprobante_path: rutaStorage,
               fecha_actualizacion: serverTimestamp(),
-            }
-          );
+          });
         }
       }
       navigate("/pedidos");
     } catch (error) {
-      console.error(
-        "Error al guardar el pedido:",
-        error
-      );
-      setError(
-        "Error al guardar el pedido como borrador."
-      );
+      console.error( "Error al guardar el pedido:", error );
+      setError( "Error al guardar el pedido como borrador." );
     };
   };
-
   
   const guardarCompleto = async () => {
     if (!cliente.trim()) {
@@ -205,37 +197,30 @@ function AgregarPedido() {
           fecha_pago: pago.fecha_pago,
           cuenta_bancaria_id: pago.cuenta_bancaria_id,
           comprobante_url: "",
+          comprobante_path: "",
           fecha_actualizacion: serverTimestamp(),
         });
         const pagoId = pagoRef.id;
         if (pago.comprobante_archivo) {
           const archivo = pago.comprobante_archivo;
-          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/${pago.comprobante_nombre}`;
-          const comprobanteRef = ref( storage, rutaStorage );
-          await uploadBytes( comprobanteRef, archivo,
-            {
+          const extension = archivo.name.split('.').pop();
+          const rutaStorage = `pedidos/${pedidoId}/pagos/${pagoId}/comprobante_${Date.now()}.${extension}`;
+          const comprobanteRef = ref(storage, rutaStorage);
+          await uploadBytes(comprobanteRef, archivo, {
               contentType: archivo.type,
-            }
-          );
-          const comprobanteUrl = await getDownloadURL( comprobanteRef );
-          await updateDoc( doc( db, "pedidos", pedidoId, "pagos", pagoId
-            ),
-            {
+          });
+          const comprobanteUrl = await getDownloadURL(comprobanteRef);
+          await updateDoc(doc(db, "pedidos", pedidoId, "pagos", pagoId), {
               comprobante_url: comprobanteUrl,
+              comprobante_path: rutaStorage,
               fecha_actualizacion: serverTimestamp(),
-            }
-          );
+          });
         }
       }
       navigate("/pedidos");
     } catch (error) {
-      console.error(
-        "Error al guardar el pedido:",
-        error
-      );
-      setError(
-        "Error al guardar el pedido."
-      );
+      console.error( "Error al guardar el pedido:", error );
+      setError( "Error al guardar el pedido." );
     } finally { 
       setGuardando(false);
     }

@@ -448,3 +448,9 @@
 ### Miercoles 7 de Octubre
 
 - feat: agrega la barra de progreso de pago dentro de resumen financiero, agregar en upper para los nombres de los productos tambien para mejorar la legibilidad de los datos.
+
+### Jueves 8 de Octubre
+
+- feat: agrega GestionarPagos completo, edita y agregar pagos. Agrega min intances 0 en functions. Agrega comprobante_path dentro de AgregarPedido para evitar comprobantes duplicados.
+
+- fix, feat: agrega eliminar pago mediante modalconfireliminacion, arregla bug de duplicacion de comprobantes.

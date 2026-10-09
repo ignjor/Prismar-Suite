@@ -2,21 +2,18 @@ import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
 import { collection, collectionGroup, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, CreditCard } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, Banknote, CreditCard } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
-  colegio: { titulo: "Borrar Colegio / Empresa", etiqueta: "Afiliado", icono: School
-  },
-  talla: { titulo: "Borrar Talla", etiqueta: "Talla", icono: Tag
-  },
-  tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Ruler,
-  },
-  producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package,
-  },
-  cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard,
-  },
+  colegio: { titulo: "Borrar Colegio / Empresa", etiqueta: "Afiliado", icono: School },
+  talla: { titulo: "Borrar Talla", etiqueta: "Talla", icono: Tag },
+  tipoPrenda: { titulo: "Borrar Tipo de prenda", etiqueta: "Tipo de prenda", icono: Ruler },
+  producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package },
+  cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard },
+  pago: { titulo: "Borrar Pago", etiqueta: "Pago", icono: Banknote },
 };
+
 const referencias = {
   colegio: [
     { coleccion: "productos", campo: "colegio_id" },
@@ -25,11 +22,9 @@ const referencias = {
   tipoPrenda: [
     { coleccion: "productos", campo: "tipo_prenda_id" },
   ],
-
   producto: [
     { coleccion: "productos", campo: "producto_id", grupo: true },
   ],
-
   cuentaBancaria: [
     { coleccion: "pagos", campo: "cuenta_bancaria_id", grupo: true }
   ],
@@ -70,6 +65,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
       if (tipo === "talla") { return datoActual.talla || "Sin talla" }
       if (tipo === "producto") { return datoActual.nombre || "Sin nombre" }
       if (tipo === "cuentaBancaria") {return datoActual.nombre || "Sin nombre"}
+      if (tipo === "pago") {return datoActual.total_pago || "Cantidad"}
       return "Sin nombre";
     };
     const nombreDato = obtenerNombreDato(dato)

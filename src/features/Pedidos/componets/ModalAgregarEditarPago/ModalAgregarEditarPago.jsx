@@ -103,8 +103,6 @@ export default function ModalAgregarEditarPago({ modalAbierto, onCerrarModal, on
     const puedeCerrar = !estaOcupado;
     const totalNumerico = Number(totalPedido || 0);
 
-    const tieneComprobanteAnterior = Boolean(pagoEditar?.comprobante_url || pagoEditar?.comprobante_path);
-
     const limpiarEstado = () => {
         setTotalPago("");
         setFechaPago("");
