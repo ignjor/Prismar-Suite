@@ -7,6 +7,13 @@
 [![TanStack Query](https://img.shields.io/badge/TanStack_Query-5.102-FF4154?logo=react-query&logoColor=white)](https://tanstack.com/query/latest)
 [![Node.js](https://img.shields.io/badge/Node.js-22.22.3-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 
+<div align="center">
+
+### Proyecto en desarrollo
+
+</div>
+
+
 ### Descripción General
 
 Prismar Suite es una aplicación web empresarial desarrollada para Prismar, diseñada como sistema de gestión interna que centraliza el 100% de procesos administrativos de la empresa (la administración de productos, pedidos de clientes, cuentas bancarias y finanzas). El sistema implementa una arquitectura basada en roles con seguridad empresarial y optimizaciones avanzadas para minimizar costos.
@@ -197,7 +204,7 @@ Tipo de Prenda                      | Admin   | Manager     | Tienda |    Contab
 
 <div align="center">
 
-### Proyecto en constante desarrollo
+### Proyecto en desarrollo
 [Solicitar Feature o Reportar Bug](https://github.com/ignjor/Prismar-Suite/issues)
 
 </div>
