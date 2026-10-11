@@ -456,3 +456,7 @@
 - fix, feat: agrega eliminar pago mediante modalconfireliminacion, arregla bug de duplicacion de comprobantes.
 
 - doc: se modifico el readme.md
+
+### Domingo 11 de Octubre
+
+- feat: agrega toda la estructura con editarPedidos en base a agregar pedido.

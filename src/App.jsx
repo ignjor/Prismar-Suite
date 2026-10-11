@@ -16,6 +16,7 @@ import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
 import PedidosBorradores from "./features/Pedidos/componets/Pedidos/PedidosBorradores";
 import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
+import EditarPedido from "./features/Pedidos/componets/EditarPedido/EditarPedido";
 
 import VerPedido from "./features/Pedidos/componets/TrabajarPedido/VerPedido/VerPedido";
 import GestionarProducto from "./features/Pedidos/componets/TrabajarPedido/GestionarProducto/GestionarProducto";
@@ -83,6 +84,11 @@ function AppContent() {
           path="/agregar-pedido" 
           element={<AgregarPedido />} 
         />
+        <Route 
+          path="/editar-pedido/:id" 
+          element={<EditarPedido />} 
+        />
+
 
 
         <Route
