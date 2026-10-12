@@ -346,6 +346,52 @@ color:#1d1d1f
 .pedidoActionButton:active{
 transform:scale(.97)
 }
+.agregarColegioButton {
+  width: 80px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 40px;
+  background: #22b84b;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(34, 184, 75, 0.22);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.agregarColegioButton:active {
+  transform: scale(0.94);
+}
+.PapeleraButton {
+  width: 80px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 40px;
+  background: #b82222;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(34, 184, 75, 0.22);
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.PapeleraButton:active {
+  transform: scale(0.94);
+}
 @media (max-width:950px){
 .pedidoRow{
 grid-template-columns:1fr 1.5fr .9fr 1fr auto;

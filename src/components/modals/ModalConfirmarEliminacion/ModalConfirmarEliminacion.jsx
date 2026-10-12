@@ -12,7 +12,8 @@ const configuracion = {
   producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package },
   cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard },
   pago: { titulo: "Borrar Pago", etiqueta: "Pago", icono: Banknote },
-  pedido: { titulo: "Borrar Pedido", etiqueta: "Pago", icono: ShoppingBag },
+  pedido: { titulo: "Enviar Pedido a Papelera", etiqueta: "Pedido", icono: ShoppingBag },
+  pedidoPapelera: { titulo: "Borrar Pedido Definitivamente", etiqueta: "Pedido de la Papelera", icono: ShoppingBag },
 };
 
 const referencias = {
@@ -66,7 +67,8 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
       if (tipo === "producto") { return datoActual.nombre || "Sin nombre" }
       if (tipo === "cuentaBancaria") {return datoActual.nombre || "Sin nombre"}
       if (tipo === "pago") {return datoActual.total_pago || "Cantidad"}
-      if (tipo === "pedido") {return datoActual.cliente || "Cantidad"}
+      if (tipo === "pedido") {return datoActual.cliente || "Sin nombre"}
+      if (tipo === "pedidoPapelera") {return datoActual.cliente || "Sin nombre"}
       return "Sin nombre";
     };
     const nombreDato = obtenerNombreDato(dato)
