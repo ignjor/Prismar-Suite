@@ -375,7 +375,10 @@ function EditarPedido() {
             Volver
           </button>
           <span className="agregarPedidoTitulo">
-            Editar Pedido <ShoppingBag />
+            Editar Pedido:
+          </span>
+          <span className="pedidoIdentificadorVerPedido">
+            {pedido.numero_pedido || "Sin ID"}
           </span>
         </div>
       </div>
