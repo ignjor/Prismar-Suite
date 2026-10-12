@@ -18,7 +18,6 @@ const configuracion = {
 const referencias = {
   colegio: [
     { coleccion: "productos", campo: "colegio_id" },
-    { coleccion: "pedidos", campo: "colegio_id" },
   ],
   tipoPrenda: [
     { coleccion: "productos", campo: "tipo_prenda_id" },

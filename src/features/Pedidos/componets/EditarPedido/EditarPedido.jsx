@@ -251,7 +251,6 @@ function EditarPedido() {
     }
   };
 
-
   const abrirModalParaEliminar = (pedido) => {
     setPedidoAEliminar(pedido); setEstadoDelModalEliminar(true);
   };
@@ -322,37 +321,22 @@ function EditarPedido() {
       
       for (const pago of pagosData) {
         const {id: pagoId, ...datosPago} = pago;
-        const pagoInactivoRef = doc(db, "pedidos_inactivos", id, "pagos", pagoId);
         if (pago.comprobante_path) {
           try {
-            const oldPath = pago.comprobante_path;
-            const newPath = `pedidos_inactivos/${id}/pagos/${pagoId}/comprobante_${Date.now()}.${pago.comprobante_path.split('.').pop()}`;
-            const oldRef = ref(storage, oldPath);
-            const newRef = ref(storage, newPath);
-            
-            const response = await fetch(pago.comprobante_url);
-            const blob = await response.blob();
-            await uploadBytes(newRef, blob, { contentType: blob.type });
-            const newUrl = await getDownloadURL(newRef);
-            await setDoc(pagoInactivoRef, {
-              ...datosPago,
-              comprobante_url: newUrl,
-              comprobante_path: newPath,
-            });
+            const oldRef = ref(storage, pago.comprobante_path);
             await deleteObject(oldRef);
           } catch (error) {
-            console.warn("Error al mover archivo de storage:", error);
-            await setDoc(pagoInactivoRef, {
-              ...datosPago,
-              comprobante_url: "",
-              comprobante_path: "",
-            });
+            console.warn("No se pudo eliminar los datos del storage:", error);
           }
-        } else {
-          await setDoc(pagoInactivoRef, datosPago);
         }
+        const pagoInactivoRef = doc(db, "pedidos_inactivos", id, "pagos", pagoId);
+        await setDoc(pagoInactivoRef, {
+          ...datosPago,
+          comprobante_url: "",
+          comprobante_path: "",
+        });
       }
-      
+
       for (const producto of productosData) {
         await deleteDoc(doc(db, "pedidos", id, "productos", producto.id));
       }
@@ -435,6 +419,7 @@ function EditarPedido() {
               type="button"
               className="productoCrearButton productoCrearButtonCancel"
               onClick={botonVolver}
+              disabled={guardando || eliminando}
             >
               <CircleX
                 size={17}
@@ -448,7 +433,7 @@ function EditarPedido() {
               type="button"
               className="productoCrearButton productoCrearButtonCancel"
               onClick={() => abrirModalParaEliminar(pedido)}
-              disabled={eliminando}
+              disabled={guardando || eliminando}
             >
               <Trash2
                 size={17}
@@ -462,7 +447,7 @@ function EditarPedido() {
               type="submit"
               className="productoCrearButton productoCrearButtonPrimary"
               onClick={guardarCompleto}
-              disabled={guardando}
+              disabled={guardando || eliminando}
             >
               <CirclePlus
                 size={17}
