@@ -1,6 +1,6 @@
 import "./EditarPedido.css";
 import { useMemo, useState, useEffect } from "react";
-import { addDoc, collection, serverTimestamp, updateDoc, doc, getDocs, deleteDoc } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, updateDoc, doc, getDocs, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL, listAll, deleteObject } from "firebase/storage";
 import { db, storage } from "../../../../firebase";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,8 +9,9 @@ import { usePedidos } from "../../querys/usePedidos";
 import EditarPedidoDatosCliente from "./EditarPedidoDatosCliente/EditarPedidoDatosCliente";
 import EditarPedidoProductos from "./EditarPedidoProductos/EditarPedidoProductos";
 import EditarPedidoPagos from "./EditarPedidoPagos/EditarPedidoPagos";
+import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
 
-import { ArrowLeft, ShoppingBag, CircleX, CirclePlus } from "lucide-react";
+import { ArrowLeft, ShoppingBag, CircleX, CirclePlus, Trash2 } from "lucide-react";
 
 function EditarPedido() {
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ function EditarPedido() {
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
   const [cargando, setCargando] = useState(true);
+  const [eliminando, setEliminando] = useState(false);
+
+  const [estadoDelModalEliminar, setEstadoDelModalEliminar] = useState(false);
+  const [pedidoAEliminar, setPedidoAEliminar] = useState("");
+
   const [cliente, setCliente] = useState("");
   const [telefono, setTelefono] = useState("");
   const [colegio, setColegio] = useState(null);
@@ -244,6 +250,96 @@ function EditarPedido() {
       setGuardando(false);
     }
   };
+
+  const abrirModalParaEliminar = (pedido) => {
+    setPedidoAEliminar(pedido); setEstadoDelModalEliminar(true);
+  };
+  const cerrarModalEliminar = () => {
+    setPedidoAEliminar(null); setEstadoDelModalEliminar(false);
+   };
+
+  const eliminarPedido = async () => {
+    setEliminando(true);
+    try {
+      const pedidoRef = doc(db, "pedidos", id);
+      const pedidoSnap = await getDoc(pedidoRef);
+      if (!pedidoSnap.exists()) {
+        throw new Error("El pedido no existe");
+      }
+      const pedidoData = pedidoSnap.data();
+      const productosRef = collection(db, "pedidos", id, "productos");
+      const productosSnap = await getDocs(productosRef);
+      const productosData = productosSnap.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      const pagosRef = collection(db, "pedidos", id, "pagos");
+      const pagosSnap = await getDocs(pagosRef);
+      const pagosData = pagosSnap.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      const pedidoInactivoRef = doc(db, "pedidos_inactivos", id);
+      await setDoc(pedidoInactivoRef, {
+        ...pedidoData,
+        fecha_actualizacion: serverTimestamp(),
+      });
+
+      for (const producto of productosData) {
+        const {id: productoId, ...datosProducto} = producto;
+        const productoInactivoRef = doc(db, "pedidos_inactivos", id, "productos", productoId);
+        await setDoc(productoInactivoRef, datosProducto);
+      }
+      
+      for (const pago of pagosData) {
+        const {id: pagoId, ...datosPago} = pago;
+        const pagoInactivoRef = doc(db, "pedidos_inactivos", id, "pagos", pagoId);
+        if (pago.comprobante_path) {
+          try {
+            const oldPath = pago.comprobante_path;
+            const newPath = `pedidos_inactivos/${id}/pagos/${pagoId}/comprobante_${Date.now()}.${pago.comprobante_path.split('.').pop()}`;
+            const oldRef = ref(storage, oldPath);
+            const newRef = ref(storage, newPath);
+            
+            const response = await fetch(pago.comprobante_url);
+            const blob = await response.blob();
+            await uploadBytes(newRef, blob, { contentType: blob.type });
+            const newUrl = await getDownloadURL(newRef);
+            await setDoc(pagoInactivoRef, {
+              ...datosPago,
+              comprobante_url: newUrl,
+              comprobante_path: newPath,
+            });
+            await deleteObject(oldRef);
+          } catch (error) {
+            console.warn("Error al mover archivo de storage:", error);
+            await setDoc(pagoInactivoRef, {
+              ...datosPago,
+              comprobante_url: "",
+              comprobante_path: "",
+            });
+          }
+        } else {
+          await setDoc(pagoInactivoRef, datosPago);
+        }
+      }
+      
+      for (const producto of productosData) {
+        await deleteDoc(doc(db, "pedidos", id, "productos", producto.id));
+      }
+      for (const pago of pagosData) {
+        await deleteDoc(doc(db, "pedidos", id, "pagos", pago.id));
+      }
+      await deleteDoc(pedidoRef);
+      navigate("/pedidos");
+    } catch (error) {
+      console.error("Error al mover el pedido a inactivos:", error);
+      setError("Error al eliminar el pedido.");
+    } finally {
+      setEliminando(false);
+    }
+  };
+
   if (isLoading || cargando) {
     return <p>Cargando pedido...</p>;
   }
@@ -320,6 +416,20 @@ function EditarPedido() {
               </span>
             </button>
             <button
+              type="button"
+              className="productoCrearButton productoCrearButtonCancel"
+              onClick={() => abrirModalParaEliminar(pedido)}
+              disabled={eliminando}
+            >
+              <Trash2
+                size={17}
+                strokeWidth={2}
+              />
+              <span>
+                Eliminar
+              </span>
+            </button>
+            <button
               type="submit"
               className="productoCrearButton productoCrearButtonPrimary"
               onClick={guardarCompleto}
@@ -334,7 +444,15 @@ function EditarPedido() {
               </span>
             </button>
           </div>
-      </div> 
+      </div>
+         {estadoDelModalEliminar && (
+         <ModalConfirmarEliminacion
+           tipo = "pedido"
+           dato = {pedidoAEliminar}
+          modalAbierto= {estadoDelModalEliminar}
+           onCerrarModal= {cerrarModalEliminar}
+           onConfirmarEliminacion= {eliminarPedido}
+         /> )}
     </div>
   );
 }

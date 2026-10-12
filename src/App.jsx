@@ -29,7 +29,9 @@ import CuentasBancarias from "./features/Cuentas/componets/cuentasBancarias/cuen
 function AppContent() {
   const location = useLocation();
   const rutasSinBottomNav = ["/agregar-producto", "/agregar-pedido"];
-  const ocultarNav = rutasSinBottomNav.includes(location.pathname) || location.pathname.startsWith("/editar-producto/");
+  const ocultarNav = rutasSinBottomNav.includes(location.pathname) 
+  || location.pathname.startsWith("/editar-producto/") 
+  || location.pathname.startsWith("/editar-pedido/");
 
   return (
     <>
