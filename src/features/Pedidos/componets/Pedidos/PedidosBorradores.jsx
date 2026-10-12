@@ -1,12 +1,11 @@
 import "./Pedidos.css";
 import { usePedidos } from "../../querys/usePedidos";
 import { useMemo, useState } from "react";
-import { Search, Eye, ShoppingBag } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Search, Pin, ShoppingBag, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function Pedidos() {
+export default function PedidosBorradores() {
   const navigate = useNavigate();
-  const { id } = useParams()
   const [buscador, setBuscador] = useState("");
   const {data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
 
@@ -17,21 +16,32 @@ export default function Pedidos() {
           String(pedido.estado_guardado || "") === "Borrador"
       )
       .sort((a, b) => {
-        const fechaA = a.fecha_creacion?.toMillis?.() || 0;
-        const fechaB = b.fecha_creacion?.toMillis?.() || 0;
+        const fechaA = a.fecha_actualizacion?.toMillis?.() || 0;
+        const fechaB = b.fecha_actualizacion?.toMillis?.() || 0;
         return fechaB - fechaA;
       });
   }, [datosDePedidos]);
 
+  const obtenerTotalPendiente = (pedido) => {
+    const totalPedido = Number(pedido.total_pedido || 0);
+    const totalPagado = Number(pedido.total_pagado || 0);
+    return Math.max(totalPedido - totalPagado, 0);
+  };
+
   const buscadorDePedidos = useMemo(() => {
     const texto = buscador.toLowerCase().trim();
-    if (!texto) {
-      return listarPedidos;
-    }
-    return listarPedidos.filter((pedido) =>
-      String(pedido.cliente || "").toLowerCase().includes(texto)
-    );
-  }, [listarPedidos, buscador]);
+    return listarPedidos.filter((pedido) => {
+      const buscadorCliente = 
+        !texto ||
+        String(pedido.cliente || "")
+          .toLowerCase()
+          .includes(texto);
+      
+      return (
+      buscadorCliente
+      );
+    });
+  }, [ listarPedidos, buscador]);
 
   const formatearPrecio = (valor) => {
     return `$${Number(valor || 0).toLocaleString("es-CL")}`;
@@ -46,6 +56,42 @@ export default function Pedidos() {
     return "Sin fecha de entrega";
   };
 
+  const textoFechaEntrega = (fecha) => {
+    if (!fecha) return "";
+    let fechaEntrega;
+    if (typeof fecha?.toDate === "function") {
+      fechaEntrega = fecha.toDate();
+    } else {
+      fechaEntrega = new Date(fecha);
+    }
+    if (Number.isNaN(fechaEntrega.getTime())) return "";
+    const hoy = new Date();
+
+    hoy.setHours(0, 0, 0, 0);
+    fechaEntrega.setHours(0, 0, 0, 0);
+
+    const diferenciaMs = fechaEntrega.getTime() - hoy.getTime();
+    const diferenciaDias = Math.round(diferenciaMs / (1000 * 60 * 60 * 24));
+
+    if (diferenciaDias === 0) {
+      return {
+        texto: "Entrega hoy",
+        urgente: true
+      };
+    }
+    if (diferenciaDias > 0) {
+      return {
+        texto: `Entrega en ${diferenciaDias} ${diferenciaDias === 1 ? "día" : "días"}`,
+        urgente: diferenciaDias <= 3
+      };
+    }
+    const diasPasados = Math.abs(diferenciaDias);
+    return {
+      texto: `Entrega hace ${diasPasados} ${diasPasados === 1 ? "día" : "días"}`,
+      urgente: true
+    };  
+  };
+
   const obtenerNombresProductos = (productos = []) => {
     const nombres = productos.map((producto) => producto.nombre).filter(Boolean);
     const visibles = nombres.slice(0, 3);
@@ -53,17 +99,6 @@ export default function Pedidos() {
     return { visibles, restantes };
   };
 
-  const obtenerTotalPagado = (pagos = []) => {
-    return pagos.reduce(
-      (total, pago) => total + Number(pago.total_pago || 0), 0);
-  };
-
-  const obtenerTotalPendiente = (pedido) => {
-    const totalPedido = Number(pedido.total_pedido || 0);
-    const totalPagado = obtenerTotalPagado(pedido.pagos);
-    return Math.max(totalPedido - totalPagado, 0);
-  };
-  
   if (isLoading) {
     return <p>Cargando los Pedidos...</p>;
   }
@@ -100,15 +135,31 @@ export default function Pedidos() {
           return (
             <article key={pedido.id} className="pedidoRow">
               <div className="pedidoCliente">
-                <span className="pedidoLabel"> <strong>Borrador</strong></span>
+                <span className="pedidoLabel"> <strong>BORRADOR</strong></span>
                 <span className="pedidoLabel">Fecha de Entrega</span>
                 <h2>{formatearFecha(pedido.fecha_entrega)}</h2>
-                <span className="pedidoClienteNombre">
-                  {pedido.cliente}
-                </span>
-                <span className="pedidoColegio">
-                  {pedido.colegio}
-                </span>
+                {pedido.estado_pedido === "Entregado" ? (
+                  <small className="PedidoFechaEntregaEntregado">
+                    Pedido entregado
+                  </small>
+                ) : (
+                  (() => {
+                    const fechaEntregaInfo = textoFechaEntrega(pedido.fecha_entrega);
+                    return fechaEntregaInfo ? (
+                      <small
+                        className={
+                          fechaEntregaInfo.urgente
+                            ? "PedidoFechaEntregaUrgente"
+                            : "PedidoFechaEntregaNormal"
+                        }
+                      >
+                        {fechaEntregaInfo.texto}
+                      </small>
+                    ) : null;
+                  })()
+                )}
+                <span className="pedidoClienteNombre">{pedido.cliente}</span>
+                <span className="pedidoColegio">{pedido.colegio}</span>
               </div>
 
               <div className="pedidoProductos">
@@ -135,12 +186,14 @@ export default function Pedidos() {
                   )}
                 </div>
               </div>
+
               <div className="pedidoTotales">
                 <span className="pedidoLabel">PAGO PENDIENTE</span>
-                <strong>{Number(totalPendiente) <= 0
-                  ? "Pedido Pagado"
-                  : formatearPrecio(totalPendiente)} </strong>
-
+                <strong>
+                  {Number(totalPendiente) <= 0
+                    ? "Pedido Pagado"
+                    : formatearPrecio(totalPendiente)}
+                </strong>
                 <span className="pedidoPendiente">
                   Total del pedido: {formatearPrecio(pedido.total_pedido)}
                 </span>
@@ -159,8 +212,7 @@ export default function Pedidos() {
                 </span>
                 <span
                   className={`pedidoEstado ${
-                    pedido.estado_pedido === "Entregado" ||
-                    pedido.estado_pedido === "Completado"
+                    pedido.estado_pedido === "Entregado"
                       ? "pedidoEstadoPedidoEntregado"
                       : "pedidoEstadoPedidoPendiente"
                   }`}
@@ -176,9 +228,12 @@ export default function Pedidos() {
                   aria-label={`Abrir pedido de ${pedido.cliente}`}
                   onClick={() => navigate(`/editar-pedido/${pedido.id}`)}
                 >
-                  <Eye size={17} strokeWidth={2} />
+                  <Pin size={17} strokeWidth={2} />
                   <span>Completar</span>
                 </button>
+                <span className="pedidoIdentificador">
+                  {pedido.numero_pedido || "Sin ID"}
+                </span>
               </div>
             </article>
           );
@@ -195,6 +250,19 @@ export default function Pedidos() {
           onClick={() => navigate("/pedidos")}
         >
           <ShoppingBag size={21} strokeWidth={2} />
+        </button>
+      </section>
+      <section className="agregarColegio">
+        <p className="agregarColegioTexto">
+          Revisar papelera de pedidos
+        </p>
+        <button
+          type="button"
+          className="PapeleraButton"
+          aria-label="Ver pedidos borradores"
+          onClick={() => navigate("/papelera-pedidos")}
+        >
+          <Trash2 size={21} strokeWidth={2} />
         </button>
       </section>
     </main>

@@ -11,7 +11,7 @@ import EditarPedidoProductos from "./EditarPedidoProductos/EditarPedidoProductos
 import EditarPedidoPagos from "./EditarPedidoPagos/EditarPedidoPagos";
 import ModalConfirmarEliminacion from "../../../../components/modals/ModalConfirmarEliminacion/ModalConfirmarEliminacion";
 
-import { ArrowLeft, ShoppingBag, CircleX, CirclePlus, Trash2 } from "lucide-react";
+import { ArrowLeft, CircleX, CirclePlus, Trash2 } from "lucide-react";
 
 function EditarPedido() {
   const navigate = useNavigate();
@@ -374,11 +374,8 @@ function EditarPedido() {
             <ArrowLeft size={17} strokeWidth={2} />
             Volver
           </button>
-          <span className="agregarPedidoTitulo">
-            Editar Pedido:
-          </span>
           <span className="pedidoIdentificadorVerPedido">
-            {pedido.numero_pedido || "Sin ID"}
+            EDITAR PEDIDO: {pedido.numero_pedido || "Sin ID"}
           </span>
         </div>
       </div>

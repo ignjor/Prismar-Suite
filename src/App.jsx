@@ -15,6 +15,7 @@ import Tallas from "./features/Tallas/componets/Tallas/Tallas";
 
 import Pedidos from "./features/Pedidos/componets/Pedidos/Pedidos";
 import PedidosBorradores from "./features/Pedidos/componets/Pedidos/PedidosBorradores";
+import PapeleraPedidos from "./features/Pedidos/componets/Pedidos/PedidosPapelera";
 import AgregarPedido from "./features/Pedidos/componets/AgregarPedido/AgregarPedido";
 import EditarPedido from "./features/Pedidos/componets/EditarPedido/EditarPedido";
 
@@ -81,6 +82,10 @@ function AppContent() {
         <Route 
           path="/pedidos-borradores" 
           element={<PedidosBorradores />} 
+        />
+        <Route 
+          path="/papelera-pedidos" 
+          element={<PapeleraPedidos />} 
         />
         <Route 
           path="/agregar-pedido" 

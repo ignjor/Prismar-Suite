@@ -1,12 +1,14 @@
 import "./ModalConfirmar.css";
 import { useEffect, useRef, useState } from "react";
-import { X, CircleX, ArrowLeft, ArrowRight, Package, Truck } from "lucide-react";
+import { X, CircleX, ArrowLeft, ArrowRight, Package, Truck, ShoppingBag } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
   producto: { titulo: "Actualizar estado del producto", etiqueta: "Producto", icono: Package,
   },
   pedidoEntrega: { titulo: "Actualizar estado de la entrega", etiqueta: "Pedido", icono: Truck,
+  },
+  pedidoPapelera: { titulo: "Restaurar Pedido de la Papelera", etiqueta: "Pedido de la Papelera", icono: ShoppingBag,
   },
 
 };
@@ -22,6 +24,7 @@ export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal,
       if (!datoActual) { return "Sin estado" }
       if (tipo === "producto") { return datoActual.estado_producto || "Sin estado" }
       if (tipo === "pedidoEntrega") { return datoActual.estado_pedido || "Sin estado" }
+      if (tipo === "pedidoPapelera") { return datoActual.cliente || "Sin Nombre" }
       return "Sin estado";
     };
 
@@ -147,7 +150,7 @@ export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal,
                 <div className="modalEstadoDato">
 
                   <span>
-                    Estado actual: {nombreDato}
+                    {nombreDato}
                   </span>
                 </div>
 
@@ -168,7 +171,7 @@ export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal,
                 </h3>
                 <div className="modalEstadoDato modalEstadoDatoConfirm">
                   <span>
-                    Estado Actual: {nombreDato}
+                    {nombreDato}
                   </span>
                 </div>
 
@@ -219,9 +222,7 @@ export default function ModalConfirmar({tipo, dato, modalAbierto, onCerrarModal,
                   />
                 </button>
               </>
-
             ) : (
-
               <>
                 <button
                   type="button"

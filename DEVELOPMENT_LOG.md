@@ -468,3 +468,7 @@
 - refactor: se modifico la funcion, al borrar un pedido GUARDADO, borra storage, limpia los path y urls de los pagos y copia los datos de firestore de collecion, no copia de storage a otro, ahorramos datos y evitamos errores de cors.
 
 - fix: la barra nav no es visible dentro de editar pedido.
+
+### Lunes 12 de Octubre
+
+- feat: agrega query para los pedidos inactivos, agrega PedidosPapelera, agrega funcion para poder restaurar los pedidos inactivos mediante el modal confirmar.
