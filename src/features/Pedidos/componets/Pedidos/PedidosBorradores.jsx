@@ -2,10 +2,11 @@ import "./Pedidos.css";
 import { usePedidos } from "../../querys/usePedidos";
 import { useMemo, useState } from "react";
 import { Search, Eye, ShoppingBag } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function Pedidos() {
   const navigate = useNavigate();
+  const { id } = useParams()
   const [buscador, setBuscador] = useState("");
   const {data: datosDePedidos = [], isLoading, isError, error } = usePedidos();
 
@@ -173,10 +174,10 @@ export default function Pedidos() {
                   type="button"
                   className="pedidoActionButton"
                   aria-label={`Abrir pedido de ${pedido.cliente}`}
-                  onClick={() => navigate(`/pedido/${pedido.id}`)}
+                  onClick={() => navigate(`/editar-pedido/${pedido.id}`)}
                 >
                   <Eye size={17} strokeWidth={2} />
-                  <span>Revisar</span>
+                  <span>Completar</span>
                 </button>
               </div>
             </article>

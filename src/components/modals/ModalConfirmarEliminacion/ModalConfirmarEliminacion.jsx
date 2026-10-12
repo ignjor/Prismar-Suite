@@ -2,7 +2,7 @@ import "./ModalConfirmarEliminacion.css";
 import { useEffect, useRef, useState } from "react";
 import { collection, collectionGroup, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../../firebase";
-import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, Banknote, CreditCard } from "lucide-react";
+import { X, CircleX, Trash2, AlertTriangle, ArrowLeft, ArrowRight, School, Tag, Ruler, Package, Banknote, CreditCard, ShoppingBag } from "lucide-react";
 
 const body = document.body;
 const configuracion = {
@@ -12,12 +12,12 @@ const configuracion = {
   producto: { titulo: "Borrar Producto", etiqueta: "Producto", icono: Package },
   cuentaBancaria: { titulo: "Borrar Cuenta Bancaria", etiqueta: "Cuenta Bancaria", icono: CreditCard },
   pago: { titulo: "Borrar Pago", etiqueta: "Pago", icono: Banknote },
+  pedido: { titulo: "Borrar Pedido", etiqueta: "Pago", icono: ShoppingBag },
 };
 
 const referencias = {
   colegio: [
     { coleccion: "productos", campo: "colegio_id" },
-    { coleccion: "pedidos", campo: "colegio_id" },
   ],
   tipoPrenda: [
     { coleccion: "productos", campo: "tipo_prenda_id" },
@@ -66,6 +66,7 @@ export default function ModalConfirmarEliminacion({tipo, dato, modalAbierto, onC
       if (tipo === "producto") { return datoActual.nombre || "Sin nombre" }
       if (tipo === "cuentaBancaria") {return datoActual.nombre || "Sin nombre"}
       if (tipo === "pago") {return datoActual.total_pago || "Cantidad"}
+      if (tipo === "pedido") {return datoActual.cliente || "Cantidad"}
       return "Sin nombre";
     };
     const nombreDato = obtenerNombreDato(dato)

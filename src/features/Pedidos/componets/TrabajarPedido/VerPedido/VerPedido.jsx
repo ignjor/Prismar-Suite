@@ -7,7 +7,7 @@ import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
 
 import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
-import { ArrowLeft, CreditCard, Shirt, Eye, Ghost, WalletCards } from "lucide-react";
+import { ArrowLeft, CreditCard, Shirt, Eye, Ghost, WalletCards, Pencil, Trash2 } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
@@ -437,6 +437,19 @@ export default function VerPedido() {
             </div>
           </div>
         )}
+      </section>
+      <section>
+        <div className="productoActions">
+          <button
+            type="button"
+            className="productoAction productoActionEdit"
+            onClick={() => navigate(`/editar-pedido/${id}`)}
+          >
+            <Pencil size={17} strokeWidth={2} />
+            Editar Pedido
+            
+          </button>
+        </div>
       </section>
        {estadoDelModal && (
        <ModalConfirmar

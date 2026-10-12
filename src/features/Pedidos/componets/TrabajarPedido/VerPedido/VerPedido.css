@@ -406,7 +406,7 @@
 .verPedidoGestionarPagosButton {
   margin-top: 24px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .verPedidoGestionarPagosButton button,
@@ -638,7 +638,6 @@
   padding: 0 10px;
 }
 
-/* TABLET */
 @media (max-width: 760px) {
   .verPedidoPage {
     width: min(94%, 760px);
@@ -675,7 +674,6 @@
   }
 }
 
-/* MÓVIL */
 @media (max-width: 480px) {
   .verPedidoPage {
     width: min(94%, 420px);
@@ -868,7 +866,6 @@
   }
 }
 
-/* MÓVILES PEQUEÑOS */
 @media (max-width: 360px) {
   .verPedidoPage {
     width: 94%;

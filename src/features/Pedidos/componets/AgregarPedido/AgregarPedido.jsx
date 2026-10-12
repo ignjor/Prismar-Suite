@@ -283,6 +283,7 @@ function AgregarPedido() {
               type="button"
               className="productoCrearButton productoCrearButtonCancel"
               onClick={botonVolver}
+              disabled={guardando}
             >
               <CircleX
                 size={17}

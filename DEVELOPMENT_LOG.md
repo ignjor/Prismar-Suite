@@ -456,3 +456,13 @@
 - fix, feat: agrega eliminar pago mediante modalconfireliminacion, arregla bug de duplicacion de comprobantes.
 
 - doc: se modifico el readme.md
+
+### Domingo 11 de Octubre
+
+- feat: agrega toda la estructura con editarPedidos en base a agregar pedido.
+
+- feat: agregar eliminar pedido, redirige el doc hacia la collecion pedidos_inactivos antes de borrarlo, asi no se pierde.
+
+- fix: cuando es un borrador lo borra directamente, lo copia a pedidos_inactivos
+
+- refactor: se modifico la funcion, al borrar un pedido GUARDADO, borra storage, limpia los path y urls de los pagos y copia los datos de firestore de collecion, no copia de storage a otro, ahorramos datos y evitamos errores de cors.
