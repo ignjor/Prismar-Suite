@@ -251,6 +251,7 @@ function EditarPedido() {
     }
   };
 
+
   const abrirModalParaEliminar = (pedido) => {
     setPedidoAEliminar(pedido); setEstadoDelModalEliminar(true);
   };
@@ -267,6 +268,34 @@ function EditarPedido() {
         throw new Error("El pedido no existe");
       }
       const pedidoData = pedidoSnap.data();
+
+      const esBorrador = pedidoData.estado_guardado === "Borrador";
+      if (esBorrador) {
+        const pagosRef = collection(db, "pedidos", id, "pagos");
+        const pagosSnap = await getDocs(pagosRef);
+        for (const pagoDoc of pagosSnap.docs) {
+          const pagoData = pagoDoc.data();
+          if (pagoData.comprobante_path) {
+            try {
+              await deleteObject(ref(storage, pagoData.comprobante_path));
+            } catch (error) {
+              console.warn("No se pudo eliminar comprobante del storage:", error);
+            }
+          }
+        }
+        const productosRef = collection(db, "pedidos", id, "productos");
+        const productosSnap = await getDocs(productosRef);
+        for (const productoDoc of productosSnap.docs) {
+          await deleteDoc(productoDoc.ref);
+        }
+        for (const pagoDoc of pagosSnap.docs) {
+          await deleteDoc(pagoDoc.ref);
+        }
+        await deleteDoc(pedidoRef);
+        navigate("/pedidos");
+        return;
+      }
+
       const productosRef = collection(db, "pedidos", id, "productos");
       const productosSnap = await getDocs(productosRef);
       const productosData = productosSnap.docs.map(doc => ({

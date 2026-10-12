@@ -460,3 +460,7 @@
 ### Domingo 11 de Octubre
 
 - feat: agrega toda la estructura con editarPedidos en base a agregar pedido.
+
+- feat: agregar eliminar pedido, redirige el doc hacia la collecion pedidos_inactivos antes de borrarlo, asi no se pierde.
+
+- fix: cuando es un borrador lo borra directamente, lo copia a pedidos_inactivos
