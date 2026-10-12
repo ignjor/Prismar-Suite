@@ -29,4 +29,4 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRISMAR_APP_DB }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          projectId: prismar-app-db
