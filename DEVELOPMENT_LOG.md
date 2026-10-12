@@ -476,3 +476,5 @@
 - feat, fix: agrega la funcion para eliminar pedidos_inactivos definitivamente, arregla bug del boton restaurar
 
 - feat: agrega GenerarEtiqueta completo mediante el boton Imprimir Etiqueta dentro de verPedido, genera un codigo qr con link correspondiente al pedido.
+
+- fix: soluciona error de actions para rastrear el proyecto
