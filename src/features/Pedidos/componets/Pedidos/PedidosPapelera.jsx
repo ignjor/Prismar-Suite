@@ -105,7 +105,7 @@ export default function PapeleraPedidos() {
    };
   const restaurarPedido = async () => {
     if (!pedidoRestaurado) return;
-    const pedidoId = pedidoARestaurar.id;
+    const pedidoId = pedidoRestaurado.id;
 
     try {
       const pedidoInactivoRef = doc(db, "pedidos_inactivos", pedidoId);
@@ -164,13 +164,27 @@ export default function PapeleraPedidos() {
   const eliminarPedido = async () => {
     if (!pedidoEliminado) return;
     const pedidoId = pedidoEliminado.id;
-
-  }
-
+    try {
+      const productosRef = collection(db, "pedidos_inactivos", pedidoId, "productos");
+      const productosSnap = await getDocs(productosRef);
+      for (const productoDoc of productosSnap.docs) {
+        await deleteDoc(productoDoc.ref);
+      }
+      const pagosRef = collection(db, "pedidos_inactivos", pedidoId, "pagos");
+      const pagosSnap = await getDocs(pagosRef);
+      for (const pagoDoc of pagosSnap.docs) {
+        await deleteDoc(pagoDoc.ref);
+      }
+      const pedidoInactivoRef = doc(db, "pedidos_inactivos", pedidoId);
+      await deleteDoc(pedidoInactivoRef);
+      cerrarModalEliminar();
+    } catch (error) {
+      console.error("Error al eliminar definitivamente el pedido:", error);
+    }
+  };
   if (isLoading) {
     return <p>Cargando papelera...</p>;
   }
-
   if (isError) {
     return <p>Error al cargar la papelera.</p>;
   }
@@ -194,7 +208,7 @@ export default function PapeleraPedidos() {
       <section className="pedidosLista">
         {buscadorDePedidos.map((pedido) => {
           const { visibles, restantes } = obtenerNombresProductos(pedido.productos);
-          const isRestaurando = pedidoRestaurado === pedido.id
+          const isRestaurando = pedidoRestaurado?.id === pedido.id
           return (
             <article key={pedido.id} className="pedidoRow">
               <div className="pedidoCliente">
