@@ -474,3 +474,5 @@
 - feat: agrega query para los pedidos inactivos, agrega PedidosPapelera, agrega funcion para poder restaurar los pedidos inactivos mediante el modal confirmar.
 
 - feat, fix: agrega la funcion para eliminar pedidos_inactivos definitivamente, arregla bug del boton restaurar
+
+- feat: agrega GenerarEtiqueta completo mediante el boton Imprimir Etiqueta dentro de verPedido, genera un codigo qr con link correspondiente al pedido.

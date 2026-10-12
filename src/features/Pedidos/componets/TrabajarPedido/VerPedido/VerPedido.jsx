@@ -6,14 +6,18 @@ import { db } from "../../../../../firebase";
 import { usePedidos } from "../../../querys/usePedidos";
 import { useCuentas } from "../../../../Cuentas/querys/useCuentas";
 
+import GenerarEtiqueta from "../GenerarEtiqueta/GenerarEtiqueta";
 import ModalConfirmar from "../ModalConfirmar/ModalConfirmar";
-import { ArrowLeft, CreditCard, Shirt, Eye, Ghost, WalletCards, Pencil, Trash2 } from "lucide-react";
+import { ArrowLeft, CreditCard, Shirt, Eye, Ghost, WalletCards, Pencil } from "lucide-react";
 
 export default function VerPedido() {
   const {id} = useParams();
   const navigate = useNavigate();
+  const [mostrarEtiqueta, setMostrarEtiqueta] = useState(false);
+
   const [estadoDelModal, setEstadoDelModal] = useState(false);
   const [estadoActual, setEstadoActual] = useState(null);
+
   const {data: datosDePedidos = [], isLoading, isError, error} = usePedidos();
   const {data: datosDeCuentas = []} = useCuentas();
 
@@ -146,6 +150,13 @@ export default function VerPedido() {
           <ArrowLeft size={17} strokeWidth={2} />
           Volver a pedidos
         </button>
+          <button
+            type="button"
+            className="verPedidoPagoComprobante verPedidoPagoComprobanteDisponible"
+            onClick={() => setMostrarEtiqueta(true)}
+          >
+          <span>IMPRIMIR ETIQUETA</span>
+        </button>
         <span className="pedidoIdentificadorVerPedido">
           {pedido.numero_pedido || "Sin ID"}
         </span>
@@ -157,7 +168,6 @@ export default function VerPedido() {
 
           <div className="verPedidoClienteTitulo">
             <h1>{pedido.cliente || "Sin cliente"}</h1>
-            
             <button
               type="button"
               className={`pedidoCambiarEstado ${
@@ -459,6 +469,13 @@ export default function VerPedido() {
          onCerrarModal= {cerrarModal}
          onConfirmar= {cambiarEstado}
        /> )}
+
+        {mostrarEtiqueta && pedido && (
+          <GenerarEtiqueta 
+            pedido={pedido} 
+            onClose={() => setMostrarEtiqueta(false)} 
+          />
+        )}
     </main>
   );
 }

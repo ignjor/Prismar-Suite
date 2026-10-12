@@ -1,7 +1,7 @@
 import "./Pedidos.css";
 import { usePedidos } from "../../querys/usePedidos";
 import { useMemo, useState } from "react";
-import { Search, Eye, Eraser } from "lucide-react";
+import { Search, Wrench, Eraser } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function Pedidos() {
@@ -277,7 +277,7 @@ export default function Pedidos() {
                   aria-label={`Abrir pedido de ${pedido.cliente}`}
                   onClick={() => navigate(`/pedido/${pedido.id}`)}
                 >
-                  <Eye size={17} strokeWidth={2} />
+                  <Wrench size={17} strokeWidth={2} />
                   <span>Gestionar</span>
                 </button>
                 <span className="pedidoIdentificador">
