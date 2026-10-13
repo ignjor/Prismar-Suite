@@ -478,3 +478,5 @@
 - feat: agrega GenerarEtiqueta completo mediante el boton Imprimir Etiqueta dentro de verPedido, genera un codigo qr con link correspondiente al pedido.
 
 - fix: soluciona error de actions para rastrear el proyecto
+
+- style: quitamos linas innecesarias en la etiqueta para ahorrar tinta.
