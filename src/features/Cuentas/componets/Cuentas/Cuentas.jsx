@@ -1,18 +1,23 @@
+import { BanknoteArrowDown } from "lucide-react";
 import { useNavigate } from "react-router-dom"
 
 export default function Cuentas() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-
-  return (
-      <div>
-        <button
-        onClick={() => navigate("/cuentas-bancarias")}
-
-        >
-          Cuentas Bancarias
-        </button>
+    return (
+      <main>
+        <div>
+          <button
+          onClick={() => navigate("/cuentas-bancarias")}
+          >
+            Cuentas Bancarias
+          </button>
+          <button
+          >
+            Agregar Gasto <BanknoteArrowDown/>
+          </button>
         
-      </div>
-  )
+        </div>
+      </main>
+    )
 };

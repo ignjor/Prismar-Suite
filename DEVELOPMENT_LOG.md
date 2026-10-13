@@ -480,3 +480,5 @@
 - fix: soluciona error de actions para rastrear el proyecto
 
 - style: quitamos linas innecesarias en la etiqueta para ahorrar tinta.
+
+- fix, feat: soluciona bug de las fechas al generar un new Date para imprimir las fechas de entrega y de pagos, lo que hacia que se les restara un dia. Agrega Efectivo dentro de Datos de Bancos.

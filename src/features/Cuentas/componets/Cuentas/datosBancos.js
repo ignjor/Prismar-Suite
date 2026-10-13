@@ -1,4 +1,5 @@
 export const bancosChile = [
+    "Efectivo",
     "Banco de Chile",
     "BancoEstado",
     "Banco Bci",
@@ -17,6 +18,7 @@ export const bancosChile = [
 ];
 
 export const tiposDeCuenta = [
+    "Efectivo",
     "Cuenta Corriente",
     "Cuenta Vista",
     "Cuenta de Ahorro",

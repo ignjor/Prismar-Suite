@@ -60,7 +60,8 @@ export default function PapeleraPedidos() {
     if (typeof fecha?.toDate === "function") {
       fechaEntrega = fecha.toDate();
     } else {
-      fechaEntrega = new Date(fecha);
+      const [anio, mes, dia] = fecha.split("-").map(Number);
+      fechaEntrega = new Date(anio, mes - 1, dia);
     }
     if (Number.isNaN(fechaEntrega.getTime())) return "";
     const hoy = new Date();
