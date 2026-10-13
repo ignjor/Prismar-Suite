@@ -64,21 +64,9 @@ export default function GestionarPagos() {
     };
     const formatearFecha = (fecha) => {
         if (!fecha) return "Sin fecha";
-
-        if (typeof fecha?.toDate === "function") {
-        return fecha.toDate().toLocaleDateString("es-CL", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        });
-        }
-        const fechaConvertida = new Date(fecha);
-        if (!Number.isNaN(fechaConvertida.getTime())) {
-        return fechaConvertida.toLocaleDateString("es-CL", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        });
+        if (typeof fecha === "string" && /^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+            const [anio, mes, dia] = fecha.split("-");
+            return `${dia}-${mes}-${anio}`;
         }
         return fecha;
     }

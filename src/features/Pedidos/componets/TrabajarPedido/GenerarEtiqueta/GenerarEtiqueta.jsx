@@ -11,12 +11,9 @@ export default function GenerarEtiqueta({ pedido, onClose }) {
   };
   const formatearFecha = (fecha) => {
     if (!fecha) return "Sin fecha";
-    if (typeof fecha?.toDate === "function") {
-      return fecha.toDate().toLocaleDateString("es-CL", { day: "2-digit", month: "2-digit", year: "numeric" });
-    }
-    const fechaConvertida = new Date(fecha);
-    if (!Number.isNaN(fechaConvertida.getTime())) {
-      return fechaConvertida.toLocaleDateString("es-CL", { day: "2-digit", month: "2-digit", year: "numeric" });
+    if (typeof fecha === "string" && /^\d{4}-\d{2}-\d{2}$/.test(fecha)) {
+      const [anio, mes, dia] = fecha.split("-");
+      return `${dia}-${mes}-${anio}`;
     }
     return fecha;
   };
@@ -71,20 +68,22 @@ export default function GenerarEtiqueta({ pedido, onClose }) {
       </div>
 
       <div className="etiqueta-seccion-productos">
-        <h3>RESUMEN DEL PEDIDO</h3>
+        <h3>RESUMEN DE PEDIDO</h3>
         <table className="etiqueta-tabla">
           <thead>
             <tr>
-              <th>PRODUCTOS</th>
+              <th>PRODUCTO</th>
+              <th>COL. / EMPR.</th>
               <th>TALLA / MEDIDA</th>
-              <th>CANTIDAD</th>
-              <th>PRECIO UNITARIO</th>
+              <th>CANT.</th>
+              <th>PRECIO UNI.</th>
             </tr>
           </thead>
           <tbody>
             {(pedido.productos || []).map((prod, idx) => (
               <tr key={prod.id || idx}>
-                <td>{prod.nombre || "Producto"} <small>{prod.colegio}</small></td>
+                <td>{prod.nombre || "Producto"}</td>
+                <td style={{ textTransform: "uppercase" }}>{prod.colegio}</td>
                 <td>{prod.talla || "-"}</td>
                 <td>{prod.cantidad || 0}</td>
                 <td>{formatearPrecio(prod.precio_talla)}</td>
