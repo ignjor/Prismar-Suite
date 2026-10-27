@@ -1,4 +1,3 @@
-import { BanknoteArrowDown } from "lucide-react";
 import { useNavigate } from "react-router-dom"
 
 export default function Cuentas() {
@@ -12,11 +11,6 @@ export default function Cuentas() {
           >
             Cuentas Bancarias
           </button>
-          <button
-          >
-            Agregar Gasto <BanknoteArrowDown/>
-          </button>
-        
         </div>
       </main>
     )
